@@ -34,7 +34,7 @@ def build_maze(shape=(65,65), complexity=0.75, density = 0.50):
     # Only odd shapes
     shape = ((shape[0]//2)*2+1, (shape[1]//2)*2+1)
 
-    # Adjust complexity and density relative to maze size
+    # Adjust complexity and density relatively to maze size
     n_complexity = int(complexity*(shape[0]+shape[1]))
     n_density    = int(density*(shape[0]*shape[1]))
 
@@ -42,29 +42,35 @@ def build_maze(shape=(65,65), complexity=0.75, density = 0.50):
     Z = np.zeros(shape, dtype=bool)
 
     # Fill borders
-    Z[0,:] = Z[-1,:] = 1
-    Z[:,0] = Z[:,-1] = 1
+    Z[0,:] = Z[-1,:] = Z[:,0] = Z[:,-1] = 1
 
+    # Islands starting point with a bias in favor of border
+    P = np.random.normal(0, 0.5, (n_density,2))
+    P = 0.5 - np.maximum(-0.5, np.minimum(P, +0.5))
+    P = (P*[shape[1],shape[0]]).astype(int)
+    P = 2*(P//2)
+    
     # Create islands
     for i in range(n_density):
 
-        # This favors islands start away from the center
-        x = shape[1]*(0.5-min(max(np.random.normal(0,.5),-.5),.5))
-        y = shape[0]*(0.5-min(max(np.random.normal(0,.5),-.5),.5))
-        x, y = int((x//2)*2), int((y//2)*2)
+        # Test for early stop: if all starting point are busy, this means we
+        # won't be able to connect any island, so we stop.
+        T = Z[2:-2:2,2:-2:2]
+        if T.sum() == T.size:
+            break
 
+        x, y = P[i]
         Z[y,x] = 1
         for j in range(n_complexity):
             neighbours = []
             if x > 1:
-                neighbours.append([(y,x-1),(y,x-2)])
+                neighbours.append([(y, x-1), (y, x-2)])
             if x < shape[1]-2:
-                neighbours.append([(y,x+1),(y,x+2)])
+                neighbours.append([(y, x+1), (y, x+2)])
             if y > 1:
-                neighbours.append([(y-1,x),(y-2,x)])
+                neighbours.append([(y-1, x), (y-2, x)])
             if y < shape[0]-2:
-                neighbours.append([(y+1,x),(y+2,x)])
-
+                neighbours.append([(y+1, x), (y+2, x)])
             if len(neighbours):
                 choice = np.random.randint(len(neighbours))
                 next_1, next_2 = neighbours[choice]
@@ -101,10 +107,22 @@ def BellmanFord(Z, start, goal):
 
     # We iterate until value at exit is > 0. This requires the maze
     # to have a solution or it will be stuck in the loop.
+
+    G_gamma = np.empty_like(G)
     while G[goal] == 0.0:
-        G = Z * generic_filter(G, diffuse, footprint= [[0, 1, 0],
-                                                       [1, 1, 1],
-                                                       [0, 1, 0]])
+        # Slow
+        # G = Z * generic_filter(G, diffuse, footprint=[[0, 1, 0],
+        #                                               [1, 1, 1],
+        #                                               [0, 1, 0]])
+
+        # Fast
+        np.multiply(G, gamma, out=G_gamma)
+        N = G_gamma[0:-2,1:-1]
+        W = G_gamma[1:-1,0:-2]
+        C = G[1:-1,1:-1]
+        E = G_gamma[1:-1,2:]
+        S = G_gamma[2:,1:-1]
+        G[1:-1,1:-1] = Z[1:-1,1:-1]*np.maximum(N,np.maximum(W,np.maximum(C,np.maximum(E,S))))
     
     # Descent gradient to find shortest path from entrance to exit
     y, x = goal
@@ -166,7 +184,7 @@ if __name__ == '__main__':
     
     G, P = BellmanFord(Z, start, goal)
     X, Y = P[:,0], P[:,1]
-
+        
     # P = np.array(BreadthFirst(Z))
     # X, Y = P[:,1], P[:,0]
     
@@ -185,4 +203,3 @@ if __name__ == '__main__':
     ax.set_yticks([])
     plt.tight_layout()
     plt.show()
-
