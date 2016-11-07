@@ -156,15 +156,14 @@ def build_graph(maze):
             graph[(row, col + 1)].append(("W", (row, col)))
     return graph
 
-def BreadthFirst(maze):
-    start, goal = (1, 1), (len(maze) - 2, len(maze[0]) - 2)
+def BreadthFirst(maze, start, goal):
     queue = deque([([start], start)])
     visited = set()
     graph = build_graph(maze)
     while queue:
         path, current = queue.popleft()
         if current == goal:
-            return path
+            return np.array(path)
         if current in visited:
             continue
         visited.add(current)
@@ -172,20 +171,19 @@ def BreadthFirst(maze):
             p = list(path)
             p.append(neighbour)
             queue.append((p, neighbour))
-    return "NO WAY!"
+    return None
 
 
 # -------------------------------------------------------------------- main ---
 if __name__ == '__main__':
 
-    n = 51
-    start, goal = (1,1), (n-2,n-2)
-    Z = build_maze((n,n))
+    Z = build_maze((51,51))
+    start, goal = (1,1), (Z.shape[0]-2, Z.shape[1]-2)
     
     G, P = BellmanFord(Z, start, goal)
     X, Y = P[:,0], P[:,1]
         
-    # P = np.array(BreadthFirst(Z))
+    # P = BreadthFirst(Z, start, goal)
     # X, Y = P[:,1], P[:,0]
     
     # Visualization maze, gradient and shortest path
