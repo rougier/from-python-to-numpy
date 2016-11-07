@@ -2,7 +2,6 @@
   Nicolas P. Rougier, 2017
 
 ## Introduction
-
 ### About the author
 
   Nicolas P. Rougier is a full-time research scientist at Inria which is the
@@ -31,12 +30,38 @@
   legitimate question is to wonder if another book is really necessary. As you
   may have guessed while reading these lines, my personal answer is yes, mostly
   because I think there's room for a different approach, concentrating on the
-  migration from Python to Numpy through vectorization.
+  migration from Python to Numpy through vectorization. There is actually a lot
+  of techniques that you don't find in books and such techniques are mostly
+  learned through experience. The goal of this book is to explain some of them.
 
 ### Pre-requisites
 
   This is not a beginner guide.
   You should have an intermediate level in both Python and Numpy.
+  
+### Conventions
+
+We'll use usual naming conventions. If not stated explicitely, each script
+should import numpy, scipy and matplotlib as:
+  
+    import numpy as np
+    import scipy as sp
+    import matplotlib.pyplot as plt
+    
+Furthermore, we'll measuring time performances quite a lot of time and we'll be
+using an elapsed timer context manager:
+    
+    from timeit import default_timer
+    from contextlib import contextmanager
+
+    @contextmanager
+    def elapsed_timer():
+        start = default_timer()
+        elapser = lambda: default_timer() - start
+        yield lambda: elapser()
+        end = default_timer()
+        elapser = lambda: end-start
+
 
 ## Theory
 ### Introduction
@@ -68,6 +93,116 @@
     → Practical vectoration 
     → Memory vs speed
     → Exercises
+    
+  Let's consider a simple problem where, given two vectors `X` and `Y`, you
+  have to compute the sum of `X[i]*Y[j]` for all pairs of indices `i`, `j`. One
+  simple obvious solution might be written as:
+            
+  ```
+  # Right, but slow
+  def compute_1(x, y):
+      result = 0
+      for i in range(len(x)):
+          for j in range(len(y)):
+              result += x[i] * y[j]
+      return result
+  ```
+    
+  However, this first (very) naive implementation requires two loops and you
+  already know it will be slow.
+  
+  ```
+  import timeit
+  
+  X = np.arange(1000)
+  timeit.timeit("compute(X,X)", globals=globals(), number=1000000)
+  ```
+  
+  The question is "how to vectorize the problem?"
+  
+  If you remember your linear algebra course, you may have identified the
+  expression `X[i] * Y[j]` to be very similar to a matrix product
+  expression. So maybe we could benefit from some numpy speedup. One wrong
+  solution would be to write:
+  
+  ```
+  # Wrong
+  def compute(X, Y):
+      Z = X * Y
+      return Z.sum()
+  ```
+  
+  This is wrong because the `X*Y` epxression will actually compute a new vector
+  Z such that `Z[i] = X[i] * Y[i]` and this is not what we want. Instead, we
+  have to exploit numpy broadcasting by first reshaping the two vectors and
+  then multiply them:
+  
+  ```
+  # Right & fast
+  def compute(X, Y):
+      Z = X.reshape(len(X),1) * Y.reshape(1,len(Y))
+      return Z.sum()
+  ```
+  
+  Here we have `Z[i,j] == X[i]*Y[j]` and if we make the sum over Z, we have the
+  expected result. Let's see how much speedup we gain in the process:
+  
+  
+  
+  
+  
+  Looking at the above code, there is no obvious way to do that. But, if you
+  look more closely, you can realize that the inner loop is using `x[i]` that
+  does not depend on the `j` index, meaning it can be removed from the inner
+  loop. Code can be rewritten as:
+
+  ```
+  def compute(x, y):
+      result = 0
+      for i in range(len(x)):
+          ysum = 0
+          for j in range(len(y)):
+               ysum += y[j]
+          result += x[i]*ysum
+      return result
+  ```
+
+  But then, instead of using a loop to compute the sum over y, we can now use
+  the `numpy.sum` method:
+
+  ```
+  def compute(x, y):
+      result = 0
+      for i in range(len(x)):
+          result += x[i]*np.sum(y)
+      return result
+  ```
+    
+  Not so bad, we have removed one loop. What about the other? Using the same
+  approach, we can also realize that there's no need to compute the sum over y
+  at each iteration. It would be better to compute it once and save it in a
+  variable:
+
+  ```
+  def compute(x, y):
+      result = 0
+      ysum = np.sum(y)
+      for i in range(len(x)):
+          result += x[i]*ysum
+      return result
+  ```
+    
+  Finally, it's now obvious that the loop is computing the sum over x and we
+  can factorize the ysum outside the loop. Our final code is then:
+    
+  ```
+  def compute(x, y):
+      return np.sum(y) * np.sum(x)
+  ```
+    
+  It is shorter, clearear and much, much faster !
+    
+    
     
 ### Readability vs optimization
 
@@ -144,7 +279,8 @@
 
 ### Maze solving
     See https://github.com/HarrietInc/elegant-scipy-submissions/issues/20
-
+    and http://bryukh.com/labyrinth-algorithms/
+    
     * Numpy: generic filter
     * Building a maze
     * Bellman-Ford algorithm
