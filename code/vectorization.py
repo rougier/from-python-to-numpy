@@ -34,10 +34,10 @@ def compute_4(X, Y):
 
 
 if __name__ == '__main__':
-    from tools import timeit
+    from tools import print_timeit
     
     X = np.arange(1000)
-    timeit("compute_1(X,X)", globals())
-    timeit("compute_2(X,X)", globals())
-    timeit("compute_3(X,X)", globals())
-    timeit("compute_4(X,X)", globals())
+    print_timeit("compute_1(X,X)", globals())
+    print_timeit("compute_2(X,X)", globals())
+    print_timeit("compute_3(X,X)", globals())
+    print_timeit("compute_4(X,X)", globals())
