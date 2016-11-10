@@ -1,8 +1,6 @@
 ## From Python to Numpy
 Nicolas P. Rougier, 2017
 
-
-
 **Contents**
 
 * [Introduction](01-introduction.md)
@@ -19,3 +17,12 @@ Nicolas P. Rougier, 2017
   * [Vectorization](02-anatomy.md#vectorization)
   * [Readability](02-anatomy.md#readability)
   * [Conclusion](02-anatomy.md#conclusion)
+
+* [Crafting tools](03-tools.md)
+  * [Introduction](03-tools.md#introduction)
+  * [Benchmark](03-tools.md#benchmark)
+  * [Typed list](03-tools.md#typed-list)
+  * [Circular arrays](03-tools.md#circular)
+  * [Memory aware arrays](03-tools.md#memory-aware)
+  * [Emulating double precision](03-tools.md#double-precision)
+  * [Conclusion](03-tools.md#conclusion)
