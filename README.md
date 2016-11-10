@@ -1,5 +1,7 @@
 ## From Python to Numpy
-**Nicolas P. Rougier, 2017**
+Nicolas P. Rougier, 2017
+
+
 
 **Contents**
 

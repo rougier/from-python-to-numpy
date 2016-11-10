@@ -1,5 +1,15 @@
 ## Anatomy of an array
-### Introduction
+
+**Content**
+
+* [Introduction](#introduction)
+* [Architecture](#architecture)
+* [Broadcasting](#broadcasting)
+* [Vectorization](#vectorization)
+* [Readability](#readability)
+* [Conclusion](#conclusion)
+
+### Introduction <a name="introduction"></a>
 
 Let's consider a simple 2D array and check what kind of information we can get
 from it:
@@ -55,13 +65,13 @@ Let's write a `print_info` function that print most of the relevant information:
       aligned:     ☑ Yes  ☐︎ No
     ------------------------------
 
-### Numpy architecture
+### Numpy architecture <a name="architecture"></a>
 
     → What is numpy useful for
     → Universal functions
     → Mixing C, Fortran and Python
 
-### Broadcasting principles
+### Broadcasting principles <a name="broadcasting"></a>
 
 From the numpy documentation, we can read that there are 4 broadcasting rules:
 
@@ -82,7 +92,7 @@ From the numpy documentation, we can read that there are 4 broadcasting rules:
  → Strides madness  
  → Exercises  
     
-### Vectorization philosophy
+### Vectorization philosophy <a name="vectorization"></a>
 
 Let's consider a simple problem. Given two vectors `X` and `Y`, you have to
 compute the sum of `X[i]*Y[j]` for all pairs of indices `i`, `j`. One simple
@@ -194,7 +204,7 @@ rewrite the last solution the Python way:
 This new Python version is much faster than the previous one, but still, it is
 10x slower than the numpy version. 
 
-### Readability vs optimization
+### Readability vs optimization <a name="readability"></a>
 
     → Einsum notation
     → NumExpr
@@ -202,4 +212,4 @@ This new Python version is much faster than the previous one, but still, it is
     
 
 
-### Conclusion
+### Conclusion <a name="conclusion"></a>

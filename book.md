@@ -66,6 +66,7 @@ should import numpy, scipy and matplotlib as:
     import scipy as sp
     import matplotlib.pyplot as plt
 
+
 ## Chapter 2 - Anatomy of an array
 ### Introduction
 
