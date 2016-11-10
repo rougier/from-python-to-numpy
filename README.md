@@ -11,3 +11,9 @@
   * [Conventions](01-introduction.md#conventions)
 
 * [Anatomy of an array](02-anatomy.md)
+  * [Introduction](02-anatomy.md#introduction)
+  * [Architecture](02-anatomy.md#architecture)
+  * [Broadcasting](02-anatomy.md#broadcasting)
+  * [Vectorization](02-anatomy.md#vectorization)
+  * [Readability](02-anatomy.md#readability)
+  * [Conclusion](02-anatomy.md#conclusion)
