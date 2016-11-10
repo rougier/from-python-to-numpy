@@ -1,6 +1,6 @@
-## Crafting new tools
+## Chapter 3 - Crafting tools
 
-**Content**
+**Contents**
 
 * [Introduction](#introduction)
 * [Benchmark](#benchmark)
