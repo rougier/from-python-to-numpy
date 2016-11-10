@@ -1,5 +1,10 @@
 # From Python to Numpy
-Nicolas P. Rougier, 2017
+Copyright (c) 2017 Nicolas P. Rougier  
+This work is licensed under a
+[Creative Commons Attribution 4.0 International License]
+(http://creativecommons.org/licenses/by/4.0/).
+
+
 
 ## [Chapter 1 - Introduction](01-introduction.md)
 
