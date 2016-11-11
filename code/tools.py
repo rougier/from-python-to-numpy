@@ -22,8 +22,24 @@ def print_timeit(stmt, globals):
     # Only report best run
     best = min(timeit.repeat(stmt, globals=globals, number=number, repeat=repeat))
 
+    units = {"usec": 1, "msec": 1e3, "sec": 1e6}
+    precision = 3
+    usec = best * 1e6 / number
+    if usec < 1000:
+        print("%d loops, best of %d: %.*g usec per loop" % (number, repeat,
+                                                            precision, usec))
+    else:
+        msec = usec / 1000
+        if msec < 1000:
+            print("%d loops, best of %d: %.*g msec per loop" % (number, repeat,
+                                                                precision, msec))
+        else:
+            sec = msec / 1000
+            print("%d loops, best of %d: %.*g sec per loop" % (number, repeat,
+                                                               precision, sec))
+   
     # Display results
-    print("%d loops, best of %d: %g sec per loop" % (number, repeat, best/number))
+    # print("%d loops, best of %d: %g sec per loop" % (number, repeat, best/number))
 
     
 def print_info(Z):
