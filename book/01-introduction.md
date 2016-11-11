@@ -49,9 +49,8 @@ instead. Or buy a paper book but plant a tree and/or eat a beaver...
 
 ### Pre-requisites <a name="pre-requisites"></a>
 
-This is not a beginner guide.  
-You should have an intermediate level in both Python and Numpy.  
-If you're an advanced user, you'll be bored to death.
+This is not a beginner guide. You should have an intermediate level in both Python and Numpy.  
+If you're an advanced user, you might be bored to death.
 
 ### Resources <a name="resources"></a>
 
