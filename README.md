@@ -11,7 +11,6 @@ This work is licensed under a
   * [About the author](book/01-introduction.md#about)
   * [Why another book on Numpy ?](book/01-introduction.md#why)
   * [Pre-requisites](book/01-introduction.md#pre-requisites)
-  * [Resources](book/01-introduction.md#resources)
   * [Conventions](book/01-introduction.md#conventions)
 
 #### [Chapter 2 - Anatomy of an array](book/02-anatomy.md)

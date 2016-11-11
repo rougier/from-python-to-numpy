@@ -3,6 +3,23 @@
 # Copyright (2017) Nicolas P. Rougier - BSD license
 # -----------------------------------------------------------------------------
 
+def print_sysinfo():
+    import sys
+    import time
+    import numpy as np
+    import scipy as sp
+    import matplotlib
+
+    print("Date:       %s" % (time.strftime("%D")))
+    version = sys.version_info
+    major, minor, micro = version.major, version.minor, version.micro
+    print("Python:     %d.%d.%d" % (major, minor, micro))
+    print("Numpy:     ", np.__version__)
+    print("Scipy:     ", sp.__version__)
+    print("Matplotlib:", matplotlib.__version__)
+
+    
+
 def print_timeit(stmt, globals):
     import timeit
     import numpy as np

@@ -5,9 +5,7 @@
 * [About the author](#about)
 * [Why another book on Numpy ?](#why)
 * [Pre-requisites](#pre-requisites)
-* [Resources](#resources)
 * [Conventions](#conventions)
-
 
 ### About the author <a name="about"></a>
 
@@ -49,19 +47,8 @@ instead. Or buy a paper book but plant a tree and/or eat a beaver...
 
 ### Pre-requisites <a name="pre-requisites"></a>
 
-This is not a beginner guide. You should have an intermediate level in both Python and Numpy.  
-If you're an advanced user, you might be bored to death.
-
-### Resources <a name="resources"></a>
-
-* Command-line documentation
-* Online documentation
-* Online tutorials
-* Mailing lists
-* Stack overflow
-* Conferences (SciPy, EuroSciPy, SciPy India)
-* Books / Tutorial / Articles
-* Contributing to Numpy
+This is not a beginner guide and you should already have an intermediate level
+in Python and at least a beginner level in Numpy. If this is not the case, I adv
 
 ### Conventions <a name="conventions"></a>
 
@@ -71,4 +58,13 @@ should import numpy, scipy and matplotlib as:
     import numpy as np
     import scipy as sp
     import matplotlib.pyplot as plt
+ 
+We'll use up-to-date versions of the different packages at the date of
+writing (November, 11 2016):
 
+| Packages   | Version |
+|------------|---------|
+| Python     | 3.5.2   |
+| Numpy      | 1.11.2  |
+| Scipy      | 0.18.1  |
+| Matplotlib | 1.5.3   |

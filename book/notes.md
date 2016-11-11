@@ -1,5 +1,49 @@
-# From Python to NumPy
-  Nicolas P. Rougier, 2017
+### Resources <a name="resources"></a>
+
+Numpy comes with a large set of resources that are accesible from the
+command-line or online.
+
+#### Command-line documentation
+
+The command-line documentation is the first source of information that is
+easily accessible using the `numpy.info` command. Don't use the built-in `help`
+(or `pydoc` from the shell) because it will mess-up with the C API:
+
+    >>> import numpy
+    >>> numpy.info(numpy.sin)
+    sin(x[, out])
+
+    Trigonometric sine, element-wise.
+
+    Parameters
+    ----------
+    x : array_like
+        Angle, in radians (:math:`2 \pi` rad equals 360 degrees).
+    ...
+
+#### Online documentation
+
+The numpy documentation is quite extensive and is made of several different
+guides. The most useful one is probably the [Numpy Reference Guide].
+
+[Numpy Reference Guide]: https://docs.scipy.org/doc/numpy/reference/
+
+#### Stack overflow
+
+[Stack overflow] is a great resource for answering basic to very advanced and
+tricky questions. But it can be intimidating since people are not always nice
+with new users. My advice is to really search the site with the `numpy` tag
+before asking your question to make sure it has not been alreayd asked. But in
+the meantime, you'll realize that properly asking a question may help you to
+solve the question.
+
+[Stack overflow]: http://stackoverflow.com/questions/tagged/numpy
+
+#### Mailing lists
+
+
+
+
 
 ## Chapter 1 - Introduction
 ### About the author
@@ -65,6 +109,7 @@ should import numpy, scipy and matplotlib as:
     import numpy as np
     import scipy as sp
     import matplotlib.pyplot as plt
+
 
 
 ## Chapter 2 - Anatomy of an array
