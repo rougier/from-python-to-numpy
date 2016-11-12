@@ -18,25 +18,52 @@ def mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
 
 
 def mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
-    def mandelbrot(C, maxiter, horizon=4.0):
-        N = np.zeros(C.shape, dtype=int)
-        Z = np.zeros(C.shape, np.complex64)
-        for n in range(maxiter):
-            I = np.less(abs(Z), horizon)
-            N[I] = n
-            Z[I] = Z[I]**2 + C[I]
-        N[N == maxiter-1] = 0
-        return Z, N
-
+    # Adapted from https://www.ibm.com/developerworks/community/blogs/jfp/...
+    #              .../entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en
     X = np.linspace(xmin, xmax, xn, dtype=np.float32)
     Y = np.linspace(ymin, ymax, yn, dtype=np.float32)
     C = X + Y[:,None]*1j
-
-    # Normalized recount as explained in:
-    # http://linas.org/art-gallery/escape/smooth.html
-    # and https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en
-    Z, N = mandelbrot(C, maxiter, horizon)
+    N = np.zeros(C.shape, dtype=int)
+    Z = np.zeros(C.shape, np.complex64)
+    for n in range(maxiter):
+        I = np.less(abs(Z), horizon)
+        N[I] = n
+        Z[I] = Z[I]**2 + C[I]
+    N[N == maxiter-1] = 0
     return Z, N
+
+
+def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
+    # Adapted from
+    # https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/
+    Xi, Yi = np.mgrid[0:xn, 0:yn]
+    Xi, Yi = Xi.astype(np.uint32), Yi.astype(np.uint32)
+    X = np.linspace(xmin, xmax, xn, dtype=np.float32)[Xi]
+    Y = np.linspace(ymin, ymax, yn, dtype=np.float32)[Yi]
+    C = X + Y*1j
+    N_ = np.zeros(C.shape, dtype=np.uint32)
+    Z_ = np.zeros(C.shape, dtype=np.complex64)
+    Xi.shape = Yi.shape = C.shape = xn*yn
+    
+    Z = np.zeros(C.shape, np.complex64)
+    for i in range(itermax):
+        if not len(Z): break
+
+        # Compute for relevant points only
+        np.multiply(Z, Z, Z)
+        np.add(Z, C, Z)
+
+        # Failed convergence
+        I = abs(Z) > horizon
+        N_[Xi[I], Yi[I]] = i+1
+        Z_[Xi[I], Yi[I]] = Z[I]
+
+        # Keep going with those who have not diverged yet
+        np.negative(I,I)
+        Z = Z[I]
+        Xi, Yi = Xi[I], Yi[I]
+        C = C[I]
+    return Z_.T, N_.T
 
 
 if __name__ == '__main__':
@@ -44,18 +71,26 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     from tools import print_timeit
 
-    xmin, xmax, xn = -2.25, +0.75, 3000/2
-    ymin, ymax, yn = -1.25, +1.25, 2500/2
+    # Benchmark
+    xmin, xmax, xn = -2.25, +0.75, int(3000/3)
+    ymin, ymax, yn = -1.25, +1.25, int(2500/3)
     maxiter = 200
-    
-    # print_timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
-    # print_timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    print_timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    print_timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    print_timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
 
+    # Visualization
+    xmin, xmax, xn = -2.25, +0.75, int(3000/2)
+    ymin, ymax, yn = -1.25, +1.25, int(2500/2)
+    maxiter = 200
     horizon = 2.0 ** 40
     log_horizon = np.log(np.log(horizon))/np.log(2)
-    Z, N = mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon)
+    Z, N = mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon)
 
-
+    # Normalized recount as explained in:
+    # http://linas.org/art-gallery/escape/smooth.html
+    M = np.nan_to_num(N + 1 - np.log(np.log(abs(Z)))/np.log(2) + log_horizon)
+    
     dpi = 72
     width = 10
     height = 10*yn/xn
@@ -63,17 +98,12 @@ if __name__ == '__main__':
     fig = plt.figure(figsize=(width, height), dpi=dpi)
     ax = fig.add_axes([0.0, 0.0, 1.0, 1.0], frameon=False, aspect=1)
 
-    M = np.nan_to_num(N + 1 - np.log(np.log(abs(Z)))/np.log(2) + log_horizon)
     light = colors.LightSource(azdeg=315, altdeg=10)
     plt.imshow(light.shade(M, cmap=plt.cm.hot, vert_exag=1.5,
                            norm = colors.PowerNorm(0.3), blend_mode='hsv'),
                extent=[xmin, xmax, ymin, ymax], interpolation="bicubic")
     ax.set_xticks([])
     ax.set_yticks([])
-    ax.text(xmin+0.025, ymin+0.025,
-            "The Mandelbrot fractal set\n"
-            "Rendered with matplotlib 2.0, 2016 — http://www.matplotlib.org",
-            color="white", fontsize=12, alpha=0.5, family = "Source Sans Pro Light")
-    plt.savefig("mandelbrot.png")
+    plt.savefig("../pics/mandelbrot.png")
     plt.show()
 

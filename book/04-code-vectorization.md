@@ -3,7 +3,7 @@
 **Content**
 
 * [Introduction](#introduction)
-* [Fractals](#fractals)
+* [Differential vectorization](#fractals)
 * [Cellular automata](#automata)
 * [Reaction diffusion](#reaction-diffusion)
 * [Earthquake visualization](#earthquake)
@@ -24,15 +24,16 @@ integers. One straightforwardway  using pure Python is:
     def solution_1(Z1,Z2):
         return [z1+z2 for (z1,z2) in zip(Z1,Z2)]
 
-This first naive solution can be vectorize very easily using numpy:
+This first naive solution can be vectorized very easily using numpy:
 
     import numpy as np
     
     def solution_2(Z1,Z2):
         return np.add(Z1,Z2)
 
-Without nay surprise, benchmarkming the two approaches shows the second method is
-the fastest with one order of magnitude.
+Note that we did not write `Z1 + Z2` because it would not work with if `Z1` and
+`Z2` were both lists.Without any surprise, benchmarkming the two approaches
+shows the second method is the fastest with one order of magnitude.
 
     >>> Z1 = random.sample(range(1000), 100)
     >>> Z2 = random.sample(range(1000), 100)
@@ -59,12 +60,120 @@ does what is (numerically) expected. Let's move now move to more complex
 problems.
 
 
-### Fractals <a name="fractals"></a>
+### Differential vectorization <a name="fractals"></a>
 
-**From Wikipedia**: The Mandelbrot set is the set of complex numbers c for
-  which the function fc(z) = z²+ c does not diverge when iterated from z=0,
-  i.e., for which the sequence fc(0), fc(fc(0)), etc., remains bounded in
-  absolute value.
+The Mandelbrot set is the set of complex numbers `c` for which the function
+`fc(z) = z²+ c` does not diverge when iterated from z=0, i.e., for which the
+sequence fc(0), fc(fc(0)), etc., remains bounded in absolute value. It is very
+easy to compute but it can take a very long time because you need to ensure a
+given number does not diverge. This is generally done by iterating the
+computation up to a maximum number of iterations, after which, if the number is
+still within some bounds, it is considerer non divergent. Of course, the more
+iteration, the more precision. A pure python implementation is written as:
+
+    def mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
+        def mandelbrot(z, maxiter):
+            c = z
+            for n in range(maxiter):
+                if abs(z) > horizon:
+                    return n
+                z = z*z + c
+            return maxiter
+        r1 = [xmin+i*(xmax-xmin)/xn for i in range(xn)]
+        r2 = [ymin+i*(ymax-ymin)/yn for i in range(yn)]
+        return [mandelbrot(complex(r, i),maxiter) for r in r1 for i in r2]
+
+The interesting (and slow) part of this code is the `mandelbrot` function that
+actually computes the sequence fc(fc(fc ...))). The vectorization of such code
+is not totally straighforward because the internal `return` implies a
+differential processing of the element. Once it has diverged, we don't need to
+iterate any more and we can safely return the iteration count at
+dievergence. Problem is then to do the same numpy. But how ?
+
+The trick is to search at each iteration values that have not yet diverged and
+update relevant information for these values and only these values. Because we
+start from Z = 0, we know that each value will be updated at least once (when
+they're equal to 0, they have not yet diverged) and will stop being updated as
+soon as they've diverged. To do that, we'll use numpy fancy indexing with the
+`less(x1,x2)` function that return the truth value of (x1 < x2) element-wise.
+
+    def mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
+        X = np.linspace(xmin, xmax, xn, dtype=np.float32)
+        Y = np.linspace(ymin, ymax, yn, dtype=np.float32)
+        C = X + Y[:,None]*1j
+        N = np.zeros(C.shape, dtype=int)
+        Z = np.zeros(C.shape, np.complex64)
+        for n in range(maxiter):
+            I = np.less(abs(Z), horizon)
+            N[I] = n
+            Z[I] = Z[I]**2 + C[I]
+        N[N == maxiter-1] = 0
+        return Z, N
+
+Here is the benchmark:
+
+    >>> xmin, xmax, xn = -2.25, +0.75, int(3000/3)
+    >>> ymin, ymax, yn = -1.25, +1.25, int(2500/3)
+    >>> maxiter = 200
+    
+    >>> print_timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    1 loops, best of 3: 6.1 sec per loop
+    >>> print_timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    1 loops, best of 3: 1.15 sec per loop
+
+There gain is approximately a x4 factor, it's not as much as we can have
+expected. Part of the problem is the `np.less` function that implies `xn*yn`
+tests at every iteration while we know that some values have already
+diverged. Even if these tests are performed at the C level (through numpy), the
+cost is nonetheless non negligible. Another approach proposed by [Dan Goodman]
+is to work on a dynmaic array at each iteration that stores only the points
+which haven't yet diverged. It requires a bit more lines but the result is
+faster and lead to a 10x factor compared to the Python version.
+
+
+    def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
+        # Adapted from
+        # https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/
+        Xi, Yi = np.mgrid[0:xn, 0:yn]
+        Xi, Yi = Xi.astype(np.uint32), Yi.astype(np.uint32)
+        X = np.linspace(xmin, xmax, xn, dtype=np.float32)[Xi]
+        Y = np.linspace(ymin, ymax, yn, dtype=np.float32)[Yi]
+        C = X + Y*1j
+        N_ = np.zeros(C.shape, dtype=np.uint32)
+        Z_ = np.zeros(C.shape, dtype=np.complex64)
+        Xi.shape = Yi.shape = C.shape = xn*yn
+
+        Z = np.zeros(C.shape, np.complex64)
+        for i in range(itermax):
+            if not len(Z): break
+
+            # Compute for relevant points only
+            np.multiply(Z, Z, Z)
+            np.add(Z, C, Z)
+
+            # Failed convergence
+            I = abs(Z) > horizon
+            N_[Xi[I], Yi[I]] = i+1
+            Z_[Xi[I], Yi[I]] = Z[I]
+
+            # Keep going with those who have not diverged yet
+            np.negative(I,I)
+            Z = Z[I]
+            Xi, Yi = Xi[I], Yi[I]
+            C = C[I]
+        return Z_.T, N_.T
+
+Benchmark gives us:
+
+    >>> print_timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    1 loops, best of 3: 510 msec per loop
+
+Finally, here is a picture of the result:
+
+![](../pics/mandelbrot.png)
+
+
+[Dan Goodman]: https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/
 
 ### Cellular automata <a name="automata"></a>
 ### Reaction diffusion <a name="reaction-diffusion"></a>
