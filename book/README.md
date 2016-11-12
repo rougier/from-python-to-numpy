@@ -12,6 +12,7 @@ This work is licensed under a
   * [Why another book on Numpy ?](01-introduction.md#why)
   * [Pre-requisites](01-introduction.md#pre-requisites)
   * [Conventions](01-introduction.md#conventions)
+  * [Contribute](01-introduction.md#contribute)
 
 #### [Chapter 2 - Anatomy of an array](02-anatomy.md)
 
@@ -35,7 +36,7 @@ This work is licensed under a
 #### [Chapter 4 - Code vectorization](04-code-vectorization.md)
 
   * [Introduction](04-code-vectorization.md#introduction)
-  * [Fractals](04-code-vectorization.md#fractals)
+  * [Differential vectorization](04-code-vectorization.md#differential)
   * [Cellular automata](04-code-vectorization.md#automata)
   * [Reaction diffusion](04-code-vectorization.md#reaction-diffusion)
   * [Earthquake visualization](04-code-vectorization.md#earthquake)

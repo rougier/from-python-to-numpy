@@ -6,6 +6,7 @@
 * [Why another book on Numpy ?](#why)
 * [Pre-requisites](#pre-requisites)
 * [Conventions](#conventions)
+* [Contribute](#contribute)
 
 ### About the author <a name="about"></a>
 
@@ -68,3 +69,9 @@ writing (November 11, 2016):
 | Numpy      | 1.11.2  |
 | Scipy      | 0.18.1  |
 | Matplotlib | 1.5.3   |
+
+### Contribute <a name="contribute"></a>
+
+If you want to contribute to this book, you can send pull requests to improve
+the book, correct my English or fix the code. Of course, if you have
+better/faster implementation for some of the exercises, you're also welcome.

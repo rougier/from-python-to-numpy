@@ -3,7 +3,7 @@
 **Content**
 
 * [Introduction](#introduction)
-* [Differential vectorization](#fractals)
+* [Differential vectorization](#differential)
 * [Cellular automata](#automata)
 * [Reaction diffusion](#reaction-diffusion)
 * [Earthquake visualization](#earthquake)
@@ -60,7 +60,7 @@ does what is (numerically) expected. Let's move now move to more complex
 problems.
 
 
-### Differential vectorization <a name="fractals"></a>
+### Differential vectorization <a name="differential"></a>
 
 The Mandelbrot set is the set of complex numbers `c` for which the function
 `fc(z) = z²+ c` does not diverge when iterated from z=0, i.e., for which the
@@ -125,11 +125,11 @@ There gain is approximately a x4 factor, it's not as much as we can have
 expected. Part of the problem is the `np.less` function that implies `xn*yn`
 tests at every iteration while we know that some values have already
 diverged. Even if these tests are performed at the C level (through numpy), the
-cost is nonetheless non negligible. Another approach proposed by [Dan Goodman]
-is to work on a dynmaic array at each iteration that stores only the points
-which haven't yet diverged. It requires a bit more lines but the result is
-faster and lead to a 10x factor compared to the Python version.
-
+cost is nonetheless non negligible. Another approach proposed
+by [Dan Goodman](https://thesamovar.wordpress.com/) is to work on a dynmaic
+array at each iteration that stores only the points which have not yet
+diverged. It requires more lines but the result is faster and lead to a
+10x factor compared to the Python version.
 
     def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
         # Adapted from
@@ -168,14 +168,23 @@ Benchmark gives us:
     >>> print_timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
     1 loops, best of 3: 510 msec per loop
 
-Finally, here is a picture of the result:
+Finally, here is a picture of the result where we use recount normalization,
+power normalized colormap and shading.
 
 ![](../pics/mandelbrot.png)
 
 
-[Dan Goodman]: https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/
+**References**
 
-### Cellular automata <a name="automata"></a>
+* [Fast fractals with Python and Numpy](https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/), Dan Goodman, 2009.
+* [How To Quickly Compute the Mandelbrodt in Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en), Jean Francois Puget, 2015.
+* [My Christmas Gift: Mandelbrot Set Computation In Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en), Jean Francois Puget, 2015.
+* [Renormalizing the Mandelbrot Escape](http://linas.org/art-gallery/escape/escape.html), Linas Vepstas, 1997.
+
+
+
+
+### Localized vectorization <a name="localized"></a>
 ### Reaction diffusion <a name="reaction-diffusion"></a>
 ### Earthquake visualization <a name="earthquake"></a>
 ### Conclusion <a name="conclusion"></a>
