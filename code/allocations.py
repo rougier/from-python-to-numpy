@@ -54,6 +54,7 @@ if __name__ == '__main__':
     print_timeit("solution_2()", globals())
     print_timeit("solution_3()", globals())
     print_timeit("solution_4()", globals())
+    print_timeit("solution_5()", globals())
     print()
     print_timeit("solution_3_bis()", globals())
 

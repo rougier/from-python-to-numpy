@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-def display_2D_array(ax, Z, origin):
+def display_2D_array(ax, Z, origin="upper"):
 
     rows, columns = Z.shape
 

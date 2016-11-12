@@ -60,7 +60,7 @@ should import numpy, scipy and matplotlib as:
     import matplotlib.pyplot as plt
  
 We'll use up-to-date versions of the different packages at the date of
-writing (November, 11 2016):
+writing (November 11, 2016):
 
 | Packages   | Version |
 |------------|---------|
