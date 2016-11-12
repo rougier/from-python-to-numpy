@@ -37,7 +37,7 @@ This work is licensed under a
 
   * [Introduction](book/04-code-vectorization.md#introduction)
   * [Differential vectorization](book/04-code-vectorization.md#differential)
-  * [Cellular automata](book/04-code-vectorization.md#automata)
+  * [Localized vectorization](book/04-code-vectorization.md#localized)
   * [Reaction diffusion](book/04-code-vectorization.md#reaction-diffusion)
   * [Earthquake visualization](book/04-code-vectorization.md#earthquake)
   * [Conclusion](book/04-code-vectorization.md#conclusion)

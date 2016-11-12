@@ -4,7 +4,7 @@
 
 * [Introduction](#introduction)
 * [Differential vectorization](#differential)
-* [Cellular automata](#automata)
+* [Localized vectorization](#localized)
 * [Reaction diffusion](#reaction-diffusion)
 * [Earthquake visualization](#earthquake)
 * [Conclusion](#conclusion)
@@ -185,6 +185,20 @@ power normalized colormap and shading.
 
 
 ### Localized vectorization <a name="localized"></a>
+
+[↑ Back to top](#content)
+
+
 ### Reaction diffusion <a name="reaction-diffusion"></a>
+
+[↑ Back to top](#content)
+
+
 ### Earthquake visualization <a name="earthquake"></a>
+
+[↑ Back to top](#content)
+
+
 ### Conclusion <a name="conclusion"></a>
+
+[↑ Back to top](#content)
