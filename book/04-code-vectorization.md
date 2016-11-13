@@ -69,19 +69,19 @@ computation up to a maximum number of iterations, after which, if the number is
 still within some bounds, it is considerer non divergent. Of course, the more
 iteration, the more precision. A pure python implementation is written as:
 
-    ```Python
-    def mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
-        def mandelbrot(z, maxiter):
-            c = z
-            for n in range(maxiter):
-                if abs(z) > horizon:
-                    return n
-                z = z*z + c
-            return maxiter
-        r1 = [xmin+i*(xmax-xmin)/xn for i in range(xn)]
-        r2 = [ymin+i*(ymax-ymin)/yn for i in range(yn)]
-        return [mandelbrot(complex(r, i),maxiter) for r in r1 for i in r2]
-    ```
+```Python
+def mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
+    def mandelbrot(z, maxiter):
+        c = z
+        for n in range(maxiter):
+            if abs(z) > horizon:
+                return n
+            z = z*z + c
+        return maxiter
+    r1 = [xmin+i*(xmax-xmin)/xn for i in range(xn)]
+    r2 = [ymin+i*(ymax-ymin)/yn for i in range(yn)]
+    return [mandelbrot(complex(r, i),maxiter) for r in r1 for i in r2]
+```
 
 The interesting (and slow) part of this code is the `mandelbrot` function that
 actually computes the sequence fc(fc(fc ...))). The vectorization of such code
