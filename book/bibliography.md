@@ -48,32 +48,45 @@ tutorials) addressing different aspects and requiring different levels.
 * [100 Numpy exercices]
   (http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html)  
   Nicolas P. Rougier, 2016.
+  
+  > A collection of 100 (corrected) numpy exercises, from beginner to expert
+  > level.
 
 * [Numpy tutorial]
   (http://www.labri.fr/perso/nrougier/teaching/numpy/numpy.html)  
   Nicolas P. Rougier, 2015.
 
+  > A numpy beginner tutorial based on the game of life implementation.
+
 * [Python course]
   (http://www.python-course.eu/numpy.php)  
   Bernd Klein, 2015.
 
+  > A numpy beginner tutorial.
+
 * [An introduction to Numpy and Scipy]
   (https://engineering.ucsb.edu/~shell/che210d/numpy.pdf)  
   M. Scott Shell, 2014.
+  
+ > Another gentle numpy beginner tutorial.
 
 * [Python Numpy tutorial]
   (http://cs231n.github.io/python-numpy-tutorial/)  
   Justin Johnson, 2014.
+  
+ > A short numpy tutorial.
 
 * [Quickstart tutorial]
   (https://docs.scipy.org/doc/numpy-dev/user/quickstart.html)  
   Numpy developers, 2009.
+  
+  > The official numpy tutorial (a bit outdated though)
 
 * [Numpy medkits]
   (http://mentat.za.net/numpy/numpy_advanced_slides/)  
   Stéfan van der Walt, 2008.
 
-
+  > A first-aid kit for the numerically adventurous
 
 ### Books
 
