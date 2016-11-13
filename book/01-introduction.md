@@ -1,7 +1,5 @@
 ## Introduction
 
-**Content**
-
 * [About the author](#about)
 * [Why another book on Numpy ?](#why)
 * [Pre-requisites](#pre-requisites)

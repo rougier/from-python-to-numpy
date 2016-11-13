@@ -1,7 +1,5 @@
 ## Chapter 5 - Problem vectorization
 
-**Content**
-
 * [Introduction](#introduction)
 * [Bird flock modeling](#bird)
 * [Finding the shortest path](#shortest)

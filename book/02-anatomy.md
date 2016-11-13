@@ -1,7 +1,5 @@
 ## Anatomy of an array
 
-**Content**
-
 * [Introduction](#introduction)
 * [Architecture](#architecture)
 * [Broadcasting](#broadcasting)

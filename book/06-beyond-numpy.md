@@ -1,13 +1,11 @@
 ## Chapter 6 - Beyond Numpy
 
-**Content**
-
-  * [Introduction](#introduction)
-  * [Python made fast](#python)
-  * [Cython](#cython)
-  * [OpenGL to the rescue](#opengl)
-  * [Other resources](#other)
-  * [Conclusion](#conclusion)
+* [Introduction](#introduction)
+* [Python made fast](#python)
+* [Cython](#cython)
+* [OpenGL to the rescue](#opengl)
+* [Other resources](#other)
+* [Conclusion](#conclusion)
 
 ### Introduction <a name="introduction"></a>
 ### Python made fast <a name="python"></a>
