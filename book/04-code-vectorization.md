@@ -193,10 +193,14 @@ normalized colormap (gamma=0.3) and shading.
 
 **References**
 
-* [Fast fractals with Python and Numpy](https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/), Dan Goodman, 2009.
-* [How To Quickly Compute the Mandelbrot Set in Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en), Jean Francois Puget, 2015.
-* [My Christmas Gift: Mandelbrot Set Computation In Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en), Jean Francois Puget, 2015.
-* [Renormalizing the Mandelbrot Escape](http://linas.org/art-gallery/escape/escape.html), Linas Vepstas, 1997.
+* [Fast fractals with Python and Numpy](https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/)  
+  Dan Goodman, 2009.
+* [How To Quickly Compute the Mandelbrot Set in Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en)  
+  Jean Francois Puget, 2015.
+* [My Christmas Gift: Mandelbrot Set Computation In Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en)  
+  Jean Francois Puget, 2015.
+* [Renormalizing the Mandelbrot Escape](http://linas.org/art-gallery/escape/escape.html)  
+  Linas Vepstas, 1997.
 
 
 
