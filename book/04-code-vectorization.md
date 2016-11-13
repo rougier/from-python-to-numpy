@@ -187,6 +187,9 @@ normalized colormap (gamma=0.3) and shading.
 
 ![](../pics/mandelbrot.png)
 
+**Code**
+
+  * [mandelbrot.py](../code/mandelbrot.py)
 
 **References**
 
@@ -195,9 +198,6 @@ normalized colormap (gamma=0.3) and shading.
 * [My Christmas Gift: Mandelbrot Set Computation In Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en), Jean Francois Puget, 2015.
 * [Renormalizing the Mandelbrot Escape](http://linas.org/art-gallery/escape/escape.html), Linas Vepstas, 1997.
 
-**Sources**
-
-  * [mandelbrot.py](../code/mandelbrot.py)
 
 
 ### Localized vectorization <a name="localized"></a>

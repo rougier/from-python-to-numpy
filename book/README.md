@@ -46,7 +46,8 @@ This work is licensed under a
 #### [Chapter 5 - Problem vectorization](05-problem-vectorization.md)
 
   * [Introduction](05-problem-vectorization.md#introduction)
-  * [Bird flock modeling](05-problem-vectorization.md#bird)
+  * [Scipy to the rescue](05-problem-vectorization.md#scipy)
+  * [Uniform sampling](05-problem-vectorization.md#sampling)
   * [Finding the shortest path](05-problem-vectorization.md#shortest)
   * [Simulating smoke](05-problem-vectorization.md#smoke)
   * [Neural networks](05-problem-vectorization.md#network)

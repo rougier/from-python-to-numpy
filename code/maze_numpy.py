@@ -1,18 +1,14 @@
 # -----------------------------------------------------------------------------
 # From Numpy to Python
-# Copyright (2017) Nicolas P. Rougier
+# Copyright (2017) Nicolas P. Rougier - BSD license
+# More information at https://github.com/rougier/numpy-book
 # -----------------------------------------------------------------------------
-"""
-Maze solving using the Bellman-Ford algorithm
-"""
-
 import numpy as np
 from collections import deque
 import matplotlib.pyplot as plt
 from scipy.ndimage import generic_filter
 
 
-# -------------------------------------------------------------- build_maze ---
 def build_maze(shape=(65,65), complexity=0.75, density = 0.50):
     """
     Build a maze using given complexity and density
