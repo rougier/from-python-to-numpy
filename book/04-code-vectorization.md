@@ -17,7 +17,7 @@ experience to see where code can be vectorized. Let's illustrate this through
 the most simple example I can think of where we want to sum up two lists of
 integers. One straightforwardway  using pure Python is:
 
-```Pycon
+```Python
 import random
 
 def solution_1(Z1,Z2):
@@ -26,7 +26,7 @@ def solution_1(Z1,Z2):
 
 This first naive solution can be vectorized very easily using numpy:
 
-```Pycon
+```Python
 import numpy as np
     
 def solution_2(Z1,Z2):
