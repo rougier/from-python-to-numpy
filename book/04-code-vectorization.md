@@ -45,13 +45,15 @@ shape of `Z1` and `Z2`, which is not the case for the first method because the
 `+` will be interpreted differently depending on the nature of the
 object. For example, if we now consider two nested lists:
 
-    >>> Z1 = [[1,2],[3,4]]
-    >>> Z2 = [[5,6],[7,8]]
-    >>> solution_1(Z1, Z2)
-    [[1, 2, 5, 6], [3, 4, 7, 8]]
-    >>> solution_2(Z1, Z2)
-    [[ 6  8]
-     [10 12]]
+```
+>>> Z1 = [[1,2],[3,4]]
+>>> Z2 = [[5,6],[7,8]]
+>>> solution_1(Z1, Z2)
+[[1, 2, 5, 6], [3, 4, 7, 8]]
+>>> solution_2(Z1, Z2)
+[[ 6  8]
+ [10 12]]
+ ```
 
 The first method concatenates the internal lists together while the second one
 does what is (numerically) expected. Let's move now move to more complex
