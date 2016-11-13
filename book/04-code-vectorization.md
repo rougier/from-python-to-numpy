@@ -17,35 +17,41 @@ experience to see where code can be vectorized. Let's illustrate this through
 the most simple example I can think of where we want to sum up two lists of
 integers. One straightforwardway  using pure Python is:
 
-    import random
+```Pycon
+import random
 
-    def solution_1(Z1,Z2):
-        return [z1+z2 for (z1,z2) in zip(Z1,Z2)]
+def solution_1(Z1,Z2):
+   return [z1+z2 for (z1,z2) in zip(Z1,Z2)]
+```
 
 This first naive solution can be vectorized very easily using numpy:
 
-    import numpy as np
+```Pycon
+import numpy as np
     
-    def solution_2(Z1,Z2):
-        return np.add(Z1,Z2)
-
+def solution_2(Z1,Z2):
+    return np.add(Z1,Z2)
+```
+    
 Note that we did not write `Z1 + Z2` because it would not work with if `Z1` and
 `Z2` were both lists.Without any surprise, benchmarkming the two approaches
 shows the second method is the fastest with one order of magnitude.
 
-    >>> Z1 = random.sample(range(1000), 100)
-    >>> Z2 = random.sample(range(1000), 100)
-    >>> print_timeit("solution_1(Z1, Z2)", globals())
-    1000 loops, best of 3: 68 usec per loop
-    >>> print_timeit("solution_2(Z1, Z2)", globals())
-    10000 loops, best of 3: 1.14 usec per loop
+```Pycon
+>>> Z1 = random.sample(range(1000), 100)
+>>> Z2 = random.sample(range(1000), 100)
+>>> print_timeit("solution_1(Z1, Z2)", globals())
+1000 loops, best of 3: 68 usec per loop
+>>> print_timeit("solution_2(Z1, Z2)", globals())
+10000 loops, best of 3: 1.14 usec per loop
+```
     
 Not only the second approach is faster, but it also naturally adapts to the
 shape of `Z1` and `Z2`, which is not the case for the first method because the
 `+` will be interpreted differently depending on the nature of the
 object. For example, if we now consider two nested lists:
 
-```
+```Pycon
 >>> Z1 = [[1,2],[3,4]]
 >>> Z2 = [[5,6],[7,8]]
 >>> solution_1(Z1, Z2)
@@ -53,7 +59,7 @@ object. For example, if we now consider two nested lists:
 >>> solution_2(Z1, Z2)
 [[ 6  8]
  [10 12]]
- ```
+```
 
 The first method concatenates the internal lists together while the second one
 does what is (numerically) expected. Let's move now move to more complex
@@ -99,29 +105,33 @@ they're equal to 0, they have not yet diverged) and will stop being updated as
 soon as they've diverged. To do that, we'll use numpy fancy indexing with the
 `less(x1,x2)` function that return the truth value of (x1 < x2) element-wise.
 
-    def mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
-        X = np.linspace(xmin, xmax, xn, dtype=np.float32)
-        Y = np.linspace(ymin, ymax, yn, dtype=np.float32)
-        C = X + Y[:,None]*1j
-        N = np.zeros(C.shape, dtype=int)
-        Z = np.zeros(C.shape, np.complex64)
-        for n in range(maxiter):
-            I = np.less(abs(Z), horizon)
-            N[I] = n
-            Z[I] = Z[I]**2 + C[I]
-        N[N == maxiter-1] = 0
-        return Z, N
+```Python
+def mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
+    X = np.linspace(xmin, xmax, xn, dtype=np.float32)
+    Y = np.linspace(ymin, ymax, yn, dtype=np.float32)
+    C = X + Y[:,None]*1j
+    N = np.zeros(C.shape, dtype=int)
+    Z = np.zeros(C.shape, np.complex64)
+    for n in range(maxiter):
+        I = np.less(abs(Z), horizon)
+        N[I] = n
+        Z[I] = Z[I]**2 + C[I]
+    N[N == maxiter-1] = 0
+    return Z, N
+```
 
 Here is the benchmark:
 
-    >>> xmin, xmax, xn = -2.25, +0.75, int(3000/3)
-    >>> ymin, ymax, yn = -1.25, +1.25, int(2500/3)
-    >>> maxiter = 200
-    
-    >>> print_timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
-    1 loops, best of 3: 6.1 sec per loop
-    >>> print_timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
-    1 loops, best of 3: 1.15 sec per loop
+```Pycon
+>>> xmin, xmax, xn = -2.25, +0.75, int(3000/3)
+>>> ymin, ymax, yn = -1.25, +1.25, int(2500/3)
+>>> maxiter = 200
+
+>>> print_timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+1 loops, best of 3: 6.1 sec per loop
+>>> print_timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+1 loops, best of 3: 1.15 sec per loop
+```
 
 There gain is approximately a x4 factor, it's not as much as we can have
 expected. Part of the problem is the `np.less` function that implies `xn*yn`
@@ -133,40 +143,44 @@ array at each iteration that stores only the points which have not yet
 diverged. It requires more lines but the result is faster and lead to a
 10x factor speed improvement compared to the Python version.
 
-    def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
-        Xi, Yi = np.mgrid[0:xn, 0:yn]
-        Xi, Yi = Xi.astype(np.uint32), Yi.astype(np.uint32)
-        X = np.linspace(xmin, xmax, xn, dtype=np.float32)[Xi]
-        Y = np.linspace(ymin, ymax, yn, dtype=np.float32)[Yi]
-        C = X + Y*1j
-        N_ = np.zeros(C.shape, dtype=np.uint32)
-        Z_ = np.zeros(C.shape, dtype=np.complex64)
-        Xi.shape = Yi.shape = C.shape = xn*yn
+```Python
+def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
+    Xi, Yi = np.mgrid[0:xn, 0:yn]
+    Xi, Yi = Xi.astype(np.uint32), Yi.astype(np.uint32)
+    X = np.linspace(xmin, xmax, xn, dtype=np.float32)[Xi]
+    Y = np.linspace(ymin, ymax, yn, dtype=np.float32)[Yi]
+    C = X + Y*1j
+    N_ = np.zeros(C.shape, dtype=np.uint32)
+    Z_ = np.zeros(C.shape, dtype=np.complex64)
+    Xi.shape = Yi.shape = C.shape = xn*yn
 
-        Z = np.zeros(C.shape, np.complex64)
-        for i in range(itermax):
-            if not len(Z): break
+    Z = np.zeros(C.shape, np.complex64)
+    for i in range(itermax):
+        if not len(Z): break
 
-            # Compute for relevant points only
-            np.multiply(Z, Z, Z)
-            np.add(Z, C, Z)
+        # Compute for relevant points only
+        np.multiply(Z, Z, Z)
+        np.add(Z, C, Z)
 
-            # Failed convergence
-            I = abs(Z) > horizon
-            N_[Xi[I], Yi[I]] = i+1
-            Z_[Xi[I], Yi[I]] = Z[I]
+        # Failed convergence
+        I = abs(Z) > horizon
+        N_[Xi[I], Yi[I]] = i+1
+        Z_[Xi[I], Yi[I]] = Z[I]
 
-            # Keep going with those who have not diverged yet
-            np.negative(I,I)
-            Z = Z[I]
-            Xi, Yi = Xi[I], Yi[I]
-            C = C[I]
-        return Z_.T, N_.T
+        # Keep going with those who have not diverged yet
+        np.negative(I,I)
+        Z = Z[I]
+        Xi, Yi = Xi[I], Yi[I]
+        C = C[I]
+    return Z_.T, N_.T
+```
 
 Benchmark gives us:
 
-    >>> print_timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
-    1 loops, best of 3: 510 msec per loop
+```Pycon
+>>> print_timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+1 loops, best of 3: 510 msec per loop
+```
 
 Here is a picture of the result where we use recount normalization, power
 normalized colormap (gamma=0.3) and shading.
