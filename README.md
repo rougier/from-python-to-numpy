@@ -38,7 +38,7 @@ This work is licensed under a
   * [Introduction](book/04-code-vectorization.md#introduction)
   * [Differential vectorization](book/04-code-vectorization.md#differential)
   * [Localized vectorization](book/04-code-vectorization.md#localized)
-  * [Reaction diffusion](book/04-code-vectorization.md#reaction-diffusion)
+  * [Coupled vectorisation](book/04-code-vectorization.md#coupled)
   * [Earthquake visualization](book/04-code-vectorization.md#earthquake)
   * [Conclusion](book/04-code-vectorization.md#conclusion)
 

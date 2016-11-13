@@ -1,11 +1,9 @@
 ## Chapter 4 - Code vectorization
 
-**Content** <a name="content"></a>
-
 * [Introduction](#introduction)
 * [Differential vectorization](#differential)
 * [Localized vectorization](#localized)
-* [Reaction diffusion](#reaction-diffusion)
+* [Coupled vectorization](#coupled)
 * [Earthquake visualization](#earthquake)
 * [Conclusion](#conclusion)
 
@@ -126,14 +124,12 @@ expected. Part of the problem is the `np.less` function that implies `xn*yn`
 tests at every iteration while we know that some values have already
 diverged. Even if these tests are performed at the C level (through numpy), the
 cost is nonetheless non negligible. Another approach proposed
-by [Dan Goodman](https://thesamovar.wordpress.com/) is to work on a dynmaic
+by [Dan Goodman](https://thesamovar.wordpress.com/) is to work on a dynamic
 array at each iteration that stores only the points which have not yet
 diverged. It requires more lines but the result is faster and lead to a
-10x factor compared to the Python version.
+10x factor speed improvement compared to the Python version.
 
     def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
-        # Adapted from
-        # https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/
         Xi, Yi = np.mgrid[0:xn, 0:yn]
         Xi, Yi = Xi.astype(np.uint32), Yi.astype(np.uint32)
         X = np.linspace(xmin, xmax, xn, dtype=np.float32)[Xi]
@@ -168,8 +164,8 @@ Benchmark gives us:
     >>> print_timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
     1 loops, best of 3: 510 msec per loop
 
-Finally, here is a picture of the result where we use recount normalization,
-power normalized colormap and shading.
+Here is a picture of the result where we use recount normalization, power
+normalized colormap (gamma=0.3) and shading.
 
 ![](../pics/mandelbrot.png)
 
@@ -181,24 +177,18 @@ power normalized colormap and shading.
 * [My Christmas Gift: Mandelbrot Set Computation In Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en), Jean Francois Puget, 2015.
 * [Renormalizing the Mandelbrot Escape](http://linas.org/art-gallery/escape/escape.html), Linas Vepstas, 1997.
 
-[↑ Back to top](#content)
+**Sources**
+
+  * [mandelbrot.py](../code/mandelbrot.py)
 
 
 ### Localized vectorization <a name="localized"></a>
 
-[↑ Back to top](#content)
 
-
-### Reaction diffusion <a name="reaction-diffusion"></a>
-
-[↑ Back to top](#content)
+### Coupled vectorisation <a name="coupled"></a>
 
 
 ### Earthquake visualization <a name="earthquake"></a>
 
-[↑ Back to top](#content)
-
 
 ### Conclusion <a name="conclusion"></a>
-
-[↑ Back to top](#content)
