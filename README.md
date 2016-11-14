@@ -61,7 +61,7 @@ This work is licensed under a
   * [Other resources](book/06-beyond-numpy.md#other)
   * [Conclusion](book/06-beyond-numpy.md#conclusion)
 
-#### Chapter 7 - Quick references
+#### [Chapter 7 - Quick references](book/07-quick-references.md)
 
   * [Data types](book/07-quick-references.md#types)
   * [Creation](book/07-quick-references.md#creation)
