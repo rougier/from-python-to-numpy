@@ -51,7 +51,7 @@ def poisson_disk_sample(width=1.0, height=1.0, radius=0.025, k=30):
     cellsize = radius/np.sqrt(2)
     rows = int(np.ceil(width/cellsize))
     cols = int(np.ceil(height/cellsize))
-    
+
     # Squared radius because we'll compare squared distance
     squared_radius = radius*radius
 
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     fig = plt.figure(figsize=(18, 6))
 
     ax = plt.subplot(1, 3, 1, aspect=1)
-    n=256
+    n = 1000
     X = np.random.uniform(0, 1, n)
     Y = np.random.uniform(0, 1, n)
     ax.scatter(X, Y, s=10, facecolor='w', edgecolor='0.5')
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     ax.add_collection(lines)
 
     ax = plt.subplot(1, 3, 2, aspect=1)
-    n = 16
+    n = 32
     X, Y = np.meshgrid(np.linspace(0, 1, n), np.linspace(0, 1, n))
     X += 0.45*np.random.uniform(-1/n, 1/n, (n, n))
     Y += 0.45*np.random.uniform(-1/n, 1/n, (n, n))
@@ -114,9 +114,9 @@ if __name__ == '__main__':
     segments = voronoi(X.ravel(), Y.ravel())
     lines = LineCollection(segments, color='0.5', linewidth=0.5)
     ax.add_collection(lines)
+
     ax = plt.subplot(1, 3, 3, aspect=1)
-    P = poisson_disk_sample(width=1.0, height=1.0, radius=0.05, k=30)
-    
+    P = poisson_disk_sample(width=1.0, height=1.0, radius=0.025, k=30)
     plt.scatter(P[:, 0], P[:, 1], s=10, facecolor='w', edgecolor='0.5')
     ax.set_xlim(0, 1), ax.set_ylim(0, 1)
     ax.set_xticks([]), ax.set_yticks([])
