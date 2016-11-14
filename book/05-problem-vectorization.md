@@ -24,13 +24,17 @@
   (https://bost.ocks.org/mike/algorithms/)  
   Mike Bostock, 2014.
 
-* [Fast Poisson Disk Sampling in Arbitrary Dimensions]
-  (http://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf)  
-  Robert Bridson, SIGGRAPH, 2007.
-  
+* [Stippling and Blue Noise]
+  (http://www.joesfer.com/?p=108)
+  Jose Esteve, 2012.
+
 * [Poisson Disk Sampling]
   (http://devmag.org.za/2009/05/03/poisson-disk-sampling/)  
   Herman Tulleken, 2009.
+
+* [Fast Poisson Disk Sampling in Arbitrary Dimensions]
+  (http://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf)  
+  Robert Bridson, SIGGRAPH, 2007.
 
 
 ### Finding the shortest path <a name="shortest"></a>

@@ -15,7 +15,7 @@ it does not mean it is easy nor straighforward, but at least it does not
 necessitate to totally rethink your problem. Still, it may require some
 experience to see where code can be vectorized. Let's illustrate this through
 the most simple example I can think of where we want to sum up two lists of
-integers. One straightforwardway  using pure Python is:
+integers. One simple way using pure Python is:
 
 ```Python
 import random
@@ -33,9 +33,9 @@ def solution_2(Z1,Z2):
     return np.add(Z1,Z2)
 ```
     
-Note that we did not write `Z1 + Z2` because it would not work with if `Z1` and
-`Z2` were both lists.Without any surprise, benchmarkming the two approaches
-shows the second method is the fastest with one order of magnitude.
+Note that we did not write `Z1 + Z2` because it would not work if `Z1` and `Z2`
+were both lists. Without any surprise, benchmarkming the two approaches shows
+the second method is the fastest with one order of magnitude.
 
 ```Pycon
 >>> Z1 = random.sample(range(1000), 100)
@@ -49,7 +49,7 @@ shows the second method is the fastest with one order of magnitude.
 Not only the second approach is faster, but it also naturally adapts to the
 shape of `Z1` and `Z2`, which is not the case for the first method because the
 `+` will be interpreted differently depending on the nature of the
-object. For example, if we now consider two nested lists:
+two objects. For example, if we now consider two nested lists:
 
 ```Pycon
 >>> Z1 = [[1,2],[3,4]]
@@ -133,15 +133,15 @@ Here is the benchmark:
 1 loops, best of 3: 1.15 sec per loop
 ```
 
-There gain is approximately a x4 factor, it's not as much as we can have
-expected. Part of the problem is the `np.less` function that implies `xn*yn`
-tests at every iteration while we know that some values have already
-diverged. Even if these tests are performed at the C level (through numpy), the
-cost is nonetheless non negligible. Another approach proposed
+There gain is roughly a x5 factor, not as much as we can have expected. Part of
+the problem is that the `np.less` function implies `xn*yn` tests at every
+iteration while we know that some values have already diverged. Even if these
+tests are performed at the C level (through numpy), the cost is nonetheless non
+negligible. Another approach proposed
 by [Dan Goodman](https://thesamovar.wordpress.com/) is to work on a dynamic
 array at each iteration that stores only the points which have not yet
-diverged. It requires more lines but the result is faster and lead to a
-10x factor speed improvement compared to the Python version.
+diverged. It requires more lines but the result is faster and lead to a 10x
+factor speed improvement compared to the Python version.
 
 ```Python
 def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
@@ -193,12 +193,12 @@ normalized colormap (gamma=0.3) and shading.
 
 **References**
 
-* [Fast fractals with Python and Numpy](https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/)  
-  Dan Goodman, 2009.
 * [How To Quickly Compute the Mandelbrot Set in Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en)  
   Jean Francois Puget, 2015.
 * [My Christmas Gift: Mandelbrot Set Computation In Python](https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en)  
   Jean Francois Puget, 2015.
+* [Fast fractals with Python and Numpy](https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/)  
+  Dan Goodman, 2009.
 * [Renormalizing the Mandelbrot Escape](http://linas.org/art-gallery/escape/escape.html)  
   Linas Vepstas, 1997.
 
