@@ -8,15 +8,16 @@
 
 ### About the author <a name="about"></a>
 
-Nicolas P. Rougier is a full-time research scientist at Inria which is the
-French national institute for research in computer science and control. This is
-a public scientific and technological establishment (EPST) under the double
-supervision of the Research & Education Ministry, and the Ministry of Economy
-Finance and Industry. Nicolas P. Rougier is working within the Mnemosyne
-project which lies at the frontier between integrative and computational
-neuroscience in association with the Institute of Neurodegenerative Diseases,
-the Bordeaux laboratory for research in computer science (LaBRI), the
-University of Bordeaux and the national center for scientific research (CNRS).
+[Nicolas P. Rougier](http://www.labri.fr/perso/nrougier/) is a full-time
+research scientist at Inria which is the French national institute for research
+in computer science and control. This is a public scientific and technological
+establishment (EPST) under the double supervision of the Research & Education
+Ministry, and the Ministry of Economy Finance and Industry. Nicolas P. Rougier
+is working within the Mnemosyne project which lies at the frontier between
+integrative and computational neuroscience in association with the Institute of
+Neurodegenerative Diseases, the Bordeaux laboratory for research in computer
+science (LaBRI), the University of Bordeaux and the national center for
+scientific research (CNRS).
   
 He has been using Python for more than 15 years and Numpy for more than 10
 years (approximately) for modeling in Neuroscience, machine learning and for
