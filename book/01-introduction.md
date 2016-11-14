@@ -25,8 +25,9 @@ experience in something and still have no clue on how things work. However,
 Nicolas is the author of several online resources and tutorials (Matplotlib,
 Numpy, OpenGL) that have became references in the scientific community. He's
 also teaching Python, Numpy and scientific visualization at the University of
-Bordeaux and in various conferences worldwide (SciPy, EuroScipy, etc). He's
-also the author of the popular article "Ten Simple Rules for Better Figures".
+Bordeaux and in various conferences and schools worldwide (SciPy, EuroScipy,
+etc). He's also the author of the popular article [Ten Simple Rules for Better
+Figures](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003833).
 
 ### Why another book on Numpy ? <a name="why"></a>
 
@@ -39,15 +40,16 @@ of techniques that you don't find in books and such techniques are mostly
 learned through experience. The goal of this book is to explain some of them
 and to make you acquire experience.
 
-This book is freely available on the web via github as well as through my
-homepage. A paper version can be bought if you really hate trees but if you
-really insist on giving me some money, consider buying an electronic version
-instead. Or buy a paper book but plant a tree and/or eat a beaver...
+This book is freely available on the web through github. A paper version can be
+generated if you really hate trees but it will be out of date a soon as it is
+printed.
 
 ### Pre-requisites <a name="pre-requisites"></a>
 
-This is not a beginner guide and you should already have an intermediate level
-in Python and at least a beginner level in Numpy. If this is not the case, I adv
+This is not a beginner guide and you should have an intermediate level in
+Python and (at least) a beginner level in Numpy. If this is not the case, have
+a look at the [bibliography][bibliography.md] chapter for a curated list of
+resources.
 
 ### Conventions <a name="conventions"></a>
 
