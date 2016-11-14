@@ -49,7 +49,7 @@ printed.
 
 This is not a beginner guide and you should have an intermediate level in
 Python and (at least) a beginner level in Numpy. If this is not the case, have
-a look at the [bibliography][bibliography.md] chapter for a curated list of
+a look at the [bibliography](bibliography.md) chapter for a curated list of
 resources.
 
 ### Conventions <a name="conventions"></a>
