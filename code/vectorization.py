@@ -19,7 +19,7 @@ def compute_1(x, y):
 def compute_2(X, Y):
     """ Numpy version, faster """
 
-    return (X.reshape(len(X),1) * Y.reshape(1,len(Y))).sum()
+    return (X.reshape(len(X), 1) * Y.reshape(1, len(Y))).sum()
 
 
 def compute_3(X, Y):
@@ -36,7 +36,7 @@ def compute_4(X, Y):
 
 if __name__ == '__main__':
     from tools import print_timeit
-    
+
     X = np.arange(1000)
     print_timeit("compute_1(X,X)", globals())
     print_timeit("compute_2(X,X)", globals())

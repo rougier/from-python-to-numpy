@@ -61,6 +61,15 @@ This work is licensed under a
   * [Other resources](book/06-beyond-numpy.md#other)
   * [Conclusion](book/06-beyond-numpy.md#conclusion)
 
+#### Chapter 7 - Quick references
+
+  * [Data types](book/07-quick-references.md#types)
+  * [Creation](book/07-quick-references.md#creation)
+  * [Reshaping](book/07-quick-references.md#reshaping)
+  * [Slicing](book/07-quick-references.md#slicing)
+  * [Broadcasting](book/07-quick-references.md#broadcasting)
+  * [Operations](book/07-quick-references.md#operations)
+
 #### [Bibliography](book/bibliography.md)
 
   * [Articles](book/bibliography.md#articles)
