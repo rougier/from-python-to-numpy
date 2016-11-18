@@ -90,6 +90,19 @@ tutorials) addressing different aspects and requiring different levels.
 
 ### Books
 
+* [Python Data Science Handbook]
+  (http://shop.oreilly.com/product/0636920034919.do)
+  Jake van der Plas, O'Reily, 2016.
+  
+  > The Python Data Science Handbook provides a reference to the breadth of
+  > computational and statistical methods that are central to data—intensive
+  > science, research, and discovery. People with a programming background who
+  > want to use Python effectively for data science tasks will learn how to
+  > face a variety of problems: for example, how can you read this data format
+  > into your script? How can you manipulate, transform, and clean this data?
+  > How can you use this data to gain insight, answer questions, or to build
+  > statistical or machine learning models?
+
 * [Elegant SciPy: The Art of Scientific Python]
   (http://shop.oreilly.com/product/0636920038481.do)  
   Juan Nunez-Iglesias, Stéfan van der Walt, Harriet Dashnow, O'Reilly, 2016.

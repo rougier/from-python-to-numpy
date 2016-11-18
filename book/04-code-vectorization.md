@@ -183,9 +183,43 @@ Benchmark gives us:
 ```
 
 Here is a picture of the result where we use recount normalization, power
-normalized colormap (gamma=0.3) and shading.
+normalized colormap (gamma=0.3) and shading. See [mandelbrot.py)
 
 ![](../pics/mandelbrot.png)
+
+We now want to measure the fractal dimension of the Mandelbrot set using
+the
+[Minkowski–Bouligand dimension](https://en.wikipedia.org/wiki/Minkowski–Bouligand_dimension). To
+do that we need to do a box-counting with decreasing box size. As you imagine,
+we cannot use pure Python because it would be way to slow. Instead, we'll use
+the
+[numpy.ufunc.reduceat](https://docs.scipy.org/doc/numpy/reference/generated/numpy.ufunc.reduceat.html) that
+allows to combine a ufunc function over a local reduce with specified slices
+over a single axis.
+
+
+
+```Python
+def fractal_dimension(Z, threshold=0.9):
+    def boxcount(Z, k):
+        S = np.add.reduceat(
+            np.add.reduceat(Z, np.arange(0, Z.shape[0], k), axis=0),
+                               np.arange(0, Z.shape[1], k), axis=1)
+        return len(np.where((S > 0) & (S < k*k))[0])
+
+    Z = (Z < threshold)
+    p = min(Z.shape)
+    n = 2**np.floor(np.log(p)/np.log(2))
+    n = int(np.log(n)/np.log(2))
+    sizes = 2**np.arange(n, 1, -1)
+    counts = []
+    for size in sizes:
+        counts.append(boxcount(Z, size))
+    coeffs = np.polyfit(np.log(sizes), np.log(counts), 1)
+    return -coeffs[0]
+```
+
+
 
 **Code**
 

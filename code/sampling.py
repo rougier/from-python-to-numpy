@@ -78,11 +78,24 @@ def poisson_disk_sample(width=1.0, height=1.0, radius=0.025, k=30):
     return P[M]
 
 
+def draw_voronoi(ax, X, Y):
+    from voronoi import voronoi
+    from matplotlib.path import Path
+    from matplotlib.patches import PathPatch
+    cells, triangles, circles = voronoi(X, Y)
+    for i, cell in enumerate(cells):
+        codes = [Path.MOVETO] \
+                + [Path.LINETO] * (len(cell)-2) \
+                + [Path.CLOSEPOLY]
+        path = Path(cell, codes)
+        patch = PathPatch(path,
+                          facecolor="none", edgecolor="0.5", linewidth=0.5)
+        ax.add_patch(patch)
+
+
 # -----------------------------------------------------------------------------
 if __name__ == '__main__':
-    from voronoi import voronoi
     import matplotlib.pyplot as plt
-    from matplotlib.collections import LineCollection
 
     # Benchmark
     # from tools import print_timeit
@@ -98,9 +111,7 @@ if __name__ == '__main__':
     ax.set_xlim(0, 1), ax.set_ylim(0, 1)
     ax.set_xticks([]), ax.set_yticks([])
     ax.set_title("Random sampling", fontsize=18)
-    segments = voronoi(X, Y)
-    lines = LineCollection(segments, color='0.5', linewidth=.5)
-    ax.add_collection(lines)
+    draw_voronoi(ax, X, Y)
 
     ax = plt.subplot(1, 3, 2, aspect=1)
     n = 32
@@ -111,9 +122,7 @@ if __name__ == '__main__':
     ax.set_xlim(0, 1), ax.set_ylim(0,  1)
     ax.set_xticks([]), ax.set_yticks([])
     ax.set_title("Regular grid + jittering", fontsize=18)
-    segments = voronoi(X.ravel(), Y.ravel())
-    lines = LineCollection(segments, color='0.5', linewidth=0.5)
-    ax.add_collection(lines)
+    draw_voronoi(ax, X.ravel(), Y.ravel())
 
     ax = plt.subplot(1, 3, 3, aspect=1)
     P = poisson_disk_sample(width=1.0, height=1.0, radius=0.025, k=30)
@@ -121,9 +130,7 @@ if __name__ == '__main__':
     ax.set_xlim(0, 1), ax.set_ylim(0, 1)
     ax.set_xticks([]), ax.set_yticks([])
     ax.set_title("Poisson-disk sampling", fontsize=18)
-    segments = voronoi(P[:, 0], P[:, 1])
-    lines = LineCollection(segments, color='0.5', linewidth=.5)
-    ax.add_collection(lines)
+    draw_voronoi(ax, P[:, 0], P[:, 1])
 
     plt.tight_layout(pad=2.5)
     plt.savefig("../pics/sampling.png")

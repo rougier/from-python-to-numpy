@@ -14,10 +14,13 @@
 
 ![](../pics/sampling.png)
 
+![](../pics/mosaic.png)
+
 **Code**
 
-  * [sampling.py](../code/sampling.py)
-  * [voronoi.py](../code/voronoi.py)
+* [sampling.py](../code/sampling.py)
+* [mosaic.py](../code/mosaic.py)
+* [voronoi.py](../code/voronoi.py)
 
 **References**
 
