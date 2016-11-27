@@ -7,7 +7,7 @@ from matplotlib.collections import PathCollection
 
 class MarkerCollection:
     def __init__(self, n=100):
-        v = np.array([(-0.25, -0.25), (+0.0, +0.5), (+0.25, -0.25), (+0.0, +0.0)])
+        v = np.array([(-0.25, -0.25), (+0.0, +0.5), (+0.25, -0.25), (0, 0)])
         c = np.array([Path.MOVETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY])
         self._base_vertices = np.tile(v.reshape(-1), n).reshape(n, len(v), 2)
         self._vertices = np.tile(v.reshape(-1), n).reshape(n, len(v), 2)
@@ -15,9 +15,10 @@ class MarkerCollection:
         self._scale = np.ones(n)
         self._translate = np.zeros((n, 2))
         self._rotate = np.zeros(n)
-        self._path = Path(vertices=self._vertices.reshape(n*len(v), 2), codes=self._codes)
+        self._path = Path(vertices=self._vertices.reshape(n*len(v), 2),
+                          codes=self._codes)
         self._collection = PathCollection([self._path], linewidth=0,
-                                          facecolor=(1,.5,.5))
+                                          facecolor=(1, 0.25, 0.25))
 
     def update(self):
         n = len(self._base_vertices)
@@ -38,14 +39,14 @@ class Flock:
         self.height = height
         self.max_velocity = 2
         self.max_acceleration = 0.03
-        self.velocity = np.zeros((count,2), dtype=np.float32)
-        self.position = np.zeros((count,2), dtype=np.float32)
+        self.velocity = np.zeros((count, 2), dtype=np.float32)
+        self.position = np.zeros((count, 2), dtype=np.float32)
 
         angle = np.random.uniform(0, 2*np.pi, count)
         self.velocity[:, 0] = np.cos(angle)
         self.velocity[:, 1] = np.sin(angle)
         angle = np.random.uniform(0, 2*np.pi, count)
-        radius = min(width,height)/2*np.random.uniform(0, 1, count)
+        radius = min(width, height)/2*np.random.uniform(0, 1, count)
         self.position[:, 0] = width/2 + np.cos(angle)*radius
         self.position[:, 1] = height/2 + np.sin(angle)*radius
 
@@ -146,10 +147,10 @@ def update(*args):
     flock.run()
     collection._scale = 10
     collection._translate = flock.position
-    collection._rotate = np.arctan2(flock.velocity[:,1],flock.velocity[:,0])-np.pi/2
+    collection._rotate = np.arctan2(
+        flock.velocity[:, 1], flock.velocity[:, 0]) - np.pi/2
     collection.update()
-    
-    
+
 
 n = 500
 width, height = 640, 360
@@ -162,6 +163,5 @@ ax.set_xlim(0, width)
 ax.set_ylim(0, height)
 ax.set_xticks([])
 ax.set_yticks([])
-
 animation = FuncAnimation(fig, update, interval=10)
 plt.show()
