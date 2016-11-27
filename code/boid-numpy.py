@@ -16,7 +16,8 @@ class MarkerCollection:
         self._translate = np.zeros((n, 2))
         self._rotate = np.zeros(n)
         self._path = Path(vertices=self._vertices.reshape(n*len(v), 2), codes=self._codes)
-        self._collection = PathCollection([self._path], facecolor="white", edgecolor="black")
+        self._collection = PathCollection([self._path], linewidth=0,
+                                          facecolor=(1,.5,.5))
 
     def update(self):
         n = len(self._base_vertices)
@@ -37,11 +38,16 @@ class Flock:
         self.height = height
         self.max_velocity = 2
         self.max_acceleration = 0.03
+        self.velocity = np.zeros((count,2), dtype=np.float32)
+        self.position = np.zeros((count,2), dtype=np.float32)
+
         angle = np.random.uniform(0, 2*np.pi, count)
-        self.velocity = np.vstack((np.cos(angle), np.sin(angle))).T
-        self.position = np.random.uniform(-100, 100, (count, 2)) + (width/2, height/2)
-        self.position = self.position.astype(np.float32)
-        self.velocity = self.velocity.astype(np.float32)
+        self.velocity[:, 0] = np.cos(angle)
+        self.velocity[:, 1] = np.sin(angle)
+        angle = np.random.uniform(0, 2*np.pi, count)
+        radius = min(width,height)/2*np.random.uniform(0, 1, count)
+        self.position[:, 0] = width/2 + np.cos(angle)*radius
+        self.position[:, 1] = height/2 + np.sin(angle)*radius
 
     def run(self):
         position = self.position
@@ -56,7 +62,7 @@ class Flock:
 
         # Compute common distance masks
         mask_0 = (distance > 0)
-        mask_1 = (distance < 25)
+        mask_1 = (distance < 20)
         mask_2 = (distance < 50)
         mask_1 *= mask_0
         mask_2 *= mask_0
@@ -138,29 +144,24 @@ class Flock:
 
 def update(*args):
     flock.run()
-    collection._scale = 8
+    collection._scale = 10
     collection._translate = flock.position
     collection._rotate = np.arctan2(flock.velocity[:,1],flock.velocity[:,0])-np.pi/2
     collection.update()
     
-    # scatter.set_offsets(flock.position)
-    
     
 
 n = 500
+width, height = 640, 360
 flock = Flock(n)
-fig = plt.figure(figsize=(12, 6))
-ax = fig.add_axes([0.0, 0.0, 1.0, 1.0], frameon=True)
-
-#scatter = ax.scatter(flock.position[:, 0], flock.position[:, 1],
-#                     s=15, facecolor="red", edgecolor="None", alpha=0.5)
-
+fig = plt.figure(figsize=(10, 10*height/width), facecolor="white")
+ax = fig.add_axes([0.0, 0.0, 1.0, 1.0], aspect=1, frameon=False)
 collection = MarkerCollection(n)
 ax.add_collection(collection._collection)
-
-animation = FuncAnimation(fig, update, interval=10)
-ax.set_xlim(0, 640)
-ax.set_ylim(0, 360)
+ax.set_xlim(0, width)
+ax.set_ylim(0, height)
 ax.set_xticks([])
 ax.set_yticks([])
+
+animation = FuncAnimation(fig, update, interval=10)
 plt.show()
