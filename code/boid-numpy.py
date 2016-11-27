@@ -1,3 +1,8 @@
+# -----------------------------------------------------------------------------
+# From Numpy to Python
+# Copyright (2017) Nicolas P. Rougier - BSD license
+# More information at https://github.com/rougier/numpy-book
+# -----------------------------------------------------------------------------
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.path import Path
@@ -17,8 +22,8 @@ class MarkerCollection:
         self._rotate = np.zeros(n)
         self._path = Path(vertices=self._vertices.reshape(n*len(v), 2),
                           codes=self._codes)
-        self._collection = PathCollection([self._path], linewidth=0,
-                                          facecolor=(1, 0.25, 0.25))
+        self._collection = PathCollection([self._path], linewidth=0.5,
+                                          facecolor="k", edgecolor="w")
 
     def update(self):
         n = len(self._base_vertices)
@@ -37,6 +42,7 @@ class Flock:
     def __init__(self, count=500, width=640, height=360):
         self.width = width
         self.height = height
+        self.min_velocity = .5
         self.max_velocity = 2
         self.max_acceleration = 0.03
         self.velocity = np.zeros((count, 2), dtype=np.float32)
@@ -53,6 +59,7 @@ class Flock:
     def run(self):
         position = self.position
         velocity = self.velocity
+        min_velocity = self.min_velocity
         max_velocity = self.max_velocity
         max_acceleration = self.max_acceleration
         n = len(position)
@@ -63,7 +70,7 @@ class Flock:
 
         # Compute common distance masks
         mask_0 = (distance > 0)
-        mask_1 = (distance < 20)
+        mask_1 = (distance < 25)
         mask_2 = (distance < 50)
         mask_1 *= mask_0
         mask_2 *= mask_0
@@ -137,6 +144,9 @@ class Flock:
         norm = np.sqrt((velocity*velocity).sum(axis=1)).reshape(n, 1)
         velocity = np.multiply(velocity, max_velocity/norm, out=velocity,
                                where=norm > max_velocity)
+        # norm = np.sqrt((velocity*velocity).sum(axis=1)).reshape(n, 1)
+        velocity = np.multiply(velocity, min_velocity/norm, out=velocity,
+                               where=norm < min_velocity)
         position += velocity
 
         # Wraparound
@@ -144,6 +154,9 @@ class Flock:
 
 
 def update(*args):
+    global flock, collection, trace
+
+    # Flock updating
     flock.run()
     collection._scale = 10
     collection._translate = flock.position
@@ -151,17 +164,33 @@ def update(*args):
         flock.velocity[:, 1], flock.velocity[:, 0]) - np.pi/2
     collection.update()
 
+    # Trace updating
+    # P = flock.position.astype(int)
+    # trace[height-1-P[:, 1], P[:, 0]] = .75
+    # trace *= 0.99
+    # im.set_array(trace)
 
-n = 500
-width, height = 640, 360
-flock = Flock(n)
-fig = plt.figure(figsize=(10, 10*height/width), facecolor="white")
-ax = fig.add_axes([0.0, 0.0, 1.0, 1.0], aspect=1, frameon=False)
-collection = MarkerCollection(n)
-ax.add_collection(collection._collection)
-ax.set_xlim(0, width)
-ax.set_ylim(0, height)
-ax.set_xticks([])
-ax.set_yticks([])
-animation = FuncAnimation(fig, update, interval=10)
-plt.show()
+
+# -----------------------------------------------------------------------------
+if __name__ == '__main__':
+
+    n = 500
+    width, height = 640, 360
+    flock = Flock(n)
+    fig = plt.figure(figsize=(10, 10*height/width), facecolor="white")
+    ax = fig.add_axes([0.0, 0.0, 1.0, 1.0], aspect=1, frameon=False)
+    collection = MarkerCollection(n)
+    ax.add_collection(collection._collection)
+    ax.set_xlim(0, width)
+    ax.set_ylim(0, height)
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # Trace
+    # trace = np.zeros((height, width))
+    # im = ax.imshow(trace, extent=[0, width, 0, height], vmin=0, vmax=1,
+    #                interpolation="nearest", cmap=plt.cm.gray_r)
+    animation = FuncAnimation(fig, update, interval=10, frames=400)
+    # animation.save('boid.mp4', fps=40, dpi=80, 
+    #                metadata={'artist':'Nicolas P. Rougier'})
+    plt.show()
