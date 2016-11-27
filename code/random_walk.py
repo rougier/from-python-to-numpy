@@ -22,7 +22,7 @@ def random_walk_2(n=1000):
     """ Pure python version, faster """
 
     from itertools import accumulate
-    steps = random.sample([1,-1]*n, n)
+    steps = random.sample([1, -1]*n, n)
     return list(accumulate(steps))
 
 
@@ -35,7 +35,7 @@ def random_walk_3(n=1000):
 def find_crossing_1(seq, subseq):
     """ Readable but slow """
     return [i for i in range(len(seq) - len(subseq))
-                  if seq[i:i+len(subseq)] == subseq]
+                    if seq[i:i+len(subseq)] == subseq]
 
 
 def find_crossing_2(seq, subseq):
@@ -51,7 +51,7 @@ def find_crossing_2(seq, subseq):
 
 if __name__ == "__main__":
     from tools import print_timeit
-    
+
     print_timeit("random_walk_1(n=10000)", globals())
     print_timeit("random_walk_2(n=10000)", globals())
     print_timeit("random_walk_3(n=10000)", globals())
@@ -59,7 +59,3 @@ if __name__ == "__main__":
     W = random_walk_3(n=1000)
     print_timeit("find_crossing_1(list(W), [+1,0,-1])", globals())
     print_timeit("find_crossing_2(W, [+1,0,-1])", globals())
-
-
-
-

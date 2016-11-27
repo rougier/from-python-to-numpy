@@ -173,7 +173,7 @@ def BreadthFirst(maze, start, goal):
 # -------------------------------------------------------------------- main ---
 if __name__ == '__main__':
 
-    Z = build_maze((51,51))
+    Z = build_maze((51,101))
     start, goal = (1,1), (Z.shape[0]-2, Z.shape[1]-2)
     
     G, P = BellmanFord(Z, start, goal)
