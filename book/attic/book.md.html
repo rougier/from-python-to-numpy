@@ -1,0 +1,549 @@
+                <meta charset="utf-8" emacsmode="-*- markdown -*-">
+                            **From Python to Numpy**
+                             **Nicolas P. Rougier**
+                               Copyright (c) 2017
+                         Creative Commons BY-NC-SA 4.0
+                               
+
+There is already a fair number of book about Numpy (see bibliography) and a
+legitimate question is to wonder if another book is really necessary. As you
+may have guessed by reading these lines, my personal answer is yes, mostly
+because I think there's room for a different approach concentrating on the
+migration from Python to Numpy through vectorization. There is a lot of
+techniques that you don't find in books and such techniques are mostly learned
+through experience.  The goal of this book is to explain some of them and to
+make you acquire experience.
+
+
+# Preface
+## About the author
+
+[Nicolas P. Rougier][rougier] is a full-time research scientist at Inria which
+is the French national institute for research in computer science and
+control. This is a public scientific and technological establishment (EPST)
+under the double supervision of the Research & Education Ministry, and the
+Ministry of Economy Finance and Industry. Nicolas P. Rougier is working within
+the Mnemosyne project which lies at the frontier between integrative and
+computational neuroscience in association with the Institute of
+Neurodegenerative Diseases, the Bordeaux laboratory for research in computer
+science (LaBRI), the University of Bordeaux and the national center for
+scientific research (CNRS).
+  
+He has been using Python for more than 15 years and Numpy for more than 10
+years for modeling in Neuroscience, machine learning and for advanced
+visualization (OpenGL). Nicolas is the author of several online resources and
+tutorials (Matplotlib, Numpy, OpenGL) that have became reference in the
+scientific community. He's also teaching Python, Numpy and scientific
+visualization at the University of Bordeaux and in various conferences and
+schools worldwide (SciPy, EuroScipy, etc). He's also the author of the popular
+article [Ten Simple Rules for Better Figures][PLOS].
+
+[rougier]: http://www.labri.fr/perso/nrougier/
+[PLOS]: http://dx.doi.org/10.1371/journal.pcbi.1003833
+
+## About this book
+
+This book is generated through [Markdeep](http://casual-effects.com/markdeep/)
+that is a technology for writing plain text documents that will look good in
+any web browser. It supports diagrams, common styling conventions, and
+equations as extensions of Markdown syntax and was developed by Morgan McGuire.
+
+Markdeep is free and easy to use. It doesn't require a plugin or Internet
+connection. Your document never leaves your machine and there's nothing to
+install. Just start writing in Vi, Nodepad, Emacs, Visual Studio, Atom, or
+another editor!  You don't have to export, compile, or otherwise process your
+document.
+                
+
+## Pre-requisites
+
+This is not a beginner guide and you should have an intermediate level in
+Python and a beginner level in Numpy. If this is not the case, have a look at
+the bibliography chapter for a curated list of resources.
+
+## Conventions
+
+We'll use usual naming conventions. If not stated explicitely, each script
+should import numpy, scipy and matplotlib as:
+  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import numpy as np
+import scipy as sp
+import matplotlib.pyplot as plt
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+We'll use up-to-date versions of the different packages at the date of writing:
+
+
+ Packages   | Version 
+------------|:-------:
+ Python     | 3.5.2
+ Numpy      | 1.11.2
+ Scipy      | 0.18.1
+ Matplotlib | 1.5.3
+
+## License
+
+This work is licensed under a [Creative Commons
+Attribution-Non Commercial-Share Alike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). You are free to:
+
+* **Share** — copy and redistribute the material in any medium or format
+* **Adapt** — remix, transform, and build upon the material
+
+The licensor cannot revoke these freedoms as long as you follow the license terms.
+
+
+# Introduction
+# Anatomy of an array
+## Numpy architecture
+## Broadcasting principles
+## Vectorization philosophy
+## Conclusion
+# Code vectorization
+## Introduction
+
+Code vectorization means that the problem you're trying to solve is inherently
+vectorizable and only requires a few numpy tricks to make it faster. Of course
+it does not mean it is easy nor straighforward, but at least it does not
+necessitate to totally rethink your problem. Still, it may require some
+experience to see where code can be vectorized. Let's illustrate this through
+the most simple example where we want to sum up two lists of integers. One
+simple way using pure Python is:
+
+~~~
+def addition_python(Z1,Z2):
+   return [z1+z2 for (z1,z2) in zip(Z1,Z2)]
+~~~
+
+This first naive solution can be vectorized very easily using numpy:
+
+~~~
+def addition_numpy(Z1,Z2):
+    return np.add(Z1,Z2)
+~~~
+    
+Note that we did not write `Z1 + Z2` because it would not work if `Z1` and `Z2`
+were both lists. Without any surprise, benchmarkming the two approaches shows
+the second method is the fastest with one order of magnitude.
+
+~~~
+>>> Z1 = random.sample(range(1000), 100)
+>>> Z2 = random.sample(range(1000), 100)
+>>> print_timeit("solution_1(Z1, Z2)", globals())
+1000 loops, best of 3: 68 usec per loop
+>>> print_timeit("solution_2(Z1, Z2)", globals())
+10000 loops, best of 3: 1.14 usec per loop
+~~~
+    
+Not only the second approach is faster, but it also naturally adapts to the
+shape of `Z1` and `Z2`, which is not the case for the first method because the
+`+` will be interpreted differently depending on the nature of the
+two objects. For example, if we now consider two nested lists:
+
+~~~
+>>> Z1 = [[1,2],[3,4]]
+>>> Z2 = [[5,6],[7,8]]
+>>> solution_1(Z1, Z2)
+[[1, 2, 5, 6], [3, 4, 7, 8]]
+>>> solution_2(Z1, Z2)
+[[ 6  8]
+ [10 12]]
+~~~
+
+The first method concatenates the internal lists together while the second one
+does what is (numerically) expected. Let's move now move to more complex
+problems.
+
+## Uniform vectorization
+## Differential vectorization (temporal)
+## Differential vectorization (spatial)
+## Conclusion
+
+
+    
+
+# Problem vectorization
+## Path finding
+## Smoke simulation
+## Poisson disk sampling
+
+
+## Conclusion
+
+
+# Custom vectorization
+## Typed list
+## Memory aware
+## Double precision
+## Conclusion
+
+# Beyond Numpy
+## Back to Python
+## Cython vs Python
+## OpenGL made easy
+## Scikits
+
+# Conclusion
+# Quick References
+## Data type
+
+Type          | Name  | Bytes | Description |
+------------- |:-----:|:-----:|------------ |
+`bool`        | `b`   |   1   | Boolean (True or False) stored as a byte |
+`int`         | `i4`  |   4   | Platform integer (normally either int32 or int64) |
+`int8`        | `i1`  |   1   | Byte (-128 to 127) |
+`int16`       | `i2`  |   2   | Integer (-32768 to 32767) |
+`int32`       | `i4`  |   4   | Integer (-2147483648 to 2147483647) |
+`int64`       | `i8`  |   8   | Integer (9223372036854775808 to 9223372036854775807) |
+`uint8`       | `u1`  |   1   | Unsigned integer (0 to 255) |
+`uint16`      | `u2`  |   2   | Unsigned integer (0 to 65535) |
+`uint32`      | `u4`  |   4   | Unsigned integer (0 to 4294967295) |
+`uint64`      | `u8`  |   8   | Unsigned integer (0 to 18446744073709551615) |
+`float`       | `f8`  |   8   | Shorthand for float64 |
+`float16`     | `f2`  |   2   | Half precision float: sign bit, 5 bits exponent, 10 bits mantissa |
+`float32`     | `f4`/`f` |   4   | Single precision float: sign bit, 8 bits exponent, 23 bits mantissa  |
+`float64`     | `f8`/`d` |   8   | Double precision float: sign bit, 11 bits exponent, 52 bits mantissa |
+`complex`     | `c16` | 16   | Shorthand for complex128. | 
+`complex64`   | `c8`  | 8    | Complex number, represented by two 32-bit floats | 
+`complex128`  | `c16` | 16   | Complex number, represented by two 64-bit floats |
+
+## Creation
+
+~~~
+Z = np.zeros(9)
+~~~
+*****************************************
+* .---+---+---+---+---+---+---+---+---. *
+* | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | *
+* '---+---+---+---+---+---+---+---+---' *
+*****************************************
+
+
+~~~
+Z = np.ones(9)
+~~~
+*****************************************
+* .---+---+---+---+---+---+---+---+---. *
+* | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | *
+* '---+---+---+---+---+---+---+---+---' *
+*****************************************
+
+
+~~~
+Z = 2*np.ones(9)
+~~~
+*****************************************
+* .---+---+---+---+---+---+---+---+---. *
+* | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | *
+* '---+---+---+---+---+---+---+---+---' *
+*****************************************
+
+
+~~~
+Z = np.arange(9)
+~~~
+*****************************************
+* .---+---+---+---+---+---+---+---+---+ *
+* | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | *
+* '---+---+---+---+---+---+---+---+---' *
+*****************************************
+
+
+~~~
+Z = np.arange(9).reshape(1,9)
+~~~
+*********
+* .---. * 
+* | 0 | * 
+* +---+ * 
+* | 1 | * 
+* +---+ * 
+* | 2 | *
+* +---+ * 
+* | 3 | * 
+* +---+ * 
+* | 4 | *
+* +---+ * 
+* | 5 | * 
+* +---+ * 
+* | 6 | * 
+* +---+ * 
+* | 7 | * 
+* +---+ * 
+* | 8 | * 
+* +---' *
+*********
+
+~~~
+Z = np.arange(9).reshape(3,3)
+~~~
+***************** 
+* .---+---+---. * 
+* | 0 | 1 | 2 | * 
+* +---+---+---+ * 
+* | 3 | 4 | 5 | * 
+* +---+---+---+ * 
+* | 6 | 7 | 8 | *
+* '---+---+---' *
+*****************
+
+~~~
+Z = np.random.randint(0,9,(3,3))
+~~~
+***************** 
+* .---+---+---. * 
+* | 4 | 5 | 7 | * 
+* +---+---+---+ * 
+* | 0 | 2 | 6 | * 
+* +---+---+---+ * 
+* | 0 | 4 | 0 | *
+* '---+---+---' *
+*****************
+
+~~~
+Z = np.array([1,0,0,0,0,0,0,1,0])
+~~~
+*****************************************
+* .---+---+---+---+---+---+---+---+---. *
+* | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | *
+* '---+---+---+---+---+---+---+---+---' *
+*****************************************
+
+## Indexing
+## Reshaping
+
+~~~
+Z = np.array([0,0,0,0,0,0,0,0,0,0,1,0])
+~~~
+*****************************************************
+* .---+---+---+---+---+---+---+---+---+---+---+---. *
+* |   |   |   |   |   |   |   |   |   |   | * |   | *
+* '---+---+---+---+---+---+---+---+---+---+---+---' *
+*****************************************************
+
+~~~
+Z = np.array([0,0,0,0,0,0,0,0,0,0,1,0]).reshape(1,12)
+~~~
+*********
+* .---. *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* |   | *
+* +---+ *
+* | * | *
+* +---+ *
+* |   | *
+* '---' *
+*********
+
+
+~~~
+Z = np.array([0,0,0,0,0,0,0,0,0,0,1,0]).reshape(3,4)
+~~~
+********************* 
+* .---+---+---+---. * 
+* |   |   |   |   | * 
+* +---+---+---+---+ * 
+* |   |   |   |   | * 
+* +---+---+---+---+ * 
+* |   |   | * |   | *
+* '---+---+---+---' *
+*********************
+
+~~~
+Z = np.array([0,0,0,0,0,0,0,0,0,0,1,0]).reshape(4,3)
+~~~
+***************** 
+* .---+---+---. * 
+* |   |   |   | * 
+* +---+---+---+ * 
+* |   |   |   | * 
+* +---+---+---+ * 
+* |   |   |   | * 
+* +---+---+---+ * 
+* |   | * |   | *
+* '---+---+---' *
+*****************
+
+~~~
+Z = np.array([0,0,0,0,0,0,0,0,0,0,1,0]).reshape(6,2)
+~~~
+************* 
+* .---+---. * 
+* |   |   | * 
+* +---+---+ * 
+* |   |   | * 
+* +---+---+ * 
+* |   |   | * 
+* +---+---+ * 
+* |   |   | * 
+* +---+---+ * 
+* | * |   | *
+* '---+---' *
+*************
+
+~~~
+Z = np.array([0,0,0,0,0,0,0,0,0,0,1,0]).reshape(2,6)
+~~~
+*****************************
+* .---+---+---+---+---+---. * 
+* |   |   |   |   |   |   | * 
+* +---+---+---+---+---+---+ * 
+* |   |   |   |   | * |   | * 
+* '---+---+---+---+---+---' * 
+*****************************
+
+# Bibliography
+## Tutorials
+
+[tutorial-1]: http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html
+[tutorial-2]: http://www.labri.fr/perso/nrougier/teaching/numpy/numpy.html
+[tutorial-3]: http://www.python-course.eu/numpy.php
+[tutorial-4]: https://engineering.ucsb.edu/~shell/che210d/numpy.pdf
+[tutorial-5]: http://cs231n.github.io/python-numpy-tutorial/
+[tutorial-6]: https://docs.scipy.org/doc/numpy-dev/user/quickstart.html
+[tutorial-7]: http://mentat.za.net/numpy/numpy_advanced_slides/
+
+* [100 Numpy exercices][tutorial-1], Nicolas P. Rougier, 2016.
+* [Numpy tutorial][tutorial-2], Nicolas P. Rougier, 2015.
+* [Python course][tutorial-3], Bernd Klein, 2015.
+* [An introduction to Numpy and Scipy][tutorial-4], M. Scott Shell, 2014.
+* [Python Numpy tutorial][tutorial-5], Justin Johnson, 2014.
+* [Quickstart tutorial][tutorial-6], Numpy developers, 2009.
+* [Numpy medkits][tutorial-7], Stéfan van der Walt, 2008.
+
+
+## Articles
+
+[article-1]: https://www.computer.org/csdl/mags/cs/2007/03/c3010-abs.html
+[article-2]: https://hal.inria.fr/inria-00564007/document
+[article-3]: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.397.6097
+
+* [Python for Scientific Computing][article-1],  
+  Travis E. Oliphant,  
+  Computing in Science & Engineering, 9(3), 2007.
+ 
+> *By itself, Python is an excellent "steering" language for scientific codes
+> written in other languages. However, with additional basic tools, Python
+> transforms into a high-level language suited for scientific and engineering
+> code that's often fast enough to be immediately useful but also flexible
+> enough to be sped up with additional extensions.*
+  
+* [The NumPy array: a structure for efficient numerical computation][article-2],  
+  Stéfan van der Walt, Chris Colbert & Gael Varoquaux,  
+  Computing in Science and Engineering, 13(2), 2011.
+ 
+> *In the Python world, NumPy arrays are the standard representation for
+> numerical data and enable efficient implementation of numerical computations
+> in a high-level language. As this effort shows, NumPy performance can be
+> improved through three techniques: vectorizing calculations, avoiding copying
+> data in memory, and minimizing operation counts.*
+  
+* [Vectorised algorithms for spiking neural network simulation][article-3],  
+  Romain Brette & Dan F. M. Goodman,  
+  Neural Computation, 23(6), 2010.
+ 
+> *High-level languages (Matlab, Python) are popular in neuroscience because
+> they are flexible and accelerate development. However, for simulating spiking
+> neural networks, the cost of interpretation is a bottleneck. We describe a
+> set of algorithms to simulate large spiking neural networks efficiently with
+> high-level languages using vector-based operations. These algorithms
+> constitute the core of Brian, a spiking neural network simulator written in
+> the Python language. Vectorized simulation makes it possible to combine the
+> flexibility of high-level languages with the computational efficiency usually
+> associated with compiled languages.*
+
+## Books
+
+[book-1]: http://shop.oreilly.com/product/0636920034919.do
+[book-2]: http://shop.oreilly.com/product/0636920038481.do
+[book-3]: http://csc.ucdavis.edu/~chaos/courses/nlp/Software/NumPyBook.pdf
+[book-4]: https://www.packtpub.com/big-data-and-business-intelligence/learning-ipython-interactive-computing-and-data-visualization-sec
+[book-5]: https://www.safaribooksonline.com/library/view/scipy-and-numpy/9781449361600/
+[book-6]: https://www.safaribooksonline.com/library/view/python-for-data/9781449323592/
+
+* [Python Data Science Handbook][book-1],  
+  Jake van der Plas, O'Reily, 2016.
+ 
+> *The Python Data Science Handbook provides a reference to the breadth of
+> computational and statistical methods that are central to data—intensive
+> science, research, and discovery. People with a programming background who
+> want to use Python effectively for data science tasks will learn how to face
+> a variety of problems: for example, how can you read this data format into
+> your script? How can you manipulate, transform, and clean this data?  How can
+> you use this data to gain insight, answer questions, or to build statistical
+> or machine learning models?*
+
+* [Elegant SciPy: The Art of Scientific Python][book-2],   
+  Juan Nunez-Iglesias, Stéfan van der Walt, Harriet Dashnow, O'Reilly, 2016.
+ 
+> *Welcome to Scientific Python and its community! With this practical book,
+> you'll learn the fundamental parts of SciPy and related libraries, and get
+> a taste of beautiful, easy-to-read code that you can use in practice. More
+> and more scientists are programming, and the SciPy library is here to help.
+> Finding useful functions and using them correctly, efficiently, and in
+> easily readable code are two very different things. You'll learn by example
+> with some of the best code available, selected to cover a wide range of
+> SciPy and related libraries—including scikit-learn, scikit-image, toolz,
+> and pandas.*
+
+* [Guide to NumPy][book-3],  
+  Travis Oliphant, 2006
+ 
+> *This book only briefly outlines some of the infrastructure that surrounds
+> the basic objects in NumPy to provide the additional functionality
+> contained in the older Numeric package (i.e. LinearAlgebra, RandomArray,
+> FFT). This infrastructure in NumPy includes basic linear algebra routines,
+> Fourier transform capabilities, and random number generators. In addition,
+> the f2py module is described in its own documentation, and so is only
+> briefly mentioned in the second part of the book.*
+  
+* [IPython Interactive Computing and Visualization Cookbook][book-4],  
+  Cyrille Rossant, Packt Publishing, 2015.
+ 
+> *This book is a beginner-friendly guide to the Python data analysis
+> platform. After an introduction to the Python language, IPython, and the
+> Jupyter Notebook, you will learn how to analyze and visualize data on
+> real-world examples, how to create graphical user interfaces for image
+> processing in the Notebook, and how to perform fast numerical computations
+> for scientific simulations with NumPy, Numba, Cython, and ipyparallel. By
+> the end of this book, you will be able to perform in-depth analyses of all
+> sorts of data.*
+
+* [SciPy and NumPy][book-5],  
+  Eli Bressert, O'Reilly Media, Inc., 2012
+ 
+> *Are you new to SciPy and NumPy? Do you want to learn it quickly and easily
+> through examples and concise introduction? Then this is the book for
+> you. You’ll cut through the complexity of online documentation and discover
+> how easily you can get up to speed with these Python libraries.*
+
+* [Python for Data Analysis][book-6],  
+  Wes McKinney, O'Reilly Media, Inc., 2012.
+ 
+> *Looking for complete instructions on manipulating, processing, cleaning,
+> and crunching structured data in Python? This hands-on book is packed with
+> practical cases studies that show you how to effectively solve a broad set
+> of data analysis problems, using several Python libraries.*
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+

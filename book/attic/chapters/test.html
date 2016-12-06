@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>From Python to Numpy</title>
+<link rel="stylesheet" href="markdown.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="from-python-to-numpy">
+<h1 class="title">From Python to Numpy</h1>
+<h2 class="subtitle" id="copyright-c-2017-nicolas-p-rougier">Copyright (c) 2017 - Nicolas P. Rougier</h2>
+
+<div class="title-logos container">
+<img alt="http://mirrors.creativecommons.org/presskit/icons/cc.large.png" src="http://mirrors.creativecommons.org/presskit/icons/cc.large.png" style="width: 48px;" />
+<img alt="http://mirrors.creativecommons.org/presskit/icons/by.large.png" src="http://mirrors.creativecommons.org/presskit/icons/by.large.png" style="width: 48px;" />
+<img alt="http://mirrors.creativecommons.org/presskit/icons/sa.large.png" src="http://mirrors.creativecommons.org/presskit/icons/sa.large.png" style="width: 48px;" />
+<img alt="http://mirrors.creativecommons.org/presskit/icons/nc.large.png" src="http://mirrors.creativecommons.org/presskit/icons/nc.large.png" style="width: 48px;" />
+</div>
+<p><strong>Abstract</strong>. There is already a fair number of book about Numpy (see
+<a class="reference internal" href="#bibliography">bibliography</a>) and a legitimate question is to wonder if another book is really
+necessary. As you may have guessed by reading these lines, my personal answer
+is yes, mostly because I think there's room for a different approach
+concentrating on the migration from Python to Numpy through
+vectorization. There is a lot of techniques that you don't find in books and
+such techniques are mostly learned through experience.  The goal of this book
+is to explain some of them and to make you acquire experience in the process.</p>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first"><strong>Table of Contents</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#preface" id="id3">Preface</a><ul>
+<li><a class="reference internal" href="#about-the-author" id="id4">About the author</a></li>
+<li><a class="reference internal" href="#about-this-book" id="id5">About this book</a></li>
+<li><a class="reference internal" href="#pre-requisites" id="id6">Pre-requisites</a></li>
+<li><a class="reference internal" href="#conventions" id="id7">Conventions</a></li>
+<li><a class="reference internal" href="#license" id="id8">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#introduction" id="id9">Introduction</a></li>
+<li><a class="reference internal" href="#bibliography" id="id10">Bibliography</a><ul>
+<li><a class="reference internal" href="#tutorials" id="id11">Tutorials</a></li>
+<li><a class="reference internal" href="#articles" id="id12">Articles</a></li>
+<li><a class="reference internal" href="#books" id="id13">Books</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="preface">
+<h1><a class="toc-backref" href="#id3">Preface</a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title first"><strong>Contents</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#about-the-author" id="id14">About the author</a></li>
+<li><a class="reference internal" href="#about-this-book" id="id15">About this book</a></li>
+<li><a class="reference internal" href="#pre-requisites" id="id16">Pre-requisites</a></li>
+<li><a class="reference internal" href="#conventions" id="id17">Conventions</a></li>
+<li><a class="reference internal" href="#license" id="id18">License</a></li>
+</ul>
+</div>
+<div class="section" id="about-the-author">
+<h2><a class="toc-backref" href="#contents">About the author</a></h2>
+<p><a class="reference external" href="http://www.labri.fr/perso/nrougier/">Nicolas P. Rougier</a> is a full-time research scientist at <a class="reference external" href="http://www.inria.fr/en">Inria</a> which is the
+French national institute for research in computer science and control. This is
+a public scientific and technological establishment (EPST) under the double
+supervision of the Research &amp; Education Ministry, and the Ministry of Economy
+Finance and Industry. Nicolas P. Rougier is working within the <a class="reference external" href="http://www.inria.fr/en/teams/mnemosyne">Mnemosyne</a>
+project which lies at the frontier between integrative and computational
+neuroscience in association with the <a class="reference external" href="http://www.imn-bordeaux.org/en/">Institute of Neurodegenerative
+Diseases</a>, the Bordeaux laboratory for research in computer science
+(<a class="reference external" href="https://www.labri.fr/">LaBRI</a>), the <a class="reference external" href="http://www.u-bordeaux.com/">University of Bordeaux</a> and the national center for scientific
+research (<a class="reference external" href="http://www.cnrs.fr/index.php">CNRS</a>).</p>
+<p>He has been using Python for more than 15 years and Numpy for more than 10
+years for modeling in neuroscience, machine learning and for advanced
+visualization (OpenGL). Nicolas P. Rougier is the author of several online
+resources and tutorials (Matplotlib, Numpy, OpenGL) that have became references
+in the scientific community. He's also teaching Python, Numpy and scientific
+visualization at the University of Bordeaux and in various conferences and
+schools worldwide (SciPy, EuroScipy, etc). He's also the author of the popular
+article <a class="reference external" href="http://dx.doi.org/10.1371/journal.pcbi.1003833">Ten Simple Rules for Better Figures</a>.</p>
+</div>
+<div class="section" id="about-this-book">
+<h2><a class="toc-backref" href="#contents">About this book</a></h2>
+<p>This book has been written in <a class="reference external" href="http://docutils.sourceforge.net/rst.html">restructured text</a> format and generated using the
+<code>rst2html.py</code> command line available from the <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> python package.</p>
+</div>
+<div class="section" id="pre-requisites">
+<h2><a class="toc-backref" href="#contents">Pre-requisites</a></h2>
+<p>This is not a beginner guide and you should have an intermediate level in
+Python and (at least) a beginner level in Numpy. If this is not the case, have
+a look at the bibliography for a curated list of resources.</p>
+</div>
+<div class="section" id="conventions">
+<h2><a class="toc-backref" href="#contents">Conventions</a></h2>
+<p>We will use usual naming conventions. If not stated explicitely, each script
+should import numpy, scipy and matplotlib as:</p>
+<pre class="code python literal-block">
+<span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword namespace">as</span> <span class="name namespace">np</span>
+<span class="keyword namespace">import</span> <span class="name namespace">scipy</span> <span class="keyword namespace">as</span> <span class="name namespace">sp</span>
+<span class="keyword namespace">import</span> <span class="name namespace">matplotlib.pyplot</span> <span class="keyword namespace">as</span> <span class="name namespace">plt</span>
+</pre>
+<p>We'll use up-to-date versions (at the date of writing: January, 2017) of the
+different packages:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Packages</th>
+<th class="head">Version</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Python</td>
+<td>3.5.2</td>
+</tr>
+<tr><td>Numpy</td>
+<td>1.11.2</td>
+</tr>
+<tr><td>Scipy</td>
+<td>0.18.1</td>
+</tr>
+<tr><td>Matplotlib</td>
+<td>1.5.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="license">
+<h2><a class="toc-backref" href="#contents">License</a></h2>
+<p>This work is licensed under a Creative Commons Attribution-Non Commercial-Share
+Alike 4.0 International <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">License</a>. You are free to:</p>
+<ul class="simple">
+<li><strong>Share</strong> — copy and redistribute the material in any medium or format</li>
+<li><strong>Adapt</strong> — remix, transform, and build upon the material</li>
+</ul>
+<p>The licensor cannot revoke these freedoms as long as you follow the license terms.</p>
+<!-- - - - Links - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+</div>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id9">Introduction</a></h1>
+</div>
+<div class="section" id="bibliography">
+<h1><a class="toc-backref" href="#id10">Bibliography</a></h1>
+<p>This is a curated list of some numpy related resources (articles, books &amp;
+tutorials) addressing different aspects and requiring different levels.</p>
+<div class="contents local topic" id="id2">
+<ul class="simple">
+<li><a class="reference internal" href="#tutorials" id="id19">Tutorials</a></li>
+<li><a class="reference internal" href="#articles" id="id20">Articles</a></li>
+<li><a class="reference internal" href="#books" id="id21">Books</a></li>
+</ul>
+</div>
+<div class="section" id="tutorials">
+<h2><a class="toc-backref" href="#id19">Tutorials</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html">100 Numpy exercices</a>, Nicolas P. Rougier, 2016.</li>
+<li><a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/numpy/numpy.html">Numpy tutorial</a>, Nicolas P. Rougier, 2015.</li>
+<li><a class="reference external" href="http://www.python-course.eu/numpy.php">Python course</a>, Bernd Klein, 2015.</li>
+<li><a class="reference external" href="https://engineering.ucsb.edu/~shell/che210d/numpy.pdf">An introduction to Numpy and Scipy</a>, M. Scott Shell, 2014.</li>
+<li><a class="reference external" href="http://cs231n.github.io/python-numpy-tutorial/">Python Numpy tutorial</a>, Justin Johnson, 2014.</li>
+<li><a class="reference external" href="https://docs.scipy.org/doc/numpy-dev/user/quickstart.html">Quickstart tutorial</a>, Numpy developers, 2009.</li>
+<li><a class="reference external" href="http://mentat.za.net/numpy/numpy_advanced_slides/">Numpy medkits</a>, Stéfan van der Walt, 2008.</li>
+</ul>
+</div>
+<div class="section" id="articles">
+<h2><a class="toc-backref" href="#id20">Articles</a></h2>
+<ul>
+<li><p class="first"><a class="reference external" href="https://hal.inria.fr/inria-00564007/document">The NumPy array: a structure for efficient numerical computation</a>,
+Stéfan van der Walt, Chris Colbert &amp; Gael Varoquaux,
+Computing in Science and Engineering, 13(2), 2011.</p>
+<div class="abstract container">
+<p>In the Python world, NumPy arrays are the standard representation for
+numerical data and enable efficient implementation of numerical
+computations in a high-level language. As this effort shows, NumPy
+performance can be improved through three techniques: vectorizing
+calculations, avoiding copying data in memory, and minimizing operation
+counts.</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.397.6097">Vectorised algorithms for spiking neural network simulation</a>,
+Romain Brette &amp; Dan F. M. Goodman,
+Neural Computation, 23(6), 2010.</p>
+<div class="abstract container">
+<p>High-level languages (Matlab, Python) are popular in neuroscience because
+they are flexible and accelerate development. However, for simulating
+spiking neural networks, the cost of interpretation is a bottleneck. We
+describe a set of algorithms to simulate large spiking neural networks
+efficiently with high-level languages using vector-based operations. These
+algorithms constitute the core of Brian, a spiking neural network
+simulator written in the Python language. Vectorized simulation makes it
+possible to combine the flexibility of high-level languages with the
+computational efficiency usually associated with compiled languages.</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://dl.acm.org/citation.cfm?id=1251830">Python for Scientific Computing</a>,
+Travis E. Oliphant,
+Computing in Science &amp; Engineering, 9(3), 2007.</p>
+<div class="abstract container">
+<p>By itself, Python is an excellent &quot;steering&quot; language for scientific codes
+written in other languages. However, with additional basic tools, Python
+transforms into a high-level language suited for scientific and
+engineering code that's often fast enough to be immediately useful but
+also flexible enough to be sped up with additional extensions.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="books">
+<h2><a class="toc-backref" href="#id21">Books</a></h2>
+<ul>
+<li><p class="first"><a class="reference external" href="http://www.scipy-lectures.org">SciPy Lecture Notes</a>,
+Gaël Varoquaux, Emmanuelle Gouillart, Olav Vahtras et al., 2016.</p>
+<div class="abstract container">
+<p>One document to learn numerics, science, and data with Python.  Tutorials
+on the scientific Python ecosystem: a quick introduction to central tools
+and techniques. The different chapters each correspond to a 1 to 2 hours
+course with increasing level of expertise, from beginner to expert.</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://shop.oreilly.com/product/0636920034919.do">Python Data Science Handbook</a>,
+Jake van der Plas, O'Reilly, 2016.</p>
+<div class="abstract container">
+<p>The Python Data Science Handbook provides a reference to the breadth of
+computational and statistical methods that are central to data—intensive
+science, research, and discovery. People with a programming background who
+want to use Python effectively for data science tasks will learn how to
+face a variety of problems: for example, how can you read this data format
+into your script? How can you manipulate, transform, and clean this data?
+How can you use this data to gain insight, answer questions, or to build
+statistical or machine learning models?</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://shop.oreilly.com/product/0636920038481.do">Elegant SciPy: The Art of Scientific Python</a>,
+Juan Nunez-Iglesias, Stéfan van der Walt, Harriet Dashnow, O'Reilly, 2016.</p>
+<div class="abstract container">
+<p>Welcome to Scientific Python and its community! With this practical book,
+you'll learn the fundamental parts of SciPy and related libraries, and get
+a taste of beautiful, easy-to-read code that you can use in practice. More
+and more scientists are programming, and the SciPy library is here to
+help.  Finding useful functions and using them correctly, efficiently, and
+in easily readable code are two very different things. You'll learn by
+example with some of the best code available, selected to cover a wide
+range of SciPy and related libraries—including scikit-learn, scikit-image,
+toolz, and pandas.</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="https://www.packtpub.com/big-data-and-business-intelligence/learning-ipython-interactive-computing-and-data-visualization-sec">Learning IPython for Interactive Computing and Data Visualization</a>,
+Cyrille Rossant, Packt Publishing, 2015.</p>
+<div class="abstract container">
+<p>This book is a beginner-friendly guide to the Python data analysis
+platform. After an introduction to the Python language, IPython, and the
+Jupyter Notebook, you will learn how to analyze and visualize data on
+real-world examples, how to create graphical user interfaces for image
+processing in the Notebook, and how to perform fast numerical computations
+for scientific simulations with NumPy, Numba, Cython, and ipyparallel. By
+the end of this book, you will be able to perform in-depth analyses of all
+sorts of data.</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="https://www.safaribooksonline.com/library/view/scipy-and-numpy/9781449361600/">SciPy and NumPy</a>,
+Eli Bressert, O'Reilly Media, Inc., 2012</p>
+<div class="abstract container">
+<p>Are you new to SciPy and NumPy? Do you want to learn it quickly and easily
+through examples and concise introduction? Then this is the book for
+you. You’ll cut through the complexity of online documentation and
+discover how easily you can get up to speed with these Python libraries.</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://shop.oreilly.com/product/0636920023784.do">Python for Data Analysis</a>,
+Wes McKinney, O'Reilly Media, Inc., 2012.</p>
+<div class="abstract container">
+<p>Looking for complete instructions on manipulating, processing, cleaning,
+and crunching structured data in Python? This hands-on book is packed
+with practical cases studies that show you how to effectively solve a
+broad set of data analysis problems, using several Python libraries.*</p>
+</div>
+</li>
+<li><p class="first"><a class="reference external" href="http://csc.ucdavis.edu/~chaos/courses/nlp/Software/NumPyBook.pdf">Guide to NumPy</a>,
+Travis Oliphant, 2006</p>
+<div class="abstract container">
+<p>This book only briefly outlines some of the infrastructure that surrounds
+the basic objects in NumPy to provide the additional functionality
+contained in the older Numeric package (i.e. LinearAlgebra, RandomArray,
+FFT). This infrastructure in NumPy includes basic linear algebra routines,
+Fourier transform capabilities, and random number generators. In addition,
+the f2py module is described in its own documentation, and so is only
+briefly mentioned in the second part of the book.</p>
+</div>
+</li>
+</ul>
+<!-- - - - Compilation - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- rst2html.py - -link-stylesheet - -stylesheet=markdown.css book.rst book.html -->
+</div>
+</div>
+</div>
+</body>
+</html>
