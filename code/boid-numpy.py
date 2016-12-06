@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# From Numpy to Python
+# From Pytnon to Numpy
 # Copyright (2017) Nicolas P. Rougier - BSD license
 # More information at https://github.com/rougier/numpy-book
 # -----------------------------------------------------------------------------
@@ -11,15 +11,21 @@ from matplotlib.collections import PathCollection
 
 
 class MarkerCollection:
+    """
+    Marker collection
+    """
+
     def __init__(self, n=100):
         v = np.array([(-0.25, -0.25), (+0.0, +0.5), (+0.25, -0.25), (0, 0)])
         c = np.array([Path.MOVETO, Path.LINETO, Path.LINETO, Path.CLOSEPOLY])
         self._base_vertices = np.tile(v.reshape(-1), n).reshape(n, len(v), 2)
         self._vertices = np.tile(v.reshape(-1), n).reshape(n, len(v), 2)
         self._codes = np.tile(c.reshape(-1), n)
+
         self._scale = np.ones(n)
         self._translate = np.zeros((n, 2))
         self._rotate = np.zeros(n)
+
         self._path = Path(vertices=self._vertices.reshape(n*len(v), 2),
                           codes=self._codes)
         self._collection = PathCollection([self._path], linewidth=0.5,
@@ -42,8 +48,8 @@ class Flock:
     def __init__(self, count=500, width=640, height=360):
         self.width = width
         self.height = height
-        self.min_velocity = .5
-        self.max_velocity = 2
+        self.min_velocity = 0.5
+        self.max_velocity = 2.0
         self.max_acceleration = 0.03
         self.velocity = np.zeros((count, 2), dtype=np.float32)
         self.position = np.zeros((count, 2), dtype=np.float32)
@@ -80,14 +86,10 @@ class Flock:
         mask_3_count = mask_2_count
 
         # Separation
-        # -----------------------------------------------------------------------------
-        # Compute target
         mask, count = mask_1, mask_1_count
         target = np.dstack((dx, dy))
         target = np.divide(target, distance.reshape(n, n, 1)**2, out=target,
                            where=distance.reshape(n, n, 1) != 0)
-
-        # Compute steering
         steer = (target*mask.reshape(n, n, 1)).sum(axis=1)/count.reshape(n, 1)
         norm = np.sqrt((steer*steer).sum(axis=1)).reshape(n, 1)
         steer = max_velocity*np.divide(steer, norm, out=steer,
@@ -102,7 +104,7 @@ class Flock:
         separation = steer
 
         # Alignment
-        # -----------------------------------------------------------------------------
+        # ---------------------------------------------------------------------
         # Compute target
         mask, count = mask_2, mask_2_count
         target = np.dot(mask, velocity)/count.reshape(n, 1)
@@ -120,7 +122,7 @@ class Flock:
         alignment = steer
 
         # Cohesion
-        # -----------------------------------------------------------------------------
+        # ---------------------------------------------------------------------
         # Compute target
         mask, count = mask_3, mask_3_count
         target = np.dot(mask, position)/count.reshape(n, 1)
@@ -137,20 +139,20 @@ class Flock:
                             where=norm > max_acceleration)
         cohesion = steer
 
-        # -----------------------------------------------------------------------------
+        # ---------------------------------------------------------------------
         acceleration = 1.5 * separation + alignment + cohesion
         velocity += acceleration
 
         norm = np.sqrt((velocity*velocity).sum(axis=1)).reshape(n, 1)
         velocity = np.multiply(velocity, max_velocity/norm, out=velocity,
                                where=norm > max_velocity)
-        # norm = np.sqrt((velocity*velocity).sum(axis=1)).reshape(n, 1)
         velocity = np.multiply(velocity, min_velocity/norm, out=velocity,
                                where=norm < min_velocity)
         position += velocity
 
         # Wraparound
-        position[...] = (position + (self.width, self.height)) % (self.width, self.height)
+        position += (self.width, self.height)
+        position %= (self.width, self.height)
 
 
 def update(*args):
@@ -160,15 +162,16 @@ def update(*args):
     flock.run()
     collection._scale = 10
     collection._translate = flock.position
-    collection._rotate = np.arctan2(
-        flock.velocity[:, 1], flock.velocity[:, 0]) - np.pi/2
+    collection._rotate = -np.pi/2 + np.arctan2(flock.velocity[:, 1],
+                                               flock.velocity[:, 0])
     collection.update()
 
     # Trace updating
-    # P = flock.position.astype(int)
-    # trace[height-1-P[:, 1], P[:, 0]] = .75
-    # trace *= 0.99
-    # im.set_array(trace)
+    if trace is not None:
+        P = flock.position.astype(int)
+        trace[height-1-P[:, 1], P[:, 0]] = .75
+        trace *= .99
+        im.set_array(trace)
 
 
 # -----------------------------------------------------------------------------
@@ -187,10 +190,14 @@ if __name__ == '__main__':
     ax.set_yticks([])
 
     # Trace
-    # trace = np.zeros((height, width))
-    # im = ax.imshow(trace, extent=[0, width, 0, height], vmin=0, vmax=1,
-    #                interpolation="nearest", cmap=plt.cm.gray_r)
+    trace = None
+    if 0:
+        trace = np.zeros((height, width))
+        im = ax.imshow(trace, extent=[0, width, 0, height], vmin=0, vmax=1,
+                       interpolation="nearest", cmap=plt.cm.gray_r)
+
     animation = FuncAnimation(fig, update, interval=10, frames=400)
-    # animation.save('boid.mp4', fps=40, dpi=80, 
-    #                metadata={'artist':'Nicolas P. Rougier'})
+    #animation.save('boid.mp4', fps=40, dpi=80, bitrate=-1, codec="libx264",
+    #               extra_args=['-pix_fmt', 'yuv420p'],
+    #               metadata={'artist':'Nicolas P. Rougier'})
     plt.show()

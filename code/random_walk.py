@@ -10,7 +10,7 @@ import numpy as np
 def random_walk_1(n=1000):
     """ Pure python version """
 
-    position=0
+    position = 0
     walk = [position]
     for i in range(n):
         step = 2*random.randint(0, 1)-1
@@ -40,7 +40,7 @@ def find_crossing_1(seq, subseq):
 
 def find_crossing_2(seq, subseq):
     """ Fast but hardly readable """
-    # See http://stackoverflow.com/questions/7100242/python-numpy-first-occurrence-of-subarray
+    # See stackoverflow.com / "python-numpy-first-occurrence-of-subarray"
     target = np.dot(subseq, subseq)
     candidates = np.where(np.correlate(seq, subseq, mode='valid') == target)[0]
     # some of the candidates entries may be false positives, double check

@@ -1,72 +1,65 @@
-## Chapter 4 - Code vectorization
+# Chapter 4 - Code vectorization
 
-* [Introduction](#introduction)
-* [Differential vectorization](#differential)
-* [Localized vectorization](#localized)
-* [Coupled vectorization](#coupled)
-* [Earthquake visualization](#earthquake)
-* [Conclusion](#conclusion)
+## Introduction
 
-### Introduction <a name="introduction"></a>
-
-Code vectorization means that the problem you're trying to solve is inherently
-vectorizable and only requires a few numpy tricks to make it faster. Of course
-it does not mean it is easy nor straighforward, but at least it does not
-necessitate to totally rethink your problem. Still, it may require some
-experience to see where code can be vectorized. Let's illustrate this through
-the most simple example I can think of where we want to sum up two lists of
+Code vectorization means that the problem  you're trying to solve is inherently
+vectorizable  and only  requires a  few (numpy)  tricks to  make it  faster. Of
+course, it does  not mean it is  easy nor straighforward, but at  least it does
+not necessitate  to totally rethink your  problem.  Still, it may  require some
+experience to see  where and how code can be  vectorized. Let's illustrate this
+through  a  very  simple  example  where  we  want  to  sum  up  two  lists  of
 integers. One simple way using pure Python is:
 
 ```Python
-import random
-
-def solution_1(Z1,Z2):
+def add_python(Z1, Z2):
    return [z1+z2 for (z1,z2) in zip(Z1,Z2)]
 ```
 
-This first naive solution can be vectorized very easily using numpy:
+This first naive solution can be immediately vectorized as:
 
 ```Python
-import numpy as np
-    
-def solution_2(Z1,Z2):
-    return np.add(Z1,Z2)
+def add_numpy(Z1, Z2):
+    return np.add(Z1, Z2)
 ```
     
 Note that we did not write `Z1 + Z2` because it would not work if `Z1` and `Z2`
-were both lists. Without any surprise, benchmarkming the two approaches shows
-the second method is the fastest with one order of magnitude.
+were both lists.  Without any surprise, benchmarkming the  two approaches shows
+the second method is the fastest with almotst two orders of magnitude.
 
 ```Pycon
 >>> Z1 = random.sample(range(1000), 100)
 >>> Z2 = random.sample(range(1000), 100)
->>> print_timeit("solution_1(Z1, Z2)", globals())
+>>> timeit("add_python(Z1, Z2)", globals())
 1000 loops, best of 3: 68 usec per loop
->>> print_timeit("solution_2(Z1, Z2)", globals())
+>>> timeit("add_numpy(Z1, Z2)", globals())
 10000 loops, best of 3: 1.14 usec per loop
 ```
     
-Not only the second approach is faster, but it also naturally adapts to the
-shape of `Z1` and `Z2`, which is not the case for the first method because the
-`+` will be interpreted differently depending on the nature of the
-two objects. For example, if we now consider two nested lists:
+Not only  the second approach  is faster, but it  also naturally adapts  to the
+nature and  the shape of  `Z1` and `Z2`,  which is not  the case for  the first
+method because of  the inner `+` which is interpreted  differently depending on
+the nature  of the  two objects.  For example,  if we  now consider  two nested
+lists:
 
 ```Pycon
->>> Z1 = [[1,2],[3,4]]
->>> Z2 = [[5,6],[7,8]]
->>> solution_1(Z1, Z2)
+>>> Z1 = [[1, 2], [3, 4]]
+>>> Z2 = [[5, 6], [7, 8]]
+>>> Z1 + Z2
+[[1, 2], [3, 4],[5, 6], [7, 8]]
+>>> add_python(Z1, Z2)
 [[1, 2, 5, 6], [3, 4, 7, 8]]
->>> solution_2(Z1, Z2)
+>>> add_numpy(Z1, Z2)
 [[ 6  8]
  [10 12]]
 ```
 
-The first method concatenates the internal lists together while the second one
-does what is (numerically) expected. Let's move now move to more complex
-problems.
+The  first  method concatenates  the  two  lists  together, the  second  method
+concatenates the  internal lists  together and  the last  one computes  what is
+(numerically) expected. 
 
 
-### Differential vectorization <a name="differential"></a>
+
+## Differential vectorization
 
 The Mandelbrot set is the set of complex numbers `c` for which the function
 `fc(z) = z²+ c` does not diverge when iterated from z=0, i.e., for which the
@@ -236,15 +229,7 @@ def fractal_dimension(Z, threshold=0.9):
 * [Renormalizing the Mandelbrot Escape](http://linas.org/art-gallery/escape/escape.html)  
   Linas Vepstas, 1997.
 
-
-
-### Localized vectorization <a name="localized"></a>
-
-
-### Coupled vectorisation <a name="coupled"></a>
-
-
-### Earthquake visualization <a name="earthquake"></a>
-
-
-### Conclusion <a name="conclusion"></a>
+## Localized vectorization
+## Coupled vectorisation
+## Earthquake visualization
+## Conclusion

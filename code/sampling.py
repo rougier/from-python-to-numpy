@@ -133,5 +133,5 @@ if __name__ == '__main__':
     draw_voronoi(ax, P[:, 0], P[:, 1])
 
     plt.tight_layout(pad=2.5)
-    plt.savefig("../pics/sampling.png")
+    # plt.savefig("../pics/sampling.png")
     plt.show()

@@ -9,22 +9,26 @@
 
 ### Introduction <a name="introduction"></a>
 
-Let's consider a simple 2D array and check what kind of information we can get
+Let's consider a simple 2D array and  check what kind of information we can get
 from it:
 
-    Z = np.arange(5*5).reshape(5,5)
+```python
+Z = np.arange(5*5).reshape(5,5)
+```
     
-You're probably familiar with the most common properties such as shape, dtype, size or
-length:
+You're probably familiar with the most  common properties such as shape, dtype,
+size orlength:
 
-    >>> print(Z.shape)
-    (5,5)
-    >>> print(Z.dtype)
-    dtype('64')
-    >>> print(Z.size)
-    25
-    >>> print(len(Z))
-    5
+```pycon
+>>> print(Z.shape)
+(5,5)
+>>> print(Z.dtype)
+dtype('64')
+>>> print(Z.size)
+25
+>>> print(len(Z))
+5
+``
 
 However, some other properties are lesser known or utilized:
 

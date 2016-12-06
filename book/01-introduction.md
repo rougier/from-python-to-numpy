@@ -56,10 +56,12 @@ resources.
 
 We'll use usual naming conventions. If not stated explicitely, each script
 should import numpy, scipy and matplotlib as:
-  
-    import numpy as np
-    import scipy as sp
-    import matplotlib.pyplot as plt
+
+```Python
+import numpy as np
+import scipy as sp
+import matplotlib.pyplot as plt
+```
  
 We'll use up-to-date versions of the different packages at the date of
 writing (November 11, 2016):

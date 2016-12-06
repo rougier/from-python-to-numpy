@@ -183,13 +183,13 @@ if __name__ == '__main__':
     # X, Y = P[:,1], P[:,0]
     
     # Visualization maze, gradient and shortest path
-    plt.figure(figsize=(9,9))
+    plt.figure(figsize=(13, 13*Z.shape[0]/Z.shape[1]))
     ax = plt.subplot(1, 1, 1, frameon=False)
     ax.imshow(Z, interpolation='nearest', cmap=plt.cm.gray_r, vmin=0.0, vmax=1.0)
     cmap = plt.cm.hot
     cmap.set_under(color='k', alpha=0.0)
     ax.imshow(G, interpolation='nearest', cmap=cmap, vmin=0.01, vmax=G[start])
-    ax.scatter(X[1:-1], Y[1:-1], s=60,
+    ax.scatter(X[1:-1], Y[1:-1], s=50,
                lw=1, marker='o', edgecolors='k', facecolors='w')
     ax.scatter(X[[0,-1]], Y[[0,-1]], s=60,
                lw=3, marker='x', color=['w','k'])

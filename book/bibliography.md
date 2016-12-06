@@ -1,10 +1,20 @@
-## Bibliography
+---
+Title:   From Python to Numpy
+Author:  Nicolas P. Rougier
+Chapter: Bibliography
+Date:    December 2017
+License: Creative Commons Share-Alike Non-Commercial International 4.0
+---
+
+Bibliography
+===============================================================================
 
 This is a curated list of some numpy related resources (articles, books &
 tutorials) addressing different aspects and requiring different levels.
 
 
-### Articles
+Articles
+--------
 
 * [Python for Scientific Computing]
   (https://www.computer.org/csdl/mags/cs/2007/03/c3010-abs.html)  
@@ -43,7 +53,9 @@ tutorials) addressing different aspects and requiring different levels.
   > flexibility of high-level languages with the computational efficiency usually
   > associated with compiled languages.
 
-### Tutorials
+
+Tutorials
+---------
 
 * [100 Numpy exercices]
   (http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html)  
@@ -88,7 +100,9 @@ tutorials) addressing different aspects and requiring different levels.
 
   > A first-aid kit for the numerically adventurous
 
-### Books
+
+Books
+-----
 
 * [Python Data Science Handbook]
   (http://shop.oreilly.com/product/0636920034919.do)
