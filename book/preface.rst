@@ -22,11 +22,10 @@ research (CNRS_).
 He has been using Python for more than 15 years and Numpy for more than 10
 years for modeling in neuroscience, machine learning and for advanced
 visualization (OpenGL). Nicolas P. Rougier is the author of several online
-resources and tutorials (Matplotlib, Numpy, OpenGL) that have became references
-in the scientific community. He's also teaching Python, Numpy and scientific
-visualization at the University of Bordeaux and in various conferences and
-schools worldwide (SciPy, EuroScipy, etc). He's also the author of the popular
-article `Ten Simple Rules for Better Figures`_.
+resources and tutorials (Matplotlib, Numpy, OpenGL) and he's teaching Python,
+Numpy and scientific visualization at the University of Bordeaux and in various
+conferences and schools worldwide (SciPy, EuroScipy, etc). He's also the author
+of the popular article `Ten Simple Rules for Better Figures`_.
 
 
 About this book
@@ -34,6 +33,15 @@ About this book
 
 This book has been written in |ReST|_ format and generated using the
 `rst2html.py` command line available from the docutils_ python package.
+
+If you want to rebuild the html output, use:
+
+.. code-block::
+
+   $ rst2html.py --link-stylesheet --cloak-email-addresses \
+                 --toc-top-backlinks --stylesheet=book.css \
+                   book.rst book.html
+
 
 .. |ReST| replace:: restructured text
 .. _ReST: http://docutils.sourceforge.net/rst.html
@@ -43,8 +51,8 @@ This book has been written in |ReST|_ format and generated using the
 Pre-requisites
 --------------
 
-This is not a beginner guide and you should have an intermediate level in
-Python and (at least) a beginner level in Numpy. If this is not the case, have
+This is not a Python beginner guide and you should have an intermediate level in
+Python and ideally a beginner level in Numpy. If this is not the case, have
 a look at the bibliography for a curated list of resources.
 
 
@@ -61,7 +69,7 @@ should import numpy, scipy and matplotlib as:
    import matplotlib.pyplot as plt
 
 
-We'll use up-to-date versions (at the date of writing: January, 2017) of the
+We'll use up-to-date versions (at the date of writing, i.e. January, 2017) of the
 different packages:
 
 =========== =========
@@ -79,8 +87,8 @@ Matplotlib  1.5.3
 License
 --------
 
-This work is licensed under a Creative Commons Attribution-Non Commercial-Share
-Alike 4.0 International License_. You are free to:
+This work is licensed under a `Creative Commons Attribution-Non Commercial-Share
+Alike 4.0 International License <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_. You are free to:
 
 * **Share** — copy and redistribute the material in any medium or format
 * **Adapt** — remix, transform, and build upon the material
@@ -96,7 +104,6 @@ The licensor cannot revoke these freedoms as long as you follow the license term
 .. _LaBRI:                  https://www.labri.fr/
 .. _CNRS:                   http://www.cnrs.fr/index.php
 .. _University of Bordeaux: http://www.u-bordeaux.com/
-.. _License:                https://creativecommons.org/licenses/by-nc-sa/4.0/
 .. _Institute of Neurodegenerative Diseases:
       http://www.imn-bordeaux.org/en/
 .. _Ten Simple Rules for Better Figures:

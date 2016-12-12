@@ -41,24 +41,32 @@ a:active {
 
 /* --- Headers ------------------------------------------------------------- */
 
-h1:content {
-}
 h1::before {
     content: counter(h1) "";
     counter-increment: h1;
-    margin-right:10px
+    margin-right:10px;
+    color: white;
+    background-color: black;
+    padding-left: 10px; padding-right:10px;
 }
 h2::before {
     content: counter(h1) "."counter(h2) " ";
     counter-increment: h2;
-    margin-right: 10px
+    margin-right: 10px;
 }
 h3::before {
+/*
     content: counter(h1) "."counter(h2) "."counter(h3) " ";
     counter-increment: h3;
-    margin-right:10px
+    margin-right:10px;
+*/
 }
 
+
+::selection {
+    color: #000;
+    background-color: #f0f0ff;
+}
 
 h1, h2, h3 {
     padding: 15px 0 3px;
@@ -74,14 +82,17 @@ h3, h3 a, h3 a:visited {
     color: black;
 }
 h1, h1 a, h1 a:visited {
+    decoration: none;
     color: black;
-    padding-top: 3em;
-    border-bottom: 2px solid black;  /* #06e; */
+    margin-top: 3em;
+    border-bottom: 2px solid black;
     padding-left:  5%;
     margin-left:  -5%;
 }
 h1 a:hover {
-    color: #555;
+     color: #06e;
+/*       color: white;
+       background-color: black; */
 }
 h2 a:hover, h3 a:hover {
     color: black;
@@ -103,17 +114,23 @@ h1.title {
 h2.subtitle::before { content: none; }
 h2.subtitle {
     font-size: 1.0em;
-    font-weight: 300;
+    font-weight: 500;
     text-align: center;
     padding: 0;
 }
 .title-logos {
-    opacity: 0.15;
+    /* opacity: 0.15; */
     text-align: center;
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 64px;
+}
+
+/* --- Math ---------------------------------------------------------------- */
+span.formula {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
 }
 
 /* --- Code ---------------------------------------------------------------- */
@@ -142,6 +159,13 @@ pre.output {
     padding-left:   2.0em;
     padding-top:    0.5em;
     padding-bottom: 0.5em;
+}
+
+.function {
+    font-weight: 400;
+}
+.comment {
+    color: #459;
 }
 
 /* --- Bibliography -------------------------------------------------------- */
@@ -179,4 +203,47 @@ td {
 }
 tr:nth-child(even) td {
     background: #f0f0f0;
+}
+
+/* --- Admonitions --------------------------------------------------------- */
+.note {
+    font-size: 85%;
+    line-height: 125%;
+    float: left;
+    width: 240px;
+    padding: 0;
+    margin-left: -270px;
+}
+.note p {
+    text-align: left;
+    padding: 0;
+    margin:0;
+    padding-top: 0.5em;
+}
+.note p.first {
+    padding: 0;
+    padding-bottom: .5em;
+    font-weight: 400;
+    border-bottom: 1px solid #000;
+}
+
+.legend {
+    font-size: 85%;
+    line-height: 125%;
+    padding: 0;
+    float: right;
+    width: 240px;
+    margin-right: -270px;
+}
+.legend p {
+    text-align: left;
+    padding: 0;
+    margin:0;
+    padding-top: 0.5em;
+}
+.legend p.first {
+    padding: 0;
+    padding-bottom: .5em;
+    font-weight: 400;
+    border-bottom: 1px solid #000;
 }
