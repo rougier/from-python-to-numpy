@@ -42,7 +42,8 @@ If you want to rebuild the html output, use:
                  --toc-top-backlinks --stylesheet=book.css \
                    book.rst book.html
 
-
+The sources are available from https://github.com/rougier/numpy-book.
+                   
 .. |ReST| replace:: restructured text
 .. _ReST: http://docutils.sourceforge.net/rst.html
 .. _docutils: http://docutils.sourceforge.net/
@@ -87,6 +88,9 @@ Matplotlib  1.5.3
 License
 --------
 
+Book
+++++
+
 This work is licensed under a `Creative Commons Attribution-Non Commercial-Share
 Alike 4.0 International License <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_. You are free to:
 
@@ -95,6 +99,10 @@ Alike 4.0 International License <https://creativecommons.org/licenses/by-nc-sa/4
 
 The licensor cannot revoke these freedoms as long as you follow the license terms.
 
+Code
+++++
+
+The code is license under the `OSI-approved BSD 2-Clause License <LICENSE-code.txt>`_
 
 
 .. --- Links ------------------------------------------------------------------
