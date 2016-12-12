@@ -102,7 +102,8 @@ The licensor cannot revoke these freedoms as long as you follow the license term
 Code
 ++++
 
-The code is license under the `OSI-approved BSD 2-Clause License <LICENSE-code.txt>`_
+The code is license under the `OSI-approved BSD 2-Clause License
+<LICENSE-code.txt>`_.
 
 
 .. --- Links ------------------------------------------------------------------
