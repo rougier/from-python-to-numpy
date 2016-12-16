@@ -129,8 +129,14 @@ h2.subtitle {
 
 /* --- Math ---------------------------------------------------------------- */
 span.formula {
+    color: #955;
     font-family: 'Source Sans Pro';
-    font-weight: 400;
+    font-weight: 300;
+}
+div.formula {
+    color: #955;
+    font-family: 'Source Sans Pro';
+    font-weight: 300;
 }
 
 /* --- Code ---------------------------------------------------------------- */

@@ -5,36 +5,7 @@
 # -----------------------------------------------------------------------------
 import numpy as np
 
-def mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
-    def mandelbrot(z,maxiter):
-        c = z
-        for n in range(maxiter):
-            if abs(z) > horizon:
-                return n
-            z = z*z + c
-        return maxiter
-    r1 = [xmin+i*(xmax-xmin)/xn for i in range(xn)]
-    r2 = [ymin+i*(ymax-ymin)/yn for i in range(yn)]
-    return [mandelbrot(complex(r, i),maxiter) for r in r1 for i in r2]
-
-
-def mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon=2.0):
-    # Adapted from https://www.ibm.com/developerworks/community/blogs/jfp/...
-    #              .../entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en
-    X = np.linspace(xmin, xmax, xn, dtype=np.float32)
-    Y = np.linspace(ymin, ymax, yn, dtype=np.float32)
-    C = X + Y[:,None]*1j
-    N = np.zeros(C.shape, dtype=int)
-    Z = np.zeros(C.shape, np.complex64)
-    for n in range(maxiter):
-        I = np.less(abs(Z), horizon)
-        N[I] = n
-        Z[I] = Z[I]**2 + C[I]
-    N[N == maxiter-1] = 0
-    return Z, N
-
-
-def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
+def mandelbrot(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
     # Adapted from
     # https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/
     Xi, Yi = np.mgrid[0:xn, 0:yn]
@@ -70,15 +41,15 @@ def mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
 if __name__ == '__main__':
     from matplotlib import colors
     import matplotlib.pyplot as plt
-    from tools import print_timeit
+    from tools import timeit
 
     # Benchmark
     xmin, xmax, xn = -2.25, +0.75, int(3000/3)
     ymin, ymax, yn = -1.25, +1.25, int(2500/3)
     maxiter = 200
-    print_timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
-    print_timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
-    print_timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+    timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
 
     # Visualization
     xmin, xmax, xn = -2.25, +0.75, int(3000/2)
@@ -86,7 +57,7 @@ if __name__ == '__main__':
     maxiter = 200
     horizon = 2.0 ** 40
     log_horizon = np.log(np.log(horizon))/np.log(2)
-    Z, N = mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon)
+    Z, N = mandelbrot(xmin, xmax, ymin, ymax, xn, yn, maxiter, horizon)
 
     # Normalized recount as explained in:
     # http://linas.org/art-gallery/escape/smooth.html

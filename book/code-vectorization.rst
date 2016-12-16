@@ -145,7 +145,7 @@ Taking the border into account, counting neighbours is then straightforward:
 
    def compute_neigbours(Z):
        shape = len(Z), len(Z[0])
-       N  = [[0,]*(shape[0])  for i in range(shape[1])]
+       N  = [[0,]*(shape[0]) for i in range(shape[1])]
        for x in range(1,shape[0]-1):
            for y in range(1,shape[1]-1):
                N[x][y] = Z[x-1][y-1]+Z[x][y-1]+Z[x+1][y-1] \
@@ -181,7 +181,192 @@ discovered by Richard K. Guy in 1970.
        
 .. image:: ../pics/glider.png
    :width: 100%
+
+
+Numpy implementation
+++++++++++++++++++++
+
+Starting from the Python version, the vectorization of the Game of Life
+requires two parts, one responsible for counting the neighbours and one
+responsible for enforcing the rules. Neighbour counting is relatively easy if
+we remember we took care of adding a null border around the arena. By
+considering partial views of the arena we can actually access neighbours quite
+intuitively as illustred below for the one-dimensional case:
+
+.. code::
+   :class: output
+
+                  ┏━━━┳━━━┳━━━┓───┬───┐
+           Z[:-2] ┃ 0 ┃ 1 ┃ 1 ┃ 1 │ 0 │ (left neighbours)
+                  ┗━━━┻━━━┻━━━┛───┴───┘
+                        ↓︎
+              ┌───┏━━━┳━━━┳━━━┓───┐
+      Z[1:-1] │ 0 ┃ 1 ┃ 1 ┃ 1 ┃ 0 │ (actual cells)
+              └───┗━━━┻━━━┻━━━┛───┘
+                        ↑ 
+          ┌───┬───┏━━━┳━━━┳━━━┓
+   Z[+2:] │ 0 │ 1 ┃ 1 ┃ 1 ┃ 0 ┃ (right neighbours)
+          └───┴───┗━━━┻━━━┻━━━┛
+
+Going to the two dimensional case requires just a bit of arithmetic to make
+sure to consider all the eight neighbours.
+
+.. code:: python
+
+  N = np.zeros(Z.shape, dtype=int)
+  N[1:-1,1:-1] += (Z[ :-2, :-2] + Z[ :-2,1:-1] + Z[ :-2,2:] +
+                   Z[1:-1, :-2]                + Z[1:-1,2:] +
+                   Z[2:  , :-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
+
+For the rule enforcement, we can write a first version using `argwhere
+<http://docs.scipy.org/doc/numpy/reference/generated/numpy.argwhere.html>`_
+method that will give us the indices where a given condition is True.
+
+.. code:: python
+
+   # Flatten arrays
+   N_ = N.ravel()
+   Z_ = Z.ravel()
+
+   # Apply rules
+   R1 = np.argwhere( (Z_==1) & (N_ < 2) )
+   R2 = np.argwhere( (Z_==1) & (N_ > 3) )
+   R3 = np.argwhere( (Z_==1) & ((N_==2) | (N_==3)) )
+   R4 = np.argwhere( (Z_==0) & (N_==3) )
+
+   # Set new values
+   Z_[R1] = 0
+   Z_[R2] = 0
+   Z_[R3] = Z_[R3]
+   Z_[R4] = 1
+
+   # Make sure borders stay null
+   Z[0,:] = Z[-1,:] = Z[:,0] = Z[:,-1] = 0
+
+Even if this first version does not use nested loops, it is far from optimal
+because of the use of the 4 `argwhere` calls that may be quite slow. We can
+instead factorize the rules into cells that will survive (stay at 1) and cells
+that will give birth. For doing this, we can take advantage of Numpy boolean
+capability and write quite naturally:
+
+.. note::
+
+   We did no write `Z = 0` as this would simply assign the value 0 to `Z` that
+   would then become a simple scalar.
+
+.. code:: python
+
+   birth = (N==3) & (Z[1:-1,1:-1]==0)
+   survive = ((N==2) | (N==3)) & (Z[1:-1,1:-1]==1)
+   Z[...] = 0
+   Z[1:-1,1:-1][birth | survive] = 1
+
+    
+If you look at the `birth` and `survive` lines, you'll see that these two
+variables are arrays that can be used to set `Z` values to 1 after having
+cleared it.
+
+.. admonition:: **Figure 2**
+   :class: legend
+
+   The Game of Life. Gray levels indicate how miuch a cell has been active in
+   the past.
+
+.. raw:: html
+
+         <video width="100%" autoplay controls>
+         <source src="../pics/game-of-life.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+
+
+
+Exercise
+++++++++
+
+Reaction and diffusion of chemical species can produce a variety of patterns,
+reminiscent of those often seen in nature. The Gray Scott equations model such
+a reaction. For more information on this chemical system see the article
+*Complex Patterns in a Simple System* (John E. Pearson, Science, Volume 261,
+1993). Let's consider two chemical species `U` and `V` with respective
+concentrations `u` and `v` and diffusion rates `Du` and `Dv`. `V` is converted
+into `P` with a rate of conversion `k`. `f` represents the rate of the process
+that feeds `U` and drains `U`, `V` and `P`. This can be written as:
+
+.. list-table::
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Chemical reaction
+     - Equations
+
+   * - :math:`U + 2V  \rightarrow 3V`
+     - :math:`\dot{u} = Du \nabla^2 u - uv^2 + f(1-u)`
        
+   * - :math:`V  \rightarrow P`
+     - :math:`\dot{v} = Dv \nabla^2 v + uv^2 - (f+k)v`
+
+Based on the Game of Life example, try to implement such reaction-diffusion system.
+Here is a set of interesting parameters to test:
+
+============= ===== ===== ===== =====
+Name          Du    Dv    f     k 
+============= ===== ===== ===== =====
+Bacteria 1    0.16  0.08  0.035 0.065
+------------- ----- ----- ----- -----
+Bacteria 2    0.14  0.06  0.035 0.065
+------------- ----- ----- ----- -----
+Coral         0.16  0.08  0.060 0.062
+------------- ----- ----- ----- -----
+Fingerprint   0.19  0.05  0.060 0.062
+------------- ----- ----- ----- -----
+Spirals       0.10  0.10  0.018 0.050
+------------- ----- ----- ----- -----
+Spirals Dense 0.12  0.08  0.020 0.050
+------------- ----- ----- ----- -----
+Spirals Fast  0.10  0.16  0.020 0.050
+------------- ----- ----- ----- -----
+Unstable      0.16  0.08  0.020 0.055
+------------- ----- ----- ----- -----
+Worms 1       0.16  0.08  0.050 0.065
+------------- ----- ----- ----- -----
+Worms 2       0.16  0.08  0.054 0.063
+------------- ----- ----- ----- -----
+Zebrafish     0.16  0.08  0.035 0.060
+============= ===== ===== ===== =====
+
+The figure below show some animation of the model for a specific set of parameters.
+
+
+.. admonition:: **Figure 3**
+   :class: legend
+
+   Reaction-diffusion Gray-Scott model. From left to right, *Bacteria 1*, *Coral* and
+   *Spiral Dense*.
+
+.. raw:: html
+
+         <video width="33%" autoplay controls>
+         <source src="../pics/gray-scott-1.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+
+         <video width="33%" autoplay controls>
+         <source src="../pics/gray-scott-2.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+         
+         <video width="33%" autoplay controls>
+         <source src="../pics/gray-scott-3.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+
+
+
+Sources
++++++++
+
+* `game-of-life-python.py <../code/game-of-life-python.py>`_
+* `game-of-life-numpy.py <../code/game-of-life-numpy.py>`_
+* `gray-scott.py <../code/gray-scott.py>`_ (solution to the exercise)
+
+
 References
 ++++++++++
 
@@ -342,7 +527,7 @@ Visualization
 Here is a picture of the result where we use recount normalization, power
 normalized colormap (gamma=0.3) and shading. See `mandelbrot.py`.
 
-.. admonition:: **Figure 1**
+.. admonition:: **Figure 4**
    :class: legend
 
    The Mandelbrot set using recount normalization, power
@@ -354,7 +539,7 @@ normalized colormap (gamma=0.3) and shading. See `mandelbrot.py`.
 
     
 
-Exercice
+Exercise
 ++++++++
 
 .. note::
@@ -370,7 +555,7 @@ the exercise is to write a function using Numpy that takes a two-dimensional
 float array and return the dimension. We'll consider values in the array to be
 normalized (i.e. all values are between 0 and 1).
 
-.. admonition:: **Figure 2**
+.. admonition:: **Figure 5**
    :class: legend
 
    The Minkowski–Bouligand dimension of the Great Britain coastlines is
@@ -380,6 +565,14 @@ normalized (i.e. all values are between 0 and 1).
    :width: 100%
 
 
+Sources
++++++++
+
+* `mandelbrot.py <../code/mandelbrot.py>`_
+* `mandelbrot-python.py <../code/mandelbrot-python.py>`_
+* `mandelbrot-numpy-1.py <../code/mandelbrot-numpy-1.py>`_
+* `mandelbrot-numpy-2.py <../code/mandelbrot-numpy-2.py>`_
+* `fractal-dimension.py <../code/fractal-dimension.py>`_ (solution to the exercise)
 
 References
 ++++++++++
@@ -393,5 +586,59 @@ References
 Differential vectorization (spatial)
 ------------------------------------
 
+Boids
++++++
+
+
+.. note::
+
+   Excerpt from the Wikipedia entry 
+   `Boids <https://en.wikipedia.org/wiki/Boids>`_
+
+Boids is an artificial life program, developed by Craig Reynolds in 1986, which
+simulates the flocking behaviour of birds. The name "boid" corresponds to a
+shortened version of "bird-oid object", which refers to a bird-like object.
+
+As with most artificial life simulations, Boids is an example of emergent
+behavior; that is, the complexity of Boids arises from the interaction of
+individual agents (the boids, in this case) adhering to a set of simple
+rules. The rules applied in the simplest Boids world are as follows:
+
+* **separation**: steer to avoid crowding local flockmates
+* **alignment**: steer towards the average heading of local flockmates
+* **cohesion**: steer to move toward the average position (center of mass) of
+  local flockmates
+  
+
+.. admonition:: **Figure 6**
+   :class: legend
+
+   Boids are governed by a set of three local rules (separation, cohesion and
+   alignment) that serve as computing velocity and acceleration.
+
+.. image:: ../pics/boids.png
+   :width: 100%
+
+Python implementation
++++++++++++++++++++++
+
+Numpy implementation
+++++++++++++++++++++
+
+Visualization
++++++++++++++
+
+Sources
++++++++
+
+* `boid-python.py <../code/boid-python.py>`_
+* `boid-numpy.py <../code/boid-numpy.py>`_
+
+References
+++++++++++
+
+* `Flocks, herds and schools: A distributed behavioral model <http://www.red3d.com/cwr/boids/>`_, Craig Reynolds, SIGGRAPH, 1987
+
+  
 Conclusion
 ----------

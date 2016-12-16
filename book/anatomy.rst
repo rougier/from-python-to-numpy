@@ -14,13 +14,27 @@ View and copy
 -------------
 
 Let's consider two vectors `Z1` and `Z2`. We would like to know if `Z2` is a
-view of `Z1` and if yes, what is this view ? First test it check whether `Z1`
-is the base of `Z2`
+view of `Z1` and if yes, what is this view ? Let's consider a simple example:
 
 .. code-block::
 
    >>> Z1 = np.arange(10)
    >>> Z2 = Z1[1:-1:2]
+
+.. code-block::
+   :class: output
+
+      ╌╌╌┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬╌╌
+   Z1    │ 0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │
+      ╌╌╌┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴╌╌
+      ╌╌╌╌╌╌╌┬───┬╌╌╌┬───┬╌╌╌┬───┬╌╌╌┬───┬╌╌╌╌╌╌╌╌╌╌
+   Z2        │ 1 │   │ 3 │   │ 5 │   │ 7 │
+      ╌╌╌╌╌╌╌┴───┴╌╌╌┴───┴╌╌╌┴───┴╌╌╌┴───┴╌╌╌╌╌╌╌╌╌╌
+
+First test is to check whether `Z1` is the base of `Z2`
+
+.. code-block::
+
    >>> print(Z2.base is Z1)
    True
 
@@ -42,6 +56,22 @@ can take advantage of the `byte_bounds` method that returns a pointer to the
 end-points of an array.
 
 .. code-block::
+   :class: output
+
+     byte_bounds(Z1)[0]                  byte_bounds(Z1)[-1]
+             ↓                                   ↓ 
+      ╌╌╌┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬╌╌
+   Z1    │ 0 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │
+      ╌╌╌┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴╌╌
+
+         byte_bounds(Z2)[0]      byte_bounds(Z2)[-1]
+                 ↓                       ↓ 
+      ╌╌╌╌╌╌╌┬───┬╌╌╌┬───┬╌╌╌┬───┬╌╌╌┬───┬╌╌╌╌╌╌╌╌╌╌
+   Z2        │ 1 │   │ 3 │   │ 5 │   │ 7 │
+      ╌╌╌╌╌╌╌┴───┴╌╌╌┴───┴╌╌╌┴───┴╌╌╌┴───┴╌╌╌╌╌╌╌╌╌╌
+
+
+.. code-block::
 
    >>> offset_start = np.byte_bounds(Z2)[0] - np.byte_bounds(Z1)[0]
    >>> print(offset_start) # bytes
@@ -51,7 +81,10 @@ end-points of an array.
    >>> print(offset_stop) # bytes
    -16
 
-Converting to index is straightforward using the `itemsize`. 
+Converting these offsets into indices is straightforward using the `itemsize`
+and taking into account that the `offset_stop` is negative (end-bound of `Z2`
+is logically smaller than end-bound of `Z1` array). We thus need to add the
+items size of Z1 to get the right end index.
    
 .. code-block::
 
@@ -71,7 +104,11 @@ Last we test our results:
 Exercice
 ++++++++
 
-Expand the computation to multi-dimensional array.
+As an exercise, you can improve this first and very simple implementation by
+taking into account:
+
+* Negative steps
+* Multi-dimensional arrays
 
 ..    itemsize = view.itemsize
 ..    offset_start = (np.byte_bounds(view)[0] - np.byte_bounds(base)[0])//itemsize

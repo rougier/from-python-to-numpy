@@ -1,3 +1,10 @@
+.. ----------------------------------------------------------------------------
+.. Title:   From Python to Numpy
+.. Author:  Nicolas P. Rougier
+.. Date:    January 2017
+.. License: Creative Commons Share-Alike Non-Commercial International 4.0
+.. ----------------------------------------------------------------------------
+
 Problem vectorization
 ===============================================================================
 
@@ -8,9 +15,10 @@ Introduction
 ------------
 
 Problem vectorization is much harder than code vectorization because it means
-basically that you have to totally rethink your problem in order to make it
-vectorizable. Most of the time this means you have to use a total different
-algorithm to solve tour problem or even worse... to invent a new one.
+basically that you have to rethink your problem in order to make it
+vectorizable. Most of the time this means you have to use a different algorithm
+to solve tour problem or even worse... to invent a new one. The difficulty is thus
+to think out of the box.
 
 To illustrate this, let's consider a simple problem where given two vectors `X` and
 `Y`, we want to compute the sum of `X[i]*Y[j]` for all pairs of indices `i`,
@@ -65,9 +73,7 @@ process:
    >>> timeit("compute_numpy(X,X)")
    10 loops, best of 3: 0.00157926 sec per loop
   
-This is better, we gained a factor of ~150.
-
-But we can do much better.
+This is better, we gained a factor of ~150. But we can do much better.
 
 If you look again and more closely at the pure Python version, you can see that
 the inner loop is using `X[i]` that does not depend on the `j` index, meaning
@@ -98,8 +104,8 @@ compute it only once:
            result += X[i]*Ysum
        return result
 
-Not so bad, we have removed one loop. What about the other? Using the same
-approach, we can write:
+Not so bad, we have the inner loop, meaning with transform a O(n*n) complexity
+into O(n) complexity. Using the same approach, we can now write:
 
 .. code:: python
           
@@ -120,7 +126,7 @@ respectively, we can benefit from the `np.sum` function and write:
    def compute_numpy_better(x, y):
        return np.sum(y) * np.sum(x)
     
-It is shorter, clearear and much faster:
+It is shorter, clearear and much, much faster:
 
 .. code:: pycon
           
@@ -128,6 +134,9 @@ It is shorter, clearear and much faster:
    >>> timeit("compute_numpy_better(X,X)")
    1000 loops, best of 3: 3.97208e-06 sec per loop
 
+We have indeed reformulated our problem, taking advantage of the fact that
+:math:`\sum_{ij}{X_i}{Y_j} = \sum_{i}X_i \sum_{j}Y_j$`
+   
 What we've learned from this simple example is that there is two kinds of
 vectorization, the code vectorization and the problem vectorization. The latter
 is the most difficult but the most important because this is where you can
@@ -136,7 +145,7 @@ code vectorization but we gained a factor 70000 with problem vectorization,
 just by writing our problem differently (even though you cannot expect such
 huge speedup in all situation.). However, code vectorization remains an
 important factor and if we rewrite the last solution the Python way, the gain
-is good:
+is good but not as much as in the Numpy version:
 
 .. code:: python
           
@@ -158,11 +167,84 @@ still, it is 50 times slower than the numpy version:
 Path finding
 ------------
 
+.. admonition:: **Figure 8**
+   :class: legend
+
+   Path finding using the Bellman-Ford algorithm. Gradient colors indicate
+   propagated values from the end-point of the maze (bottom-right). Path is
+   found by ascending gradient from the goal.
+
+
+.. image:: ../pics/maze.png
+   :width: 100%
+
+
+Breadth-first
++++++++++++++
+
+Bellman-Ford method
++++++++++++++++++++
+
+Sources
++++++++
+
+References
+++++++++++
+
+           
 Smoke simulation
 ----------------
 
+Particle method
++++++++++++++++
+
+Grid method
++++++++++++
+
+Sources
++++++++
+
+References
+++++++++++
+
 Poisson disk sampling
 ---------------------
+
+DART method
++++++++++++
+
+Numpy implementation
+++++++++++++++++++++
+
+
+.. admonition:: **Figure 9**
+   :class: legend
+
+   Comparison of uniform, grid-jittered and Poisson disc sampling.
+
+
+.. image:: ../pics/sampling.png
+   :width: 100%
+
+Sources
++++++++
+
+* `sampling.py <../code/sampling.py>`_
+* `mosaic.py <../code/mosaic.py>`_
+* `voronoi.py <../code/voronoi.py>`_
+
+References
+++++++++++
+
+* `Visualizing Algorithms <https://bost.ocks.org/mike/algorithms/>`_
+  Mike Bostock, 2014.
+* `Stippling and Blue Noise <http://www.joesfer.com/?p=108>`_
+  Jose Esteve, 2012.
+* `Poisson Disk Sampling <http://devmag.org.za/2009/05/03/poisson-disk-sampling/>`_
+  Herman Tulleken, 2009.
+* `Fast Poisson Disk Sampling in Arbitrary Dimensions <http://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf>`_
+  Robert Bridson, SIGGRAPH, 2007.
+
 
 Conclusion
 ----------

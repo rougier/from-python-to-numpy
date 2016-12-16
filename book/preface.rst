@@ -85,11 +85,21 @@ Scipy       0.18.1
 Matplotlib  1.5.3
 =========== =========
 
+How to contribute
+-----------------
+
+If you want to contribute to this book, you can do it by:
+
+* Reviewing chapters (please contact me)
+* Reporting issues (https://github.com/rougier/numpy-book/issues)
+* Suggesting improvements (https://github.com/rougier/numpy-book/pulls)
+* Designing a better and responsive template for the book website
+
+
 License
 --------
 
-Book
-++++
+**Book**
 
 This work is licensed under a `Creative Commons Attribution-Non Commercial-Share
 Alike 4.0 International License <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_. You are free to:
@@ -99,10 +109,9 @@ Alike 4.0 International License <https://creativecommons.org/licenses/by-nc-sa/4
 
 The licensor cannot revoke these freedoms as long as you follow the license terms.
 
-Code
-++++
+**Code**
 
-The code is license under the `OSI-approved BSD 2-Clause License
+The code is licensed under the `OSI-approved BSD 2-Clause License
 <LICENSE-code.txt>`_.
 
 

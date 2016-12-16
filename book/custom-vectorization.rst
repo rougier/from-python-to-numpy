@@ -4,6 +4,12 @@ Custom vectorization
 .. contents:: **Contents**
    :local:
 
+      
+Introduction
+------------
+
+One of the strength of Numpy is that it allows you to write your own array
+class. The mechanism is a bit tedious but it is worth the effort.
 
 
 Typed list

@@ -173,7 +173,7 @@ def BreadthFirst(maze, start, goal):
 # -------------------------------------------------------------------- main ---
 if __name__ == '__main__':
 
-    Z = build_maze((51,101))
+    Z = build_maze((41,81))
     start, goal = (1,1), (Z.shape[0]-2, Z.shape[1]-2)
     
     G, P = BellmanFord(Z, start, goal)
@@ -189,11 +189,12 @@ if __name__ == '__main__':
     cmap = plt.cm.hot
     cmap.set_under(color='k', alpha=0.0)
     ax.imshow(G, interpolation='nearest', cmap=cmap, vmin=0.01, vmax=G[start])
-    ax.scatter(X[1:-1], Y[1:-1], s=50,
+    ax.scatter(X[1:-1], Y[1:-1], s=60,
                lw=1, marker='o', edgecolors='k', facecolors='w')
     ax.scatter(X[[0,-1]], Y[[0,-1]], s=60,
                lw=3, marker='x', color=['w','k'])
     ax.set_xticks([])
     ax.set_yticks([])
     plt.tight_layout()
+    plt.savefig("maze.png")
     plt.show()
