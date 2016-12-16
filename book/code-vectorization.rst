@@ -179,7 +179,7 @@ discovered by Richard K. Guy in 1970.
    The glider pattern is known to replicate itself one step diagonally in 4
    iterations.
        
-.. image:: ../pics/glider.png
+.. image:: ../data/glider.png
    :width: 100%
 
 
@@ -275,7 +275,7 @@ cleared it.
 .. raw:: html
 
          <video width="100%" autoplay controls>
-         <source src="../pics/game-of-life.mp4" type="video/mp4">
+         <source src="../data/game-of-life.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
 
@@ -346,15 +346,15 @@ The figure below show some animation of the model for a specific set of paramete
 .. raw:: html
 
          <video width="33%" autoplay controls>
-         <source src="../pics/gray-scott-1.mp4" type="video/mp4">
+         <source src="../data/gray-scott-1.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
          <video width="33%" autoplay controls>
-         <source src="../pics/gray-scott-2.mp4" type="video/mp4">
+         <source src="../data/gray-scott-2.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
          
          <video width="33%" autoplay controls>
-         <source src="../pics/gray-scott-3.mp4" type="video/mp4">
+         <source src="../data/gray-scott-3.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
 
@@ -533,7 +533,7 @@ normalized colormap (gamma=0.3) and shading. See `mandelbrot.py`.
    The Mandelbrot set using recount normalization, power
    normalized colormap (gamma=0.3) and light shading.
 
-.. figure:: ../pics/mandelbrot.png
+.. figure:: ../data/mandelbrot.png
    :width: 100%
 
 
@@ -561,7 +561,7 @@ normalized (i.e. all values are between 0 and 1).
    The Minkowski–Bouligand dimension of the Great Britain coastlines is
    approximately 1.24.
 
-.. figure:: ../pics/fractal-dimension.png
+.. figure:: ../data/fractal-dimension.png
    :width: 100%
 
 
@@ -616,7 +616,7 @@ rules. The rules applied in the simplest Boids world are as follows:
    Boids are governed by a set of three local rules (separation, cohesion and
    alignment) that serve as computing velocity and acceleration.
 
-.. image:: ../pics/boids.png
+.. image:: ../data/boids.png
    :width: 100%
 
 Python implementation

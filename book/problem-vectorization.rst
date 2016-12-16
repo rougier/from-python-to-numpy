@@ -175,7 +175,7 @@ Path finding
    found by ascending gradient from the goal.
 
 
-.. image:: ../pics/maze.png
+.. image:: ../data/maze.png
    :width: 100%
 
 
@@ -223,7 +223,7 @@ Numpy implementation
    Comparison of uniform, grid-jittered and Poisson disc sampling.
 
 
-.. image:: ../pics/sampling.png
+.. image:: ../data/sampling.png
    :width: 100%
 
 Sources

@@ -16,13 +16,13 @@
 
 .. container:: title-logos
 
-   .. image:: ../pics/cc.large.png
+   .. image:: ../data/cc.large.png
       :width: 40px
-   .. image:: ../pics/by.large.png
+   .. image:: ../data/by.large.png
       :width: 40px
-   .. image:: ../pics/sa.large.png
+   .. image:: ../data/sa.large.png
       :width: 40px
-   .. image:: ../pics/nc.large.png
+   .. image:: ../data/nc.large.png
       :width: 40px
 
 
