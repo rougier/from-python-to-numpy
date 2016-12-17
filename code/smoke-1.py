@@ -36,7 +36,16 @@ def clear_data():
     dens[:, :] = 0.0
     dens_prev[:, :] = 0.0
 
-    dens[N//4:3*N//4, N//4:3*N//4] = source/10
+
+    def disc(shape=(size,size), center=(size/2,size/2), radius = 10):
+        def distance(x,y):
+            return np.sqrt((x-center[0])**2+(y-center[1])**2)
+        D = np.fromfunction(distance,shape)
+        return np.where(D <= radius, True, False)
+
+    D = disc(radius=32) - disc(radius=16)
+    dens[...] = D*source/10
+    # dens[N//4:3*N//4, N//4:3*N//4] = source/10
     u[:, :] = force * 0.1 * np.random.uniform(-1, 1, u.shape)
     v[:, :] = force * 0.1 * np.random.uniform(-1, 1, u.shape)
 
@@ -117,11 +126,11 @@ if __name__ == '__main__':
 
     im = ax.imshow(dens[1:-1,1:-1],
                    interpolation='bicubic', extent=[0,1,0,1],
-                   cmap=plt.cm.gray, origin="lower", vmin=0, vmax=1)
+                   cmap=plt.cm.magma, origin="lower", vmin=0, vmax=1)
     
     animation = FuncAnimation(fig, update, interval=10, frames=800)
     if 1:
-        animation.save('smoke.mp4', fps=40, dpi=80, bitrate=-1, codec="libx264",
+        animation.save('smoke-1.mp4', fps=40, dpi=80, bitrate=-1, codec="libx264",
                        extra_args=['-pix_fmt', 'yuv420p'],
                        metadata={'artist':'Nicolas P. Rougier'})
-#    plt.show()
+    plt.show()

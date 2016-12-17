@@ -2,7 +2,7 @@ import numpy as np
 from solver import vel_step, dens_step
 
 
-N = 128
+N = 64
 size = N + 2
 dt = 0.1
 diff = 0.0
@@ -26,7 +26,6 @@ dens_prev = np.zeros((size, size), np.float32)
 
 
 def clear_data():
-    """clear_data."""
     global u, v, u_prev, v_prev, dens, dens_prev, size
 
     u[:, :] = 0.0
@@ -36,23 +35,16 @@ def clear_data():
     dens[:, :] = 0.0
     dens_prev[:, :] = 0.0
 
-    dens[N//4:3*N//4, N//4:3*N//4] = source/10
-    u[:, :] = force * 0.1 * np.random.uniform(-1, 1, u.shape)
-    v[:, :] = force * 0.1 * np.random.uniform(-1, 1, u.shape)
-
 
 def user_step(d, u, v):
     global mouse
 
-    return
-        
     d[:, :] = 0.0
     u[:, :] = 0.0
     v[:, :] = 0.0
 
-#    if mouse["button"] not in [1, 3]:
-#        return
-
+    if mouse["button"] not in [1, 3]:
+        return
     if mouse["x"] is None or mouse["y"] is None:
         return
 
@@ -63,9 +55,10 @@ def user_step(d, u, v):
 
     if mouse["button"] == 3:
         d[i, j] = source
-    else:
+    elif mouse["button"] == 1:
         u[i, j] = force * (mouse["x"] - mouse["ox"])*100
         v[i, j] = force * (mouse["oy"] - mouse["y"])*100
+        
     mouse["ox"] = mouse["x"]
     mouse["oy"] = mouse["y"]
 
@@ -77,7 +70,7 @@ def update(*args):
     vel_step(N, u, v, u_prev, v_prev, visc, dt)
     dens_step(N, dens, dens_prev, u, v, diff, dt)
     im.set_data(dens)
-    im.set_clim(vmin=dens.min(), vmax=dens.max())
+    # im.set_clim(vmin=dens.min(), vmax=dens.max())
 
 def on_button_press(event):
     global mouse
@@ -110,18 +103,13 @@ if __name__ == '__main__':
     cid = fig.canvas.mpl_connect('button_release_event', on_button_release)
     cid = fig.canvas.mpl_connect('motion_notify_event', on_motion)
 
-    ax.set_xlim(0,1)
+    ax.set_xlim(0, 1)
     ax.set_xticks([])
-    ax.set_ylim(0,1)
+    ax.set_ylim(0, 1)
     ax.set_yticks([])
-
-    im = ax.imshow(dens[1:-1,1:-1],
-                   interpolation='bicubic', extent=[0,1,0,1],
+    im = ax.imshow(dens[1:-1, 1:-1],
+                   interpolation='bicubic', extent=[0, 1, 0, 1],
                    cmap=plt.cm.gray, origin="lower", vmin=0, vmax=1)
-    
+
     animation = FuncAnimation(fig, update, interval=10, frames=800)
-    if 1:
-        animation.save('smoke.mp4', fps=40, dpi=80, bitrate=-1, codec="libx264",
-                       extra_args=['-pix_fmt', 'yuv420p'],
-                       metadata={'artist':'Nicolas P. Rougier'})
-#    plt.show()
+    plt.show()

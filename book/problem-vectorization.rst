@@ -195,11 +195,29 @@ References
 Smoke simulation
 ----------------
 
+.. admonition:: **Figure 8**
+   :class: legend
+
+   Smoke simulation.
+
+.. raw:: html
+
+         <video width="49%" autoplay controls>
+         <source src="../data/smoke-1.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+
+         <video width="49%" autoplay controls>
+         <source src="../data/smoke-2.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+
+
 Particle method
 +++++++++++++++
 
 Grid method
 +++++++++++
+
+
 
 Sources
 +++++++
