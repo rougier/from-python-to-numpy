@@ -3,7 +3,7 @@
 # Copyright (2017) Nicolas P. Rougier - BSD license
 # More information at https://github.com/rougier/numpy-book
 # -----------------------------------------------------------------------------
-def print_sysinfo():
+def sysinfo():
     import sys
     import time
     import numpy as np
@@ -20,7 +20,7 @@ def print_sysinfo():
 
     
 
-def print_timeit(stmt, globals):
+def timeit(stmt, globals):
     import timeit
     import numpy as np
     
@@ -59,7 +59,7 @@ def print_timeit(stmt, globals):
     # print("%d loops, best of %d: %g sec per loop" % (number, repeat, best/number))
 
     
-def print_info(Z):
+def info(Z):
     import numpy as np
         
     print("------------------------------")

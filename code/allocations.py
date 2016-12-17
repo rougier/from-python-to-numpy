@@ -33,6 +33,7 @@ def solution_3():
     return [(a, b, c, (10 - a - b - c))
             for a in range(11) for b in range(11 - a) for c in range(11 - a - b)]
 
+
 def solution_3_bis():
     # Iterator using intricated iterations
     # 486 iterations, no test
@@ -49,13 +50,13 @@ def solution_4():
 
 
 if __name__ == '__main__':
-    from tools import print_timeit
+    from tools import timeit
 
-    print_timeit("solution_1()", globals())
-    print_timeit("solution_2()", globals())
-    print_timeit("solution_3()", globals())
-    print_timeit("solution_4()", globals())
-    print_timeit("solution_5()", globals())
+    timeit("solution_1()", globals())
+    timeit("solution_2()", globals())
+    timeit("solution_3()", globals())
+    timeit("solution_4()", globals())
+    # timeit("solution_5()", globals())
     print()
-    print_timeit("solution_3_bis()", globals())
+    timeit("solution_3_bis()", globals())
 

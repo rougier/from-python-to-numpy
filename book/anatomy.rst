@@ -110,11 +110,8 @@ taking into account:
 * Negative steps
 * Multi-dimensional arrays
 
-..    itemsize = view.itemsize
-..    offset_start = (np.byte_bounds(view)[0] - np.byte_bounds(base)[0])//itemsize
-..    offset_stop = (np.byte_bounds(view)[-1] - np.byte_bounds(base)[-1]-1)//itemsize
-..    index_start = np.unravel_index(offset_start, base.shape)
-..    index_stop = np.unravel_index(base.size+offset_stop, base.shape)
-..    index_step  = np.array(view.strides)//np.array(base.strides)
+  
+Sources
++++++++
 
-
+* `find_index <../code/find_index.py>`_ (solution to the exercise)
