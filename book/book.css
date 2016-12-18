@@ -40,7 +40,6 @@ a:active {
 }
 
 /* --- Headers ------------------------------------------------------------- */
-
 h1::before {
     content: counter(h1) "";
     counter-increment: h1;
@@ -98,6 +97,46 @@ h2 a:hover, h3 a:hover {
     color: black;
     border-bottom: 1px solid black;
 }
+
+/* --- Table of contents --------------------------------------------------- */
+.main-content {
+    padding-top: 1em;
+}
+    
+.main-content .topic-title {
+    border-bottom: 1px solid black;
+    padding-left:  5%;
+    margin-left:  -5%;
+}
+
+.main-content ul.simple {
+    padding-left: 0;
+    column-count: 3;
+}
+
+.main-content ul ul {
+    padding-left: 1em;
+}
+
+.main-content ul.simple li {
+    color: #06e;
+    font-weight: 400;
+    list-style-type: decimal;
+    list-style-position: inside;
+/*  list-style-type: none;*/
+}
+
+.main-content ul.simple li li {
+    font-weight: 200;
+    list-style-type: none;
+}
+.main-content ul.simple li li:before {
+    content: "•"; /* Insert content that looks like bullets */
+    padding-right: 0.5em;
+}
+
+
+
 
 /* --- Title/Subtitle ------------------------------------------------------ */
 h1.title::before { content: none; }

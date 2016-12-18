@@ -4,6 +4,8 @@ Code vectorization
 .. contents:: **Contents**
    :local:
 
+
+
 Introduction
 ------------
 
@@ -392,8 +394,8 @@ References
 ..      └───┴───┴───┴───┘  └───┴───┴───┴───┘  └───┴───┴───┴───┘  └───┴───┴───┴───┘
 
 
-Differential vectorization (temporal)
--------------------------------------
+Temporal vectorization
+----------------------
 
 
 The Mandelbrot set is the set of complex numbers `c` for which the function
@@ -524,8 +526,14 @@ Benchmark gives us:
 Visualization
 +++++++++++++ 
 
-Here is a picture of the result where we use recount normalization, power
-normalized colormap (gamma=0.3) and shading. See `mandelbrot.py`.
+In order to visualize our results, we could directly display the `N` array
+using the matplotlib `imshow` command but this would result in a "banded" image
+that is a known consequence of the escape count algorithm that we've been
+using. Such banding can be elimitated by using a fractional escape count. This
+can be done by measuring how far the iterated point landed outside of the
+escape cutoff. See reference below about the renormalization of the escape
+count. Here is a picture of the result where we use recount normalization,
+and added a power normalized colormap (gamma=0.3) as well as light shading.
 
 .. admonition:: **Figure 4**
    :class: legend
@@ -583,12 +591,33 @@ References
 * `Renormalizing the Mandelbrot Escape <http://linas.org/art-gallery/escape/escape.html>`_, Linas Vepstas, 1997.
 
 
-Differential vectorization (spatial)
-------------------------------------
+Spatial vectorization
+---------------------
+
+Spatial vectorization refers to a situation where elements share the same
+computation but are in interaction with only a subgroup of other elements. This
+was already the case for the game of life example but in the present case,
+there is an added difficulty because the subgroup is dynamic and needs to be
+update at each iteration. This the case for example in particle systems where
+particles interact mostly with local neighbours. This is also the case for
+boids that simulate flocking behaviors.
 
 Boids
 +++++
 
+.. admonition:: **Figure 6**
+   :class: legend
+
+   Boids is an artificial life program, developed by Craig Reynolds in 1986,
+   which simulates the flocking behaviour of birds.
+
+.. raw:: html
+
+         <video width="100%" controls>
+         <source src="../data/boids.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+
+|
 
 .. note::
 
@@ -610,7 +639,7 @@ rules. The rules applied in the simplest Boids world are as follows:
   local flockmates
   
 
-.. admonition:: **Figure 6**
+.. admonition:: **Figure 7**
    :class: legend
 
    Boids are governed by a set of three local rules (separation, cohesion and
@@ -637,6 +666,7 @@ Sources
 References
 ++++++++++
 
+* `Flocking <https://processing.org/examples/flocking.html>`_, Daniel Shiffman, 2010.
 * `Flocks, herds and schools: A distributed behavioral model <http://www.red3d.com/cwr/boids/>`_, Craig Reynolds, SIGGRAPH, 1987
 
   

@@ -196,8 +196,8 @@ if __name__ == '__main__':
         im = ax.imshow(trace, extent=[0, width, 0, height], vmin=0, vmax=1,
                        interpolation="nearest", cmap=plt.cm.gray_r)
 
-    animation = FuncAnimation(fig, update, interval=10, frames=400)
-    #animation.save('boid.mp4', fps=40, dpi=80, bitrate=-1, codec="libx264",
-    #               extra_args=['-pix_fmt', 'yuv420p'],
-    #               metadata={'artist':'Nicolas P. Rougier'})
+    animation = FuncAnimation(fig, update, interval=10, frames=1000)
+    animation.save('boid.mp4', fps=40, dpi=80, bitrate=-1, codec="libx264",
+                   extra_args=['-pix_fmt', 'yuv420p'],
+                   metadata={'artist': 'Nicolas P. Rougier'})
     plt.show()

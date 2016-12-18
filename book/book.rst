@@ -39,7 +39,8 @@ make you acquire experience in the process.
 
 .. ----------------------------------------------------------------------------
 .. contents:: **Table of Contents**
-   :depth: 1
+   :class: main-content
+   :depth: 2
 
 
 .. ----------------------------------------------------------------------------

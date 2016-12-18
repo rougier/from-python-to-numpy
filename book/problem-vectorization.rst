@@ -135,17 +135,16 @@ It is shorter, clearear and much, much faster:
    1000 loops, best of 3: 3.97208e-06 sec per loop
 
 We have indeed reformulated our problem, taking advantage of the fact that
-:math:`\sum_{ij}{X_i}{Y_j} = \sum_{i}X_i \sum_{j}Y_j$`
-   
-What we've learned from this simple example is that there is two kinds of
-vectorization, the code vectorization and the problem vectorization. The latter
-is the most difficult but the most important because this is where you can
-expect huge gains in speed. In this simple example, we gain a factor 150 with
-code vectorization but we gained a factor 70000 with problem vectorization,
-just by writing our problem differently (even though you cannot expect such
-huge speedup in all situation.). However, code vectorization remains an
-important factor and if we rewrite the last solution the Python way, the gain
-is good but not as much as in the Numpy version:
+:math:`\sum_{ij}{X_i}{Y_j} = \sum_{i}X_i \sum_{j}Y_j$` and we've learned in the
+meantime that there are two kinds of vectorization: code vectorization and
+the problem vectorization. The latter is the most difficult but the most
+important because this is where you can expect huge gains in speed. In this
+simple example, we gain a factor 150 with code vectorization but we gained a
+factor 70000 with problem vectorization, just by writing our problem
+differently (even though you cannot expect such huge speedup in all
+situation.). However, code vectorization remains an important factor and if we
+rewrite the last solution the Python way, the gain is good but not as much as
+in the Numpy version:
 
 .. code:: python
           
@@ -199,12 +198,13 @@ Computational Fluid Dynamics
 ++++++++++++++++++++++++++++
 
 
-.. admonition:: **Figure 8**
+.. admonition:: **Figure 9**
    :class: legend
 
    Smoke simulation using the stable fluids algorithm by Jos Stam.  Right most
-   simulation comes from the `glumpy <http://glumpy.github.io>`_ examples and
-   has been implemented using the GPU.
+   video comes from the `glumpy <http://glumpy.github.io>`_ package and is
+   using the GPU (framebuffer operations, i.e. no OpenCL nor CUDA) for faster
+   computations.
 
    
 .. raw:: html
@@ -274,7 +274,7 @@ Numpy implementation
 ++++++++++++++++++++
 
 
-.. admonition:: **Figure 9**
+.. admonition:: **Figure 10**
    :class: legend
 
    Comparison of uniform, grid-jittered and Poisson disc sampling.

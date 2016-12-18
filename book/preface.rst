@@ -54,7 +54,7 @@ Pre-requisites
 
 This is not a Python beginner guide and you should have an intermediate level in
 Python and ideally a beginner level in Numpy. If this is not the case, have
-a look at the bibliography for a curated list of resources.
+a look at the bibliography_ for a curated list of resources.
 
 
 Conventions
