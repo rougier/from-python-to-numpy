@@ -1,6 +1,10 @@
+# -----------------------------------------------------------------------------
+# From Numpy to Python
+# Copyright (2017) Nicolas P. Rougier - BSD license
+# More information at https://github.com/rougier/numpy-book
+# -----------------------------------------------------------------------------
 import numpy as np
-from solver import vel_step, dens_step
-
+from smoke_solver import vel_step, dens_step
 
 N = 64
 size = N + 2
@@ -25,7 +29,7 @@ dens = np.zeros((size, size), np.float32)  # density
 dens_prev = np.zeros((size, size), np.float32)
 
 
-def clear_data():
+def initialization():
     global u, v, u_prev, v_prev, dens, dens_prev, size
 
     u[:, :] = 0.0
@@ -56,9 +60,9 @@ def user_step(d, u, v):
     if mouse["button"] == 3:
         d[i, j] = source
     elif mouse["button"] == 1:
-        u[i, j] = force * (mouse["x"] - mouse["ox"])*100
-        v[i, j] = force * (mouse["oy"] - mouse["y"])*100
-        
+        u[i, j] = force * (mouse["y"] - mouse["oy"])*200
+        v[i, j] = force * (mouse["x"] - mouse["ox"])*200
+
     mouse["ox"] = mouse["x"]
     mouse["oy"] = mouse["y"]
 
@@ -72,17 +76,20 @@ def update(*args):
     im.set_data(dens)
     # im.set_clim(vmin=dens.min(), vmax=dens.max())
 
+
 def on_button_press(event):
     global mouse
     mouse["ox"] = mouse["x"] = event.xdata
     mouse["oy"] = mouse["y"] = event.ydata
     mouse["button"] = event.button
 
+
 def on_button_release(event):
     global mouse
     mouse["ox"] = mouse["x"] = event.xdata
     mouse["oy"] = mouse["y"] = event.ydata
     mouse["button"] = None
+
 
 def on_motion(event):
     global mouse
@@ -93,8 +100,6 @@ def on_motion(event):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     from matplotlib.animation import FuncAnimation
-
-    clear_data()
 
     fig = plt.figure(figsize=(5, 5))
     ax = fig.add_axes([0, 0, 1, 1], frameon=False)
@@ -107,9 +112,10 @@ if __name__ == '__main__':
     ax.set_xticks([])
     ax.set_ylim(0, 1)
     ax.set_yticks([])
+
+    initialization()
     im = ax.imshow(dens[1:-1, 1:-1],
                    interpolation='bicubic', extent=[0, 1, 0, 1],
                    cmap=plt.cm.gray, origin="lower", vmin=0, vmax=1)
-
     animation = FuncAnimation(fig, update, interval=10, frames=800)
     plt.show()

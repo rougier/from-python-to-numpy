@@ -1,7 +1,14 @@
+# -----------------------------------------------------------------------------
+# From Numpy to Python
+# Copyright (2017) Nicolas P. Rougier - BSD license
+# More information at https://github.com/rougier/numpy-book
+# -----------------------------------------------------------------------------
 """
 Real-Time Fluid Dynamics for Games by Jos Stam (2003).
-Parts of author's work are also protected
-under U. S. patent #6,266,071 B1 [Patent].
+
+Copyright (c) 2015 Alberto Santini - MIT License
+Code adapted from Alberto Santini implementation available at:
+https://github.com/albertosantini/python-fluid
 """
 import numpy as np
 
@@ -17,7 +24,7 @@ def set_bnd(N, b, x):
     """
 
     if b == 1:
-        x[ 0, 1:-1] = -x[1, 1:-1]
+        x[0, 1:-1] = -x[1, 1:-1]
         x[-1, 1:-1] = -x[N, 1:-1]
     else:
         x[ 0, 1:-1] = x[1, 1:-1]

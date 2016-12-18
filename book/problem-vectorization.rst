@@ -17,7 +17,7 @@ Introduction
 Problem vectorization is much harder than code vectorization because it means
 basically that you have to rethink your problem in order to make it
 vectorizable. Most of the time this means you have to use a different algorithm
-to solve tour problem or even worse... to invent a new one. The difficulty is thus
+to solve your problem or even worse... to invent a new one. The difficulty is thus
 to think out of the box.
 
 To illustrate this, let's consider a simple problem where given two vectors `X` and
@@ -195,35 +195,74 @@ References
 Smoke simulation
 ----------------
 
+Computational Fluid Dynamics
+++++++++++++++++++++++++++++
+
+
 .. admonition:: **Figure 8**
    :class: legend
 
-   Smoke simulation.
+   Smoke simulation using the stable fluids algorithm by Jos Stam.  Right most
+   simulation comes from the `glumpy <http://glumpy.github.io>`_ examples and
+   has been implemented using the GPU.
 
+   
 .. raw:: html
 
-         <video width="49%" autoplay controls>
+         <video width="33%" controls>
          <source src="../data/smoke-1.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
-         <video width="49%" autoplay controls>
+         <video width="33%" controls>
          <source src="../data/smoke-2.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
+         <video width="33%" controls>
+         <source src="../data/smoke-gpu.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
 
-Particle method
-+++++++++++++++
 
-Grid method
-+++++++++++
+Lagrangian vs Eulerian method
++++++++++++++++++++++++++++++
 
+.. note::
+
+   Excerpt from the Wikipedia entry on the 
+   `Lagrangian and Eulerian specification <https://en.wikipedia.org/wiki/Lagrangian_and_Eulerian_specification_of_the_flow_field>`_
+
+In classical field theory the Lagrangian specification of the field is a way of
+looking at fluid motion where the observer follows an individual fluid parcel
+as it moves through space and time. Plotting the position of an individual
+parcel through time gives the pathline of the parcel. This can be visualized as
+sitting in a boat and drifting down a river.
+
+The Eulerian specification of the flow field is a way of looking at fluid
+motion that focuses on specific locations in the space through which the fluid
+flows as time passes. This can be visualized by sitting on the bank of a river
+and watching the water pass the fixed location.
+
+Numpy implementation
+++++++++++++++++++++
 
 
 Sources
 +++++++
 
+* `smoke-1.py <../code/smoke-1.py>`_
+* `smoke-2.py <../code/smoke-2.py>`_
+* `smoke_solver.py <../code/smoke_solver.py>`_
+* `smoke-interactive.py <../code/smoke-interactive.py>`_
+
+
 References
 ++++++++++
+
+* `12 Steps to Navier-Stokes <https://github.com/barbagroup/CFDPython>`_, Lorena Barba, 2013.
+* `Stable Fluids <http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/ns.pdf>`_, Jos Stam, 1999.
+* `Simple Fluid Simulation <http://prideout.net/blog/?p=58>`_, Philip Rideout, 2010
+* `Fast Fluid Dynamics Simulation on the GPU <http://http.developer.nvidia.com/GPUGems/gpugems_ch38.html>`_, Mark Harris, 2004.
+
+
 
 Poisson disk sampling
 ---------------------
