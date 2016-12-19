@@ -199,7 +199,6 @@ Smoke simulation
 Computational Fluid Dynamics
 ++++++++++++++++++++++++++++
 
-
 .. admonition:: **Figure 9**
    :class: legend
 
@@ -269,6 +268,8 @@ References
 Poisson disk sampling
 ---------------------
 
+|WIP|
+
 DART method
 +++++++++++
 
@@ -307,3 +308,5 @@ References
 
 Conclusion
 ----------
+
+|WIP|

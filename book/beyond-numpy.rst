@@ -122,7 +122,7 @@ by looking at the type of the returned object:
 
 The `solution_3_bis()` returns a generator that can be used to generate the
 full list or to iterate over all the different elements. In any case, the huge
-speedup comes from the non-instantiation of the full list and it is this
+speedup comes from the non-instantiation of the full list and it is thus
 important to wonder if you need an actual instance of your result or if a
 simple generator might do the job.
 
@@ -265,8 +265,7 @@ CUDA parallel computation API from Python.
    b = np.random.uniform(0, 1, 1000).astype(np.float32)
    c = np.zeros_like(a)
    
-   evaluate(drv.Out(c), drv.In(a), drv.In(b),
-            block=(400,1,1), grid=(1,1))
+   evaluate(drv.Out(c), drv.In(a), drv.In(b), block=(400,1,1), grid=(1,1))
 
 
 PyOpenCL
@@ -292,13 +291,12 @@ and other massively parallel compute devices from Python.
    gpu_b = cl.Buffer(ctx, mf.READ_ONLY | mf.COPY_HOST_PTR, hostbuf=b)
 
    evaluate = cl.Program(ctx, """
-       __kernel void evaluate(
-           __global const float *gpu_a;
-           __global const float *gpu_b;
-           __global float *gpu_c)
+       __kernel void evaluate(__global const float *gpu_a;
+                              __global const float *gpu_b;
+                              __global       float *gpu_c)
        {
-         int gid = get_global_id(0);
-         gpu_c[gid] = 2*gpu_a[gid] + 3*gpu_b[gid];
+           int gid = get_global_id(0);
+           gpu_c[gid] = 2*gpu_a[gid] + 3*gpu_b[gid];
        }
    """).build()
 
@@ -308,45 +306,72 @@ and other massively parallel compute devices from Python.
 
 
 
-Scipy & friends
----------------
+..
+   Friends of Scipy
+   ----------------
 
-Here is a very short list of packages that are well-maintained, well tested and
-may simplify your scientific life (depending on your domain). There are of
-course many more and depending on your specific needs, chances are you do not
-have to program everything by yourself. But it is a good exercise if you have
-some spare time. For an extensive list, have a look at the `Awesome python list
-<https://awesome-python.com>`_.
+   Here is a very short list of packages that are well-maintained, well tested and
+   may simplify your scientific life (depending on your domain). There are of
+   course many more and depending on your specific needs, chances are you do not
+   have to program everything by yourself. But it is a good exercise if you have
+   some spare time. For an extensive list, have a look at the `Awesome python list
+   <https://awesome-python.com>`_.
 
-* `scikit-image <http://scikit-image.org>`_ is a Python package dedicated to
-  image processing, and using natively NumPy arrays as image objects. This
-  chapter describes how to use scikit-image on various image processing tasks,
-  and insists on the link with other scientific Python modules such as NumPy
-  and SciPy.
+   scikit-learn
+   ++++++++++++
 
-* `scikit-learn <http://scikit-learn.org/stable/>`_ is a free software machine
-  learning library for the Python programming language. It features various
-  classification, regression and clustering algorithms including support vector
-  machines, random forests, gradient boosting, k-means and DBSCAN, and is
-  designed to interoperate with the Python numerical and scientific libraries
-  NumPy and SciPy.
-  
-* The `Astropy <http://www.astropy.org>`_ project is a community effort to
-  develop a single core package for astronomy in Python and foster
-  interoperability between Python astronomy packages.
+   `scikit-learn <http://scikit-learn.org/stable/>`_ is a free software machine
+   learning library for the Python programming language. It features various
+   classification, regression and clustering algorithms including support vector
+   machines, random forests, gradient boosting, k-means and DBSCAN, and is
+   designed to interoperate with the Python numerical and scientific libraries
+   NumPy and SciPy.
 
-* `Cartopy <http://scitools.org.uk/cartopy/>`_ is a Python package designed to
-  make drawing maps for data analysis and visualisation as easy as
-  possible. Cartopy makes use of the powerful PROJ.4, numpy and shapely
-  libraries and has a simple and intuitive drawing interface to matplotlib for
-  creating publication quality maps.
 
-* `Brian <http://www.briansimulator.org>`_ is a free, open source simulator for
-  spiking neural networks. It is written in the Python programming language and
-  is available on almost all platforms. We believe that a simulator should not
-  only save the time of processors, but also the time of scientists. Brian is
-  therefore designed to be easy to learn and use, highly flexible and easily
-  extensible.
+   scikit-image
+   ++++++++++++
+
+   `scikit-image <http://scikit-image.org>`_ is a Python package dedicated to
+   image processing, and using natively NumPy arrays as image objects. This
+   chapter describes how to use scikit-image on various image processing tasks,
+   and insists on the link with other scientific Python modules such as NumPy and
+   SciPy.
+
+   SympPy
+   ++++++
+
+   `SymPy <http://www.sympy.org/en/index.html>`_ is a Python library for symbolic
+   mathematics. It aims to become a full-featured computer algebra system (CAS)
+   while keeping the code as simple as possible in order to be comprehensible and
+   easily extensible. SymPy is written entirely in Python.
+
+   Astropy
+   +++++++
+
+   The `Astropy <http://www.astropy.org>`_ project is a community effort to
+   develop a single core package for astronomy in Python and foster
+   interoperability between Python astronomy packages.
+
+
+   Cartopy
+   +++++++
+
+   `Cartopy <http://scitools.org.uk/cartopy/>`_ is a Python package designed to
+   make drawing maps for data analysis and visualisation as easy as
+   possible. Cartopy makes use of the powerful PROJ.4, numpy and shapely libraries
+   and has a simple and intuitive drawing interface to matplotlib for creating
+   publication quality maps.
+
+
+   Brian
+   +++++
+
+   `Brian <http://www.briansimulator.org>`_ is a free, open source simulator for
+   spiking neural networks. It is written in the Python programming language and
+   is available on almost all platforms. We believe that a simulator should not
+   only save the time of processors, but also the time of scientists. Brian is
+   therefore designed to be easy to learn and use, highly flexible and easily
+   extensible.
 
 
 Conclusion
@@ -356,7 +381,7 @@ Numpy is a very versatile library but still, it does not mean you have to use
 it in every situation. In this chapter, we've seen some alternatives (including
 Python itself) that are worth a look. As always, the choice belongs to you. You
 have to consider what is the best solution for you in term of development time,
-computation time and effort in maintenance. In onen hand, if you design your
+computation time and effort in maintenance. In one hand, if you design your
 own solution, you'll have to test it and to maintain it, but in exchange,
 you'll be free to design it the way you want. On the other hand, if you decide
 to rely on a third-party package, you'll save time in development and benefit

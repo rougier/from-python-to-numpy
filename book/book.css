@@ -72,8 +72,8 @@ h1, h2, h3 {
     clear: both;
     font-weight: 400;
 }
-h1 { font-size: 1.5em; counter-reset: h2; }
-h2 { font-size: 1.25em;  counter-reset: h3; }
+h1 { font-size: 1.5em; counter-reset: h2;   padding-top: 2.5em;}
+h2 { font-size: 1.25em;  counter-reset: h3; padding-top: 1.5em;}
 h3, h4, h5, h6 { font-size: 1.00em; }
 h1, h1 a, h1 a:visited,
 h2, h2 a, h2 a:visited,

@@ -42,6 +42,8 @@ make you acquire experience in the process.
    :class: main-content
    :depth: 2
 
+.. ----------------------------------------------------------------------------
+.. |WIP| image:: https://img.shields.io/badge/status-WIP-orange.svg?style=flat-square
 
 .. ----------------------------------------------------------------------------
 .. include:: preface.rst

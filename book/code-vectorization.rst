@@ -602,9 +602,6 @@ update at each iteration. This the case for example in particle systems where
 particles interact mostly with local neighbours. This is also the case for
 boids that simulate flocking behaviors.
 
-Boids
-+++++
-
 .. admonition:: **Figure 6**
    :class: legend
 
@@ -617,7 +614,8 @@ Boids
          <source src="../data/boids.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
-|
+Boids
++++++
 
 .. note::
 
@@ -651,17 +649,254 @@ rules. The rules applied in the simplest Boids world are as follows:
 Python implementation
 +++++++++++++++++++++
 
+Since each boid is an autonomous entity with several properties such as
+position and velocity, it seems natural to start by writing a Boid class:
+
+.. code:: python
+
+   import math
+   import random
+   from vec2 import vec2
+          
+   class Boid:
+       def __init__(self, x=0, y=0):
+           self.position = vec2(x, y)
+           angle = random.uniform(0, 2*math.pi)
+           self.velocity = vec2(math.cos(angle), math.sin(angle))
+           self.acceleration = vec2(0, 0)
+
+The `vec2` object is a very simple class that handles all common vector
+operations with 2 components. It will save us some writing in the main `Boid`
+class. Note that their are some vector packages in the python package index but
+that would be overkill for such a simple example.
+
+Boid is a difficult case for regular Python because a boid has interaction with
+local neighbours. However, and because boids are moving, to find such local
+neighbours requires to compute at each time step the distance to each and every
+other boids in order to sort those which are in a given interaction radius. The
+prototypical way of writing the three rules is thus something like:
+
+.. code:: python
+
+   def separation(self, boids):
+       count = 0
+       for other in boids:
+           d = (self.position - other.position).length()
+           if 0 < d < desired_separation:
+               count += 1
+               ...
+       if count > 0:
+           ...
+
+    def alignment(self, boids): ...
+    def cohesion(self, boids): ...
+
+Full sources are given in the references section below, it would be too long to
+describe it here and there is no real difficulty.
+           
+To complete the picture, we can also create a `Flock` object:
+
+.. code:: python
+
+   class Flock:
+       def __init__(self, count=150):
+           self.boids = []
+           for i in range(count):
+               boid = Boid()
+               self.boids.append(boid)
+
+       def run(self):
+           for boid in self.boids:
+               boid.run(self.boids)
+
+Using this approach, we can have up to 50 boids until the computation time
+becomes too slow for a smooth animation. As you may have guessed, we can do
+much better using numpy but let me first point out the main problem with this
+Python implementation. If you look at the code, you will certainly notice there
+is a lot of redundancy. More precisely, we do not exploit the fact that the
+Euclidean distance is reflexive, that is, `|x-y| = |y-x|`. In this naive Python
+implementation, each rule (function) computes n*n distances while n*n/2 would
+be sufficient if properly cached. Furthermore, each rule re-computes every
+distance without caching the result for the othe functions. In the end, we are
+computing 3*n*n distances instead of n*n/2.
+
+
 Numpy implementation
 ++++++++++++++++++++
 
-Visualization
-+++++++++++++
+As you might expect, the numpy implementation takes a different approach and
+we'll gather all our boids into a `position` array and a `velocity` array:
+
+.. code:: python
+
+   n = 500
+   velocity = np.zeros((n, 2), dtype=np.float32)
+   position = np.zeros((n, 2), dtype=np.float32)
+
+The first step is to compute the local neighborhood for each boids and for
+this, we need to compute all paired distances:
+
+.. code:: python
+
+   dx = np.subtract.outer(position[:, 0], position[:, 0])
+   dy = np.subtract.outer(position[:, 1], position[:, 1])
+   distance = np.hypot(dx, dy)
+
+We could have used the scipy `cdist
+<https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html>`_
+but we'll need the `dx` and `dy` arrays later. Once those have been computed,
+it's faster to use the `hypot
+<https://docs.scipy.org/doc/numpy/reference/generated/numpy.hypot.html>`_
+method. Note that distance shape is (n,n) and each line relates to one boid,
+i.e. eachline gives the distance to all
+
+From theses distances, we can now compute local neighborhood for each of the
+three rules, taking advantage of the fact that we can mix them together. We can
+actually compute a mask for distances that are strictly positive (i.e. no self
+interaction) and multiply it with other distance masks.
+
+.. note::
+
+   If we suppose that boids cannot occupy the same position, how can you
+   compute `mask_0` more efficiently ?
+
+.. code:: python
+
+   mask_0 = (distance > 0)
+   mask_1 = (distance < 25)
+   mask_2 = (distance < 50)
+   mask_1 *= mask_0
+   mask_2 *= mask_0
+   mask_3 = mask_2
+
+Then, we compute the number of neighbours within the given radius and we ensure
+it is at least 1 to avoid division by zero.
+   
+   mask_1_count = np.maximum(mask_1.sum(axis=1), 1)
+   mask_2_count = np.maximum(mask_2.sum(axis=1), 1)
+   mask_3_count = mask_2_count
+
+
+We're ready to write our three rules:
+
+**Alignment**
+
+.. code:: python
+
+   # Compute the average velocity of local neighbours
+   target = np.dot(mask, velocity)/count.reshape(n, 1)
+
+   # Normalize the result
+   norm = np.sqrt((target*target).sum(axis=1)).reshape(n, 1)
+   target *= np.divide(target, norm, out=target, where=norm != 0)
+
+   # Alignment at constant speed
+   target *= max_velocity
+
+   # Compute the resulting steering
+   alignment = target - velocity
+
+
+**Cohesion**
+
+.. code:: python
+
+   # Compute the gravity center of local neighbours
+   center = np.dot(mask, position)/count.reshape(n, 1)
+
+   # Compute direction toward the center
+   target = center - position
+
+   # Normalize the result
+   norm = np.sqrt((target*target).sum(axis=1)).reshape(n, 1)
+   target *= np.divide(target, norm, out=target, where=norm != 0)
+
+   # Cohesion at constant speed (max_velocity)
+   target *= max_velocity
+
+   # Compute the resulting steering
+   cohesion = target - velocity
+
+**Separation**
+
+.. code:: python
+
+   # Compute the repulsion force from local neighbours
+   repulsion = np.dstack((dx, dy))
+
+   # Force is inversely proportional to the distance
+   repulsion = np.divide(repulsion, distance.reshape(n, n, 1)**2, out=repulsion,
+                         where=distance.reshape(n, n, 1) != 0)
+
+   # Compute direction away from others
+   target = (repulsion*mask.reshape(n, n, 1)).sum(axis=1)/count.reshape(n, 1)
+
+   # Normalize the result
+   norm = np.sqrt((target*target).sum(axis=1)).reshape(n, 1)
+   target *= np.divide(target, norm, out=target, where=norm != 0)
+      
+   # Separation at constant speed (max_velocity)
+   target *= max_velocity
+
+   # Compute the resulting steering
+   separation = target - velocity
+
+All the three resulting steerings (separation, alignment & cohesion) needs to
+be limited in magnitude, we let this as an exercise for the reader. Combination
+of these rules is straightforward as well as the resulting update of
+velocity and position:
+
+.. code:: python
+
+   acceleration = 1.5 * separation + alignment + cohesion
+   velocity += acceleration
+   position += velocity
+
+
+Exercise
+++++++++
+
+We are now ready to visualize our boids. The most easy way is to use the
+matplotlib animation function and a scatter plot. Unofortunately, scatters
+cannot be individually oriented and we need to make our own objects using a
+matplotlib PathCollection. A simple triangle path can be defined as:
+
+.. code::
+   
+   v= np.array([(-0.25, -0.25),
+                ( 0.00,  0.50),
+                ( 0.25, -0.25),
+                ( 0.00,  0.00)])
+   c = np.array([Path.MOVETO,
+                 Path.LINETO,
+                 Path.LINETO,
+                 Path.CLOSEPOLY])
+
+This path can be repeated several times inside an array and each triangle can
+be made independent.
+
+.. code::
+
+   n = 500
+   vertices = np.tile(v.reshape(-1), n).reshape(n, len(v), 2)
+   codes = np.tile(c.reshape(-1), n)
+
+We now have a (n,4,2) array for vertices and a (n,4) array for codes
+representing n boids. We are interested in manipulating the vertices array to
+reflect the translation, scaling and rotation of each of the n boids.
+
+.. note::
+
+   Rotate is really tricky.
+   
+How would you write the `translate`, `scale` and `rotate` functions ?
+   
 
 Sources
 +++++++
 
 * `boid-python.py <../code/boid-python.py>`_
-* `boid-numpy.py <../code/boid-numpy.py>`_
+* `boid-numpy.py <../code/boid-numpy.py>`_ (solution to the exercise)
 
 References
 ++++++++++
@@ -672,3 +907,19 @@ References
   
 Conclusion
 ----------
+
+We've seen through these examples three forms of code vectorization:
+
+* uniform vectorization where elements share the same computation
+  unconditionally and for the same duration.
+* temporal vectorization where elements share the same computation but
+  necessitate a different number of iteration
+* spatial vectorization where elements share the same computation but on
+  dynamic spatial arguments
+
+And there are probably many more forms of such direct code vectorization. As
+explained before, this kind of vectorization is one of the most simple even
+though we've seen it can be real tricky to implement and require some
+experience, some help or both. For example, the solution to the boids exercise
+was provided by `Divakar <http://stackoverflow.com/users/3293881/divakar>`_ on
+`stack overflow <http://stackoverflow.com/questions/40822983/multiple-individual-2d-rotation-at-once>`_ after having explained my problem.
