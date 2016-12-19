@@ -173,7 +173,6 @@ Path finding
    propagated values from the end-point of the maze (bottom-right). Path is
    found by ascending gradient from the goal.
 
-
 .. image:: ../data/maze.png
    :width: 100%
 
@@ -187,10 +186,13 @@ Bellman-Ford method
 Sources
 +++++++
 
+* `maze-build.py <../code/maze-build.py>`_
+* `maze-python.py <../code/maze-numpy.py>`_
+* `maze-numpy.py <../code/maze-numpy.py>`_
+
 References
 ++++++++++
 
-           
 Smoke simulation
 ----------------
 

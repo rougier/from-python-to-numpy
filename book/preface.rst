@@ -50,7 +50,7 @@ The sources are available from https://github.com/rougier/numpy-book.
 
 
 Pre-requisites
---------------
+++++++++++++++
 
 This is not a Python beginner guide and you should have an intermediate level in
 Python and ideally a beginner level in Numpy. If this is not the case, have
@@ -58,7 +58,7 @@ a look at the bibliography_ for a curated list of resources.
 
 
 Conventions
------------
++++++++++++
 
 We will use usual naming conventions. If not stated explicitely, each script
 should import numpy, scipy and matplotlib as:
@@ -86,7 +86,7 @@ Matplotlib  1.5.3
 =========== =========
 
 How to contribute
------------------
++++++++++++++++++
 
 If you want to contribute to this book, you can do it by:
 
