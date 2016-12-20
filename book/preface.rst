@@ -34,13 +34,13 @@ About this book
 This book has been written in |ReST|_ format and generated using the
 `rst2html.py` command line available from the docutils_ python package.
 
-If you want to rebuild the html output, use:
+If you want to rebuild the html output, from top direcotry, type:
 
 .. code-block::
 
    $ rst2html.py --link-stylesheet --cloak-email-addresses \
-                 --toc-top-backlinks --stylesheet=book.css \
-                   book.rst book.html
+                 --toc-top-backlinks --stylesheet=book/book.css \
+                   book/book.rst book.html
 
 The sources are available from https://github.com/rougier/numpy-book.
                    

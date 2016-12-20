@@ -50,12 +50,12 @@ def find_crossing_2(seq, subseq):
 
 
 if __name__ == "__main__":
-    from tools import print_timeit
+    from tools import timeit
 
-    print_timeit("random_walk_1(n=10000)", globals())
-    print_timeit("random_walk_2(n=10000)", globals())
-    print_timeit("random_walk_3(n=10000)", globals())
+    timeit("random_walk_1(n=10000)", globals())
+    timeit("random_walk_2(n=10000)", globals())
+    timeit("random_walk_3(n=10000)", globals())
     print()
     W = random_walk_3(n=1000)
-    print_timeit("find_crossing_1(list(W), [+1,0,-1])", globals())
-    print_timeit("find_crossing_2(W, [+1,0,-1])", globals())
+    timeit("find_crossing_1(list(W), [+1,0,-1])", globals())
+    timeit("find_crossing_2(W, [+1,0,-1])", globals())

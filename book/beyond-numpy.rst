@@ -14,7 +14,7 @@ specific cases, it might be more powerful than Numpy. Let's consider for
 example an interesting exercise that has been proposed by Tucker Balch in his
 `Coursera's Computational Investing
 <https://www.coursera.org/learn/computational-investing>`_ course. The exercise
-can be written as:
+is written as:
 
 Write the most succinct code possible to compute all "legal" allocations to 4
 stocks such that:

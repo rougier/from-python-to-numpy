@@ -85,7 +85,7 @@ see how to vectorize it.
    Conus textile snail exhibits a cellular automaton pattern on its shell.
    Image by `Richard Ling <https://commons.wikimedia.org/wiki/File:Textile_cone.JPG>`_, 2005.
 
-.. image:: ../data/Textile-Cone-cropped.jpg
+.. image:: data/Textile-Cone-cropped.jpg
    :width: 100%
    :class: bordered
            
@@ -191,7 +191,7 @@ discovered by Richard K. Guy in 1970.
    The glider pattern is known to replicate itself one step diagonally in 4
    iterations.
        
-.. image:: ../data/glider.png
+.. image:: data/glider.png
    :width: 100%
 
 
@@ -287,7 +287,7 @@ cleared it.
 .. raw:: html
 
          <video width="100%" controls>
-         <source src="../data/game-of-life.mp4" type="video/mp4">
+         <source src="data/game-of-life.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
 
@@ -358,15 +358,15 @@ The figure below show some animation of the model for a specific set of paramete
 .. raw:: html
 
          <video width="33%" controls>
-         <source src="../data/gray-scott-1.mp4" type="video/mp4">
+         <source src="data/gray-scott-1.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
          <video width="33%" controls>
-         <source src="../data/gray-scott-2.mp4" type="video/mp4">
+         <source src="data/gray-scott-2.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
          
          <video width="33%" controls>
-         <source src="../data/gray-scott-3.mp4" type="video/mp4">
+         <source src="data/gray-scott-3.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
 
@@ -374,9 +374,9 @@ The figure below show some animation of the model for a specific set of paramete
 Sources
 +++++++
 
-* `game-of-life-python.py <../code/game-of-life-python.py>`_
-* `game-of-life-numpy.py <../code/game-of-life-numpy.py>`_
-* `gray-scott.py <../code/gray-scott.py>`_ (solution to the exercise)
+* `game-of-life-python.py <code/game-of-life-python.py>`_
+* `game-of-life-numpy.py <code/game-of-life-numpy.py>`_
+* `gray-scott.py <code/gray-scott.py>`_ (solution to the exercise)
 
 
 References
@@ -423,7 +423,7 @@ divergent. Of course, the more iteration you do, the more precision you get.
    Romanesco broccoli, showing self-similar form approximating a natural fractal.
    Image by `Jon Sullivan <https://commons.wikimedia.org/wiki/File:Fractal_Broccoli.jpg>`_, 2004.
 
-.. image:: ../data/Fractal-Broccoli-cropped.jpg
+.. image:: data/Fractal-Broccoli-cropped.jpg
    :width: 100%
    :class: bordered
 
@@ -561,7 +561,7 @@ and added a power normalized colormap (gamma=0.3) as well as light shading.
    The Mandelbrot as rendered by maplotlib using recount normalization, power
    normalized colormap (gamma=0.3) and light shading.
 
-.. figure:: ../data/mandelbrot.png
+.. figure:: data/mandelbrot.png
    :width: 100%
    :class: bordered
 
@@ -590,18 +590,18 @@ normalized (i.e. all values are between 0 and 1).
    The Minkowski–Bouligand dimension of the Great Britain coastlines is
    approximately 1.24.
 
-.. figure:: ../data/fractal-dimension.png
+.. figure:: data/fractal-dimension.png
    :width: 100%
 
 
 Sources
 +++++++
 
-* `mandelbrot.py <../code/mandelbrot.py>`_
-* `mandelbrot-python.py <../code/mandelbrot-python.py>`_
-* `mandelbrot-numpy-1.py <../code/mandelbrot-numpy-1.py>`_
-* `mandelbrot-numpy-2.py <../code/mandelbrot-numpy-2.py>`_
-* `fractal-dimension.py <../code/fractal-dimension.py>`_ (solution to the exercise)
+* `mandelbrot.py <code/mandelbrot.py>`_
+* `mandelbrot-python.py <code/mandelbrot-python.py>`_
+* `mandelbrot-numpy-1.py <code/mandelbrot-numpy-1.py>`_
+* `mandelbrot-numpy-2.py <code/mandelbrot-numpy-2.py>`_
+* `fractal-dimension.py <code/fractal-dimension.py>`_ (solution to the exercise)
 
 References
 ++++++++++
@@ -629,7 +629,7 @@ boids that simulate flocking behaviors.
    Flocking birds are an example of self-organization in biology.
    Image by `Christoffer A Rasmussen <https://commons.wikimedia.org/wiki/File:Fugle,_ørnsø_073.jpg>`_, 2012.
 
-.. image:: ../data/Fugle-cropped.jpg
+.. image:: data/Fugle-cropped.jpg
    :width: 100%
    :class: bordered
 
@@ -662,7 +662,7 @@ rules. The rules applied in the simplest Boids world are as follows:
    Boids are governed by a set of three local rules (separation, cohesion and
    alignment) that serve as computing velocity and acceleration.
 
-.. image:: ../data/boids.png
+.. image:: data/boids.png
    :width: 100%
 
 Python implementation
@@ -883,7 +883,7 @@ We finally visualize the result using a custom oriented scatter plot.
 .. raw:: html
 
          <video width="100%" class="bordered" controls>
-         <source src="../data/boids.mp4" type="video/mp4">
+         <source src="data/boids.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
 
@@ -930,8 +930,8 @@ How would you write the `translate`, `scale` and `rotate` functions ?
 Sources
 +++++++
 
-* `boid-python.py <../code/boid-python.py>`_
-* `boid-numpy.py <../code/boid-numpy.py>`_ (solution to the exercise)
+* `boid-python.py <code/boid-python.py>`_
+* `boid-numpy.py <code/boid-numpy.py>`_ (solution to the exercise)
 
 References
 ++++++++++

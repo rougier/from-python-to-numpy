@@ -177,7 +177,7 @@ maze. First task is thus to build a maze.
    A hedge maze at Longleat stately home in England.
    Image by `Prince Rurik <https://commons.wikimedia.org/wiki/File:Longleat_maze.jpg>`_, 2005.
 
-.. image:: ../data//Longleat-maze-cropped.jpg
+.. image:: data//Longleat-maze-cropped.jpg
    :width: 100%
    :class: bordered
 
@@ -255,7 +255,7 @@ Here is an animation showing the generation process.
 .. raw:: html
 
    <video width="100%" controls>
-   <source src="../data/maze-build.mp4" type="video/mp4">
+   <source src="data/maze-build.mp4" type="video/mp4">
    Your browser does not support the video tag. </video>
 
 Breadth-first
@@ -294,11 +294,11 @@ it into an actual graph as proposed by `Valentin Bryukhanov
    shortest path, only to find a path (if it exists).
    
 Once this is done, writing the breadth first algorithm is straightforward. We
-start from the starting node and we visit nodes one level (breadth first,
-remember?) and we iterate the process until reaching the final node, if
+start from the starting node and we visit nodes at current depth only (breadth
+first, remember?) and we iterate the process until reaching the final node, if
 possible. The question is then, do we get the shortest path exploring the graph
 this way? In this specific case yes because we don't have a e-weighted graph,
-i.e. all the edges have the same weight (or cost). 
+i.e. all the edges have the same weight (or cost).
 
 .. code:: python
 
@@ -334,26 +334,26 @@ done, we can ascent the gradient from the starting node. You can check on the
 figure this leads to the shortest path.
 
 
-.. image:: ../data/value-iteration-1.pdf
+.. image:: data/value-iteration-1.pdf
    :width: 19%
-.. image:: ../data/value-iteration-2.pdf
+.. image:: data/value-iteration-2.pdf
    :width: 19%
-.. image:: ../data/value-iteration-3.pdf
+.. image:: data/value-iteration-3.pdf
    :width: 19%
-.. image:: ../data/value-iteration-4.pdf
+.. image:: data/value-iteration-4.pdf
    :width: 19%
-.. image:: ../data/value-iteration-5.pdf
+.. image:: data/value-iteration-5.pdf
    :width: 19%
 
-.. image:: ../data/value-iteration-6.pdf
+.. image:: data/value-iteration-6.pdf
    :width: 19%
-.. image:: ../data/value-iteration-7.pdf
+.. image:: data/value-iteration-7.pdf
    :width: 19%
-.. image:: ../data/value-iteration-8.pdf
+.. image:: data/value-iteration-8.pdf
    :width: 19%
-.. image:: ../data/value-iteration-9.pdf
+.. image:: data/value-iteration-9.pdf
    :width: 19%
-.. image:: ../data/value-iteration-10.pdf
+.. image:: data/value-iteration-10.pdf
    :width: 19%
 
 We start by setting the exit node to the value 1 while every other nodes are
@@ -424,7 +424,7 @@ illustrated on the figure below:
    propagated values from the end-point of the maze (bottom-right). Path is
    found by ascending gradient from the goal.
 
-.. image:: ../data/maze.png
+.. image:: data/maze.png
    :width: 100%
 
 
@@ -432,8 +432,8 @@ illustrated on the figure below:
 Sources
 +++++++
 
-* `maze-build.py <../code/maze-build.py>`_
-* `maze-numpy.py <../code/maze-numpy.py>`_
+* `maze-build.py <code/maze-build.py>`_
+* `maze-numpy.py <code/maze-numpy.py>`_
 
 References
 ++++++++++
@@ -455,7 +455,7 @@ Fluid Dynamics
    Germany. Image by `Steven Mathey
    <https://commons.wikimedia.org/wiki/File:Self_Similar_Turbulence.png>`_, 2012.
 
-.. image:: ../data/Self-similar-turbulence.png
+.. image:: data/Self-similar-turbulence.png
    :width: 100%
 
 
@@ -530,25 +530,25 @@ using this technique.
 .. raw:: html
 
          <video width="33%" controls>
-         <source src="../data/smoke-1.mp4" type="video/mp4">
+         <source src="data/smoke-1.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
          <video width="33%" controls>
-         <source src="../data/smoke-2.mp4" type="video/mp4">
+         <source src="data/smoke-2.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
          <video width="33%" controls>
-         <source src="../data/smoke-gpu.mp4" type="video/mp4">
+         <source src="data/smoke-gpu.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
 
 
 Sources
 +++++++
 
-* `smoke-1.py <../code/smoke-1.py>`_
-* `smoke-2.py <../code/smoke-2.py>`_
-* `smoke_solver.py <../code/smoke_solver.py>`_
-* `smoke-interactive.py <../code/smoke-interactive.py>`_
+* `smoke-1.py <code/smoke-1.py>`_
+* `smoke-2.py <code/smoke-2.py>`_
+* `smoke_solver.py <code/smoke_solver.py>`_
+* `smoke-interactive.py <code/smoke-interactive.py>`_
 
 
 References
@@ -569,7 +569,7 @@ Blue noise
 
    Detail of "The Starry Night", Vincent van Gogh, 1889.
 
-.. image:: ../data/mosaic.png
+.. image:: data/mosaic.png
    :width: 100%
    :class: bordered
 
@@ -587,15 +587,15 @@ Numpy implementation
    Comparison of uniform, grid-jittered and Poisson disc sampling.
 
 
-.. image:: ../data/sampling.png
+.. image:: data/sampling.png
    :width: 100%
 
 Sources
 +++++++
 
-* `sampling.py <../code/sampling.py>`_
-* `mosaic.py <../code/mosaic.py>`_
-* `voronoi.py <../code/voronoi.py>`_
+* `sampling.py <code/sampling.py>`_
+* `mosaic.py <code/mosaic.py>`_
+* `voronoi.py <code/voronoi.py>`_
 
 References
 ++++++++++

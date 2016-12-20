@@ -16,13 +16,13 @@
 
 .. container:: title-logos
 
-   .. image:: ../data/cc.large.png
+   .. image:: data/cc.large.png
       :width: 40px
-   .. image:: ../data/by.large.png
+   .. image:: data/by.large.png
       :width: 40px
-   .. image:: ../data/sa.large.png
+   .. image:: data/sa.large.png
       :width: 40px
-   .. image:: ../data/nc.large.png
+   .. image:: data/nc.large.png
       :width: 40px
 
    (J. Kerouac style)
@@ -31,7 +31,7 @@
 .. ----------------------------------------------------------------------------
 .. container:: title-logos
 
-   .. image:: ../data/cubes.png
+   .. image:: data/cubes.png
       :width: 100%
 
 .. ----------------------------------------------------------------------------
@@ -51,6 +51,14 @@ make you acquire experience in the process.
    :class: main-content
    :depth: 2
 
+|
+|
+
+**Disclaimer** All external pictures should have associated credits. If there
+are missing credits, please tell me, I will correct it. Similarly, all excerpts
+should be sourced (wikipedia mostly). If not, this is an error and I will
+correct it as soon as you tell me.
+           
 .. ----------------------------------------------------------------------------
 .. |WIP| image:: https://img.shields.io/badge/status-WIP-orange.svg?style=flat-square
 
