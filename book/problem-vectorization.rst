@@ -362,8 +362,8 @@ cell new value is computed as the maximum value between the current cell value
 and the discounted (gamma=0.9 in the case below) 4 neighbour values. The
 process start as soon as the starting node value become strictly positive.
 
-The numpy implementation is straightforward and we can take advanage of the
-`scipy.ndimage.generic_filter` for the diffusion process:
+The numpy implementation is straightforward if we take advantage of the
+`generic_filter` (from `scipy.ndimage`) for the diffusion process:
 
 .. code:: python
 
@@ -387,8 +387,8 @@ The numpy implementation is straightforward and we can take advanage of the
                                                      [1, 1, 1],
                                                      [0, 1, 0]])
 
-But this is actually slow and it's better to cook-up our own solution, reusing
-part of the game of life code:
+But in this specific case, it is rather slow we'd better to cook-up our own
+solution, reusing part of the game of life code:
 
 .. code:: python
 
@@ -446,6 +446,8 @@ References
 Fluid Dynamics
 --------------
 
+
+
 .. admonition:: **Figure 9**
    :class: legend
 
@@ -455,7 +457,6 @@ Fluid Dynamics
 
 .. image:: ../data/Self-similar-turbulence.png
    :width: 100%
-
 
 
 Lagrangian vs Eulerian method
@@ -477,10 +478,44 @@ motion that focuses on specific locations in the space through which the fluid
 flows as time passes. This can be visualized by sitting on the bank of a river
 and watching the water pass the fixed location.
 
+In other words, in the Eulerian case, you divide a portion of space into cells
+and each cell contains a velocity vector and other information, such as density
+and temperature. In the Lagrangian case, we need particle-based physics with
+dynamic interactions and generally we need a high number of particles. Both
+methods have advantages and disadvantages and the choice between the two
+methods depends on the nature of your problem. Of course, you can also mix the
+two methods into an hybrid method.
+
+However, the biggest problem for particle based simulation is that particles
+interaction requires finding neighbouring particles and this has a cost as
+we've seen in the boids case. If we target Python and Numpy only, we probably
+better choose the Eulerian method since vectorization will be almost trivial
+compared to the Lagrangian method.
 
 
 Numpy implementation
 ++++++++++++++++++++
+
+I won't explain all the theory behind computational fluid dynamic because
+first, I cannot (I'm not an expert at all in this domain) and there are many
+resources online that explain this nicely (have a look at references below,
+especially tutorial by L.Barba). Why choose a computational fluid as an example
+then? Because results are (almost) always beautiful and fascinating. I couldn't
+resist (look at movie belows).
+
+We'll further simplify the problem by implementing a method from computer
+graphics where the goal is not correctness but convincing behavior. Jos Stam
+wrote a very nice article for SIGGRAPH 1999 describing a technique to have
+stable fluids over time (i.e. whose solution in the long term does not
+diverge). `Alberto Santini <https://github.com/albertosantini/python-fluid>`_
+wrote a Python replication a long time ago (using numarray!) such that I only
+had to adapt it to modern numpy and accelerate it a bit using modern numpy
+tricks.
+
+I won't comment the code since it would be too long, but you can read the
+original paper as well as the explanation by `Philip Rideout
+<http://prideout.net/blog/?p=58>`_ on his blog. Below are some movies I've made
+using this technique.
 
 
 .. admonition:: **Figure 9**
@@ -523,11 +558,11 @@ References
 * `Stable Fluids <http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/ns.pdf>`_, Jos Stam, 1999.
 * `Simple Fluid Simulation <http://prideout.net/blog/?p=58>`_, Philip Rideout, 2010
 * `Fast Fluid Dynamics Simulation on the GPU <http://http.developer.nvidia.com/GPUGems/gpugems_ch38.html>`_, Mark Harris, 2004.
+* `Animating Sand as a Fluid <https://www.cs.ubc.ca/%7Erbridson/docs/zhu-siggraph05-sandfluid.pdf>`_, Yongning Zhu & Robert Bridson, 2005.
 
 
-
-Poisson disk sampling
----------------------
+Blue noise
+----------
 
 .. admonition:: **Figure 10**
    :class: legend

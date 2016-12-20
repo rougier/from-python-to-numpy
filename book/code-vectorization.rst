@@ -558,11 +558,12 @@ and added a power normalized colormap (gamma=0.3) as well as light shading.
 .. admonition:: **Figure 4**
    :class: legend
 
-   The Mandelbrot set using recount normalization, power
+   The Mandelbrot as rendered by maplotlib using recount normalization, power
    normalized colormap (gamma=0.3) and light shading.
 
 .. figure:: ../data/mandelbrot.png
    :width: 100%
+   :class: bordered
 
 
     
