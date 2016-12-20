@@ -39,10 +39,10 @@ If you want to rebuild the html output, from top direcotry, type:
 .. code-block::
 
    $ rst2html.py --link-stylesheet --cloak-email-addresses \
-                 --toc-top-backlinks --stylesheet=book/book.css \
-                   book/book.rst book.html
+                 --toc-top-backlinks --stylesheet=book.css \
+                 book.rst book.html
 
-The sources are available from https://github.com/rougier/numpy-book.
+The sources are available from https://github.com/rougier/from-python-to-numpy.
                    
 .. |ReST| replace:: restructured text
 .. _ReST: http://docutils.sourceforge.net/rst.html

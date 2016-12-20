@@ -63,16 +63,16 @@ correct it as soon as you tell me.
 .. |WIP| image:: https://img.shields.io/badge/status-WIP-orange.svg?style=flat-square
 
 .. ----------------------------------------------------------------------------
-.. include:: preface.rst
-.. include:: introduction.rst
-.. include:: anatomy.rst
-.. include:: code-vectorization.rst
-.. include:: problem-vectorization.rst
-.. include:: custom-vectorization.rst
-.. include:: beyond-numpy.rst
-.. include:: conclusion.rst
-.. include:: quick-reference.rst
-.. include:: bibliography.rst
+.. include:: 01-preface.rst
+.. include:: 02-introduction.rst
+.. include:: 03-anatomy.rst
+.. include:: 04-code-vectorization.rst
+.. include:: 05-problem-vectorization.rst
+.. include:: 06-custom-vectorization.rst
+.. include:: 07-beyond-numpy.rst
+.. include:: 08-conclusion.rst
+.. include:: 09-quick-reference.rst
+.. include:: 10-bibliography.rst
 
 
 .. --- Compilation ------------------------------------------------------------
