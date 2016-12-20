@@ -79,6 +79,16 @@ an array of cells that are connected together with the notion of neighbour and
 their vectorization is straightforward. Let me first define the game and we'll
 see how to vectorize it.
 
+.. admonition:: **Figure**
+   :class: legend
+
+   Conus textile snail exhibits a cellular automaton pattern on its shell.
+   Image by `Richard Ling <https://commons.wikimedia.org/wiki/File:Textile_cone.JPG>`_, 2005.
+
+.. image:: ../data/Textile-Cone-cropped.jpg
+   :width: 100%
+   :class: bordered
+           
 
 The Game of Life
 ++++++++++++++++
@@ -397,7 +407,6 @@ References
 Temporal vectorization
 ----------------------
 
-
 The Mandelbrot set is the set of complex numbers `c` for which the function
 :math:`f_c(z) = z^2+ c` does not diverge when iterated from :math:`z=0`, i.e.,
 for which the sequence :math:`f_c(0), f_c(f_c(0))`, etc., remains bounded in
@@ -406,6 +415,17 @@ because you need to ensure a given number does not diverge. This is generally
 done by iterating the computation up to a maximum number of iterations, after
 which, if the number is still within some bounds, it is considerered non
 divergent. Of course, the more iteration you do, the more precision you get.
+
+
+.. admonition:: **Figure**
+   :class: legend
+
+   Romanesco broccoli, showing self-similar form approximating a natural fractal.
+   Image by `Jon Sullivan <https://commons.wikimedia.org/wiki/File:Fractal_Broccoli.jpg>`_, 2004.
+
+.. image:: ../data/Fractal-Broccoli-cropped.jpg
+   :width: 100%
+   :class: bordered
 
 Python implementation
 +++++++++++++++++++++
@@ -602,17 +622,15 @@ update at each iteration. This the case for example in particle systems where
 particles interact mostly with local neighbours. This is also the case for
 boids that simulate flocking behaviors.
 
-.. admonition:: **Figure 6**
+.. admonition:: **Figure**
    :class: legend
 
-   Boids is an artificial life program, developed by Craig Reynolds in 1986,
-   which simulates the flocking behaviour of birds.
+   Flocking birds are an example of self-organization in biology.
+   Image by `Christoffer A Rasmussen <https://commons.wikimedia.org/wiki/File:Fugle,_ørnsø_073.jpg>`_, 2012.
 
-.. raw:: html
-
-         <video width="100%" controls>
-         <source src="../data/boids.mp4" type="video/mp4">
-         Your browser does not support the video tag. </video>
+.. image:: ../data/Fugle-cropped.jpg
+   :width: 100%
+   :class: bordered
 
 Boids
 +++++
@@ -851,6 +869,22 @@ velocity and position:
    acceleration = 1.5 * separation + alignment + cohesion
    velocity += acceleration
    position += velocity
+
+
+We finally visualize the result using a custom oriented scatter plot.
+   
+.. admonition:: **Figure 6**
+   :class: legend
+
+   Boids is an artificial life program, developed by Craig Reynolds in 1986,
+   which simulates the flocking behaviour of birds.
+
+.. raw:: html
+
+         <video width="100%" class="bordered" controls>
+         <source src="../data/boids.mp4" type="video/mp4">
+         Your browser does not support the video tag. </video>
+
 
 
 Exercise

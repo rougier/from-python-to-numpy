@@ -98,6 +98,11 @@ h2 a:hover, h3 a:hover {
     border-bottom: 1px solid black;
 }
 
+/* --- Images -------------------------------------------------------------- */
+.bordered {
+    border: 1px solid black;
+}
+
 /* --- Table of contents --------------------------------------------------- */
 .main-content {
     padding-top: 1em;
@@ -165,7 +170,11 @@ h2.subtitle {
     margin-right: auto;
     margin-bottom: 64px;
 }
+.title-logos p {
+    text-align: center;
+}
 
+    
 /* --- Math ---------------------------------------------------------------- */
 span.formula {
     color: #955;

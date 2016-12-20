@@ -25,6 +25,14 @@
    .. image:: ../data/nc.large.png
       :width: 40px
 
+   (J. Kerouac style)
+
+
+.. ----------------------------------------------------------------------------
+.. container:: title-logos
+
+   .. image:: ../data/cubes.png
+      :width: 100%
 
 .. ----------------------------------------------------------------------------
 
@@ -36,6 +44,7 @@ migration from Python to Numpy through vectorization. There is a lot of
 techniques that you don't find in books and such techniques are mostly learned
 through experience. The goal of this book is to explain some of them and to
 make you acquire experience in the process.
+
 
 .. ----------------------------------------------------------------------------
 .. contents:: **Table of Contents**

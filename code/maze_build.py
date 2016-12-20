@@ -85,13 +85,17 @@ if __name__ == '__main__':
     for i, Z in enumerate(build_maze((51, 101))):
         S.append(Z)
 
-    fig = plt.figure(figsize=(10,5))
+    fig = plt.figure(figsize=(10, 5))
     ax = fig.add_axes([0.0, 0.0, 1.0, 1.0], frameon=False, aspect=1)
-    im = ax.imshow(S[0], cmap=plt.cm.gray_r, interpolation='nearest', animated=True)
+    im = ax.imshow(S[0], cmap=plt.cm.gray_r,
+                   interpolation='nearest', animated=True)
     ax.set_xticks([]), ax.set_yticks([])
 
     def update(frame):
         im.set_array(S[frame])
         return im,
-    ani = FuncAnimation(fig, update, interval=10, frames=len(S))
-    plt.show()
+    animation = FuncAnimation(fig, update, interval=10, frames=len(S))
+    # animation.save('maze-build.mp4', fps=40, dpi=80, bitrate=-1,
+    #                codec="libx264", extra_args=['-pix_fmt', 'yuv420p'],
+    #                metadata={'artist':'Nicolas P. Rougier'})
+    # plt.show()

@@ -166,6 +166,199 @@ still, it is 50 times slower than the numpy version:
 Path finding
 ------------
 
+Path finding is all about finding the shortest path in a graph. This can be
+split in two distinct problems: to find a path between two nodes in a graph and
+to find the shortest path. We'll illustrate this through path finding in a
+maze. First task is thus to build a maze.
+
+.. admonition:: **Figure 8**
+   :class: legend
+
+   A hedge maze at Longleat stately home in England.
+   (Image by `Prince Rurik <https://commons.wikimedia.org/wiki/File:Longleat_maze.jpg>`_), 2005.
+
+.. image:: ../data//Longleat-maze-cropped.jpg
+   :width: 100%
+   :class: bordered
+
+
+Building a maze
++++++++++++++++
+
+There exist `many generation algorithms
+<https://en.wikipedia.org/wiki/Maze_generation_algorithm>`_ but I tend to
+prefer the one I've been using for several years but whose origin is unknown to
+me. I've added the code in the cited wikipedia entry, feel free to complete it
+if you know the original author. This algorithm works by creating `n` (density)
+islands of length `p` (complexity). An island is created by choosing a random
+starting point with odd coordinates, then a random direction is chosen. If the
+cell two steps in the direction is free, then a wall is added at both one step
+and two steps in this direction. The processus is iterated for n steps for this
+island. p islands are created. n and p are expressed as float to apapt them to
+the size of the maze. With a low complexity, islands are very small and the
+maze is easy to solve. With low density, the maze has more "big empty rooms".
+
+.. code:: python
+
+   def build_maze(shape=(65, 65), complexity=0.75, density=0.50):
+       # Only odd shapes
+       shape = ((shape[0]//2)*2+1, (shape[1]//2)*2+1)
+
+       # Adjust complexity and density relatively to maze size
+       n_complexity = int(complexity*(shape[0]+shape[1]))
+       n_density = int(density*(shape[0]*shape[1]))
+
+       # Build actual maze
+       Z = np.zeros(shape, dtype=bool)
+
+       # Fill borders
+       Z[0, :] = Z[-1, :] = Z[:, 0] = Z[:, -1] = 1
+
+       # Islands starting point with a bias in favor of border
+       P = np.random.normal(0, 0.5, (n_density, 2))
+       P = 0.5 - np.maximum(-0.5, np.minimum(P, +0.5))
+       P = (P*[shape[1], shape[0]]).astype(int)
+       P = 2*(P//2)
+
+       # Create islands
+       for i in range(n_density):
+           # Test for early stop: if all starting point are busy, this means we
+           # won't be able to connect any island, so we stop.
+           T = Z[2:-2:2, 2:-2:2]
+           if T.sum() == T.size: break
+           x, y = P[i]
+           Z[y, x] = 1
+           for j in range(n_complexity):
+               neighbours = []
+               if x > 1:          neighbours.append([(y, x-1), (y, x-2)])
+               if x < shape[1]-2: neighbours.append([(y, x+1), (y, x+2)])
+               if y > 1:          neighbours.append([(y-1, x), (y-2, x)])
+               if y < shape[0]-2: neighbours.append([(y+1, x), (y+2, x)])
+               if len(neighbours):
+                   choice = np.random.randint(len(neighbours))
+                   next_1, next_2 = neighbours[choice]
+                   if Z[next_2] == 0:
+                       Z[next_1] = 1
+                       Z[next_2] = 1
+                       y, x = next_2
+               else:
+                   break
+       return Z
+
+Here is an animation showing the generation process.
+
+.. admonition:: **Figure**
+   :class: legend
+
+   Progressive maze building with complexity and density control.
+
+.. raw:: html
+
+   <video width="100%" controls>
+   <source src="../data/maze-build.mp4" type="video/mp4">
+   Your browser does not support the video tag. </video>
+
+Breadth-first
++++++++++++++
+
+Breadth-first (as well as depth-first) search algorithm addresses the problem
+of finding a path between two nodes by examining all possibilities starting
+from the root node and stopping as soon as a solution has been found
+(destination node has been reached). This algorithms runs in linear time with
+complexity in :math:`O(|V|+|E|)` (where V is the number of vertices, and E is
+the number of edges). Writing such algorithm is not specifically difficult
+provided you have the right data structure. In our case, the array
+representation of the maze is not the most well suited and we need to transform
+it into an actual graph as proposed by `Valentin Bryukhanov
+<http://bryukh.com>`_.
+
+.. code:: python
+
+   def build_graph(maze):
+       height, width = maze.shape
+       graph = {(i, j): [] for j in range(width)
+                           for i in range(height) if not maze[i][j]}
+       for row, col in graph.keys():
+           if row < height - 1 and not maze[row + 1][col]:
+               graph[(row, col)].append(("S", (row + 1, col)))
+               graph[(row + 1, col)].append(("N", (row, col)))
+           if col < width - 1 and not maze[row][col + 1]:
+               graph[(row, col)].append(("E", (row, col + 1)))
+               graph[(row, col + 1)].append(("W", (row, col)))
+       return graph
+
+
+.. note::
+
+   If we had used the depth-first algorithm, there is no guarantee to find the
+   shortest path, only to find a path (if it exists).
+   
+Once this is done, writing the breadth first algorithm is straightforward. We
+start from the starting node and we visit nodes one level (breadth first,
+remember?) and we iterate the process until reaching the final node, if
+possible. The question is then, do we get the shortest path exploring the graph
+this way? In this specific case yes because we don't have a e-weighted graph,
+i.e. all the edges have the same weight (or cost). 
+
+.. code:: python
+
+   def breadth_first(maze, start, goal):
+       queue = deque([([start], start)])
+       visited = set()
+       graph = build_graph(maze)
+       
+       while queue:
+           path, current = queue.popleft()
+           if current == goal:
+               return np.array(path)
+           if current in visited:
+               continue
+           visited.add(current)
+           for direction, neighbour in graph[current]:
+               p = list(path)
+               p.append(neighbour)
+               queue.append((p, neighbour))
+       return None
+
+
+Bellman-Ford method
++++++++++++++++++++
+
+The Bellman–Ford algorithm is an algorithm that is able to find the optimal
+path in a graph using a diffusion process. Optimal path is found by ascending
+the resulting gradient. This algorithm runs in quadratic time :math:`O(|V||E|)`
+(where V is the number of vertices, and E is the number of edges). However, in
+our simple case, we won't hit the worst case scenario. The algorithm is
+illustrated below (reading from left to right, top to bottom).
+
+.. image:: ../data/value-iteration-1.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-2.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-3.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-4.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-5.pdf
+   :width: 19%
+
+.. image:: ../data/value-iteration-6.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-7.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-8.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-9.pdf
+   :width: 19%
+.. image:: ../data/value-iteration-10.pdf
+   :width: 19%
+
+We start by setting the exit node to the value 1 while every other nodes are
+set to 0 (but the walls of course). Then we iterate a process such that each
+cell new value is computed as the maximum value between the current cell value
+and the discounted (gamma=0.9 in the case below) 4 neighbour values. The
+process start as soon as the starting node value become strictly positive.
+
 .. admonition:: **Figure 8**
    :class: legend
 
@@ -177,11 +370,6 @@ Path finding
    :width: 100%
 
 
-Breadth-first
-+++++++++++++
-
-Bellman-Ford method
-+++++++++++++++++++
 
 Sources
 +++++++
@@ -193,11 +381,50 @@ Sources
 References
 ++++++++++
 
-Smoke simulation
-----------------
+* `Labyrinth Algorithms <http://bryukh.com/labyrinth-algorithms/>`_, Valentin
+  Bryukhanov, 2014.
 
-Computational Fluid Dynamics
-++++++++++++++++++++++++++++
+
+
+Fluid Dynamics
+--------------
+
+.. admonition:: **Figure 9**
+   :class: legend
+
+   Hydrodynamic flow at two different zoom levels, Neckar river, Heidelberg,
+   Germany. Image by `Steven Mathey
+   <https://commons.wikimedia.org/wiki/File:Self_Similar_Turbulence.png>`_, 2012.
+
+.. image:: ../data/Self-similar-turbulence.png
+   :width: 100%
+
+
+
+Lagrangian vs Eulerian method
++++++++++++++++++++++++++++++
+
+.. note::
+
+   Excerpt from the Wikipedia entry on the 
+   `Lagrangian and Eulerian specification <https://en.wikipedia.org/wiki/Lagrangian_and_Eulerian_specification_of_the_flow_field>`_
+
+In classical field theory the Lagrangian specification of the field is a way of
+looking at fluid motion where the observer follows an individual fluid parcel
+as it moves through space and time. Plotting the position of an individual
+parcel through time gives the pathline of the parcel. This can be visualized as
+sitting in a boat and drifting down a river.
+
+The Eulerian specification of the flow field is a way of looking at fluid
+motion that focuses on specific locations in the space through which the fluid
+flows as time passes. This can be visualized by sitting on the bank of a river
+and watching the water pass the fixed location.
+
+
+
+Numpy implementation
+++++++++++++++++++++
+
 
 .. admonition:: **Figure 9**
    :class: legend
@@ -223,29 +450,6 @@ Computational Fluid Dynamics
          Your browser does not support the video tag. </video>
 
 
-Lagrangian vs Eulerian method
-+++++++++++++++++++++++++++++
-
-.. note::
-
-   Excerpt from the Wikipedia entry on the 
-   `Lagrangian and Eulerian specification <https://en.wikipedia.org/wiki/Lagrangian_and_Eulerian_specification_of_the_flow_field>`_
-
-In classical field theory the Lagrangian specification of the field is a way of
-looking at fluid motion where the observer follows an individual fluid parcel
-as it moves through space and time. Plotting the position of an individual
-parcel through time gives the pathline of the parcel. This can be visualized as
-sitting in a boat and drifting down a river.
-
-The Eulerian specification of the flow field is a way of looking at fluid
-motion that focuses on specific locations in the space through which the fluid
-flows as time passes. This can be visualized by sitting on the bank of a river
-and watching the water pass the fixed location.
-
-Numpy implementation
-++++++++++++++++++++
-
-
 Sources
 +++++++
 
@@ -268,7 +472,15 @@ References
 Poisson disk sampling
 ---------------------
 
-|WIP|
+.. admonition:: **Figure 10**
+   :class: legend
+
+   Detail of "The Starry Night", Vincent van Gogh, 1889.
+
+.. image:: ../data/mosaic.png
+   :width: 100%
+   :class: bordered
+
 
 DART method
 +++++++++++
@@ -277,7 +489,7 @@ Numpy implementation
 ++++++++++++++++++++
 
 
-.. admonition:: **Figure 10**
+.. admonition:: **Figure 11**
    :class: legend
 
    Comparison of uniform, grid-jittered and Poisson disc sampling.

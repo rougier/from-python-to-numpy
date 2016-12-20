@@ -3,7 +3,7 @@ Anatomy of an array
 
 .. contents:: **Contents**
    :local:
-
+      
 Data type
 ---------
 
