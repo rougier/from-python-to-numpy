@@ -175,7 +175,7 @@ maze. First task is thus to build a maze.
    :class: legend
 
    A hedge maze at Longleat stately home in England.
-   (Image by `Prince Rurik <https://commons.wikimedia.org/wiki/File:Longleat_maze.jpg>`_), 2005.
+   Image by `Prince Rurik <https://commons.wikimedia.org/wiki/File:Longleat_maze.jpg>`_, 2005.
 
 .. image:: ../data//Longleat-maze-cropped.jpg
    :width: 100%
@@ -329,7 +329,10 @@ path in a graph using a diffusion process. Optimal path is found by ascending
 the resulting gradient. This algorithm runs in quadratic time :math:`O(|V||E|)`
 (where V is the number of vertices, and E is the number of edges). However, in
 our simple case, we won't hit the worst case scenario. The algorithm is
-illustrated below (reading from left to right, top to bottom).
+illustrated below (reading from left to right, top to bottom). Once this is
+done, we can ascent the gradient from the starting node. You can check on the
+figure this leads to the shortest path.
+
 
 .. image:: ../data/value-iteration-1.pdf
    :width: 19%
@@ -359,6 +362,61 @@ cell new value is computed as the maximum value between the current cell value
 and the discounted (gamma=0.9 in the case below) 4 neighbour values. The
 process start as soon as the starting node value become strictly positive.
 
+The numpy implementation is straightforward and we can take advanage of the
+`scipy.ndimage.generic_filter` for the diffusion process:
+
+.. code:: python
+
+   def diffuse(Z):
+       # North, West, Center, East, South
+       return max(gamma*Z[0], gamma*Z[1], Z[2], gamma*Z[3], gamma*Z[4])
+
+   # Build gradient array
+   G = np.zeros(Z.shape)
+
+   # Initialize gradient at the entrance with value 1
+   G[start] = 1
+
+   # Discount factor
+   gamma = 0.99
+
+   # We iterate until value at exit is > 0. This requires the maze
+   # to have a solution or it will be stuck in the loop.
+   while G[goal] == 0.0:
+       G = Z * generic_filter(G, diffuse, footprint=[[0, 1, 0],
+                                                     [1, 1, 1],
+                                                     [0, 1, 0]])
+
+But this is actually slow and it's better to cook-up our own solution, reusing
+part of the game of life code:
+
+.. code:: python
+
+   # Build gradient array
+   G = np.zeros(Z.shape)
+
+   # Initialize gradient at the entrance with value 1
+   G[start] = 1
+
+   # Discount factor
+   gamma = 0.99
+
+   # We iterate until value at exit is > 0. This requires the maze
+   # to have a solution or it will be stuck in the loop.
+   G_gamma = np.empty_like(G)
+   while G[goal] == 0.0:
+       np.multiply(G, gamma, out=G_gamma)
+       N = G_gamma[0:-2,1:-1]
+       W = G_gamma[1:-1,0:-2]
+       C = G[1:-1,1:-1]
+       E = G_gamma[1:-1,2:]
+       S = G_gamma[2:,1:-1]
+       G[1:-1,1:-1] = Z[1:-1,1:-1]*np.maximum(N,np.maximum(W,
+                                   np.maximum(C,np.maximum(E,S))))
+
+Once this is done, we can ascent the gradient to find the shortest path as
+illustrated on the figure below:
+
 .. admonition:: **Figure 8**
    :class: legend
 
@@ -375,7 +433,6 @@ Sources
 +++++++
 
 * `maze-build.py <../code/maze-build.py>`_
-* `maze-python.py <../code/maze-numpy.py>`_
 * `maze-numpy.py <../code/maze-numpy.py>`_
 
 References

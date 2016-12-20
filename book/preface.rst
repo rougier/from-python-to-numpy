@@ -98,7 +98,7 @@ If you want to contribute to this book, you can:
 
 
 Publishing
-----------
+++++++++++
 
 If you're an editor interested in publishing this book, you can contact me if
 you agree to have this open access version online, you know how to deal with
