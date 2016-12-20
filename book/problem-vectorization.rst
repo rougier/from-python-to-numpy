@@ -612,5 +612,3 @@ References
 
 Conclusion
 ----------
-
-|WIP|
