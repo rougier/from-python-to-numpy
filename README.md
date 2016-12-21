@@ -4,13 +4,13 @@ This work is licensed under a
 [Creative Commons Attribution 4.0 International License]
 (http://creativecommons.org/licenses/by/4.0/).
 
-* [Preface](preface.rst)
-* [Introduction](introduction.rst)
-* [Anatomy of an array](anatomy.rst)
-* [Code vectorization](code-vectorization.rst)
-* [Problem vectorization](problem-vectorization.rst)
-* [Custom vectorization](custom-vectorization.rst)
-* [Beyond Numpy](beyond-numpy.rst)
-* [Conclusion](conclusion.rst)
-* [Quick references](quick-reference.rst)
-* [Bibliography](bibliography.rst)
+* [Preface](01-preface.rst)
+* [Introduction](02-introduction.rst)
+* [Anatomy of an array](03-anatomy.rst)
+* [Code vectorization](04-code-vectorization.rst)
+* [Problem vectorization](05-problem-vectorization.rst)
+* [Custom vectorization](06-custom-vectorization.rst)
+* [Beyond Numpy](07-beyond-numpy.rst)
+* [Conclusion](08-conclusion.rst)
+* [Quick references](09-quick-reference.rst)
+* [Bibliography](10-bibliography.rst)
