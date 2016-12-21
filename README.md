@@ -15,4 +15,4 @@ This work is licensed under a
 * [Quick references](09-quick-reference.rst)
 * [Bibliography](10-bibliography.rst)
 
-![](data/cubs.png)
+![](data/cubes.png)
