@@ -91,21 +91,22 @@ How to contribute
 If you want to contribute to this book, you can:
 
 * Review chapters (please contact me)
-* Report issues (https://github.com/rougier/numpy-book/issues)
-* Suggest improvements (https://github.com/rougier/numpy-book/pulls)
-* Correct English (https://github.com/rougier/numpy-book/issues)
+* Report issues (https://github.com/rougier/from-python-to-numpy/issues)
+* Suggest improvements (https://github.com/rougier/from-python-to-numpy/pulls)
+* Correct English (https://github.com/rougier/from-python-to-numpy/issues)
 * Design a better and more responsive html template for the book.
-
+* Star the project (https://github.com/rougier/from-python-to-numpy)
 
 Publishing
 ++++++++++
 
 If you're an editor interested in publishing this book, you can contact me if
-you agree to have this open access version online, you know how to deal with
-`restructured text <http://docutils.sourceforge.net/rst.html>`_ (Word is not an
-option), you provide a real added-value as well as supporting services, and
-more importantly, you have a truly amazing latex book template (and be warned
-that I'm a bit picky about typography & design: E.Tufte is my hero).
+you agree to have this version and all subsequent versions open access
+(i.e. online), you know how to deal with `restructured text
+<http://docutils.sourceforge.net/rst.html>`_ (Word is not an option), you
+provide a real added-value as well as supporting services, and more
+importantly, you have a truly amazing latex book template (and be warned that
+I'm a bit picky about typography & design: E.Tufte is my hero).
 
 Still here?
 

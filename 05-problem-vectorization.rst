@@ -333,6 +333,13 @@ illustrated below (reading from left to right, top to bottom). Once this is
 done, we can ascent the gradient from the starting node. You can check on the
 figure this leads to the shortest path.
 
+.. admonition:: **Figure**
+   :class: legend
+
+   Value iteration algorithm on a simple maze. Once entrance has been reached,
+   it is easy to find the shortest path by ascending the value gradient.
+
+   
 
 .. image:: data/value-iteration-1.pdf
    :width: 19%
@@ -561,13 +568,21 @@ References
 * `Animating Sand as a Fluid <https://www.cs.ubc.ca/%7Erbridson/docs/zhu-siggraph05-sandfluid.pdf>`_, Yongning Zhu & Robert Bridson, 2005.
 
 
-Blue noise
-----------
+Blue noise sampling
+-------------------
+
+Blue noise refers to sample sets that have random and yet uniform distributions
+with absence of any spectral bias. Such noise is very useful in a variety of
+graphics applications like rendering, dithering, stippling, etc. Many different
+methods have been proposed to achieve such noise whose most simple is certainly
+the DART method.
+
 
 .. admonition:: **Figure 10**
    :class: legend
 
-   Detail of "The Starry Night", Vincent van Gogh, 1889.
+   Detail of "The Starry Night", Vincent van Gogh, 1889. The detail has been
+   resampled using voronoi cells whose centers are a blue noise sample.
 
 .. image:: data/mosaic.png
    :width: 100%
@@ -577,23 +592,117 @@ Blue noise
 DART method
 +++++++++++
 
-Numpy implementation
-++++++++++++++++++++
+The DART method is one of the earliest and simplest method. It works by
+sequentially drawing uniform random point and only accept those who lies at a
+minimum distance from every previous accepted sample. This sequential method is
+therefore extremely slow because each new candidate needs to be tested against
+previous accepted candidates. The more points you accept, the slower is the
+method. Let's consider the unit surface and a minimum radius `r` to be enforced
+between each point.
+
+Knowing that the densest packing of circles in the plane is the hexagonal
+lattice of the bee's honeycomb, we know this density is :math:`d =
+\frac{1}{6}\pi\sqrt{3}` (in fact `I learned it
+<https://en.wikipedia.org/wiki/Circle_packing>`_ while writing this book).
+Considering circles with radius r, we can pack at most :math:`\frac{d}{\pi r^2}
+= \frac{\sqrt{3}}{6r^2} = \frac{1}{2r^2\sqrt{3}}`. We know the theoretical
+upper limit for the number of discs we can pack onto the surface but we'll
+likely not reach this upper limit because of random placements. Furthermore,
+because a lot of points will be rejected after a few have been accepted, we
+need to set a limit in the number of successive failed trials before we stop
+the whole process.
 
 
-.. admonition:: **Figure 11**
+.. code:: python
+
+   import math
+   import random
+
+   def DART_sampling(width=1.0, height=1.0, r = 0.025, k=100):
+       def distance(p0, p1):
+           dx, dy = p0[0]-p1[0], p0[1]-p1[1]
+           return math.hypot(dx, dy)
+
+       points = []
+       i = 0
+       last_success = 0
+       while True:
+           x = random.uniform(0, width)
+           y = random.uniform(0, height)
+           accept = True
+           for p in points:
+               if distance(p, (x, y)) < r:
+                   accept = False
+                   break
+           if accept is True:
+               points.append((x, y))
+               if i-last_success > k:
+                   break
+               last_success = i
+           i += 1
+       return points
+
+I left as an exercise the vectorization of the DART method. The idea is to
+pre-compute enough uniform random samples as well as paired distances and to
+test for their sequential inclusion.
+       
+
+Bridson method
+++++++++++++++
+
+If the vectoriation of the previous method poses no real difficulty, the speed
+improvement is not so good and the quality remains low and dependent on the `k`
+parameter. The higher the better since it basically governs how hard to try to
+insert a new sample. But, when there is already a large number of accepted
+samples, only chance allows us to find a position to insert a new sample. We
+could increase the `k` value but this would make the method even more slow
+without any guarantee in quality. It's time to think out of the box and luckily
+enough, Robert Bridson did that for us and proposed a simple yet efficient
+method:
+
+**Step 0**. *Initialize an n-dimensional background grid for storing samples and
+accelerating spatial searches. We pick the cell size to be bounded by r/√n, so
+that each grid cell will contain at most one sample, and thus the grid can be
+implemented as a simple n- dimensional array of integers: the default −1
+indicates no sample, a non-negative integer gives the index of the sample
+located in a cell.*
+
+**Step 1**. *Select the initial sample, x0, randomly chosen uniformly from the
+domain. Insert it into the background grid, and initialize the “active list”
+(an array of sample indices) with this index (zero).*
+
+**Step 2**. *While the active list is not empty, choose a random index from it
+(say i). Generate up to k points chosen uniformly from the spherical annulus
+between radius r and 2r around xi. For each point in turn, check if it is
+within distance r of existing samples (using the background grid to only test
+nearby samples). If a point is adequately far from existing samples, emit it
+as the next sample and add it to the active list. If after k attempts no such
+point is found, instead remove i from the active list.*
+
+
+Implementation poses no real problem and is left as an exercise for the
+reader. Note that not only this method is fast, but it also offers a better
+quality (more samples) than the DART method even with a high `k`
+parameter.
+
+.. admonition:: **Figure**
    :class: legend
 
-   Comparison of uniform, grid-jittered and Poisson disc sampling.
-
+   Comparison of uniform, grid-jittered and Bridson sampling.
 
 .. image:: data/sampling.png
    :width: 100%
 
+
+
+           
 Sources
 +++++++
 
-* `sampling.py <code/sampling.py>`_
+* `DART-sampling-python.py <code/DART-sampling-python.py>`_
+* `DART-sampling-numpy.py <code/DART-sampling-numpy.py>`_ (solution to the exercise)
+* `Bridson-sampling.py <code/Bridson-sampling.py>`_ (solution to the exercise)
+* `sampling.py <code/sampling.py>`_ 
 * `mosaic.py <code/mosaic.py>`_
 * `voronoi.py <code/voronoi.py>`_
 
@@ -606,9 +715,19 @@ References
   Jose Esteve, 2012.
 * `Poisson Disk Sampling <http://devmag.org.za/2009/05/03/poisson-disk-sampling/>`_
   Herman Tulleken, 2009.
-* `Fast Poisson Disk Sampling in Arbitrary Dimensions <http://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf>`_
+* `Fast Poisson Disk Sampling in Arbitrary Dimensions <http://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf>`_,
   Robert Bridson, SIGGRAPH, 2007.
 
 
 Conclusion
 ----------
+
+The last example we'been studying is indeed a nice example where it is more
+important to vectorize the problem rather than to vectorize the code (and too
+early). In this spefici case we were lucky enough to have the work done for us
+but it won't be always the case and in such a case, the temptation might be
+high to vectorize the first solution we've found. I hope you're now convinced
+it might be a good idea in general to look for alternative solutions once
+you've found one. You'll (almost) always improve speed by vectorizing your
+code, but in the process, you may miss huge improvements.
+

@@ -127,8 +127,8 @@ important to wonder if you need an actual instance of your result or if a
 simple generator might do the job.
 
 
-Friends of Numpy
-----------------
+Numpy & co
+----------
 
 Beyond numpy, there are several other Python packages that are worth a look
 because they address similar yet different class of problems using different
@@ -306,72 +306,77 @@ and other massively parallel compute devices from Python.
 
 
 
-..
-   Friends of Scipy
-   ----------------
+Scipy & co
+----------
 
-   Here is a very short list of packages that are well-maintained, well tested and
-   may simplify your scientific life (depending on your domain). There are of
-   course many more and depending on your specific needs, chances are you do not
-   have to program everything by yourself. But it is a good exercise if you have
-   some spare time. For an extensive list, have a look at the `Awesome python list
-   <https://awesome-python.com>`_.
+If there are several additional packages for Numpy, there is a trillion
+additional packages for scipy. In fact, every domain of science probably has
+its own package and most of the examples we've been studying until now could
+have been solved in two or three calls to a method in the relevant package.
+But of course, it was not the goal an programming things yourself is generally
+a good exercise if you have some spare time. The biggest difficulty at this
+point is to find these relevant packages. Here is a very short list of packages
+that are well-maintained, well tested and may simplify your scientific life
+(depending on your domain). There are of course many more and depending on your
+specific needs, chances are you do not have to program everything by
+yourself. For an extensive list, have a look at the `Awesome python list
+<https://awesome-python.com>`_.
 
-   scikit-learn
-   ++++++++++++
+scikit-learn
+++++++++++++
 
-   `scikit-learn <http://scikit-learn.org/stable/>`_ is a free software machine
-   learning library for the Python programming language. It features various
-   classification, regression and clustering algorithms including support vector
-   machines, random forests, gradient boosting, k-means and DBSCAN, and is
-   designed to interoperate with the Python numerical and scientific libraries
-   NumPy and SciPy.
-
-
-   scikit-image
-   ++++++++++++
-
-   `scikit-image <http://scikit-image.org>`_ is a Python package dedicated to
-   image processing, and using natively NumPy arrays as image objects. This
-   chapter describes how to use scikit-image on various image processing tasks,
-   and insists on the link with other scientific Python modules such as NumPy and
-   SciPy.
-
-   SympPy
-   ++++++
-
-   `SymPy <http://www.sympy.org/en/index.html>`_ is a Python library for symbolic
-   mathematics. It aims to become a full-featured computer algebra system (CAS)
-   while keeping the code as simple as possible in order to be comprehensible and
-   easily extensible. SymPy is written entirely in Python.
-
-   Astropy
-   +++++++
-
-   The `Astropy <http://www.astropy.org>`_ project is a community effort to
-   develop a single core package for astronomy in Python and foster
-   interoperability between Python astronomy packages.
+`scikit-learn <http://scikit-learn.org/stable/>`_ is a free software machine
+learning library for the Python programming language. It features various
+classification, regression and clustering algorithms including support vector
+machines, random forests, gradient boosting, k-means and DBSCAN, and is
+designed to interoperate with the Python numerical and scientific libraries
+NumPy and SciPy.
 
 
-   Cartopy
-   +++++++
+scikit-image
+++++++++++++
 
-   `Cartopy <http://scitools.org.uk/cartopy/>`_ is a Python package designed to
-   make drawing maps for data analysis and visualisation as easy as
-   possible. Cartopy makes use of the powerful PROJ.4, numpy and shapely libraries
-   and has a simple and intuitive drawing interface to matplotlib for creating
-   publication quality maps.
+`scikit-image <http://scikit-image.org>`_ is a Python package dedicated to
+image processing, and using natively NumPy arrays as image objects. This
+chapter describes how to use scikit-image on various image processing tasks,
+and insists on the link with other scientific Python modules such as NumPy and
+SciPy.
+
+SympPy
+++++++
+
+`SymPy <http://www.sympy.org/en/index.html>`_ is a Python library for symbolic
+mathematics. It aims to become a full-featured computer algebra system (CAS)
+while keeping the code as simple as possible in order to be comprehensible and
+easily extensible. SymPy is written entirely in Python.
+
+Astropy
++++++++
+
+The `Astropy <http://www.astropy.org>`_ project is a community effort to
+develop a single core package for astronomy in Python and foster
+interoperability between Python astronomy packages.
 
 
-   Brian
-   +++++
+Cartopy
++++++++
 
-   `Brian <http://www.briansimulator.org>`_ is a free, open source simulator for
-   spiking neural networks. It is written in the Python programming language and
-   is available on almost all platforms. We believe that a simulator should not
-   only save the time of processors, but also the time of scientists. Brian is
-   therefore designed to be easy to learn and use, highly flexible and easily
-   extensible.
+`Cartopy <http://scitools.org.uk/cartopy/>`_ is a Python package designed to
+make drawing maps for data analysis and visualisation as easy as
+possible. Cartopy makes use of the powerful PROJ.4, numpy and shapely libraries
+and has a simple and intuitive drawing interface to matplotlib for creating
+publication quality maps.
+
+
+Brian
++++++
+
+`Brian <http://www.briansimulator.org>`_ is a free, open source simulator for
+spiking neural networks. It is written in the Python programming language and
+is available on almost all platforms. We believe that a simulator should not
+only save the time of processors, but also the time of scientists. Brian is
+therefore designed to be easy to learn and use, highly flexible and easily
+extensible.
 
 
 Conclusion

@@ -4,6 +4,7 @@
 # More information at https://github.com/rougier/numpy-book
 # -----------------------------------------------------------------------------
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30):
@@ -78,60 +79,15 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30):
     return P[M]
 
 
-def draw_voronoi(ax, X, Y):
-    from voronoi import voronoi
-    from matplotlib.path import Path
-    from matplotlib.patches import PathPatch
-    cells, triangles, circles = voronoi(X, Y)
-    for i, cell in enumerate(cells):
-        codes = [Path.MOVETO] \
-                + [Path.LINETO] * (len(cell)-2) \
-                + [Path.CLOSEPOLY]
-        path = Path(cell, codes)
-        patch = PathPatch(path,
-                          facecolor="none", edgecolor="0.5", linewidth=0.5)
-        ax.add_patch(patch)
-
-
-# -----------------------------------------------------------------------------
 if __name__ == '__main__':
-    import matplotlib.pyplot as plt
 
-    # Benchmark
-    # from tools import print_timeit
-    # print_timeit("poisson_disk_sample()", globals())
+    plt.figure()
+    plt.subplot(1, 1, 1, aspect=1)
 
-    fig = plt.figure(figsize=(18, 6))
-
-    ax = plt.subplot(1, 3, 1, aspect=1)
-    n = 1000
-    X = np.random.uniform(0, 1, n)
-    Y = np.random.uniform(0, 1, n)
-    ax.scatter(X, Y, s=10, facecolor='w', edgecolor='0.5')
-    ax.set_xlim(0, 1), ax.set_ylim(0, 1)
-    ax.set_xticks([]), ax.set_yticks([])
-    ax.set_title("Random sampling", fontsize=18)
-    draw_voronoi(ax, X, Y)
-
-    ax = plt.subplot(1, 3, 2, aspect=1)
-    n = 32
-    X, Y = np.meshgrid(np.linspace(0, 1, n), np.linspace(0, 1, n))
-    X += 0.45*np.random.uniform(-1/n, 1/n, (n, n))
-    Y += 0.45*np.random.uniform(-1/n, 1/n, (n, n))
-    ax.scatter(X, Y, s=10, facecolor='w', edgecolor='0.5')
-    ax.set_xlim(0, 1), ax.set_ylim(0,  1)
-    ax.set_xticks([]), ax.set_yticks([])
-    ax.set_title("Regular grid + jittering", fontsize=18)
-    draw_voronoi(ax, X.ravel(), Y.ravel())
-
-    ax = plt.subplot(1, 3, 3, aspect=1)
-    P = Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30)
-    plt.scatter(P[:, 0], P[:, 1], s=10, facecolor='w', edgecolor='0.5')
-    ax.set_xlim(0, 1), ax.set_ylim(0, 1)
-    ax.set_xticks([]), ax.set_yticks([])
-    ax.set_title("Bridson sampling", fontsize=18)
-    draw_voronoi(ax, P[:, 0], P[:, 1])
-
-    plt.tight_layout(pad=2.5)
-    plt.savefig("../data/sampling.png")
+    points = Bridson_sampling()
+    X = [x for (x, y) in points]
+    Y = [y for (x, y) in points]
+    plt.scatter(X, Y, s=10)
+    plt.xlim(0, 1)
+    plt.ylim(0, 1)
     plt.show()
