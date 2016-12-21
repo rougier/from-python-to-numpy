@@ -14,3 +14,5 @@ This work is licensed under a
 * [Conclusion](08-conclusion.rst)
 * [Quick references](09-quick-reference.rst)
 * [Bibliography](10-bibliography.rst)
+
+![](data/cubs.png)
