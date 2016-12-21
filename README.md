@@ -4,6 +4,8 @@ This work is licensed under a
 [Creative Commons Attribution 4.0 International License]
 (http://creativecommons.org/licenses/by/4.0/).
 
+Website: http://www.labri.fr/perso/nrougier/from-python-to-numpy
+
 * [Preface](01-preface.rst)
 * [Introduction](02-introduction.rst)
 * [Anatomy of an array](03-anatomy.rst)

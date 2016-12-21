@@ -107,5 +107,5 @@ if __name__ == '__main__':
         patch = PathPatch(path, facecolor=color, edgecolor="none")
         ax.add_patch(patch)
 
-    plt.savefig("../pics/mosaic.png")
+    plt.savefig("../data/mosaic.png")
     plt.show()

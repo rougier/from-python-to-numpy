@@ -76,6 +76,6 @@ if __name__ == '__main__':
                extent=[xmin, xmax, ymin, ymax], interpolation="bicubic")
     ax.set_xticks([])
     ax.set_yticks([])
-    plt.savefig("../pics/mandelbrot.png")
+    plt.savefig("../data/mandelbrot.png")
     plt.show()
 

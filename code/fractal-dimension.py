@@ -29,7 +29,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import matplotlib.patches as patches
 
-    Z = 1.0 - misc.imread("../pics/Great-Britain.png")/255
+    Z = 1.0 - misc.imread("../data/Great-Britain.png")/255
 
     print(fractal_dimension(Z, threshold=0.25))
 
