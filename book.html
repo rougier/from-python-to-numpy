@@ -1429,8 +1429,9 @@ compute it only once:</p>
         <span class="name">result</span> <span class="operator">+=</span> <span class="name">X</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">]</span><span class="operator">*</span><span class="name">Ysum</span>
     <span class="keyword">return</span> <span class="name">result</span>
 </pre>
-<p>Not so bad, we have the inner loop, meaning with transform a <span class="formula"><i>O</i>(<i>n</i><sup>2</sup>)</span> complexity
-into <span class="formula"><i>O</i>(<i>n</i>)</span> complexity. Using the same approach, we can now write:</p>
+<p>Not so bad, we have removed the inner loop, meaning with transform a
+<span class="formula"><i>O</i>(<i>n</i><sup>2</sup>)</span> complexity into <span class="formula"><i>O</i>(<i>n</i>)</span> complexity. Using the same
+approach, we can now write:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">compute_numpy_better_3</span><span class="punctuation">(</span><span class="name">x</span><span class="punctuation">,</span> <span class="name">y</span><span class="punctuation">):</span>
     <span class="name">Ysum</span> <span class="operator">=</span> <span class="operator">=</span> <span class="literal number integer">0</span>
@@ -1456,7 +1457,7 @@ respectively, we can benefit from the <code>np.sum</code> function and write:</p
 <p>We have indeed reformulated our problem, taking advantage of the fact that
 <span class="formula"><span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><sub><i>ij</i></sub><i>X</i><sub><i>i</i></sub><i>Y</i><sub><i>j</i></sub> = <span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><sub><i>i</i></sub><i>X</i><sub><i>i</i></sub><span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><sub><i>j</i></sub><i>Y</i><sub><i>j</i></sub></span> and we've learned in the
 meantime that there are two kinds of vectorization: code vectorization and
-the problem vectorization. The latter is the most difficult but the most
+problem vectorization. The latter is the most difficult but the most
 important because this is where you can expect huge gains in speed. In this
 simple example, we gain a factor of 150 with code vectorization but we gained a
 factor of 70,000 with problem vectorization, just by writing our problem

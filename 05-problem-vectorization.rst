@@ -104,8 +104,9 @@ compute it only once:
            result += X[i]*Ysum
        return result
 
-Not so bad, we have the inner loop, meaning with transform a :math:`O(n^2)` complexity
-into :math:`O(n)` complexity. Using the same approach, we can now write:
+Not so bad, we have removed the inner loop, meaning with transform a
+:math:`O(n^2)` complexity into :math:`O(n)` complexity. Using the same
+approach, we can now write:
 
 .. code:: python
 
@@ -137,7 +138,7 @@ It is shorter, clearer and much, much faster:
 We have indeed reformulated our problem, taking advantage of the fact that
 :math:`\sum_{ij}{X_i}{Y_j} = \sum_{i}X_i \sum_{j}Y_j$` and we've learned in the
 meantime that there are two kinds of vectorization: code vectorization and
-the problem vectorization. The latter is the most difficult but the most
+problem vectorization. The latter is the most difficult but the most
 important because this is where you can expect huge gains in speed. In this
 simple example, we gain a factor of 150 with code vectorization but we gained a
 factor of 70,000 with problem vectorization, just by writing our problem
