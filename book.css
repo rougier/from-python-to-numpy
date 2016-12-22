@@ -6,12 +6,28 @@
     src: url('fonts/SourceCodePro-Regular.otf.woff') format('woff');
 }
 
+@font-face{
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('fonts/SourceSansPro-Regular.otf.woff') format('woff');
+}
+
+@font-face{
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+    src: url('fonts/SourceSansPro-It.otf.woff') format('woff');
+}
+
 html {
 }
 
 body {
     color: #222;
-    font-family: 'Source Sans Pro';
+    font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
     font-weight: 100;
     line-height: 1.5em;
@@ -186,12 +202,12 @@ h2.subtitle {
 /* --- Math ---------------------------------------------------------------- */
 span.formula {
     color: #955;
-    font-family: 'Source Sans Pro';
+    font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
 }
 div.formula {
     color: #955;
-    font-family: 'Source Sans Pro';
+    font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
 }
 
