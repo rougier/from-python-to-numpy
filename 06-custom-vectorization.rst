@@ -10,12 +10,12 @@ Custom vectorization
 Introduction
 ------------
 
-One of the strength of Numpy is that it can be used to build new object or to
+One of the strengths of numpy is that it can be used to build new objects or to
 `subclass the ndarray
 <https://docs.scipy.org/doc/numpy/user/basics.subclassing.html>`_ object. This
 later process is a bit tedious but it is worth the effort because it allows you
-to improve the ndarray object such as to suit your problem. We'll examine in
-the following section two real-word cases (typed list and memory aware array)
+to improve the `ndarray` object to suit your problem. We'll examine in
+the following section two real-world cases (typed list and memory-aware array)
 that are extensively used in the `glumpy <http://glumpy.github.io>`_ project
 (that I maintain) while the last one (double precision array) is a more
 academic case.
@@ -26,9 +26,9 @@ Typed list
 
 Typed list (also known as ragged array) is a list of items that all have the
 same data type (in the sense of numpy). They offer both the list and the
-ndarray API (with some restriction of course) but because respective API may be
-not compatible in some cases, we have to make choices. For example, concerning
-the `+` operator, we'll choose to use the Numpy API where the value is added to
+ndarray API (with some restriction of course) but because their respective APIs may not be
+compatible in some cases, we have to make choices. For example, concerning
+the `+` operator, we'll choose to use the numpy API where the value is added to
 each individual item instead of expanding the list by appending a new item
 (`1`).
 
@@ -40,7 +40,7 @@ each individual item instead of expanding the list by appending a new item
    >>> print(l+1)
    [2, 3], [4]
 
-From the list API, we want our new object to offer the  possibility of inserting,
+From the list API, we want our new object to offer the possibility of inserting,
 appending and removing items seamlessly.
 
 Creation 
@@ -48,9 +48,9 @@ Creation
 
 Since the object is dynamic by definition, it is important to offer a
 general-purpose creation method powerful enough to avoid to have to do later
-manipulations. Such manipulations, like for example insertion/deletion, cost
-cost a lot of operations and we want to avoid them. Here is a proposal (among
-others) for the creation of a TypedList object.
+manipulations. Such manipulations, for example insertion/deletion, cost
+a lot of operations and we want to avoid them. Here is a proposal (among
+others) for the creation of a `TypedList` object.
 
 .. code::
 
@@ -69,20 +69,20 @@ others) for the creation of a TypedList object.
            an error is raised.
 
            If `itemsize` is 1-D array, the array will be divided into
-           elements whose succesive sizes will be picked from itemsize.
+           elements whose successive sizes will be picked from itemsize.
            If the sum of itemsize values is different from array size,
            an error is raised.
 
        dtype: np.dtype
            Any object that can be interpreted as a numpy data type.
        """
-           
-This API allows to create an empty list or to create a list from some external
+
+This API allows creating an empty list or creating a list from some external
 data. Note that in the latter case, we need to specify how to partition the
-data into several items or they will split in 1 size item. It can be a regular
+data into several items or they will split into 1-size items. It can be a regular
 partition (i.e. each item is 2 data long) or a custom one (i.e. data must be
-split in items of size 1,2,3 and 4 items).
-       
+split in items of size 1, 2, 3 and 4 items).
+
 .. code:: python
 
     >>> L = TypedList([[0], [1,2], [3,4,5], [6,7,8,9]])
@@ -93,11 +93,11 @@ split in items of size 1,2,3 and 4 items).
     [ [0] [1 2] [3 4 5] [6 7 8] ]
 
 
-At this point, the question is whether to subclass the ndarray class or to use
-an internal ndarray to store our data. In our specific case, it does not make
-really sense to subclass the ndarray because we don"t really want to offer the
-ndarray interface. Instead, we'll use a ndarray for storing the list data and
-this choice in design will offer us more flexibility. 
+At this point, the question is whether to subclass the `ndarray` class or to use
+an internal `ndarray` to store our data. In our specific case, it does not really make
+sense to subclass `ndarray` because we don't really want to offer the
+`ndarray` interface. Instead, we'll use an `ndarray` for storing the list data and
+this design choice will offer us more flexibility.
 
 .. code::
    :class: output
@@ -107,11 +107,11 @@ this choice in design will offer us more flexibility.
     ╌╌╌┴───┘└───┴───┘└───┴───┴───┘└───┴───┴───┴───┴╌╌╌╌╌╌
       item 1  item 2    item 3         item 4
 
-To store the limit of each item, we'll use an `ìtems` array that will take care
+To store the limit of each item, we'll use an `items` array that will take care
 of storing the position (start and end) for each item. For the creation of a
-list, there are two distinct cases, no data is given or some data is given. The
-first case is easy and requires only the creation of the `_data_ and `_items`
-arrays. Note that their size is not null since it would be too costly to resize
+list, there are two distinct cases: no data is given or some data is given. The
+first case is easy and requires only the creation of the `_data` and `_items`
+arrays. Note that their size is not `null` since it would be too costly to resize
 the array each time we insert a new item. Instead, it's better to reserve some
 space.
 
@@ -141,8 +141,8 @@ other cases, see full code below)
 Access
 ++++++
 
-Once this is done, every list methods requires only a bit of computation and
-playing with the different key when getting/inserting/setting an item. Here is
+Once this is done, every list method requires only a bit of computation and
+playing with the different key when getting, inserting or setting an item. Here is
 the code for the `__getitem__` method. No real difficulty but the possible
 negative step:
 
@@ -182,8 +182,8 @@ negative step:
 Exercise
 ++++++++
 
-Modification of the list is a bit more complicated because it requires to
-manage memory properly. Since it poses no real difficulty, we left this as an
+Modification of the list is a bit more complicated, because it requires
+managing memory properly. Since it poses no real difficulty, we left this as an
 exercise for the reader. For the lazy, you can have a look at the code below.
 Be careful with negative steps, key range and array expansion. When the
 underlying array needs to be expanded, it's better to expand it more than
@@ -301,13 +301,13 @@ glumpy will take care of the rest. But an example is worth a thousand words:
    V = np.zeros((3,3),dtype).view(gloo.VertexBuffer)
    V["position"][0,0] = 0.0, 0.0
    V["position"][1,1] = 0.0, 0.0
-   
-   
-V is a `VertexBuffer` which is both a `GPUData` and a numpy array. When V is
+
+
+`V` is a `VertexBuffer` which is both a `GPUData` and a numpy array. When `V` is
 modified, glumpy takes care of computing the smallest contiguous block of dirty
 memory since it was last uploaded to GPU memory. When this buffer is to be used
 on the GPU, glumpy takes care of uploading the "dirty" area at the very last
-moment. This means that if you never use V, nothing will be ever uploaded to
+moment. This means that if you never use `V`, nothing will be ever uploaded to
 the GPU! In the case above, the last computed "dirty" area is made of 88 bytes
 starting at offset 0 as illustrated below:
 
@@ -321,7 +321,7 @@ starting at offset 0 as illustrated below:
            
 Glumpy will thus end up uploading 88 bytes while only 16 bytes have been
 actually modified. You might wonder if this optimal. Actually, most of the time
-it is because uploading some data to a buffer requires a lot of operations on
+it is, because uploading some data to a buffer requires a lot of operations on
 the GL side and each call has a fixed cost.
 
 
@@ -333,16 +333,16 @@ Array subclass
 
 As explained in the `Subclassing ndarray
 <https://docs.scipy.org/doc/numpy/user/basics.subclassing.html>`_
-documentation, subclassing ndarray is complicated by the fact that new
-instances of ndarray classes can come about in three different ways:
+documentation, subclassing `ndarray` is complicated by the fact that new
+instances of `ndarray` classes can come about in three different ways:
 
 * Explicit constructor call
-* View casting 
+* View casting
 * New from template
 
 However our case is simpler because we're only interested in the view
 casting. We thus only need to define the `__new__` method that will be called
-at each instance creation. Such GPUData class will be equipped with two
+at each instance creation. As such, the `GPUData` class will be equipped with two
 properties:
 
 * `extents`: This represents the full extent of the view relatively to the base
@@ -400,10 +400,10 @@ Keeping track of pending data
 +++++++++++++++++++++++++++++
 
 One extra difficulty is that we don't want all the views to keep track of the
-dirty area but ony the base array. This is the reason why we don't instantiate
+dirty area but only the base array. This is the reason why we don't instantiate
 the `self._pending_data` in the second case of the `__array_finalize__`
 method. This will be handled when we need to update some data as during a
-__setitem__ call for example:
+`__setitem__` call for example:
 
 .. code:: python
 
@@ -456,10 +456,10 @@ Sources
 Conclusion
 ----------
 
-As explained on the Numpy website, NumPy is the fundamental package for
-scientific computing with Python. However, as illustrated in this chaper, the
-usage of Numpy strength goes far beyond a mere *multi-dimensional container of
-generic data*. Using ndarray as a private property in one case (`TypedList`) or
-directly subclassing the ndarray class (`GPUData`) to keep track of memory in
-another case , we've seen how it is possible to extend Numpy capabilities to
-suit very specific needs. The limit if your imagination and your experience.
+As explained on the numpy website, numpy is the fundamental package for
+scientific computing with Python. However, as illustrated in this chapter, the
+usage of numpy strengths goes far beyond a mere *multi-dimensional container of
+generic data*. Using `ndarray` as a private property in one case (`TypedList`) or
+directly subclassing the `ndarray` class (`GPUData`) to keep track of memory in
+another case, we've seen how it is possible to extend numpy's capabilities to
+suit very specific needs. The limit is only your imagination and your experience.

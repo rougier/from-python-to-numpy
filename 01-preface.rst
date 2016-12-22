@@ -18,12 +18,12 @@ neuroscience in association with the `Institute of Neurodegenerative
 Diseases`_, the Bordeaux laboratory for research in computer science
 (LaBRI_), the `University of Bordeaux`_ and the national center for scientific
 research (CNRS_).
-  
-He has been using Python for more than 15 years and Numpy for more than 10
+
+He has been using Python for more than 15 years and numpy for more than 10
 years for modeling in neuroscience, machine learning and for advanced
 visualization (OpenGL). Nicolas P. Rougier is the author of several online
-resources and tutorials (Matplotlib, Numpy, OpenGL) and he's teaching Python,
-Numpy and scientific visualization at the University of Bordeaux and in various
+resources and tutorials (Matplotlib, numpy, OpenGL) and he's teaching Python,
+numpy and scientific visualization at the University of Bordeaux and in various
 conferences and schools worldwide (SciPy, EuroScipy, etc). He's also the author
 of the popular article `Ten Simple Rules for Better Figures`_.
 
@@ -34,7 +34,7 @@ About this book
 This book has been written in |ReST|_ format and generated using the
 `rst2html.py` command line available from the docutils_ python package.
 
-If you want to rebuild the html output, from top direcotry, type:
+If you want to rebuild the html output, from the top directory, type:
 
 .. code-block::
 
@@ -49,18 +49,18 @@ The sources are available from https://github.com/rougier/from-python-to-numpy.
 .. _docutils: http://docutils.sourceforge.net/
 
 
-Pre-requisites
-++++++++++++++
+Prerequisites
++++++++++++++
 
 This is not a Python beginner guide and you should have an intermediate level in
-Python and ideally a beginner level in Numpy. If this is not the case, have
+Python and ideally a beginner level in numpy. If this is not the case, have
 a look at the bibliography_ for a curated list of resources.
 
 
 Conventions
 +++++++++++
 
-We will use usual naming conventions. If not stated explicitely, each script
+We will use usual naming conventions. If not stated explicitly, each script
 should import numpy, scipy and matplotlib as:
 
 .. code-block:: python
