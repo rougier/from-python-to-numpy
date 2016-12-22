@@ -724,7 +724,7 @@ Conclusion
 
 The last example we'been studying is indeed a nice example where it is more
 important to vectorize the problem rather than to vectorize the code (and too
-early). In this spefici case we were lucky enough to have the work done for us
+early). In this specific case we were lucky enough to have the work done for us
 but it won't be always the case and in such a case, the temptation might be
 high to vectorize the first solution we've found. I hope you're now convinced
 it might be a good idea in general to look for alternative solutions once
