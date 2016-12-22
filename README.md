@@ -1,8 +1,8 @@
 # From Python to Numpy
 Copyright (c) 2017 Nicolas P. Rougier  
 This work is licensed under a
-[Creative Commons Attribution 4.0 International License]
-(http://creativecommons.org/licenses/by/4.0/).
+[Creative Commons Attribution 4.0 International (CC BY-NC-SA 4.0)]
+(https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 There is already a fair number of book about Numpy (see Bibliography_) and a
 legitimate question is to wonder if another book is really necessary. As you
