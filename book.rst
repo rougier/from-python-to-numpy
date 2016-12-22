@@ -25,10 +25,6 @@
    .. image:: data/nc.large.png
       :width: 40px
 
-   |
-   | **— Website —**
-   | http://www.labri.fr/perso/nrougier/from-python-to-numpy
-   |
    | Version 1.0 - January 2017
 
 
@@ -48,6 +44,8 @@ migration from Python to Numpy through vectorization. There is a lot of
 techniques that you don't find in books and such techniques are mostly learned
 through experience. The goal of this book is to explain some of them and to
 make you acquire experience in the process.
+
+**Website:** http://www.labri.fr/perso/nrougier/from-python-to-numpy
 
 
 .. ----------------------------------------------------------------------------
