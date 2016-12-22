@@ -27,6 +27,8 @@
 
    | Version 1.0 - January 2017
 
+   .. image:: https://zenodo.org/badge/73355169.svg
+      :target: https://zenodo.org/badge/latestdoi/73355169
 
 .. ----------------------------------------------------------------------------
 .. container:: title-logos
