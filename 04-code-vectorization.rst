@@ -225,10 +225,10 @@ sure to consider all the eight neighbours.
 
 .. code:: python
 
-  N = np.zeros(Z.shape, dtype=int)
-  N[1:-1,1:-1] += (Z[ :-2, :-2] + Z[ :-2,1:-1] + Z[ :-2,2:] +
-                   Z[1:-1, :-2]                + Z[1:-1,2:] +
-                   Z[2:  , :-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
+   N = np.zeros(Z.shape, dtype=int)
+   N[1:-1,1:-1] += (Z[ :-2, :-2] + Z[ :-2,1:-1] + Z[ :-2,2:] +
+                    Z[1:-1, :-2]                + Z[1:-1,2:] +
+                    Z[2:  , :-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
 
 For the rule enforcement, we can write a first version using `argwhere
 <http://docs.scipy.org/doc/numpy/reference/generated/numpy.argwhere.html>`_
@@ -387,21 +387,6 @@ References
 * `Reaction-Diffusion by the Gray-Scott Model <http://mrob.com/pub/comp/xmorphia/>`_,
   Robert P. Munafo, 1996.
 
-
-
-
-..   .. code::
-..      :class: output
-..
-..      ┌───┬───┬───┬───┐  ┌───┬───┬───┬───┐  ┌───┬───┬───┬───┐  ┌───┬───┬───┬───┐  
-..      │   │   │   │   │  │   │   │   │   │  │   │   │   │   │  │   │   │ # │   │
-..      ├───┼───┼───┼───┤  ├───┼───┼───┼───┤  ├───┼───┼───┼───┤  ├───┼───┼───┼───┤
-..      │   │ # │ # │   │  │   │ # │ # │   │  │   │ # │ # │ # │  │   │   │ # │ # │
-..      ├───┼───┼───┼───┤  ├───┼───┼───┼───┤  ├───┼───┼───┼───┤  ├───┼───┼───┼───┤
-..      │ # │   │ # │   │  │   │   │ # │ # │  │   │   │   │ # │  │   │ # │   │ # │
-..      ├───┼───┼───┼───┤  ├───┼───┼───┼───┤  ├───┼───┼───┼───┤  ├───┼───┼───┼───┤
-..      │   │   │ # │   │  │   │ # │   │   │  │   │   │ # │   │  │   │   │   │   │
-..      └───┴───┴───┴───┘  └───┴───┴───┴───┘  └───┴───┴───┴───┘  └───┴───┴───┴───┘
 
 
 Temporal vectorization
@@ -767,7 +752,7 @@ but we'll need the `dx` and `dy` arrays later. Once those have been computed,
 it's faster to use the `hypot
 <https://docs.scipy.org/doc/numpy/reference/generated/numpy.hypot.html>`_
 method. Note that distance shape is (n,n) and each line relates to one boid,
-i.e. eachline gives the distance to all
+i.e. eachline gives the distance to all other boids (including self).
 
 From theses distances, we can now compute local neighborhood for each of the
 three rules, taking advantage of the fact that we can mix them together. We can
@@ -790,7 +775,9 @@ interaction) and multiply it with other distance masks.
 
 Then, we compute the number of neighbours within the given radius and we ensure
 it is at least 1 to avoid division by zero.
-   
+
+.. code:: python
+          
    mask_1_count = np.maximum(mask_1.sum(axis=1), 1)
    mask_2_count = np.maximum(mask_2.sum(axis=1), 1)
    mask_3_count = mask_2_count
