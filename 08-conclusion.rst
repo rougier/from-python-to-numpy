@@ -23,5 +23,6 @@ Finally, custom vectorization is an option worth to consider once you've looked
 at the alternatives to numpy. When nothing works for you, Numpy still offers
 you a clever framework to forge your own tools. And who knows, this can be the
 start of an exciting adventure for you and the community as it happened to me
-with the glumpy and the vispy packages.
+with the `glumpy <http://glumpy.github.io>`_ and the `vispy
+<http://vispy.org>`_ packages.
 

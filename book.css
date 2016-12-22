@@ -215,7 +215,7 @@ pre.output {
     padding-bottom: 0.5em;
 }
 
-.function {
+.function, .class {
     font-weight: 400;
 }
 .comment {

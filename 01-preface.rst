@@ -100,15 +100,15 @@ If you want to contribute to this book, you can:
 Publishing
 ++++++++++
 
-If you're an editor interested in publishing this book, you can contact me if
-you agree to have this version and all subsequent versions open access
-(i.e. online), you know how to deal with `restructured text
-<http://docutils.sourceforge.net/rst.html>`_ (Word is not an option), you
-provide a real added-value as well as supporting services, and more
-importantly, you have a truly amazing latex book template (and be warned that
-I'm a bit picky about typography & design: E.Tufte is my hero).
-
-Still here?
+If you're an editor interested in publishing this book, you can `contact me
+<mailto:Nicolas.Rougier@inria.fr>`_ if you agree to have this version and all
+subsequent versions open access (i.e. online at `this address
+<http://www.labri.fr/perso/nrougier/from-python-to-numpy>`_), you know how to
+deal with `restructured text <http://docutils.sourceforge.net/rst.html>`_ (Word
+is not an option), you provide a real added-value as well as supporting
+services, and more importantly, you have a truly amazing latex book template
+(and be warned that I'm a bit picky about typography & design: `Edward Tufte
+<https://www.edwardtufte.com/tufte/>`_ is my hero). Still here?
 
 
 License

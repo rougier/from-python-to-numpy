@@ -9,19 +9,16 @@ Back to Python
 
 You've almost reached the end of the book and, hopefully, you've learned that
 Numpy is a very versatile and powerful library. However in the meantime, you've
-to remember that Python is also quite a powerful tool. In fact, in some few
+to remember that Python is also quite a powerful language. In fact, in some few
 specific cases, it might be more powerful than Numpy. Let's consider for
 example an interesting exercise that has been proposed by Tucker Balch in his
 `Coursera's Computational Investing
 <https://www.coursera.org/learn/computational-investing>`_ course. The exercise
 is written as:
 
-Write the most succinct code possible to compute all "legal" allocations to 4
-stocks such that:
-
-* The allocations are in 1.0 chunks, and the allocations sum to 10.0
-* Only "pure" NumPy is allowed (no external libraries)
-* Can you do it without a "for"?"
+  *Write the most succinct code possible to compute all "legal" allocations to 4
+  stocks such that the allocations are in 1.0 chunks, and the allocations sum
+  to 10.0.*
 
 `Yaser Martinez <http://yasermartinez.com/blog/index.html>`_ collected the
 different answers from the community and the proposed solutions yield
@@ -377,6 +374,14 @@ is available on almost all platforms. We believe that a simulator should not
 only save the time of processors, but also the time of scientists. Brian is
 therefore designed to be easy to learn and use, highly flexible and easily
 extensible.
+
+Glumpy
+++++++
+
+`Glumpy <http://glumpy.github.io>`_ is an OpenGL-based interactive
+visualization library in Python. Its goal is to make it easy to create fast,
+scalable, beautiful, interactive and dynamic visualizations. The main
+documentation for the site is organized into a couple of sections:
 
 
 Conclusion
