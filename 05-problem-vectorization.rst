@@ -342,26 +342,26 @@ figure that this leads to the shortest path.
 
 
 
-.. image:: data/value-iteration-1.pdf
+.. image:: data/value-iteration-1.png
    :width: 19%
-.. image:: data/value-iteration-2.pdf
+.. image:: data/value-iteration-2.png
    :width: 19%
-.. image:: data/value-iteration-3.pdf
+.. image:: data/value-iteration-3.png
    :width: 19%
-.. image:: data/value-iteration-4.pdf
+.. image:: data/value-iteration-4.png
    :width: 19%
-.. image:: data/value-iteration-5.pdf
+.. image:: data/value-iteration-5.png
    :width: 19%
 
-.. image:: data/value-iteration-6.pdf
+.. image:: data/value-iteration-6.png
    :width: 19%
-.. image:: data/value-iteration-7.pdf
+.. image:: data/value-iteration-7.png
    :width: 19%
-.. image:: data/value-iteration-8.pdf
+.. image:: data/value-iteration-8.png
    :width: 19%
-.. image:: data/value-iteration-9.pdf
+.. image:: data/value-iteration-9.png
    :width: 19%
-.. image:: data/value-iteration-10.pdf
+.. image:: data/value-iteration-10.png
    :width: 19%
 
 We start by setting the exit node to the value 1, while every other node is
