@@ -8,10 +8,10 @@ Back to Python
 --------------
 
 You've almost reached the end of the book and, hopefully, you've learned that
-Numpy is a very versatile and powerful library. However in the meantime, you've
-to remember that Python is also quite a powerful language. In fact, in some few
-specific cases, it might be more powerful than Numpy. Let's consider for
-example an interesting exercise that has been proposed by Tucker Balch in his
+numpy is a very versatile and powerful library. However in the meantime,
+remember that Python is also quite a powerful language. In fact, in some
+specific cases, it might be more powerful than numpy. Let's consider, for
+example, an interesting exercise that has been proposed by Tucker Balch in his
 `Coursera's Computational Investing
 <https://www.coursera.org/learn/computational-investing>`_ course. The exercise
 is written as:
@@ -66,7 +66,7 @@ directly build each tuple without any test as shown below:
                for c in range(11 - a - b)]
 
 The best numpy solution by Yaser Martinez uses a different strategy with a
-restriced set of tests:
+restricted set of tests:
 
 .. code:: python
 
@@ -88,7 +88,7 @@ If we benchmark these methods, we get:
    >>> timeit("solution_4()", globals())
    1000 loops, best of 3: 54.4 usec per loop
 
-The Numpy solution is the fastest but the pure Python solution is comparable.
+The numpy solution is the fastest but the pure Python solution is comparable.
 But let me introduce a small modification to the Python solution:
 
 .. code:: python
@@ -106,8 +106,8 @@ If we benchmark it, we get:
    >>> timeit("solution_3_bis()", globals())
    10000 loops, best of 3: 0.643 usec per loop
 
-You read it right, we have gained a factor 100 just by replacing square
-brackets with parenthesis. How is that possible ? The explanation can be found
+You read that right, we have gained a factor of 100 just by replacing square
+brackets with parenthesis. How is that possible? The explanation can be found
 by looking at the type of the returned object:
 
 .. code:: pycon
@@ -124,7 +124,7 @@ important to wonder if you need an actual instance of your result or if a
 simple generator might do the job.
 
 
-Numpy & co
+numpy & co
 ----------
 
 Beyond numpy, there are several other Python packages that are worth a look
@@ -148,7 +148,7 @@ NumExpr
 
 The `numexpr <https://github.com/pydata/numexpr/wiki/Numexpr-Users-Guide>`_
 package supplies routines for the fast evaluation of array expressions
-elementwise by using a vector-based virtual machine. It's comparable to SciPy's
+element-wise by using a vector-based virtual machine. It's comparable to SciPy's
 weave package, but doesn't require a separate compile step of C or C++ code.
 
 .. code:: python
@@ -216,7 +216,7 @@ Theano
 `Theano <http://www.deeplearning.net/software/theano/>`_ is a Python library
 that allows you to define, optimize, and evaluate mathematical expressions
 involving multi-dimensional arrays efficiently. Theano features tight
-integration with NumPy, transparent use of a GPU, efficient symbolic
+integration with numpy, transparent use of a GPU, efficient symbolic
 differentiation, speed and stability optimizations, dynamic C code generation
 and extensive unit-testing and self-verification.
 
@@ -306,14 +306,14 @@ and other massively parallel compute devices from Python.
 Scipy & co
 ----------
 
-If there are several additional packages for Numpy, there is a trillion
+If there are several additional packages for numpy, there is a trillion
 additional packages for scipy. In fact, every domain of science probably has
 its own package and most of the examples we've been studying until now could
 have been solved in two or three calls to a method in the relevant package.
 But of course, it was not the goal an programming things yourself is generally
 a good exercise if you have some spare time. The biggest difficulty at this
 point is to find these relevant packages. Here is a very short list of packages
-that are well-maintained, well tested and may simplify your scientific life
+that are well-maintained, well-tested and may simplify your scientific life
 (depending on your domain). There are of course many more and depending on your
 specific needs, chances are you do not have to program everything by
 yourself. For an extensive list, have a look at the `Awesome python list
@@ -326,21 +326,21 @@ scikit-learn
 learning library for the Python programming language. It features various
 classification, regression and clustering algorithms including support vector
 machines, random forests, gradient boosting, k-means and DBSCAN, and is
-designed to interoperate with the Python numerical and scientific libraries
-NumPy and SciPy.
+designed to inter-operate with the Python numerical and scientific libraries
+numpy and SciPy.
 
 
 scikit-image
 ++++++++++++
 
 `scikit-image <http://scikit-image.org>`_ is a Python package dedicated to
-image processing, and using natively NumPy arrays as image objects. This
+image processing, and using natively numpy arrays as image objects. This
 chapter describes how to use scikit-image on various image processing tasks,
-and insists on the link with other scientific Python modules such as NumPy and
+and insists on the link with other scientific Python modules such as numpy and
 SciPy.
 
-SympPy
-++++++
+SymPy
++++++
 
 `SymPy <http://www.sympy.org/en/index.html>`_ is a Python library for symbolic
 mathematics. It aims to become a full-featured computer algebra system (CAS)
@@ -359,7 +359,7 @@ Cartopy
 +++++++
 
 `Cartopy <http://scitools.org.uk/cartopy/>`_ is a Python package designed to
-make drawing maps for data analysis and visualisation as easy as
+make drawing maps for data analysis and visualization as easy as
 possible. Cartopy makes use of the powerful PROJ.4, numpy and shapely libraries
 and has a simple and intuitive drawing interface to matplotlib for creating
 publication quality maps.

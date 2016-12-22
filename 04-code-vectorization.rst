@@ -11,7 +11,7 @@ Introduction
 
 Code vectorization means that the problem you're trying to solve is inherently
 vectorizable and only requires a few numpy tricks to make it faster. Of course
-it does not mean it is easy nor straighforward, but at least it does not
+it does not mean it is easy nor straightforward, but at least it does not
 necessitate to totally rethink your problem (as it will be the case in the
 `Problem vectorization`_ chapter). Still, it may require some experience to see
 where code can be vectorized. Let's illustrate this through the most simple
@@ -29,11 +29,11 @@ This first naive solution can be vectorized very easily using numpy:
 
     def add_numpy(Z1,Z2):
         return np.add(Z1,Z2)
-    
+
 Without any surprise, benchmarking the two approaches shows the second method
 is the fastest with one order of magnitude.
 
-.. code-block:: pycon
+.. code-block:: python
 
    >>> Z1 = random.sample(range(1000), 100)
    >>> Z2 = random.sample(range(1000), 100)
@@ -41,8 +41,8 @@ is the fastest with one order of magnitude.
    1000 loops, best of 3: 68 usec per loop
    >>> timeit("add_numpy(Z1, Z2)", globals())
    10000 loops, best of 3: 1.14 usec per loop
-    
-Not only the second approach is faster, but it also naturally adapts to the
+
+Not only is the second approach faster, but it also naturally adapts to the
 shape of `Z1` and `Z2`. This is the reason why we did not write `Z1 + Z2`
 because it would not work if `Z1` and `Z2` were both lists. In the first Python
 method, the inner `+` is interpreted differently depending on the nature of the
@@ -54,7 +54,7 @@ outputs:
    >>> Z1 = [[1, 2], [3, 4]]
    >>> Z2 = [[5, 6], [7, 8]]
    >>> Z1 + Z2
-   [[1, 2], [3, 4],[5, 6], [7, 8]]
+   [[1, 2], [3, 4], [5, 6], [7, 8]]
    >>> add_python(Z1, Z2)
    [[1, 2, 5, 6], [3, 4, 7, 8]]
    >>> add_numpy(Z1, Z2)
@@ -66,16 +66,16 @@ concatenates the internal lists together and the last one computes what is
 (numerically) expected. As an exercise, you can rewrite the python version
 such that it accepts nested lists of any depth.
 
-      
+
 Uniform vectorization
 ---------------------
 
 Uniform vectorization is the simplest form of vectorization where all the
 elements share the same computation at every time step with no specific
 processing for any element. One stereotypical case is the Game of Life that has
-been invented by John Conway (see below) and is one of the earliest example of
-cellular automata. Those cellular automaton can be conveniently considered as
-an array of cells that are connected together with the notion of neighbour and
+been invented by John Conway (see below) and is one of the earliest examples of
+cellular automata. Those cellular automata can be conveniently considered as
+an array of cells that are connected together with the notion of neighbours and
 their vectorization is straightforward. Let me first define the game and we'll
 see how to vectorize it.
 
@@ -88,16 +88,16 @@ see how to vectorize it.
 .. image:: data/Textile-Cone-cropped.jpg
    :width: 100%
    :class: bordered
-           
+
 
 The Game of Life
 ++++++++++++++++
 
 .. note::
 
-   Excerpt from the Wikipedia entry on the 
+   Excerpt from the Wikipedia entry on the
    `Game of Life <https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life>`_
-   
+
 The Game of Life is a cellular automaton devised by the British mathematician
 John Horton Conway in 1970. It is the best-known example of a cellular
 automaton. The "game" is actually a zero-player game, meaning that its
@@ -136,7 +136,7 @@ Python implementation
    We could have used the more efficient python `array interface
    <http://docs.python.org/3/library/array.html>`_ but it is more convenient to
    use the familiar list object.
-   
+
 In pure Python, we can code the Game of Life using a list of lists representing
 the board where cells are supposed to evolve. Such a board will be equipped with
 border of 0 that allows to accelerate things a bit by avoiding to have specific
@@ -155,7 +155,7 @@ Taking the border into account, counting neighbours is then straightforward:
 
 .. code:: python
 
-   def compute_neigbours(Z):
+   def compute_neighbours(Z):
        shape = len(Z), len(Z[0])
        N  = [[0,]*(shape[0]) for i in range(shape[1])]
        for x in range(1,shape[0]-1):
@@ -184,13 +184,13 @@ aforementioned rules:
 The figure below shows 4 iterations on a 4x4 area where the initial state is a
 `glider <https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)>`_, a structure
 discovered by Richard K. Guy in 1970.
-       
+
 .. admonition:: **Figure 4.2**
    :class: legend
 
    The glider pattern is known to replicate itself one step diagonally in 4
    iterations.
-       
+
 .. image:: data/glider.png
    :width: 100%
 
@@ -200,10 +200,10 @@ Numpy implementation
 
 Starting from the Python version, the vectorization of the Game of Life
 requires two parts, one responsible for counting the neighbours and one
-responsible for enforcing the rules. Neighbour counting is relatively easy if
+responsible for enforcing the rules. Neighbour-counting is relatively easy if
 we remember we took care of adding a null border around the arena. By
 considering partial views of the arena we can actually access neighbours quite
-intuitively as illustred below for the one-dimensional case:
+intuitively as illustrated below for the one-dimensional case:
 
 .. code::
    :class: output
@@ -215,7 +215,7 @@ intuitively as illustred below for the one-dimensional case:
               ┌───┏━━━┳━━━┳━━━┓───┐
       Z[1:-1] │ 0 ┃ 1 ┃ 1 ┃ 1 ┃ 0 │ (actual cells)
               └───┗━━━┻━━━┻━━━┛───┘
-                        ↑ 
+                        ↑
           ┌───┬───┏━━━┳━━━┳━━━┓
    Z[+2:] │ 0 │ 1 ┃ 1 ┃ 1 ┃ 0 ┃ (right neighbours)
           └───┴───┗━━━┻━━━┻━━━┛
@@ -230,7 +230,8 @@ sure to consider all the eight neighbours.
                     Z[1:-1, :-2]                + Z[1:-1,2:] +
                     Z[2:  , :-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
 
-For the rule enforcement, we can write a first version using `argwhere
+For the rule enforcement, we can write a first version using the
+`argwhere
 <http://docs.scipy.org/doc/numpy/reference/generated/numpy.argwhere.html>`_
 method that will give us the indices where a given condition is True.
 
@@ -273,7 +274,7 @@ capability and write quite naturally:
    Z[...] = 0
    Z[1:-1,1:-1][birth | survive] = 1
 
-    
+
 If you look at the `birth` and `survive` lines, you'll see that these two
 variables are arrays that can be used to set `Z` values to 1 after having
 cleared it.
@@ -281,7 +282,7 @@ cleared it.
 .. admonition:: **Figure 4.3**
    :class: legend
 
-   The Game of Life. Gray levels indicate how miuch a cell has been active in
+   The Game of Life. Gray levels indicate how much a cell has been active in
    the past.
 
 .. raw:: html
@@ -295,14 +296,17 @@ cleared it.
 Exercise
 ++++++++
 
-Reaction and diffusion of chemical species can produce a variety of patterns,
-reminiscent of those often seen in nature. The Gray Scott equations model such
-a reaction. For more information on this chemical system see the article
-*Complex Patterns in a Simple System* (John E. Pearson, Science, Volume 261,
-1993). Let's consider two chemical species `U` and `V` with respective
-concentrations `u` and `v` and diffusion rates `Du` and `Dv`. `V` is converted
-into `P` with a rate of conversion `k`. `f` represents the rate of the process
-that feeds `U` and drains `U`, `V` and `P`. This can be written as:
+Reaction and diffusion of chemical species can produce a variety of
+patterns, reminiscent of those often seen in nature. The Gray-Scott
+equations model such a reaction. For more information on this chemical
+system see the article *Complex Patterns in a Simple System*
+(John E. Pearson, Science, Volume 261, 1993). Let's consider two
+chemical species :math:`U` and :math:`V` with respective
+concentrations :math:`u` and :math:`v` and diffusion rates :math:`Du`
+and :math:`Dv`. :math:`V` is converted into :math:`P` with a rate of
+conversion :math:`k`. :math:`f` represents the rate of the process
+that feeds :math:`U` and drains :math:`U`, :math:`V` and
+:math:`P`. This can be written as:
 
 .. list-table::
    :widths: 50 50
@@ -313,7 +317,7 @@ that feeds `U` and drains `U`, `V` and `P`. This can be written as:
 
    * - :math:`U + 2V  \rightarrow 3V`
      - :math:`\dot{u} = Du \nabla^2 u - uv^2 + f(1-u)`
-       
+
    * - :math:`V  \rightarrow P`
      - :math:`\dot{v} = Dv \nabla^2 v + uv^2 - (f+k)v`
 
@@ -321,7 +325,7 @@ Based on the Game of Life example, try to implement such reaction-diffusion syst
 Here is a set of interesting parameters to test:
 
 ============= ===== ===== ===== =====
-Name          Du    Dv    f     k 
+Name          Du    Dv    f     k
 ============= ===== ===== ===== =====
 Bacteria 1    0.16  0.08  0.035 0.065
 ------------- ----- ----- ----- -----
@@ -364,7 +368,7 @@ The figure below show some animation of the model for a specific set of paramete
          <video width="33%" controls>
          <source src="data/gray-scott-2.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
-         
+
          <video width="33%" controls>
          <source src="data/gray-scott-3.mp4" type="video/mp4">
          Your browser does not support the video tag. </video>
@@ -392,14 +396,16 @@ References
 Temporal vectorization
 ----------------------
 
-The Mandelbrot set is the set of complex numbers `c` for which the function
-:math:`f_c(z) = z^2+ c` does not diverge when iterated from :math:`z=0`, i.e.,
-for which the sequence :math:`f_c(0), f_c(f_c(0))`, etc., remains bounded in
-absolute value. It is very easy to compute but it can take a very long time
-because you need to ensure a given number does not diverge. This is generally
-done by iterating the computation up to a maximum number of iterations, after
-which, if the number is still within some bounds, it is considerered non
-divergent. Of course, the more iteration you do, the more precision you get.
+The Mandelbrot set is the set of complex numbers :math:`c` for which
+the function :math:`f_c(z) = z^2+ c` does not diverge when iterated
+from :math:`z=0`, i.e., for which the sequence :math:`f_c(0),
+f_c(f_c(0))`, etc., remains bounded in absolute value. It is very easy
+to compute, but it can take a very long time because you need to
+ensure a given number does not diverge. This is generally done by
+iterating the computation up to a maximum number of iterations, after
+which, if the number is still within some bounds, it is considered
+non-divergent. Of course, the more iterations you do, the more
+precision you get.
 
 
 .. admonition:: **Figure 4.5**
@@ -433,20 +439,22 @@ A pure python implementation is written as:
 
 The interesting (and slow) part of this code is the `mandelbrot` function that
 actually computes the sequence :math:`f_c(f_c(f_c ...)))`. The vectorization of
-such code is not totally straighforward because the internal `return` implies a
+such code is not totally straightforward because the internal `return` implies a
 differential processing of the element. Once it has diverged, we don't need to
 iterate any more and we can safely return the iteration count at
-divergence. Problem is then to do the same numpy. But how ?
+divergence. The problem is to then do the same in numpy. But how?
 
 Numpy implementation
 ++++++++++++++++++++
 
-The trick is to search at each iteration values that have not yet diverged and
-update relevant information for these values and only these values. Because we
-start from Z = 0, we know that each value will be updated at least once (when
-they're equal to 0, they have not yet diverged) and will stop being updated as
-soon as they've diverged. To do that, we'll use numpy fancy indexing with the
-`less(x1,x2)` function that return the truth value of (x1 < x2) element-wise.
+The trick is to search at each iteration values that have not yet
+diverged and update relevant information for these values and only
+these values. Because we start from :math:`Z = 0`, we know that each
+value will be updated at least once (when they're equal to :math:`0`,
+(they have not yet diverged) and will stop being updated as soon as
+they've diverged. To do that, we'll use numpy fancy indexing with the
+`less(x1,x2)` function that return the truth value of `(x1 < x2)`
+element-wise.
 
 .. code-block:: python
 
@@ -476,18 +484,19 @@ Here is the benchmark:
    1 loops, best of 3: 1.15 sec per loop
 
 
-Faster Numpy implementation
+Faster numpy implementation
 +++++++++++++++++++++++++++
 
-There gain is roughly a 5x factor, not as much as we can have expected. Part of
-the problem is that the `np.less` function implies `xn*yn` tests at every
-iteration while we know that some values have already diverged. Even if these
-tests are performed at the C level (through numpy), the cost is nonetheless non
-negligible. Another approach proposed by `Dan Goodman
-<https://thesamovar.wordpress.com/>`_ is to work on a dynamic array at each
-iteration that stores only the points which have not yet diverged. It requires
-more lines but the result is faster and lead to a 10x factor speed improvement
-compared to the Python version.
+The gain is roughly a 5x factor, not as much as we could have
+expected. Part of the problem is that the `np.less` function implies
+:math:`xn \times yn` tests at every iteration while we know that some
+values have already diverged. Even if these tests are performed at the
+C level (through numpy), the cost is nonetheless
+non-negligible. Another approach proposed by `Dan Goodman
+<https://thesamovar.wordpress.com/>`_ is to work on a dynamic array at
+each iteration that stores only the points which have not yet
+diverged. It requires more lines but the result is faster and lead to
+a 10x factor speed improvement compared to the Python version.
 
 .. code-block:: python
 
@@ -521,37 +530,37 @@ compared to the Python version.
            C = C[I]
        return Z_.T, N_.T
 
-Benchmark gives us:
+The benchmark gives us:
 
 .. code-block:: pycon
-                
+
    >>> timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
    1 loops, best of 3: 510 msec per loop
 
 Visualization
-+++++++++++++ 
++++++++++++++
 
 In order to visualize our results, we could directly display the `N` array
-using the matplotlib `imshow` command but this would result in a "banded" image
+using the matplotlib `imshow` command, but this would result in a "banded" image
 that is a known consequence of the escape count algorithm that we've been
-using. Such banding can be elimitated by using a fractional escape count. This
+using. Such banding can be eliminated by using a fractional escape count. This
 can be done by measuring how far the iterated point landed outside of the
-escape cutoff. See reference below about the renormalization of the escape
+escape cutoff. See the reference below about the renormalization of the escape
 count. Here is a picture of the result where we use recount normalization,
-and added a power normalized colormap (gamma=0.3) as well as light shading.
+and added a power normalized color map (gamma=0.3) as well as light shading.
 
 .. admonition:: **Figure 4.6**
    :class: legend
 
-   The Mandelbrot as rendered by maplotlib using recount normalization, power
-   normalized colormap (gamma=0.3) and light shading.
+   The Mandelbrot as rendered by matplotlib using recount normalization, power
+   normalized color map (gamma=0.3) and light shading.
 
 .. figure:: data/mandelbrot.png
    :width: 100%
    :class: bordered
 
 
-    
+
 
 Exercise
 ++++++++
@@ -562,11 +571,11 @@ Exercise
 
 We now want to measure the fractal dimension of the Mandelbrot set using the
 `Minkowski–Bouligand dimension
-<https://en.wikipedia.org/wiki/Minkowski–Bouligand_dimension>`_. To do that we
-need to do a box-counting with decreasing box size (see figure below). As you
-imagine, we cannot use pure Python because it would be way to slow. The goal of
-the exercise is to write a function using Numpy that takes a two-dimensional
-float array and return the dimension. We'll consider values in the array to be
+<https://en.wikipedia.org/wiki/Minkowski–Bouligand_dimension>`_. To do that, we
+need to do box-counting with a decreasing box size (see figure below). As you
+can imagine, we cannot use pure Python because it would be way too slow. The goal of
+the exercise is to write a function using numpy that takes a two-dimensional
+float array and returns the dimension. We'll consider values in the array to be
 normalized (i.e. all values are between 0 and 1).
 
 .. admonition:: **Figure 4.7**
@@ -602,9 +611,9 @@ Spatial vectorization
 
 Spatial vectorization refers to a situation where elements share the same
 computation but are in interaction with only a subgroup of other elements. This
-was already the case for the game of life example but in the present case,
+was already the case for the game of life example, but in the present case
 there is an added difficulty because the subgroup is dynamic and needs to be
-update at each iteration. This the case for example in particle systems where
+updated at each iteration. This the case, for example, in particle systems where
 particles interact mostly with local neighbours. This is also the case for
 boids that simulate flocking behaviors.
 
@@ -623,7 +632,7 @@ Boids
 
 .. note::
 
-   Excerpt from the Wikipedia entry 
+   Excerpt from the Wikipedia entry
    `Boids <https://en.wikipedia.org/wiki/Boids>`_
 
 Boids is an artificial life program, developed by Craig Reynolds in 1986, which
@@ -635,11 +644,11 @@ behavior; that is, the complexity of Boids arises from the interaction of
 individual agents (the boids, in this case) adhering to a set of simple
 rules. The rules applied in the simplest Boids world are as follows:
 
-* **separation**: steer to avoid crowding local flockmates
-* **alignment**: steer towards the average heading of local flockmates
+* **separation**: steer to avoid crowding local flock-mates
+* **alignment**: steer towards the average heading of local flock-mates
 * **cohesion**: steer to move toward the average position (center of mass) of
-  local flockmates
-  
+  local flock-mates
+
 
 .. admonition:: **Figure 4.9**
    :class: legend
@@ -661,7 +670,7 @@ position and velocity, it seems natural to start by writing a Boid class:
    import math
    import random
    from vec2 import vec2
-          
+
    class Boid:
        def __init__(self, x=0, y=0):
            self.position = vec2(x, y)
@@ -671,13 +680,13 @@ position and velocity, it seems natural to start by writing a Boid class:
 
 The `vec2` object is a very simple class that handles all common vector
 operations with 2 components. It will save us some writing in the main `Boid`
-class. Note that their are some vector packages in the python package index but
+class. Note that there are some vector packages in the python package index, but
 that would be overkill for such a simple example.
 
 Boid is a difficult case for regular Python because a boid has interaction with
 local neighbours. However, and because boids are moving, to find such local
-neighbours requires to compute at each time step the distance to each and every
-other boids in order to sort those which are in a given interaction radius. The
+neighbours requires computing at each time step the distance to each and every
+other boid in order to sort those which are in a given interaction radius. The
 prototypical way of writing the three rules is thus something like:
 
 .. code:: python
@@ -697,7 +706,7 @@ prototypical way of writing the three rules is thus something like:
 
 Full sources are given in the references section below, it would be too long to
 describe it here and there is no real difficulty.
-           
+
 To complete the picture, we can also create a `Flock` object:
 
 .. code:: python
@@ -713,16 +722,18 @@ To complete the picture, we can also create a `Flock` object:
            for boid in self.boids:
                boid.run(self.boids)
 
-Using this approach, we can have up to 50 boids until the computation time
-becomes too slow for a smooth animation. As you may have guessed, we can do
-much better using numpy but let me first point out the main problem with this
-Python implementation. If you look at the code, you will certainly notice there
-is a lot of redundancy. More precisely, we do not exploit the fact that the
-Euclidean distance is reflexive, that is, `|x-y| = |y-x|`. In this naive Python
-implementation, each rule (function) computes n*n distances while n*n/2 would
-be sufficient if properly cached. Furthermore, each rule re-computes every
-distance without caching the result for the othe functions. In the end, we are
-computing 3*n*n distances instead of n*n/2.
+Using this approach, we can have up to 50 boids until the computation
+time becomes too slow for a smooth animation. As you may have guessed,
+we can do much better using numpy but let me first point out the main
+problem with this Python implementation. If you look at the code, you
+will certainly notice there is a lot of redundancy. More precisely, we
+do not exploit the fact that the Euclidean distance is reflexive, that
+is, :math:`|x-y| = |y-x|`. In this naive Python implementation, each
+rule (function) computes :math:`n^2` distances while
+:math:`\frac{n^2}{2}` would be sufficient if properly
+cached. Furthermore, each rule re-computes every distance without
+caching the result for the other functions. In the end, we are
+computing :math:`3n^2` distances instead of :math:`\frac{n^2}{2}`.
 
 
 Numpy implementation
@@ -751,13 +762,14 @@ We could have used the scipy `cdist
 but we'll need the `dx` and `dy` arrays later. Once those have been computed,
 it's faster to use the `hypot
 <https://docs.scipy.org/doc/numpy/reference/generated/numpy.hypot.html>`_
-method. Note that distance shape is (n,n) and each line relates to one boid,
-i.e. eachline gives the distance to all other boids (including self).
+method. Note that distance shape is `(n, n)` and each line relates to one boid,
+i.e. each line gives the distance to all other boids (including self).
 
-From theses distances, we can now compute local neighborhood for each of the
-three rules, taking advantage of the fact that we can mix them together. We can
-actually compute a mask for distances that are strictly positive (i.e. no self
-interaction) and multiply it with other distance masks.
+From theses distances, we can now compute the local neighborhood for
+each of the three rules, taking advantage of the fact that we can mix
+them together. We can actually compute a mask for distances that are
+strictly positive (i.e. have no self-interaction) and multiply it with
+other distance masks.
 
 .. note::
 
@@ -777,7 +789,7 @@ Then, we compute the number of neighbours within the given radius and we ensure
 it is at least 1 to avoid division by zero.
 
 .. code:: python
-          
+
    mask_1_count = np.maximum(mask_1.sum(axis=1), 1)
    mask_2_count = np.maximum(mask_2.sum(axis=1), 1)
    mask_3_count = mask_2_count
@@ -840,15 +852,15 @@ We're ready to write our three rules:
    # Normalize the result
    norm = np.sqrt((target*target).sum(axis=1)).reshape(n, 1)
    target *= np.divide(target, norm, out=target, where=norm != 0)
-      
+
    # Separation at constant speed (max_velocity)
    target *= max_velocity
 
    # Compute the resulting steering
    separation = target - velocity
 
-All the three resulting steerings (separation, alignment & cohesion) needs to
-be limited in magnitude, we let this as an exercise for the reader. Combination
+All three resulting steerings (separation, alignment & cohesion) need to
+be limited in magnitude. We leave this as an exercise for the reader. Combination
 of these rules is straightforward as well as the resulting update of
 velocity and position:
 
@@ -860,7 +872,7 @@ velocity and position:
 
 
 We finally visualize the result using a custom oriented scatter plot.
-   
+
 .. admonition:: **Figure 4.10**
    :class: legend
 
@@ -878,13 +890,13 @@ We finally visualize the result using a custom oriented scatter plot.
 Exercise
 ++++++++
 
-We are now ready to visualize our boids. The most easy way is to use the
-matplotlib animation function and a scatter plot. Unofortunately, scatters
+We are now ready to visualize our boids. The easiest way is to use the
+matplotlib animation function and a scatter plot. Unfortunately, scatters
 cannot be individually oriented and we need to make our own objects using a
-matplotlib PathCollection. A simple triangle path can be defined as:
+matplotlib `PathCollection`. A simple triangle path can be defined as:
 
 .. code::
-   
+
    v= np.array([(-0.25, -0.25),
                 ( 0.00,  0.50),
                 ( 0.25, -0.25),
@@ -903,16 +915,16 @@ be made independent.
    vertices = np.tile(v.reshape(-1), n).reshape(n, len(v), 2)
    codes = np.tile(c.reshape(-1), n)
 
-We now have a (n,4,2) array for vertices and a (n,4) array for codes
-representing n boids. We are interested in manipulating the vertices array to
-reflect the translation, scaling and rotation of each of the n boids.
+We now have a `(n,4,2)` array for vertices and a `(n,4)` array for codes
+representing `n` boids. We are interested in manipulating the vertices array to
+reflect the translation, scaling and rotation of each of the `n` boids.
 
 .. note::
 
    Rotate is really tricky.
-   
+
 How would you write the `translate`, `scale` and `rotate` functions ?
-   
+
 
 Sources
 +++++++
@@ -926,7 +938,7 @@ References
 * `Flocking <https://processing.org/examples/flocking.html>`_, Daniel Shiffman, 2010.
 * `Flocks, herds and schools: A distributed behavioral model <http://www.red3d.com/cwr/boids/>`_, Craig Reynolds, SIGGRAPH, 1987
 
-  
+
 Conclusion
 ----------
 

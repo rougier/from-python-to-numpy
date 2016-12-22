@@ -38,11 +38,11 @@
 
 .. ----------------------------------------------------------------------------
 
-There is already a fair number of book about Numpy (see Bibliography_) and a
+There is already a fair number of book about numpy (see Bibliography_) and a
 legitimate question is to wonder if another book is really necessary. As you
 may have guessed by reading these lines, my personal answer is yes, mostly
 because I think there's room for a different approach concentrating on the
-migration from Python to Numpy through vectorization. There is a lot of
+migration from Python to numpy through vectorization. There is a lot of
 techniques that you don't find in books and such techniques are mostly learned
 through experience. The goal of this book is to explain some of them and to
 make you acquire experience in the process.
@@ -58,7 +58,7 @@ make you acquire experience in the process.
 |
 |
 
-**Disclaimer** All external pictures should have associated credits. If there
+**Disclaimer:** All external pictures should have associated credits. If there
 are missing credits, please tell me, I will correct it. Similarly, all excerpts
 should be sourced (wikipedia mostly). If not, this is an error and I will
 correct it as soon as you tell me.

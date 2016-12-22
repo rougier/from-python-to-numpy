@@ -3,8 +3,8 @@ Bibliography
 ===============================================================================
 
 This is a curated list of some numpy related resources (articles, books &
-tutorials) addressing different aspects of Numpy. Some are very specific to
-Numpy/Scipy while some others offer a broader view on numerical computing.
+tutorials) addressing different aspects of numpy. Some are very specific to
+numpy/Scipy while some others offer a broader view on numerical computing.
 
 .. contents:: **Contents**
    :local:

@@ -15,28 +15,28 @@ Introduction
 ------------
 
 Problem vectorization is much harder than code vectorization because it means
-basically that you have to rethink your problem in order to make it
+that you fundamentally have to rethink your problem in order to make it
 vectorizable. Most of the time this means you have to use a different algorithm
 to solve your problem or even worse... to invent a new one. The difficulty is thus
-to think out of the box.
+to think out-of-the-box.
 
 To illustrate this, let's consider a simple problem where given two vectors `X` and
 `Y`, we want to compute the sum of `X[i]*Y[j]` for all pairs of indices `i`,
 `j`. One simple and obvious solution is to write:
 
 .. code:: python
-          
+
    def compute_python(X, Y):
        result = 0
        for i in range(len(X)):
            for j in range(len(Y)):
                result += X[i] * Y[j]
        return result
-    
-However, this first and naive implementation requires two loops and we already
+
+However, this first and naïve implementation requires two loops and we already
 know it will be slow:
 
-.. code:: pycon
+.. code:: python
 
    >>> X = np.arange(1000)
    >>> timeit("compute_python(X,X)")
@@ -51,28 +51,28 @@ speedup. One wrong solution would be to write:
 
    def compute_numpy_wrong(X, Y):
        return (X*Y).sum()
-  
+
 This is wrong because the `X*Y` expression will actually compute a new vector
 `Z` such that `Z[i] = X[i] * Y[i]` and this is not what we want. Instead, we
 can exploit numpy broadcasting by first reshaping the two vectors and then
 multiply them:
 
 .. code:: python
-          
+
    def compute_numpy(X, Y):
        Z = X.reshape(len(X),1) * Y.reshape(1,len(Y))
        return Z.sum()
-  
+
 Here we have `Z[i,j] == X[i,0]*Y[0,j]` and if we take the sum over each elements of
 `Z`, we get the expected result. Let's see how much speedup we gain in the
 process:
 
-.. code:: pycon
-          
+.. code:: python
+
    >>> X = np.arange(1000)
    >>> timeit("compute_numpy(X,X)")
    10 loops, best of 3: 0.00157926 sec per loop
-  
+
 This is better, we gained a factor of ~150. But we can do much better.
 
 If you look again and more closely at the pure Python version, you can see that
@@ -94,7 +94,7 @@ But since the inner loop does not depend on the `i` index, we might as well
 compute it only once:
 
 .. code:: python
-          
+
    def compute_numpy_better_2(X, Y):
        result = 0
        Ysum = 0
@@ -104,11 +104,11 @@ compute it only once:
            result += X[i]*Ysum
        return result
 
-Not so bad, we have the inner loop, meaning with transform a O(n*n) complexity
-into O(n) complexity. Using the same approach, we can now write:
+Not so bad, we have the inner loop, meaning with transform a :math:`O(n^2)` complexity
+into :math:`O(n)` complexity. Using the same approach, we can now write:
 
 .. code:: python
-          
+
    def compute_numpy_better_3(x, y):
        Ysum = = 0
        for j in range(len(Y)):
@@ -125,11 +125,11 @@ respectively, we can benefit from the `np.sum` function and write:
 
    def compute_numpy_better(x, y):
        return np.sum(y) * np.sum(x)
-    
-It is shorter, clearear and much, much faster:
 
-.. code:: pycon
-          
+It is shorter, clearer and much, much faster:
+
+.. code:: python
+
    >>> X = np.arange(1000)
    >>> timeit("compute_numpy_better(X,X)")
    1000 loops, best of 3: 3.97208e-06 sec per loop
@@ -139,27 +139,27 @@ We have indeed reformulated our problem, taking advantage of the fact that
 meantime that there are two kinds of vectorization: code vectorization and
 the problem vectorization. The latter is the most difficult but the most
 important because this is where you can expect huge gains in speed. In this
-simple example, we gain a factor 150 with code vectorization but we gained a
-factor 70000 with problem vectorization, just by writing our problem
-differently (even though you cannot expect such huge speedup in all
-situation.). However, code vectorization remains an important factor and if we
-rewrite the last solution the Python way, the gain is good but not as much as
-in the Numpy version:
+simple example, we gain a factor of 150 with code vectorization but we gained a
+factor of 70,000 with problem vectorization, just by writing our problem
+differently (even though you cannot expect such a huge speedup in all
+situations). However, code vectorization remains an important factor, and if we
+rewrite the last solution the Python way, the improvement is good but not as much as
+in the numpy version:
 
 .. code:: python
-          
+
    def compute_python_better(x, y):
        return sum(x)*sum(y)
 
 This new Python version is much faster than the previous Python version, but
 still, it is 50 times slower than the numpy version:
 
-.. code:: pycon
+.. code:: python
 
    >>> X = np.arange(1000)
    >>> timeit("compute_python_better(X,X)")
    1000 loops, best of 3: 0.000155677 sec per loop
-    
+
 
 
 
@@ -169,7 +169,7 @@ Path finding
 Path finding is all about finding the shortest path in a graph. This can be
 split in two distinct problems: to find a path between two nodes in a graph and
 to find the shortest path. We'll illustrate this through path finding in a
-maze. First task is thus to build a maze.
+maze. The first task is thus to build a maze.
 
 .. admonition:: **Figure 5.1**
    :class: legend
@@ -185,16 +185,16 @@ maze. First task is thus to build a maze.
 Building a maze
 +++++++++++++++
 
-There exist `many generation algorithms
+There exist `many maze generation algorithms
 <https://en.wikipedia.org/wiki/Maze_generation_algorithm>`_ but I tend to
 prefer the one I've been using for several years but whose origin is unknown to
-me. I've added the code in the cited wikipedia entry, feel free to complete it
+me. I've added the code in the cited wikipedia entry. Feel free to complete it
 if you know the original author. This algorithm works by creating `n` (density)
 islands of length `p` (complexity). An island is created by choosing a random
 starting point with odd coordinates, then a random direction is chosen. If the
-cell two steps in the direction is free, then a wall is added at both one step
-and two steps in this direction. The processus is iterated for n steps for this
-island. p islands are created. n and p are expressed as float to apapt them to
+cell two steps in a given direction is free, then a wall is added at both one step
+and two steps in this direction. The process is iterated for `n` steps for this
+island. `p` islands are created. `n` and `p` are expressed as `float` to adapt them to
 the size of the maze. With a low complexity, islands are very small and the
 maze is easy to solve. With low density, the maze has more "big empty rooms".
 
@@ -261,14 +261,14 @@ Here is an animation showing the generation process.
 Breadth-first
 +++++++++++++
 
-Breadth-first (as well as depth-first) search algorithm addresses the problem
+The breadth-first (as well as depth-first) search algorithm addresses the problem
 of finding a path between two nodes by examining all possibilities starting
 from the root node and stopping as soon as a solution has been found
-(destination node has been reached). This algorithms runs in linear time with
-complexity in :math:`O(|V|+|E|)` (where V is the number of vertices, and E is
-the number of edges). Writing such algorithm is not specifically difficult
+(destination node has been reached). This algorithm runs in linear time with
+complexity in :math:`O(|V|+|E|)` (where :math:`V` is the number of vertices, and :math:`E` is
+the number of edges). Writing such an algorithm is not especially difficult,
 provided you have the right data structure. In our case, the array
-representation of the maze is not the most well suited and we need to transform
+representation of the maze is not the most well-suited and we need to transform
 it into an actual graph as proposed by `Valentin Bryukhanov
 <http://bryukh.com>`_.
 
@@ -292,12 +292,13 @@ it into an actual graph as proposed by `Valentin Bryukhanov
 
    If we had used the depth-first algorithm, there is no guarantee to find the
    shortest path, only to find a path (if it exists).
-   
-Once this is done, writing the breadth first algorithm is straightforward. We
-start from the starting node and we visit nodes at current depth only (breadth
-first, remember?) and we iterate the process until reaching the final node, if
-possible. The question is then, do we get the shortest path exploring the graph
-this way? In this specific case yes because we don't have a e-weighted graph,
+
+Once this is done, writing the breadth-first algorithm is
+straightforward. We start from the starting node and we visit nodes at
+the current depth only (breadth-first, remember?) and we iterate the
+process until reaching the final node, if possible. The question is
+then: do we get the shortest path exploring the graph this way? In
+this specific case, "yes", because we don't have an edge-weighted graph,
 i.e. all the edges have the same weight (or cost).
 
 .. code:: python
@@ -306,7 +307,7 @@ i.e. all the edges have the same weight (or cost).
        queue = deque([([start], start)])
        visited = set()
        graph = build_graph(maze)
-       
+
        while queue:
            path, current = queue.popleft()
            if current == goal:
@@ -325,13 +326,13 @@ Bellman-Ford method
 +++++++++++++++++++
 
 The Bellman–Ford algorithm is an algorithm that is able to find the optimal
-path in a graph using a diffusion process. Optimal path is found by ascending
+path in a graph using a diffusion process. The optimal path is found by ascending
 the resulting gradient. This algorithm runs in quadratic time :math:`O(|V||E|)`
-(where V is the number of vertices, and E is the number of edges). However, in
+(where :math:`V` is the number of vertices, and :math:`E` is the number of edges). However, in
 our simple case, we won't hit the worst case scenario. The algorithm is
 illustrated below (reading from left to right, top to bottom). Once this is
-done, we can ascent the gradient from the starting node. You can check on the
-figure this leads to the shortest path.
+done, we can ascend the gradient from the starting node. You can check on the
+figure that this leads to the shortest path.
 
 .. admonition:: **Figure 5.3**
    :class: legend
@@ -339,7 +340,7 @@ figure this leads to the shortest path.
    Value iteration algorithm on a simple maze. Once entrance has been reached,
    it is easy to find the shortest path by ascending the value gradient.
 
-   
+
 
 .. image:: data/value-iteration-1.pdf
    :width: 19%
@@ -363,11 +364,11 @@ figure this leads to the shortest path.
 .. image:: data/value-iteration-10.pdf
    :width: 19%
 
-We start by setting the exit node to the value 1 while every other nodes are
-set to 0 (but the walls of course). Then we iterate a process such that each
-cell new value is computed as the maximum value between the current cell value
-and the discounted (gamma=0.9 in the case below) 4 neighbour values. The
-process start as soon as the starting node value become strictly positive.
+We start by setting the exit node to the value 1, while every other node is
+set to 0, except the walls. Then we iterate a process such that each
+cell's new value is computed as the maximum value between the current cell value
+and the discounted (`gamma=0.9` in the case below) 4 neighbour values. The
+process starts as soon as the starting node value becomes strictly positive.
 
 The numpy implementation is straightforward if we take advantage of the
 `generic_filter` (from `scipy.ndimage`) for the diffusion process:
@@ -394,7 +395,7 @@ The numpy implementation is straightforward if we take advantage of the
                                                      [1, 1, 1],
                                                      [0, 1, 0]])
 
-But in this specific case, it is rather slow we'd better to cook-up our own
+But in this specific case, it is rather slow. We'd better cook-up our own
 solution, reusing part of the game of life code:
 
 .. code:: python
@@ -421,7 +422,7 @@ solution, reusing part of the game of life code:
        G[1:-1,1:-1] = Z[1:-1,1:-1]*np.maximum(N,np.maximum(W,
                                    np.maximum(C,np.maximum(E,S))))
 
-Once this is done, we can ascent the gradient to find the shortest path as
+Once this is done, we can ascend the gradient to find the shortest path as
 illustrated on the figure below:
 
 .. admonition:: **Figure 5.4**
@@ -471,10 +472,10 @@ Lagrangian vs Eulerian method
 
 .. note::
 
-   Excerpt from the Wikipedia entry on the 
+   Excerpt from the Wikipedia entry on the
    `Lagrangian and Eulerian specification <https://en.wikipedia.org/wiki/Lagrangian_and_Eulerian_specification_of_the_flow_field>`_
 
-In classical field theory the Lagrangian specification of the field is a way of
+In classical field theory, the Lagrangian specification of the field is a way of
 looking at fluid motion where the observer follows an individual fluid parcel
 as it moves through space and time. Plotting the position of an individual
 parcel through time gives the pathline of the parcel. This can be visualized as
@@ -493,22 +494,22 @@ methods have advantages and disadvantages and the choice between the two
 methods depends on the nature of your problem. Of course, you can also mix the
 two methods into an hybrid method.
 
-However, the biggest problem for particle based simulation is that particles
+However, the biggest problem for particle-based simulation is that particle
 interaction requires finding neighbouring particles and this has a cost as
-we've seen in the boids case. If we target Python and Numpy only, we probably
-better choose the Eulerian method since vectorization will be almost trivial
+we've seen in the boids case. If we target Python and numpy only, it is probably
+better to choose the Eulerian method since vectorization will be almost trivial
 compared to the Lagrangian method.
 
 
 Numpy implementation
 ++++++++++++++++++++
 
-I won't explain all the theory behind computational fluid dynamic because
+I won't explain all the theory behind computational fluid dynamics because
 first, I cannot (I'm not an expert at all in this domain) and there are many
 resources online that explain this nicely (have a look at references below,
-especially tutorial by L.Barba). Why choose a computational fluid as an example
+especially tutorial by L. Barba). Why choose a computational fluid as an example
 then? Because results are (almost) always beautiful and fascinating. I couldn't
-resist (look at movie belows).
+resist (look at the movie below).
 
 We'll further simplify the problem by implementing a method from computer
 graphics where the goal is not correctness but convincing behavior. Jos Stam
@@ -533,7 +534,7 @@ using this technique.
    using the GPU (framebuffer operations, i.e. no OpenCL nor CUDA) for faster
    computations.
 
-   
+
 .. raw:: html
 
          <video width="33%" controls>
@@ -574,7 +575,7 @@ Blue noise sampling
 Blue noise refers to sample sets that have random and yet uniform distributions
 with absence of any spectral bias. Such noise is very useful in a variety of
 graphics applications like rendering, dithering, stippling, etc. Many different
-methods have been proposed to achieve such noise whose most simple is certainly
+methods have been proposed to achieve such noise, but the most simple is certainly
 the DART method.
 
 
@@ -592,24 +593,24 @@ the DART method.
 DART method
 +++++++++++
 
-The DART method is one of the earliest and simplest method. It works by
-sequentially drawing uniform random point and only accept those who lies at a
+The DART method is one of the earliest and simplest methods. It works by
+sequentially drawing uniform random points and only accepting those that lie at a
 minimum distance from every previous accepted sample. This sequential method is
 therefore extremely slow because each new candidate needs to be tested against
-previous accepted candidates. The more points you accept, the slower is the
-method. Let's consider the unit surface and a minimum radius `r` to be enforced
+previous accepted candidates. The more points you accept, the slower the
+method is. Let's consider the unit surface and a minimum radius `r` to be enforced
 between each point.
 
 Knowing that the densest packing of circles in the plane is the hexagonal
 lattice of the bee's honeycomb, we know this density is :math:`d =
 \frac{1}{6}\pi\sqrt{3}` (in fact `I learned it
 <https://en.wikipedia.org/wiki/Circle_packing>`_ while writing this book).
-Considering circles with radius r, we can pack at most :math:`\frac{d}{\pi r^2}
+Considering circles with radius :math:`r`, we can pack at most :math:`\frac{d}{\pi r^2}
 = \frac{\sqrt{3}}{6r^2} = \frac{1}{2r^2\sqrt{3}}`. We know the theoretical
-upper limit for the number of discs we can pack onto the surface but we'll
+upper limit for the number of discs we can pack onto the surface, but we'll
 likely not reach this upper limit because of random placements. Furthermore,
 because a lot of points will be rejected after a few have been accepted, we
-need to set a limit in the number of successive failed trials before we stop
+need to set a limit on the number of successive failed trials before we stop
 the whole process.
 
 
@@ -645,44 +646,44 @@ the whole process.
 I left as an exercise the vectorization of the DART method. The idea is to
 pre-compute enough uniform random samples as well as paired distances and to
 test for their sequential inclusion.
-       
+
 
 Bridson method
 ++++++++++++++
 
-If the vectoriation of the previous method poses no real difficulty, the speed
+If the vectorization of the previous method poses no real difficulty, the speed
 improvement is not so good and the quality remains low and dependent on the `k`
-parameter. The higher the better since it basically governs how hard to try to
+parameter. The higher, the better since it basically governs how hard to try to
 insert a new sample. But, when there is already a large number of accepted
 samples, only chance allows us to find a position to insert a new sample. We
-could increase the `k` value but this would make the method even more slow
-without any guarantee in quality. It's time to think out of the box and luckily
+could increase the `k` value but this would make the method even slower
+without any guarantee in quality. It's time to think out-of-the-box and luckily
 enough, Robert Bridson did that for us and proposed a simple yet efficient
 method:
 
 **Step 0**. *Initialize an n-dimensional background grid for storing samples and
-accelerating spatial searches. We pick the cell size to be bounded by r/√n, so
+accelerating spatial searches. We pick the cell size to be bounded by :math:`\frac{r}{\sqrt{n}}`, so
 that each grid cell will contain at most one sample, and thus the grid can be
-implemented as a simple n- dimensional array of integers: the default −1
+implemented as a simple n-dimensional array of integers: the default −1
 indicates no sample, a non-negative integer gives the index of the sample
 located in a cell.*
 
-**Step 1**. *Select the initial sample, x0, randomly chosen uniformly from the
+**Step 1**. *Select the initial sample, :math:`x_0`, randomly chosen uniformly from the
 domain. Insert it into the background grid, and initialize the “active list”
 (an array of sample indices) with this index (zero).*
 
 **Step 2**. *While the active list is not empty, choose a random index from it
-(say i). Generate up to k points chosen uniformly from the spherical annulus
-between radius r and 2r around xi. For each point in turn, check if it is
-within distance r of existing samples (using the background grid to only test
+(say :math:`i`). Generate up to :math:`k` points chosen uniformly from the spherical annulus
+between radius :math:`r` and :math:`2r` around :math:`x_i`. For each point in turn, check if it is
+within distance :math:`r` of existing samples (using the background grid to only test
 nearby samples). If a point is adequately far from existing samples, emit it
-as the next sample and add it to the active list. If after k attempts no such
-point is found, instead remove i from the active list.*
+as the next sample and add it to the active list. If after :math:`k` attempts no such
+point is found, instead remove :math:`i` from the active list.*
 
 
 Implementation poses no real problem and is left as an exercise for the
-reader. Note that not only this method is fast, but it also offers a better
-quality (more samples) than the DART method even with a high `k`
+reader. Note that not only is this method fast, but it also offers a better
+quality (more samples) than the DART method even with a high :math:`k`
 parameter.
 
 .. admonition:: **Figure 5.8**
@@ -695,14 +696,14 @@ parameter.
 
 
 
-           
+
 Sources
 +++++++
 
 * `DART-sampling-python.py <code/DART-sampling-python.py>`_
 * `DART-sampling-numpy.py <code/DART-sampling-numpy.py>`_ (solution to the exercise)
 * `Bridson-sampling.py <code/Bridson-sampling.py>`_ (solution to the exercise)
-* `sampling.py <code/sampling.py>`_ 
+* `sampling.py <code/sampling.py>`_
 * `mosaic.py <code/mosaic.py>`_
 * `voronoi.py <code/voronoi.py>`_
 
@@ -722,7 +723,7 @@ References
 Conclusion
 ----------
 
-The last example we'been studying is indeed a nice example where it is more
+The last example we've been studying is indeed a nice example where it is more
 important to vectorize the problem rather than to vectorize the code (and too
 early). In this specific case we were lucky enough to have the work done for us
 but it won't be always the case and in such a case, the temptation might be
@@ -730,4 +731,3 @@ high to vectorize the first solution we've found. I hope you're now convinced
 it might be a good idea in general to look for alternative solutions once
 you've found one. You'll (almost) always improve speed by vectorizing your
 code, but in the process, you may miss huge improvements.
-
