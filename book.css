@@ -1,3 +1,11 @@
+@font-face{
+    font-family: 'Source Code Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('fonts/SourceCodePro-Regular.otf.woff') format('woff');
+}
+
 html {
 }
 
@@ -194,8 +202,8 @@ code {
     font-family: 'Source Code Pro';
 }
 pre.code {
-    font-size:      85%;      
-    font-family:    'Source Code Pro';
+    font-size:      85%;
+    font-family:    'Source Code Pro', monospace;
     line-height:    125%;
     background:     #fcfcfc;
     border-top:     .5px solid #ccc;
@@ -205,8 +213,8 @@ pre.code {
     padding-bottom: 0.5em;
 }
 pre.output {
-    font-size:      85%;      
-    font-family:    'Source Code Pro';
+    font-size:      85%;
+    font-family:    'Source Code Pro', monospace;
     line-height:    125%;
     background:     #fff;
     border:         none;
