@@ -79,7 +79,7 @@ an array of cells that are connected together with the notion of neighbour and
 their vectorization is straightforward. Let me first define the game and we'll
 see how to vectorize it.
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 4.1**
    :class: legend
 
    Conus textile snail exhibits a cellular automaton pattern on its shell.
@@ -185,7 +185,7 @@ The figure below shows 4 iterations on a 4x4 area where the initial state is a
 `glider <https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)>`_, a structure
 discovered by Richard K. Guy in 1970.
        
-.. admonition:: **Figure 1**
+.. admonition:: **Figure 4.2**
    :class: legend
 
    The glider pattern is known to replicate itself one step diagonally in 4
@@ -278,7 +278,7 @@ If you look at the `birth` and `survive` lines, you'll see that these two
 variables are arrays that can be used to set `Z` values to 1 after having
 cleared it.
 
-.. admonition:: **Figure 2**
+.. admonition:: **Figure 4.3**
    :class: legend
 
    The Game of Life. Gray levels indicate how miuch a cell has been active in
@@ -349,7 +349,7 @@ Zebrafish     0.16  0.08  0.035 0.060
 The figure below show some animation of the model for a specific set of parameters.
 
 
-.. admonition:: **Figure 3**
+.. admonition:: **Figure 4.4**
    :class: legend
 
    Reaction-diffusion Gray-Scott model. From left to right, *Bacteria 1*, *Coral* and
@@ -417,7 +417,7 @@ which, if the number is still within some bounds, it is considerered non
 divergent. Of course, the more iteration you do, the more precision you get.
 
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 4.5**
    :class: legend
 
    Romanesco broccoli, showing self-similar form approximating a natural fractal.
@@ -555,7 +555,7 @@ escape cutoff. See reference below about the renormalization of the escape
 count. Here is a picture of the result where we use recount normalization,
 and added a power normalized colormap (gamma=0.3) as well as light shading.
 
-.. admonition:: **Figure 4**
+.. admonition:: **Figure 4.6**
    :class: legend
 
    The Mandelbrot as rendered by maplotlib using recount normalization, power
@@ -584,7 +584,7 @@ the exercise is to write a function using Numpy that takes a two-dimensional
 float array and return the dimension. We'll consider values in the array to be
 normalized (i.e. all values are between 0 and 1).
 
-.. admonition:: **Figure 5**
+.. admonition:: **Figure 4.7**
    :class: legend
 
    The Minkowski–Bouligand dimension of the Great Britain coastlines is
@@ -623,7 +623,7 @@ update at each iteration. This the case for example in particle systems where
 particles interact mostly with local neighbours. This is also the case for
 boids that simulate flocking behaviors.
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 4.8**
    :class: legend
 
    Flocking birds are an example of self-organization in biology.
@@ -656,7 +656,7 @@ rules. The rules applied in the simplest Boids world are as follows:
   local flockmates
   
 
-.. admonition:: **Figure 7**
+.. admonition:: **Figure 4.9**
    :class: legend
 
    Boids are governed by a set of three local rules (separation, cohesion and
@@ -874,7 +874,7 @@ velocity and position:
 
 We finally visualize the result using a custom oriented scatter plot.
    
-.. admonition:: **Figure 6**
+.. admonition:: **Figure 4.10**
    :class: legend
 
    Boids is an artificial life program, developed by Craig Reynolds in 1986,
@@ -882,9 +882,9 @@ We finally visualize the result using a custom oriented scatter plot.
 
 .. raw:: html
 
-         <video width="100%" class="bordered" controls>
-         <source src="data/boids.mp4" type="video/mp4">
-         Your browser does not support the video tag. </video>
+   <video width="100%" class="bordered" controls>
+   <source src="data/boids.mp4" type="video/mp4">
+   Your browser does not support the video tag. </video>
 
 
 

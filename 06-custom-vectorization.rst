@@ -268,7 +268,7 @@ Glumpy
 visualization library in Python whose goal is to make it easy to create fast,
 scalable, beautiful, interactive and dynamic visualizations.
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 6.1**
    :class: legend
 
    Simulation of a spiral galaxy using the density wave theory.
@@ -279,7 +279,7 @@ scalable, beautiful, interactive and dynamic visualizations.
 
 |
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 6.2**
    :class: legend
 
    Tiger display using collections and 2 GL calls

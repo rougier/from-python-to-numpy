@@ -67,7 +67,7 @@ correct it as soon as you tell me.
 .. ----------------------------------------------------------------------------
 .. include:: 01-preface.rst
 .. include:: 02-introduction.rst
-.. .. include:: 03-anatomy.rst
+.. include:: 03-anatomy.rst
 .. include:: 04-code-vectorization.rst
 .. include:: 05-problem-vectorization.rst
 .. include:: 06-custom-vectorization.rst

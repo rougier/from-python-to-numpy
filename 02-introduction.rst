@@ -56,13 +56,14 @@ each random steps.
 
 **Vectorized approach**
 
-But, we can further simplifying things by considering a random walk to be
-composed of a number of steps and corresponding positions are the cumulative
-sum of these steps.
+But, we can further simplify things by considering a random walk to be composed
+of a number of steps and corresponding positions are the cumulative sum of
+these steps.
 
 .. code:: python
        
    steps = 2*np.random.randint(0, 2, size=n) - 1
    walk = np.cumsum(steps)
 
-   
+This book is about vectorization, be it at the level of code or problem. We'll
+see the difference is important before looking at custom vectorization.

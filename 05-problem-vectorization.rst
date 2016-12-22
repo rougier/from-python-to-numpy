@@ -171,7 +171,7 @@ split in two distinct problems: to find a path between two nodes in a graph and
 to find the shortest path. We'll illustrate this through path finding in a
 maze. First task is thus to build a maze.
 
-.. admonition:: **Figure 8**
+.. admonition:: **Figure 5.1**
    :class: legend
 
    A hedge maze at Longleat stately home in England.
@@ -247,7 +247,7 @@ maze is easy to solve. With low density, the maze has more "big empty rooms".
 
 Here is an animation showing the generation process.
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 5.2**
    :class: legend
 
    Progressive maze building with complexity and density control.
@@ -333,7 +333,7 @@ illustrated below (reading from left to right, top to bottom). Once this is
 done, we can ascent the gradient from the starting node. You can check on the
 figure this leads to the shortest path.
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 5.3**
    :class: legend
 
    Value iteration algorithm on a simple maze. Once entrance has been reached,
@@ -424,7 +424,7 @@ solution, reusing part of the game of life code:
 Once this is done, we can ascent the gradient to find the shortest path as
 illustrated on the figure below:
 
-.. admonition:: **Figure 8**
+.. admonition:: **Figure 5.4**
    :class: legend
 
    Path finding using the Bellman-Ford algorithm. Gradient colors indicate
@@ -455,7 +455,7 @@ Fluid Dynamics
 
 
 
-.. admonition:: **Figure 9**
+.. admonition:: **Figure 5.5**
    :class: legend
 
    Hydrodynamic flow at two different zoom levels, Neckar river, Heidelberg,
@@ -525,7 +525,7 @@ original paper as well as the explanation by `Philip Rideout
 using this technique.
 
 
-.. admonition:: **Figure 9**
+.. admonition:: **Figure 5.6**
    :class: legend
 
    Smoke simulation using the stable fluids algorithm by Jos Stam.  Right most
@@ -578,7 +578,7 @@ methods have been proposed to achieve such noise whose most simple is certainly
 the DART method.
 
 
-.. admonition:: **Figure 10**
+.. admonition:: **Figure 5.7**
    :class: legend
 
    Detail of "The Starry Night", Vincent van Gogh, 1889. The detail has been
@@ -685,7 +685,7 @@ reader. Note that not only this method is fast, but it also offers a better
 quality (more samples) than the DART method even with a high `k`
 parameter.
 
-.. admonition:: **Figure**
+.. admonition:: **Figure 5.8**
    :class: legend
 
    Comparison of uniform, grid-jittered and Bridson sampling.
