@@ -325,9 +325,9 @@ things faster:</p>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_faster(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">10 loops, best of 3: 8.21 msec per loop</span>
 </pre>
-<p>We gained 50% of computation-time compared to the previous version which is
-already good, but this new version makes numpy vectorization super simple, we
-just have to translate it into numpy methods.</p>
+<p>We gained 50% of computation-time compared to the previous version, not so
+bad. But the advantage of this new version is that it makes numpy vectorization
+super simple. We just have to translate itertools call into numpy ones.</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">random_walk_fastest</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
     <span class="name">steps</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">size</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
