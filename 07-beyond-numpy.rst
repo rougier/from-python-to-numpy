@@ -310,7 +310,7 @@ If there are several additional packages for numpy, there is a trillion
 additional packages for scipy. In fact, every domain of science probably has
 its own package and most of the examples we've been studying until now could
 have been solved in two or three calls to a method in the relevant package.
-But of course, it was not the goal an programming things yourself is generally
+But of course, it was not the goal and programming things yourself is generally
 a good exercise if you have some spare time. The biggest difficulty at this
 point is to find these relevant packages. Here is a very short list of packages
 that are well-maintained, well-tested and may simplify your scientific life
@@ -391,7 +391,7 @@ Numpy is a very versatile library but still, it does not mean you have to use
 it in every situation. In this chapter, we've seen some alternatives (including
 Python itself) that are worth a look. As always, the choice belongs to you. You
 have to consider what is the best solution for you in term of development time,
-computation time and effort in maintenance. In one hand, if you design your
+computation time and effort in maintenance. On the one hand, if you design your
 own solution, you'll have to test it and to maintain it, but in exchange,
 you'll be free to design it the way you want. On the other hand, if you decide
 to rely on a third-party package, you'll save time in development and benefit
