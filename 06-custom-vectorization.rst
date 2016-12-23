@@ -442,7 +442,12 @@ Sources
 .. Double precision array
 .. ----------------------
 .. https://www.thasler.com/blog/blog/glsl-part2-emu
-
+.. http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
+.. T. J. Dekker, A floating point technique for extending the available precision.
+.. Numerische Mathematik, 18(3):224–242, 1971.
+.. Andrew Thall, Extended-Precision Floating-Point Numbers for GPU Computation
+.. SIGGRAPH, 2006 http://andrewthall.org/papers/df64_qf128.pdf
+      
 .. Single vs Double precision
 .. ++++++++++++++++++++++++++
    

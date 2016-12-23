@@ -53,51 +53,55 @@ make you acquire experience in the process.</p>
 <li><a class="reference internal" href="#license" id="id58">License</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#introduction" id="id59">Introduction</a></li>
-<li><a class="reference internal" href="#anatomy-of-an-array" id="id60">Anatomy of an array</a></li>
-<li><a class="reference internal" href="#code-vectorization" id="id61">Code vectorization</a><ul>
-<li><a class="reference internal" href="#id3" id="id62">Introduction</a></li>
-<li><a class="reference internal" href="#uniform-vectorization" id="id63">Uniform vectorization</a></li>
-<li><a class="reference internal" href="#temporal-vectorization" id="id64">Temporal vectorization</a></li>
-<li><a class="reference internal" href="#spatial-vectorization" id="id65">Spatial vectorization</a></li>
-<li><a class="reference internal" href="#conclusion" id="id66">Conclusion</a></li>
+<li><a class="reference internal" href="#introduction" id="id59">Introduction</a><ul>
+<li><a class="reference internal" href="#simple-example" id="id60">Simple example</a></li>
+<li><a class="reference internal" href="#readability-vs-speed" id="id61">Readability vs speed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#problem-vectorization" id="id67">Problem vectorization</a><ul>
-<li><a class="reference internal" href="#id16" id="id68">Introduction</a></li>
-<li><a class="reference internal" href="#path-finding" id="id69">Path finding</a></li>
-<li><a class="reference internal" href="#fluid-dynamics" id="id70">Fluid Dynamics</a></li>
-<li><a class="reference internal" href="#blue-noise-sampling" id="id71">Blue noise sampling</a></li>
-<li><a class="reference internal" href="#id24" id="id72">Conclusion</a></li>
+<li><a class="reference internal" href="#anatomy-of-an-array" id="id62">Anatomy of an array</a></li>
+<li><a class="reference internal" href="#code-vectorization" id="id63">Code vectorization</a><ul>
+<li><a class="reference internal" href="#id3" id="id64">Introduction</a></li>
+<li><a class="reference internal" href="#uniform-vectorization" id="id65">Uniform vectorization</a></li>
+<li><a class="reference internal" href="#temporal-vectorization" id="id66">Temporal vectorization</a></li>
+<li><a class="reference internal" href="#spatial-vectorization" id="id67">Spatial vectorization</a></li>
+<li><a class="reference internal" href="#conclusion" id="id68">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#custom-vectorization" id="id73">Custom vectorization</a><ul>
-<li><a class="reference internal" href="#id26" id="id74">Introduction</a></li>
-<li><a class="reference internal" href="#typed-list" id="id75">Typed list</a></li>
-<li><a class="reference internal" href="#memory-aware-array" id="id76">Memory aware array</a></li>
-<li><a class="reference internal" href="#id33" id="id77">Conclusion</a></li>
+<li><a class="reference internal" href="#problem-vectorization" id="id69">Problem vectorization</a><ul>
+<li><a class="reference internal" href="#id16" id="id70">Introduction</a></li>
+<li><a class="reference internal" href="#path-finding" id="id71">Path finding</a></li>
+<li><a class="reference internal" href="#fluid-dynamics" id="id72">Fluid Dynamics</a></li>
+<li><a class="reference internal" href="#blue-noise-sampling" id="id73">Blue noise sampling</a></li>
+<li><a class="reference internal" href="#id24" id="id74">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#beyond-numpy" id="id78">Beyond Numpy</a><ul>
-<li><a class="reference internal" href="#back-to-python" id="id79">Back to Python</a></li>
-<li><a class="reference internal" href="#numpy-co" id="id80">numpy &amp; co</a></li>
-<li><a class="reference internal" href="#scipy-co" id="id81">Scipy &amp; co</a></li>
-<li><a class="reference internal" href="#id49" id="id82">Conclusion</a></li>
+<li><a class="reference internal" href="#custom-vectorization" id="id75">Custom vectorization</a><ul>
+<li><a class="reference internal" href="#id26" id="id76">Introduction</a></li>
+<li><a class="reference internal" href="#typed-list" id="id77">Typed list</a></li>
+<li><a class="reference internal" href="#memory-aware-array" id="id78">Memory aware array</a></li>
+<li><a class="reference internal" href="#id33" id="id79">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id50" id="id83">Conclusion</a></li>
-<li><a class="reference internal" href="#quick-references" id="id84">Quick References</a><ul>
-<li><a class="reference internal" href="#data-type" id="id85">Data type</a></li>
-<li><a class="reference internal" href="#id53" id="id86">Creation</a></li>
-<li><a class="reference internal" href="#indexing" id="id87">Indexing</a></li>
-<li><a class="reference internal" href="#reshaping" id="id88">Reshaping</a></li>
-<li><a class="reference internal" href="#broadcasting" id="id89">Broadcasting</a></li>
+<li><a class="reference internal" href="#beyond-numpy" id="id80">Beyond Numpy</a><ul>
+<li><a class="reference internal" href="#back-to-python" id="id81">Back to Python</a></li>
+<li><a class="reference internal" href="#numpy-co" id="id82">numpy &amp; co</a></li>
+<li><a class="reference internal" href="#scipy-co" id="id83">Scipy &amp; co</a></li>
+<li><a class="reference internal" href="#id49" id="id84">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bibliography" id="id90">Bibliography</a><ul>
-<li><a class="reference internal" href="#tutorials" id="id91">Tutorials</a></li>
-<li><a class="reference internal" href="#articles" id="id92">Articles</a></li>
-<li><a class="reference internal" href="#books" id="id93">Books</a></li>
+<li><a class="reference internal" href="#id50" id="id85">Conclusion</a></li>
+<li><a class="reference internal" href="#quick-references" id="id86">Quick References</a><ul>
+<li><a class="reference internal" href="#data-type" id="id87">Data type</a></li>
+<li><a class="reference internal" href="#id53" id="id88">Creation</a></li>
+<li><a class="reference internal" href="#indexing" id="id89">Indexing</a></li>
+<li><a class="reference internal" href="#reshaping" id="id90">Reshaping</a></li>
+<li><a class="reference internal" href="#broadcasting" id="id91">Broadcasting</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bibliography" id="id92">Bibliography</a><ul>
+<li><a class="reference internal" href="#tutorials" id="id93">Tutorials</a></li>
+<li><a class="reference internal" href="#articles" id="id94">Articles</a></li>
+<li><a class="reference internal" href="#books" id="id95">Books</a></li>
 </ul>
 </li>
 </ul>
@@ -117,15 +121,15 @@ correct it as soon as you tell me.</p>
 <div class="contents local topic" id="contents">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#about-the-author" id="id94">About the author</a></li>
-<li><a class="reference internal" href="#about-this-book" id="id95">About this book</a><ul>
-<li><a class="reference internal" href="#prerequisites" id="id96">Prerequisites</a></li>
-<li><a class="reference internal" href="#conventions" id="id97">Conventions</a></li>
-<li><a class="reference internal" href="#how-to-contribute" id="id98">How to contribute</a></li>
-<li><a class="reference internal" href="#publishing" id="id99">Publishing</a></li>
+<li><a class="reference internal" href="#about-the-author" id="id96">About the author</a></li>
+<li><a class="reference internal" href="#about-this-book" id="id97">About this book</a><ul>
+<li><a class="reference internal" href="#prerequisites" id="id98">Prerequisites</a></li>
+<li><a class="reference internal" href="#conventions" id="id99">Conventions</a></li>
+<li><a class="reference internal" href="#how-to-contribute" id="id100">How to contribute</a></li>
+<li><a class="reference internal" href="#publishing" id="id101">Publishing</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#license" id="id100">License</a></li>
+<li><a class="reference internal" href="#license" id="id102">License</a></li>
 </ul>
 </div>
 <div class="section" id="about-the-author">
@@ -242,32 +246,37 @@ Alike 4.0 International License</a>. You are free to:</p>
 </div>
 <div class="section" id="introduction">
 <h1><a class="toc-backref" href="#table-of-contents">Introduction</a></h1>
-<p>Numpy is all about vectorization.</p>
-<p>If you are familiar with Python, this is the main difficulty you'll face
-because it requires for you to change your way of thinking and your new friends
-are named vectors, arrays, views or ufuncs.</p>
-<p>Let's take a very simple example: random walk. One possible object oriented
-approach would be to define a <code>RandomWalker</code> class and to write with a walk
-method that would return current position after each (random) steps. It's nice,
-but is is slow:</p>
+<p>Numpy is all about vectorization. If you are familiar with Python, this is the
+main difficulty you'll face because you'll need to change your way of thinking
+and your new friends (among others) are named &quot;vectors&quot;, &quot;arrays&quot;, &quot;views&quot; or
+&quot;ufuncs&quot;.</p>
+<div class="section" id="simple-example">
+<h2><a class="toc-backref" href="#table-of-contents">Simple example</a></h2>
+<p>Let's take a very simple example, random walk.</p>
+<p>One possible object oriented approach would be to define a <code>RandomWalker</code> class
+and to write with a walk method that would return current position after each
+(random) steps. It's nice, it's readable, but it is slow:</p>
 <p><strong>Object oriented approach</strong></p>
 <pre class="code python literal-block">
 <span class="keyword">class</span> <span class="name class">RandomWalker</span><span class="punctuation">:</span>
-   <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
-       <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">steps</span> <span class="operator">=</span> <span class="punctuation">[]</span>
-       <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span> <span class="operator">=</span> <span class="literal number integer">0</span>
+    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span> <span class="operator">=</span> <span class="literal number integer">0</span>
 
-   <span class="keyword">def</span> <span class="name function">walk</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">n</span><span class="punctuation">):</span>
-       <span class="keyword">yield</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span>
-       <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name">n</span><span class="punctuation">):</span>
-           <span class="name">step</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">1</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
-           <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span> <span class="operator">+=</span> <span class="name">step</span>
-           <span class="keyword">yield</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span>
+    <span class="keyword">def</span> <span class="name function">walk</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">n</span><span class="punctuation">):</span>
+        <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span> <span class="operator">=</span> <span class="literal number integer">0</span>
+        <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name">n</span><span class="punctuation">):</span>
+            <span class="keyword">yield</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span>
+            <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span> <span class="operator">+=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">1</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
 
 <span class="name">walker</span> <span class="operator">=</span> <span class="name">RandomWalker</span><span class="punctuation">()</span>
-<span class="name">walk</span> <span class="operator">=</span> <span class="punctuation">[]</span>
-<span class="keyword">for</span> <span class="name">position</span> <span class="operator word">in</span> <span class="name">walker</span><span class="operator">.</span><span class="name">walk</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
-    <span class="name">walk</span><span class="operator">.</span><span class="name">append</span><span class="punctuation">(</span><span class="name">position</span><span class="punctuation">)</span>
+<span class="name">walk</span> <span class="operator">=</span> <span class="punctuation">[</span><span class="name">position</span> <span class="keyword">for</span> <span class="name">position</span> <span class="operator word">in</span> <span class="name">walker</span><span class="operator">.</span><span class="name">walk</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)]</span>
+</pre>
+<p>Benchmarking gives us:</p>
+<pre class="code pycon literal-block">
+<span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">walker</span> <span class="operator">=</span> <span class="name">RandomWalker</span><span class="punctuation">()</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;[position for position in walker.walk(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic output">10 loops, best of 3: 15.7 msec per loop</span>
 </pre>
 <p><strong>Functional approach</strong></p>
 <p>For such a simple problem, we can probably save the class definition and
@@ -278,23 +287,83 @@ each random steps.</p>
     <span class="name">position</span> <span class="operator">=</span> <span class="literal number integer">0</span>
     <span class="name">walk</span> <span class="operator">=</span> <span class="punctuation">[</span><span class="name">position</span><span class="punctuation">]</span>
     <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name">n</span><span class="punctuation">):</span>
-        <span class="name">step</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">1</span><span class="punctuation">)</span><span class="operator">-</span><span class="literal number integer">1</span>
-        <span class="name">position</span> <span class="operator">+=</span> <span class="name">step</span>
+        <span class="name">position</span> <span class="operator">+=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">1</span><span class="punctuation">)</span><span class="operator">-</span><span class="literal number integer">1</span>
         <span class="name">walk</span><span class="operator">.</span><span class="name">append</span><span class="punctuation">(</span><span class="name">position</span><span class="punctuation">)</span>
     <span class="keyword">return</span> <span class="name">walk</span>
 
 <span class="name">walk</span> <span class="operator">=</span> <span class="name">random_walk</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
 </pre>
+<p>This new method saves some CPU cycles but not that much because this function
+is pretty much the same as in the object-oriented approach and the few cycles
+we saved probably come from the inner Python object-oriented machinery.</p>
+<pre class="code pycon literal-block">
+<span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic output">10 loops, best of 3: 15.6 msec per loop</span>
+</pre>
 <p><strong>Vectorized approach</strong></p>
-<p>But, we can further simplify things by considering a random walk to be composed
-of a number of steps and corresponding positions are the cumulative sum of
-these steps.</p>
+<p>But we can do better using the <a class="reference external" href="https://docs.python.org/3.6/library/itertools.html">itertools</a> Python module that
+offers a set of functions creating iterators for efficient looping. If we
+observe that a random walk is an accumulation of steps, we can rewrite the
+function as:</p>
 <pre class="code python literal-block">
-<span class="name">steps</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">size</span><span class="operator">=</span><span class="name">n</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
-<span class="name">walk</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">cumsum</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">)</span>
+<span class="keyword">def</span> <span class="name function">random_walk_faster</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
+    <span class="keyword namespace">from</span> <span class="name namespace">itertools</span> <span class="keyword namespace">import</span> <span class="name">accumulate</span>
+    <span class="name">steps</span> <span class="operator">=</span> <span class="name">random</span><span class="operator">.</span><span class="name">sample</span><span class="punctuation">([</span><span class="literal number integer">1</span><span class="punctuation">,</span> <span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">]</span><span class="operator">*</span><span class="name">n</span><span class="punctuation">,</span> <span class="name">n</span><span class="punctuation">)</span>
+    <span class="keyword">return</span> <span class="name builtin">list</span><span class="punctuation">(</span><span class="name">accumulate</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">))</span>
+</pre>
+<p>In fact, we've just <em>vectorized</em> our function. Instead of looping for picking
+sequential steps and add them to the current position, we fist generate all the
+steps at once and use the <a class="reference external" href="https://docs.python.org/3.6/library/itertools.html#itertools.accumulate">accumulate</a>
+function to compute all the positions. We get rid of the loop and this makes
+things faster:</p>
+<pre class="code pycon literal-block">
+<span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_faster(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic output">10 loops, best of 3: 8.21 msec per loop</span>
+</pre>
+<p>We gained 50% of computation-time compared to the previous version which is
+already good, but this new version makes numpy vectorization super simple, we
+just have to translate it into numpy methods.</p>
+<pre class="code python literal-block">
+<span class="keyword">def</span> <span class="name function">random_walk_fastest</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
+    <span class="name">steps</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">size</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
+    <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">cumsum</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">)</span>
+</pre>
+<p>Not too difficult, but we gained a factor 500x using numpy:</p>
+<pre class="code pycon literal-block">
+<span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_faster(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic output">1000 loops, best of 3: 14 usec per loop</span>
 </pre>
 <p>This book is about vectorization, be it at the level of code or problem. We'll
-see the difference is important before looking at custom vectorization.</p>
+see this difference is important before looking at custom vectorization.</p>
+</div>
+<div class="section" id="readability-vs-speed">
+<h2><a class="toc-backref" href="#table-of-contents">Readability vs speed</a></h2>
+<p>Before heading to the next chapter, I would like to warn you about a potential
+problem you may encounter once you'll have become familiar with numpy. It is a
+very powerful library and you can make wonders with it but, most of the time,
+this comes at the price of readability. If you don't comment your code at the
+time of writing, you'll be unable to guess what a function is doing after a few
+weeks (or even days). For example, can you tell what the two functions below
+are doing? Probably you can tell for the first one, but unlikely for the second
+(or you don't need to read this book).</p>
+<pre class="code python literal-block">
+<span class="keyword">def</span> <span class="name function">function_1</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">,</span> <span class="name">sub</span><span class="punctuation">):</span>
+    <span class="keyword">return</span> <span class="punctuation">[</span><span class="name">i</span> <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name builtin">len</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="name builtin">len</span><span class="punctuation">(</span><span class="name">sub</span><span class="punctuation">))</span> <span class="keyword">if</span> <span class="name">seq</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">:</span><span class="name">i</span><span class="operator">+</span><span class="name builtin">len</span><span class="punctuation">(</span><span class="name">sub</span><span class="punctuation">)]</span> <span class="operator">==</span> <span class="name">sub</span><span class="punctuation">]</span>
+
+<span class="keyword">def</span> <span class="name function">function_2</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">,</span> <span class="name">sub</span><span class="punctuation">):</span>
+    <span class="name">target</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">dot</span><span class="punctuation">(</span><span class="name">sub</span><span class="punctuation">,</span> <span class="name">sub</span><span class="punctuation">)</span>
+    <span class="name">candidates</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">where</span><span class="punctuation">(</span><span class="name">np</span><span class="operator">.</span><span class="name">correlate</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">,</span> <span class="name">sub</span><span class="punctuation">,</span> <span class="name">mode</span><span class="operator">=</span><span class="literal string single">'valid'</span><span class="punctuation">)</span> <span class="operator">==</span> <span class="name">target</span><span class="punctuation">)[</span><span class="literal number integer">0</span><span class="punctuation">]</span>
+    <span class="name">check</span> <span class="operator">=</span> <span class="name">candidates</span><span class="punctuation">[:,</span> <span class="name">np</span><span class="operator">.</span><span class="name">newaxis</span><span class="punctuation">]</span> <span class="operator">+</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="name builtin">len</span><span class="punctuation">(</span><span class="name">sub</span><span class="punctuation">))</span>
+    <span class="name">mask</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">all</span><span class="punctuation">((</span><span class="name">np</span><span class="operator">.</span><span class="name">take</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">,</span> <span class="name">check</span><span class="punctuation">)</span> <span class="operator">==</span> <span class="name">sub</span><span class="punctuation">),</span> <span class="name">axis</span><span class="operator">=-</span><span class="literal number integer">1</span><span class="punctuation">)</span>
+    <span class="keyword">return</span> <span class="name">candidates</span><span class="punctuation">[</span><span class="name">mask</span><span class="punctuation">]</span>
+</pre>
+<p>As you may have guessed, the second function is the
+vectorized-optimized-faster-numpy version of the first function. It is 10 times
+faster than the pure Python version, but it is hardly readable.</p>
+</div>
 </div>
 <div class="section" id="anatomy-of-an-array">
 <h1><a class="toc-backref" href="#table-of-contents">Anatomy of an array</a></h1>
@@ -416,36 +485,36 @@ Sources
 <div class="contents local topic" id="id2">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id3" id="id101">Introduction</a></li>
-<li><a class="reference internal" href="#uniform-vectorization" id="id102">Uniform vectorization</a><ul>
-<li><a class="reference internal" href="#the-game-of-life" id="id103">The Game of Life</a></li>
-<li><a class="reference internal" href="#python-implementation" id="id104">Python implementation</a></li>
-<li><a class="reference internal" href="#numpy-implementation" id="id105">Numpy implementation</a></li>
-<li><a class="reference internal" href="#exercise" id="id106">Exercise</a></li>
-<li><a class="reference internal" href="#sources" id="id107">Sources</a></li>
-<li><a class="reference internal" href="#references" id="id108">References</a></li>
+<li><a class="reference internal" href="#id3" id="id103">Introduction</a></li>
+<li><a class="reference internal" href="#uniform-vectorization" id="id104">Uniform vectorization</a><ul>
+<li><a class="reference internal" href="#the-game-of-life" id="id105">The Game of Life</a></li>
+<li><a class="reference internal" href="#python-implementation" id="id106">Python implementation</a></li>
+<li><a class="reference internal" href="#numpy-implementation" id="id107">Numpy implementation</a></li>
+<li><a class="reference internal" href="#exercise" id="id108">Exercise</a></li>
+<li><a class="reference internal" href="#sources" id="id109">Sources</a></li>
+<li><a class="reference internal" href="#references" id="id110">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#temporal-vectorization" id="id109">Temporal vectorization</a><ul>
-<li><a class="reference internal" href="#id4" id="id110">Python implementation</a></li>
-<li><a class="reference internal" href="#id5" id="id111">Numpy implementation</a></li>
-<li><a class="reference internal" href="#faster-numpy-implementation" id="id112">Faster numpy implementation</a></li>
-<li><a class="reference internal" href="#visualization" id="id113">Visualization</a></li>
-<li><a class="reference internal" href="#id6" id="id114">Exercise</a></li>
-<li><a class="reference internal" href="#id7" id="id115">Sources</a></li>
-<li><a class="reference internal" href="#id8" id="id116">References</a></li>
+<li><a class="reference internal" href="#temporal-vectorization" id="id111">Temporal vectorization</a><ul>
+<li><a class="reference internal" href="#id4" id="id112">Python implementation</a></li>
+<li><a class="reference internal" href="#id5" id="id113">Numpy implementation</a></li>
+<li><a class="reference internal" href="#faster-numpy-implementation" id="id114">Faster numpy implementation</a></li>
+<li><a class="reference internal" href="#visualization" id="id115">Visualization</a></li>
+<li><a class="reference internal" href="#id6" id="id116">Exercise</a></li>
+<li><a class="reference internal" href="#id7" id="id117">Sources</a></li>
+<li><a class="reference internal" href="#id8" id="id118">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spatial-vectorization" id="id117">Spatial vectorization</a><ul>
-<li><a class="reference internal" href="#boids" id="id118">Boids</a></li>
-<li><a class="reference internal" href="#id10" id="id119">Python implementation</a></li>
-<li><a class="reference internal" href="#id11" id="id120">Numpy implementation</a></li>
-<li><a class="reference internal" href="#id12" id="id121">Exercise</a></li>
-<li><a class="reference internal" href="#id13" id="id122">Sources</a></li>
-<li><a class="reference internal" href="#id14" id="id123">References</a></li>
+<li><a class="reference internal" href="#spatial-vectorization" id="id119">Spatial vectorization</a><ul>
+<li><a class="reference internal" href="#boids" id="id120">Boids</a></li>
+<li><a class="reference internal" href="#id10" id="id121">Python implementation</a></li>
+<li><a class="reference internal" href="#id11" id="id122">Numpy implementation</a></li>
+<li><a class="reference internal" href="#id12" id="id123">Exercise</a></li>
+<li><a class="reference internal" href="#id13" id="id124">Sources</a></li>
+<li><a class="reference internal" href="#id14" id="id125">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#conclusion" id="id124">Conclusion</a></li>
+<li><a class="reference internal" href="#conclusion" id="id126">Conclusion</a></li>
 </ul>
 </div>
 <div class="section" id="id3">
@@ -1327,30 +1396,30 @@ was provided by <a class="reference external" href="http://stackoverflow.com/use
 <div class="contents local topic" id="id15">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id16" id="id125">Introduction</a></li>
-<li><a class="reference internal" href="#path-finding" id="id126">Path finding</a><ul>
-<li><a class="reference internal" href="#building-a-maze" id="id127">Building a maze</a></li>
-<li><a class="reference internal" href="#breadth-first" id="id128">Breadth-first</a></li>
-<li><a class="reference internal" href="#bellman-ford-method" id="id129">Bellman-Ford method</a></li>
-<li><a class="reference internal" href="#id17" id="id130">Sources</a></li>
-<li><a class="reference internal" href="#id18" id="id131">References</a></li>
+<li><a class="reference internal" href="#id16" id="id127">Introduction</a></li>
+<li><a class="reference internal" href="#path-finding" id="id128">Path finding</a><ul>
+<li><a class="reference internal" href="#building-a-maze" id="id129">Building a maze</a></li>
+<li><a class="reference internal" href="#breadth-first" id="id130">Breadth-first</a></li>
+<li><a class="reference internal" href="#bellman-ford-method" id="id131">Bellman-Ford method</a></li>
+<li><a class="reference internal" href="#id17" id="id132">Sources</a></li>
+<li><a class="reference internal" href="#id18" id="id133">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fluid-dynamics" id="id132">Fluid Dynamics</a><ul>
-<li><a class="reference internal" href="#lagrangian-vs-eulerian-method" id="id133">Lagrangian vs Eulerian method</a></li>
-<li><a class="reference internal" href="#id19" id="id134">Numpy implementation</a></li>
-<li><a class="reference internal" href="#id20" id="id135">Sources</a></li>
-<li><a class="reference internal" href="#id21" id="id136">References</a></li>
+<li><a class="reference internal" href="#fluid-dynamics" id="id134">Fluid Dynamics</a><ul>
+<li><a class="reference internal" href="#lagrangian-vs-eulerian-method" id="id135">Lagrangian vs Eulerian method</a></li>
+<li><a class="reference internal" href="#id19" id="id136">Numpy implementation</a></li>
+<li><a class="reference internal" href="#id20" id="id137">Sources</a></li>
+<li><a class="reference internal" href="#id21" id="id138">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#blue-noise-sampling" id="id137">Blue noise sampling</a><ul>
-<li><a class="reference internal" href="#dart-method" id="id138">DART method</a></li>
-<li><a class="reference internal" href="#bridson-method" id="id139">Bridson method</a></li>
-<li><a class="reference internal" href="#id22" id="id140">Sources</a></li>
-<li><a class="reference internal" href="#id23" id="id141">References</a></li>
+<li><a class="reference internal" href="#blue-noise-sampling" id="id139">Blue noise sampling</a><ul>
+<li><a class="reference internal" href="#dart-method" id="id140">DART method</a></li>
+<li><a class="reference internal" href="#bridson-method" id="id141">Bridson method</a></li>
+<li><a class="reference internal" href="#id22" id="id142">Sources</a></li>
+<li><a class="reference internal" href="#id23" id="id143">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id24" id="id142">Conclusion</a></li>
+<li><a class="reference internal" href="#id24" id="id144">Conclusion</a></li>
 </ul>
 </div>
 <div class="section" id="id16">
@@ -1951,23 +2020,23 @@ code, but in the process, you may miss huge improvements.</p>
 <div class="contents local topic" id="id25">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id26" id="id143">Introduction</a></li>
-<li><a class="reference internal" href="#typed-list" id="id144">Typed list</a><ul>
-<li><a class="reference internal" href="#creation" id="id145">Creation</a></li>
-<li><a class="reference internal" href="#access" id="id146">Access</a></li>
-<li><a class="reference internal" href="#id28" id="id147">Exercise</a></li>
-<li><a class="reference internal" href="#id29" id="id148">Sources</a></li>
+<li><a class="reference internal" href="#id26" id="id145">Introduction</a></li>
+<li><a class="reference internal" href="#typed-list" id="id146">Typed list</a><ul>
+<li><a class="reference internal" href="#creation" id="id147">Creation</a></li>
+<li><a class="reference internal" href="#access" id="id148">Access</a></li>
+<li><a class="reference internal" href="#id28" id="id149">Exercise</a></li>
+<li><a class="reference internal" href="#id29" id="id150">Sources</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#memory-aware-array" id="id149">Memory aware array</a><ul>
-<li><a class="reference internal" href="#id30" id="id150">Glumpy</a></li>
-<li><a class="reference internal" href="#array-subclass" id="id151">Array subclass</a></li>
-<li><a class="reference internal" href="#computing-extents" id="id152">Computing extents</a></li>
-<li><a class="reference internal" href="#keeping-track-of-pending-data" id="id153">Keeping track of pending data</a></li>
-<li><a class="reference internal" href="#id32" id="id154">Sources</a></li>
+<li><a class="reference internal" href="#memory-aware-array" id="id151">Memory aware array</a><ul>
+<li><a class="reference internal" href="#id30" id="id152">Glumpy</a></li>
+<li><a class="reference internal" href="#array-subclass" id="id153">Array subclass</a></li>
+<li><a class="reference internal" href="#computing-extents" id="id154">Computing extents</a></li>
+<li><a class="reference internal" href="#keeping-track-of-pending-data" id="id155">Keeping track of pending data</a></li>
+<li><a class="reference internal" href="#id32" id="id156">Sources</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id33" id="id155">Conclusion</a></li>
+<li><a class="reference internal" href="#id33" id="id157">Conclusion</a></li>
 </ul>
 </div>
 <div class="section" id="id26">
@@ -2337,6 +2406,11 @@ method. This will be handled when we need to update some data as during a
 <!-- Double precision array -->
 <!-- - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- https://www.thasler.com/blog/blog/glsl-part2-emu -->
+<!-- http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html -->
+<!-- T. J. Dekker, A floating point technique for extending the available precision. -->
+<!-- Numerische Mathematik, 18(3):224–242, 1971. -->
+<!-- Andrew Thall, Extended-Precision Floating-Point Numbers for GPU Computation -->
+<!-- SIGGRAPH, 2006 http://andrewthall.org/papers/df64_qf128.pdf -->
 <!-- Single vs Double precision -->
 <!-- ++++++++++++++++++++++++++ -->
 <!-- Emulated arithmetics -->
@@ -2361,27 +2435,27 @@ suit very specific needs. The limit is only your imagination and your experience
 <div class="contents local topic" id="id34">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#back-to-python" id="id156">Back to Python</a></li>
-<li><a class="reference internal" href="#numpy-co" id="id157">numpy &amp; co</a><ul>
-<li><a class="reference internal" href="#numexpr" id="id158">NumExpr</a></li>
-<li><a class="reference internal" href="#cython" id="id159">Cython</a></li>
-<li><a class="reference internal" href="#numba" id="id160">Numba</a></li>
-<li><a class="reference internal" href="#theano" id="id161">Theano</a></li>
-<li><a class="reference internal" href="#pycuda" id="id162">PyCUDA</a></li>
-<li><a class="reference internal" href="#pyopencl" id="id163">PyOpenCL</a></li>
+<li><a class="reference internal" href="#back-to-python" id="id158">Back to Python</a></li>
+<li><a class="reference internal" href="#numpy-co" id="id159">numpy &amp; co</a><ul>
+<li><a class="reference internal" href="#numexpr" id="id160">NumExpr</a></li>
+<li><a class="reference internal" href="#cython" id="id161">Cython</a></li>
+<li><a class="reference internal" href="#numba" id="id162">Numba</a></li>
+<li><a class="reference internal" href="#theano" id="id163">Theano</a></li>
+<li><a class="reference internal" href="#pycuda" id="id164">PyCUDA</a></li>
+<li><a class="reference internal" href="#pyopencl" id="id165">PyOpenCL</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#scipy-co" id="id164">Scipy &amp; co</a><ul>
-<li><a class="reference internal" href="#scikit-learn" id="id165">scikit-learn</a></li>
-<li><a class="reference internal" href="#scikit-image" id="id166">scikit-image</a></li>
-<li><a class="reference internal" href="#sympy" id="id167">SymPy</a></li>
-<li><a class="reference internal" href="#astropy" id="id168">Astropy</a></li>
-<li><a class="reference internal" href="#cartopy" id="id169">Cartopy</a></li>
-<li><a class="reference internal" href="#brian" id="id170">Brian</a></li>
-<li><a class="reference internal" href="#id47" id="id171">Glumpy</a></li>
+<li><a class="reference internal" href="#scipy-co" id="id166">Scipy &amp; co</a><ul>
+<li><a class="reference internal" href="#scikit-learn" id="id167">scikit-learn</a></li>
+<li><a class="reference internal" href="#scikit-image" id="id168">scikit-image</a></li>
+<li><a class="reference internal" href="#sympy" id="id169">SymPy</a></li>
+<li><a class="reference internal" href="#astropy" id="id170">Astropy</a></li>
+<li><a class="reference internal" href="#cartopy" id="id171">Cartopy</a></li>
+<li><a class="reference internal" href="#brian" id="id172">Brian</a></li>
+<li><a class="reference internal" href="#id47" id="id173">Glumpy</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id49" id="id172">Conclusion</a></li>
+<li><a class="reference internal" href="#id49" id="id174">Conclusion</a></li>
 </ul>
 </div>
 <div class="section" id="back-to-python">
@@ -2752,11 +2826,11 @@ with the <a class="reference external" href="http://glumpy.github.io">glumpy</a>
 <div class="contents local topic" id="id52">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#data-type" id="id173">Data type</a></li>
-<li><a class="reference internal" href="#id53" id="id174">Creation</a></li>
-<li><a class="reference internal" href="#indexing" id="id175">Indexing</a></li>
-<li><a class="reference internal" href="#reshaping" id="id176">Reshaping</a></li>
-<li><a class="reference internal" href="#broadcasting" id="id177">Broadcasting</a></li>
+<li><a class="reference internal" href="#data-type" id="id175">Data type</a></li>
+<li><a class="reference internal" href="#id53" id="id176">Creation</a></li>
+<li><a class="reference internal" href="#indexing" id="id177">Indexing</a></li>
+<li><a class="reference internal" href="#reshaping" id="id178">Reshaping</a></li>
+<li><a class="reference internal" href="#broadcasting" id="id179">Broadcasting</a></li>
 </ul>
 </div>
 <div class="section" id="data-type">
@@ -3262,9 +3336,9 @@ numpy/Scipy while some others offer a broader view on numerical computing.</p>
 <div class="contents local topic" id="id54">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#tutorials" id="id178">Tutorials</a></li>
-<li><a class="reference internal" href="#articles" id="id179">Articles</a></li>
-<li><a class="reference internal" href="#books" id="id180">Books</a></li>
+<li><a class="reference internal" href="#tutorials" id="id180">Tutorials</a></li>
+<li><a class="reference internal" href="#articles" id="id181">Articles</a></li>
+<li><a class="reference internal" href="#books" id="id182">Books</a></li>
 </ul>
 </div>
 <div class="section" id="tutorials">

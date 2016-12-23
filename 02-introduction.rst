@@ -1,38 +1,46 @@
 Introduction
 ===============================================================================
 
-Numpy is all about vectorization.
+Numpy is all about vectorization. If you are familiar with Python, this is the
+main difficulty you'll face because you'll need to change your way of thinking
+and your new friends (among others) are named "vectors", "arrays", "views" or
+"ufuncs".
 
-If you are familiar with Python, this is the main difficulty you'll face
-because it requires for you to change your way of thinking and your new friends
-are named vectors, arrays, views or ufuncs.
 
-Let's take a very simple example: random walk. One possible object oriented
-approach would be to define a `RandomWalker` class and to write with a walk
-method that would return current position after each (random) steps. It's nice,
-but is is slow:
+Simple example
+--------------
+
+Let's take a very simple example, random walk.
+
+One possible object oriented approach would be to define a `RandomWalker` class
+and to write with a walk method that would return current position after each
+(random) steps. It's nice, it's readable, but it is slow:
 
 **Object oriented approach**
 
 .. code:: python
 
    class RandomWalker:
-      def __init__(self):
-          self.steps = []
-          self.position = 0
+       def __init__(self):
+           self.position = 0
 
-      def walk(self, n):
-          yield self.position
-          for i in range(n):
-              step = 2*random.randint(0, 1) - 1
-              self.position += step
-              yield self.position
+       def walk(self, n):
+           self.position = 0
+           for i in range(n):
+               yield self.position
+               self.position += 2*random.randint(0, 1) - 1
            
    walker = RandomWalker()
-   walk = []
-   for position in walker.walk(1000):
-       walk.append(position)
+   walk = [position for position in walker.walk(1000)]
 
+Benchmarking gives us:
+
+.. code:: pycon
+
+   >>> from tools import timeit
+   >>> walker = RandomWalker()
+   >>> timeit("[position for position in walker.walk(n=10000)]", globals())
+   10 loops, best of 3: 15.7 msec per loop
 
        
 **Functional approach**
@@ -47,23 +55,98 @@ each random steps.
        position = 0
        walk = [position]
        for i in range(n):
-           step = 2*random.randint(0, 1)-1
-           position += step
+           position += 2*random.randint(0, 1)-1
            walk.append(position)
        return walk
 
    walk = random_walk(1000)
 
-**Vectorized approach**
+This new method saves some CPU cycles but not that much because this function
+is pretty much the same as in the object-oriented approach and the few cycles
+we saved probably come from the inner Python object-oriented machinery.
 
-But, we can further simplify things by considering a random walk to be composed
-of a number of steps and corresponding positions are the cumulative sum of
-these steps.
+.. code:: pycon
+
+   >>> from tools import timeit
+   >>> timeit("random_walk(n=10000)]", globals())
+   10 loops, best of 3: 15.6 msec per loop
+
+   
+**Vectorized approach**
+   
+But we can do better using the `itertools
+<https://docs.python.org/3.6/library/itertools.html>`_ Python module that
+offers a set of functions creating iterators for efficient looping. If we
+observe that a random walk is an accumulation of steps, we can rewrite the
+function as:
+
+.. code:: python
+
+   def random_walk_faster(n=1000):
+       from itertools import accumulate
+       steps = random.sample([1, -1]*n, n)
+       return list(accumulate(steps))
+
+In fact, we've just *vectorized* our function. Instead of looping for picking
+sequential steps and add them to the current position, we fist generate all the
+steps at once and use the `accumulate
+<https://docs.python.org/3.6/library/itertools.html#itertools.accumulate>`_
+function to compute all the positions. We get rid of the loop and this makes
+things faster:
+
+.. code:: pycon
+
+   >>> from tools import timeit
+   >>> timeit("random_walk_faster(n=10000)]", globals())
+   10 loops, best of 3: 8.21 msec per loop
+
+We gained 50% of computation-time compared to the previous version which is
+already good, but this new version makes numpy vectorization super simple, we
+just have to translate it into numpy methods.
 
 .. code:: python
        
-   steps = 2*np.random.randint(0, 2, size=n) - 1
-   walk = np.cumsum(steps)
+   def random_walk_fastest(n=1000):
+       steps = 2*np.random.randint(0, 2, size=1000) - 1
+       return np.cumsum(steps)
+
+Not too difficult, but we gained a factor 500x using numpy:
+ 
+.. code:: pycon
+
+   >>> from tools import timeit
+   >>> timeit("random_walk_faster(n=10000)]", globals())
+   1000 loops, best of 3: 14 usec per loop
+
 
 This book is about vectorization, be it at the level of code or problem. We'll
-see the difference is important before looking at custom vectorization.
+see this difference is important before looking at custom vectorization.
+
+
+Readability vs speed
+--------------------
+
+Before heading to the next chapter, I would like to warn you about a potential
+problem you may encounter once you'll have become familiar with numpy. It is a
+very powerful library and you can make wonders with it but, most of the time,
+this comes at the price of readability. If you don't comment your code at the
+time of writing, you'll be unable to guess what a function is doing after a few
+weeks (or even days). For example, can you tell what the two functions below
+are doing? Probably you can tell for the first one, but unlikely for the second
+(or you don't need to read this book).
+
+.. code:: python
+          
+   def function_1(seq, sub):
+       return [i for i in range(len(seq) - len(sub)) if seq[i:i+len(sub)] == sub]
+
+   def function_2(seq, sub):
+       target = np.dot(sub, sub)
+       candidates = np.where(np.correlate(seq, sub, mode='valid') == target)[0]
+       check = candidates[:, np.newaxis] + np.arange(len(sub))
+       mask = np.all((np.take(seq, check) == sub), axis=-1)
+       return candidates[mask]
+
+As you may have guessed, the second function is the
+vectorized-optimized-faster-numpy version of the first function. It is 10 times
+faster than the pure Python version, but it is hardly readable.
