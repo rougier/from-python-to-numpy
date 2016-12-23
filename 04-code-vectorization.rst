@@ -287,9 +287,9 @@ cleared it.
 
 .. raw:: html
 
-         <video width="100%" controls>
-         <source src="data/game-of-life.mp4" type="video/mp4">
-         Your browser does not support the video tag. </video>
+   <video width="100%" class="bordered" controls>
+   <source src="data/game-of-life.mp4" type="video/mp4">
+   Your browser does not support the video tag. </video>
 
 
 
@@ -361,17 +361,17 @@ The figure below show some animation of the model for a specific set of paramete
 
 .. raw:: html
 
-         <video width="33%" controls>
-         <source src="data/gray-scott-1.mp4" type="video/mp4">
-         Your browser does not support the video tag. </video>
+   <video width="33%" controls>
+   <source src="data/gray-scott-1.mp4" type="video/mp4">
+   Your browser does not support the video tag. </video>
 
-         <video width="33%" controls>
-         <source src="data/gray-scott-2.mp4" type="video/mp4">
-         Your browser does not support the video tag. </video>
+   <video width="33%" controls>
+   <source src="data/gray-scott-2.mp4" type="video/mp4">
+   Your browser does not support the video tag. </video>
 
-         <video width="33%" controls>
-         <source src="data/gray-scott-3.mp4" type="video/mp4">
-         Your browser does not support the video tag. </video>
+   <video width="33%" controls>
+   <source src="data/gray-scott-3.mp4" type="video/mp4">
+   Your browser does not support the video tag. </video>
 
 
 
