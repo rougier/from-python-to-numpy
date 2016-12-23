@@ -26,7 +26,7 @@ resources and tutorials (Matplotlib, numpy, OpenGL) and he's teaching Python,
 numpy and scientific visualization at the University of Bordeaux and in various
 conferences and schools worldwide (SciPy, EuroScipy, etc). He's also the author
 of the popular article `Ten Simple Rules for Better Figures`_ and a popular
-'matplotlib tutorial
+`matplotlib tutorial
 <http://www.labri.fr/perso/nrougier/teaching/matplotlib/matplotlib.html>`_.
 
 
