@@ -124,7 +124,7 @@ important to wonder if you need an actual instance of your result or if a
 simple generator might do the job.
 
 
-numpy & co
+Numpy & co
 ----------
 
 Beyond numpy, there are several other Python packages that are worth a look

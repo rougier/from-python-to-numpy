@@ -84,7 +84,7 @@ make you acquire experience in the process.</p>
 </li>
 <li><a class="reference internal" href="#beyond-numpy" id="id80">Beyond Numpy</a><ul>
 <li><a class="reference internal" href="#back-to-python" id="id81">Back to Python</a></li>
-<li><a class="reference internal" href="#numpy-co" id="id82">numpy &amp; co</a></li>
+<li><a class="reference internal" href="#numpy-co" id="id82">Numpy &amp; co</a></li>
 <li><a class="reference internal" href="#scipy-co" id="id83">Scipy &amp; co</a></li>
 <li><a class="reference internal" href="#id49" id="id84">Conclusion</a></li>
 </ul>
@@ -353,7 +353,8 @@ this comes at the price of readability. If you don't comment your code at the
 time of writing, you'll be unable to guess what a function is doing after a few
 weeks (or even days). For example, can you tell what the two functions below
 are doing? Probably you can tell for the first one, but unlikely for the second
-(or you don't need to read this book).</p>
+(or your name is <a class="reference external" href="http://stackoverflow.com/questions/7100242/python-numpy-first-occurrence-of-subarray">Jaime Fernández del Río</a>
+and you don't need to read this book).</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">function_1</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">,</span> <span class="name">sub</span><span class="punctuation">):</span>
     <span class="keyword">return</span> <span class="punctuation">[</span><span class="name">i</span> <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name builtin">len</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="name builtin">len</span><span class="punctuation">(</span><span class="name">sub</span><span class="punctuation">))</span> <span class="keyword">if</span> <span class="name">seq</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">:</span><span class="name">i</span><span class="operator">+</span><span class="name builtin">len</span><span class="punctuation">(</span><span class="name">sub</span><span class="punctuation">)]</span> <span class="operator">==</span> <span class="name">sub</span><span class="punctuation">]</span>
@@ -2444,7 +2445,7 @@ suit very specific needs. The limit is only your imagination and your experience
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
 <li><a class="reference internal" href="#back-to-python" id="id158">Back to Python</a></li>
-<li><a class="reference internal" href="#numpy-co" id="id159">numpy &amp; co</a><ul>
+<li><a class="reference internal" href="#numpy-co" id="id159">Numpy &amp; co</a><ul>
 <li><a class="reference internal" href="#numexpr" id="id160">NumExpr</a></li>
 <li><a class="reference internal" href="#cython" id="id161">Cython</a></li>
 <li><a class="reference internal" href="#numba" id="id162">Numba</a></li>
@@ -2567,7 +2568,7 @@ important to wonder if you need an actual instance of your result or if a
 simple generator might do the job.</p>
 </div>
 <div class="section" id="numpy-co">
-<h2><a class="toc-backref" href="#id34">numpy &amp; co</a></h2>
+<h2><a class="toc-backref" href="#id34">Numpy &amp; co</a></h2>
 <p>Beyond numpy, there are several other Python packages that are worth a look
 because they address similar yet different class of problems using different
 technology (compilation, virtual machine, just in time compilation, GPU,

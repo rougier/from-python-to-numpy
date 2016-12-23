@@ -137,7 +137,9 @@ this comes at the price of readability. If you don't comment your code at the
 time of writing, you'll be unable to guess what a function is doing after a few
 weeks (or even days). For example, can you tell what the two functions below
 are doing? Probably you can tell for the first one, but unlikely for the second
-(or you don't need to read this book).
+(or your name is `Jaime Fernández del Río
+<http://stackoverflow.com/questions/7100242/python-numpy-first-occurrence-of-subarray>`_
+and you don't need to read this book).
 
 .. code:: python
           
