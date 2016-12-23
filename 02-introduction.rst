@@ -90,10 +90,10 @@ function as:
     walk = random_walk_faster(1000)
    
 In fact, we've just *vectorized* our function. Instead of looping for picking
-sequential steps and add them to the current position, we fist generate all the
-steps at once and use the `accumulate
+sequential steps and add them to the current position, we first generated all the
+steps at once and used the `accumulate
 <https://docs.python.org/3.6/library/itertools.html#itertools.accumulate>`_
-function to compute all the positions. We get rid of the loop and this makes
+function to compute all the positions. We got rid of the loop and this makes
 things faster:
 
 .. code:: pycon

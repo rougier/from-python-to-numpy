@@ -662,24 +662,25 @@ without any guarantee in quality. It's time to think out-of-the-box and luckily
 enough, Robert Bridson did that for us and proposed a simple yet efficient
 method:
 
-**Step 0**. *Initialize an n-dimensional background grid for storing samples and
-accelerating spatial searches. We pick the cell size to be bounded by :math:`\frac{r}{\sqrt{n}}`, so
-that each grid cell will contain at most one sample, and thus the grid can be
-implemented as a simple n-dimensional array of integers: the default −1
-indicates no sample, a non-negative integer gives the index of the sample
-located in a cell.*
+  **Step 0**. Initialize an n-dimensional background grid for storing samples and
+  accelerating spatial searches. We pick the cell size to be bounded by
+  :math:`\frac{r}{\sqrt{n}}`, so that each grid cell will contain at most one
+  sample, and thus the grid can be implemented as a simple n-dimensional array of
+  integers: the default −1 indicates no sample, a non-negative integer gives the
+  index of the sample located in a cell.
 
-**Step 1**. *Select the initial sample, :math:`x_0`, randomly chosen uniformly from the
-domain. Insert it into the background grid, and initialize the “active list”
-(an array of sample indices) with this index (zero).*
+  **Step 1**. Select the initial sample, :math:`x_0`, randomly chosen uniformly from the
+  domain. Insert it into the background grid, and initialize the “active list”
+  (an array of sample indices) with this index (zero).
 
-**Step 2**. *While the active list is not empty, choose a random index from it
-(say :math:`i`). Generate up to :math:`k` points chosen uniformly from the spherical annulus
-between radius :math:`r` and :math:`2r` around :math:`x_i`. For each point in turn, check if it is
-within distance :math:`r` of existing samples (using the background grid to only test
-nearby samples). If a point is adequately far from existing samples, emit it
-as the next sample and add it to the active list. If after :math:`k` attempts no such
-point is found, instead remove :math:`i` from the active list.*
+  **Step 2**. While the active list is not empty, choose a random index from
+  it (say :math:`i`). Generate up to :math:`k` points chosen uniformly from the
+  spherical annulus between radius :math:`r` and :math:`2r` around
+  :math:`x_i`. For each point in turn, check if it is within distance :math:`r`
+  of existing samples (using the background grid to only test nearby
+  samples). If a point is adequately far from existing samples, emit it as the
+  next sample and add it to the active list. If after :math:`k` attempts no
+  such point is found, instead remove :math:`i` from the active list.
 
 
 Implementation poses no real problem and is left as an exercise for the

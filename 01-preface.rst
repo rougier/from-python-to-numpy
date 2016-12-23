@@ -42,7 +42,7 @@ If you want to rebuild the html output, from the top directory, type:
 
    $ rst2html.py --link-stylesheet --cloak-email-addresses \
                  --toc-top-backlinks --stylesheet=book.css \
-                 book.rst book.html
+                 --stylesheet-dirs=. book.rst book.html
 
 The sources are available from https://github.com/rougier/from-python-to-numpy.
                    
