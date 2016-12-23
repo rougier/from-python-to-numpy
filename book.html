@@ -150,7 +150,9 @@ visualization (OpenGL). Nicolas P. Rougier is the author of several online
 resources and tutorials (Matplotlib, numpy, OpenGL) and he's teaching Python,
 numpy and scientific visualization at the University of Bordeaux and in various
 conferences and schools worldwide (SciPy, EuroScipy, etc). He's also the author
-of the popular article <a class="reference external" href="http://dx.doi.org/10.1371/journal.pcbi.1003833">Ten Simple Rules for Better Figures</a>.</p>
+of the popular article <a class="reference external" href="http://dx.doi.org/10.1371/journal.pcbi.1003833">Ten Simple Rules for Better Figures</a> and a popular
+'matplotlib tutorial
+&lt;<a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/matplotlib/matplotlib.html">http://www.labri.fr/perso/nrougier/teaching/matplotlib/matplotlib.html</a>&gt;`_.</p>
 </div>
 <div class="section" id="about-this-book">
 <h2><a class="toc-backref" href="#contents">About this book</a></h2>
@@ -311,6 +313,8 @@ function as:</p>
     <span class="keyword namespace">from</span> <span class="name namespace">itertools</span> <span class="keyword namespace">import</span> <span class="name">accumulate</span>
     <span class="name">steps</span> <span class="operator">=</span> <span class="name">random</span><span class="operator">.</span><span class="name">sample</span><span class="punctuation">([</span><span class="literal number integer">1</span><span class="punctuation">,</span> <span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">]</span><span class="operator">*</span><span class="name">n</span><span class="punctuation">,</span> <span class="name">n</span><span class="punctuation">)</span>
     <span class="keyword">return</span> <span class="name builtin">list</span><span class="punctuation">(</span><span class="name">accumulate</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">))</span>
+
+ <span class="name">walk</span> <span class="operator">=</span> <span class="name">random_walk_faster</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
 </pre>
 <p>In fact, we've just <em>vectorized</em> our function. Instead of looping for picking
 sequential steps and add them to the current position, we fist generate all the
@@ -329,6 +333,8 @@ just have to translate it into numpy methods.</p>
 <span class="keyword">def</span> <span class="name function">random_walk_fastest</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
     <span class="name">steps</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">size</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
     <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">cumsum</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">)</span>
+
+<span class="name">walk</span> <span class="operator">=</span> <span class="name">random_walk_fastest</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
 </pre>
 <p>Not too difficult, but we gained a factor 500x using numpy:</p>
 <pre class="code pycon literal-block">
