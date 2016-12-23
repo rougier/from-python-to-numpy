@@ -87,6 +87,8 @@ function as:
        steps = random.sample([1, -1]*n, n)
        return list(accumulate(steps))
 
+    walk = random_walk_faster(1000)
+   
 In fact, we've just *vectorized* our function. Instead of looping for picking
 sequential steps and add them to the current position, we fist generate all the
 steps at once and use the `accumulate
@@ -110,6 +112,8 @@ just have to translate it into numpy methods.
        steps = 2*np.random.randint(0, 2, size=1000) - 1
        return np.cumsum(steps)
 
+   walk = random_walk_fastest(1000)
+           
 Not too difficult, but we gained a factor 500x using numpy:
  
 .. code:: pycon
