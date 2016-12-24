@@ -10,7 +10,8 @@ and your new friends (among others) are named "vectors", "arrays", "views" or
 Simple example
 --------------
 
-Let's take a very simple example, random walk.
+Let's take a very simple example, random walk. (You can execute any code below
+from the `code` folder, ideally inside an IPython session or Jupyter notebook.)
 
 One possible object oriented approach would be to define a `RandomWalker` class
 and to write with a walk method that would return current position after each
@@ -46,8 +47,8 @@ Benchmarking gives us:
 **Functional approach**
 
 For such a simple problem, we can probably save the class definition and
-concentrate only on the walk method that compute successive positions after
-each random steps.
+concentrate only on the walk method that computes successive positions after
+each random step.
 
 .. code:: python
 
@@ -68,7 +69,7 @@ we saved probably come from the inner Python object-oriented machinery.
 .. code:: pycon
 
    >>> from tools import timeit
-   >>> timeit("random_walk(n=10000)]", globals())
+   >>> timeit("random_walk(n=10000)", globals())
    10 loops, best of 3: 15.6 msec per loop
 
    
@@ -78,7 +79,7 @@ But we can do better using the `itertools
 <https://docs.python.org/3.6/library/itertools.html>`_ Python module that
 offers a set of functions creating iterators for efficient looping. If we
 observe that a random walk is an accumulation of steps, we can rewrite the
-function as:
+function as follows:
 
 .. code:: python
 
@@ -99,7 +100,7 @@ things faster:
 .. code:: pycon
 
    >>> from tools import timeit
-   >>> timeit("random_walk_faster(n=10000)]", globals())
+   >>> timeit("random_walk_faster(n=10000)", globals())
    10 loops, best of 3: 8.21 msec per loop
 
 We gained 50% of computation-time compared to the previous version, not so
@@ -119,11 +120,11 @@ Not too difficult, but we gained a factor 500x using numpy:
 .. code:: pycon
 
    >>> from tools import timeit
-   >>> timeit("random_walk_faster(n=10000)]", globals())
+   >>> timeit("random_walk_fastest(n=10000)", globals())
    1000 loops, best of 3: 14 usec per loop
 
 
-This book is about vectorization, be it at the level of code or problem. We'll
+This book is about vectorization, be it at the code or problem level. We'll
 see this difference is important before looking at custom vectorization.
 
 
