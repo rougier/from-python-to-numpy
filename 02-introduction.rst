@@ -109,7 +109,7 @@ super simple. We just have to translate itertools call into numpy ones.
 .. code:: python
        
    def random_walk_fastest(n=1000):
-       steps = 2*np.random.randint(0, 2, size=1000) - 1
+       steps = 2*np.random.randint(0, 2, size=n) - 1
        return np.cumsum(steps)
 
    walk = random_walk_fastest(1000)
