@@ -165,6 +165,8 @@ h2 a:hover, h3 a:hover {
 .main-content ul.simple {
     padding-left: 0;
     column-count: 3;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
 }
 
 .main-content ul ul {

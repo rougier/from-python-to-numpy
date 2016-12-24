@@ -25,7 +25,7 @@
 <img alt="data/sa.large.png" src="data/sa.large.png" style="width: 40px;" />
 <img alt="data/nc.large.png" src="data/nc.large.png" style="width: 40px;" />
 <div class="line-block">
-<div class="line">Version 1.0 - January 2017</div>
+<div class="line">Latest version - January 2017</div>
 </div>
 <a class="reference external image-reference" href="https://zenodo.org/badge/latestdoi/73355169"><object data="https://zenodo.org/badge/73355169.svg" type="image/svg+xml">https://zenodo.org/badge/73355169.svg</object></a>
 </div>
@@ -254,7 +254,8 @@ and your new friends (among others) are named &quot;vectors&quot;, &quot;arrays&
 &quot;ufuncs&quot;.</p>
 <div class="section" id="simple-example">
 <h2><a class="toc-backref" href="#table-of-contents">Simple example</a></h2>
-<p>Let's take a very simple example, random walk.</p>
+<p>Let's take a very simple example, random walk. (You can execute any code below
+from the <code>code</code> folder, ideally inside an IPython session or Jupyter notebook.)</p>
 <p>One possible object oriented approach would be to define a <code>RandomWalker</code> class
 and to write with a walk method that would return current position after each
 (random) steps. It's nice, it's readable, but it is slow:</p>
@@ -282,8 +283,8 @@ and to write with a walk method that would return current position after each
 </pre>
 <p><strong>Functional approach</strong></p>
 <p>For such a simple problem, we can probably save the class definition and
-concentrate only on the walk method that compute successive positions after
-each random steps.</p>
+concentrate only on the walk method that computes successive positions after
+each random step.</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">random_walk</span><span class="punctuation">(</span><span class="name">n</span><span class="punctuation">):</span>
     <span class="name">position</span> <span class="operator">=</span> <span class="literal number integer">0</span>
@@ -300,14 +301,14 @@ is pretty much the same as in the object-oriented approach and the few cycles
 we saved probably come from the inner Python object-oriented machinery.</p>
 <pre class="code pycon literal-block">
 <span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
-<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk(n=10000)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">10 loops, best of 3: 15.6 msec per loop</span>
 </pre>
 <p><strong>Vectorized approach</strong></p>
 <p>But we can do better using the <a class="reference external" href="https://docs.python.org/3.6/library/itertools.html">itertools</a> Python module that
 offers a set of functions creating iterators for efficient looping. If we
 observe that a random walk is an accumulation of steps, we can rewrite the
-function as:</p>
+function as follows:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">random_walk_faster</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
     <span class="keyword namespace">from</span> <span class="name namespace">itertools</span> <span class="keyword namespace">import</span> <span class="name">accumulate</span>
@@ -323,7 +324,7 @@ function to compute all the positions. We got rid of the loop and this makes
 things faster:</p>
 <pre class="code pycon literal-block">
 <span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
-<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_faster(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_faster(n=10000)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">10 loops, best of 3: 8.21 msec per loop</span>
 </pre>
 <p>We gained 50% of computation-time compared to the previous version, not so
@@ -339,10 +340,10 @@ super simple. We just have to translate itertools call into numpy ones.</p>
 <p>Not too difficult, but we gained a factor 500x using numpy:</p>
 <pre class="code pycon literal-block">
 <span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
-<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_faster(n=10000)]&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_fastest(n=10000)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">1000 loops, best of 3: 14 usec per loop</span>
 </pre>
-<p>This book is about vectorization, be it at the level of code or problem. We'll
+<p>This book is about vectorization, be it at the code or problem level. We'll
 see this difference is important before looking at custom vectorization.</p>
 </div>
 <div class="section" id="readability-vs-speed">
@@ -572,7 +573,7 @@ outputs:</p>
 </pre>
 <p>The first method concatenates the two lists together, the second method
 concatenates the internal lists together and the last one computes what is
-(numerically) expected. As an exercise, you can rewrite the python version
+(numerically) expected. As an exercise, you can rewrite the Python version
 such that it accepts nested lists of any depth.</p>
 </div>
 <div class="section" id="uniform-vectorization">
@@ -581,7 +582,7 @@ such that it accepts nested lists of any depth.</p>
 elements share the same computation at every time step with no specific
 processing for any element. One stereotypical case is the Game of Life that has
 been invented by John Conway (see below) and is one of the earliest examples of
-cellular automata. Those cellular automata can be conveniently considered as
+cellular automata. Those cellular automata can be conveniently regarded as
 an array of cells that are connected together with the notion of neighbours and
 their vectorization is straightforward. Let me first define the game and we'll
 see how to vectorize it.</p>
@@ -611,7 +612,7 @@ are directly horizontally, vertically, or diagonally adjacent. At each step in
 time, the following transitions occur:</p>
 <ol class="arabic simple">
 <li>Any live cell with fewer than two live neighbours dies, as if by needs
-caused by under population.</li>
+caused by underpopulation.</li>
 <li>Any live cell with more than three live neighbours dies, as if by
 overcrowding.</li>
 <li>Any live cell with two or three live neighbours lives, unchanged, to the
@@ -644,7 +645,7 @@ tests for borders when counting the number of neighbours.</p>
      <span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">],</span>
      <span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">]]</span>
 </pre>
-<p>Taking the border into account, counting neighbours is then straightforward:</p>
+<p>Taking the border into account, counting neighbours then is straightforward:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">compute_neighbours</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">):</span>
     <span class="name">shape</span> <span class="operator">=</span> <span class="name builtin">len</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">),</span> <span class="name builtin">len</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">])</span>
@@ -657,7 +658,7 @@ tests for borders when counting the number of neighbours.</p>
     <span class="keyword">return</span> <span class="name">N</span>
 </pre>
 <p>To iterate one step in time, we then simply count the number of neighbours for
-each internal cell and we update the whole board according to the 4
+each internal cell and we update the whole board according to the four
 aforementioned rules:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">iterate</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">):</span>
@@ -670,7 +671,7 @@ aforementioned rules:</p>
                  <span class="name">Z</span><span class="punctuation">[</span><span class="name">x</span><span class="punctuation">][</span><span class="name">y</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="literal number integer">1</span>
     <span class="keyword">return</span> <span class="name">Z</span>
 </pre>
-<p>The figure below shows 4 iterations on a 4x4 area where the initial state is a
+<p>The figure below shows four iterations on a 4x4 area where the initial state is a
 <a class="reference external" href="https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)">glider</a>, a structure
 discovered by Richard K. Guy in 1970.</p>
 <div class="admonition legend">
@@ -709,7 +710,7 @@ sure to consider all the eight neighbours.</p>
                  <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span> <span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">2</span><span class="punctuation">]</span>                <span class="operator">+</span> <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="literal number integer">2</span><span class="punctuation">:]</span> <span class="operator">+</span>
                  <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">:</span>  <span class="punctuation">,</span> <span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">2</span><span class="punctuation">]</span> <span class="operator">+</span> <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">:</span>  <span class="punctuation">,</span><span class="literal number integer">1</span><span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">]</span> <span class="operator">+</span> <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">:</span>  <span class="punctuation">,</span><span class="literal number integer">2</span><span class="punctuation">:])</span>
 </pre>
-<p>For the rule enforcement, we can write a first version using the
+<p>For the rule enforcement, we can write a first version using numpy's
 <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.argwhere.html">argwhere</a>
 method that will give us the indices where a given condition is True.</p>
 <pre class="code python literal-block">
@@ -733,7 +734,7 @@ method that will give us the indices where a given condition is True.</p>
 <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">,:]</span> <span class="operator">=</span> <span class="name">Z</span><span class="punctuation">[</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,:]</span> <span class="operator">=</span> <span class="name">Z</span><span class="punctuation">[:,</span><span class="literal number integer">0</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="name">Z</span><span class="punctuation">[:,</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="literal number integer">0</span>
 </pre>
 <p>Even if this first version does not use nested loops, it is far from optimal
-because of the use of the 4 <code>argwhere</code> calls that may be quite slow. We can
+because of the use of the four <code>argwhere</code> calls that may be quite slow. We can
 instead factorize the rules into cells that will survive (stay at 1) and cells
 that will give birth. For doing this, we can take advantage of Numpy boolean
 capability and write quite naturally:</p>
@@ -878,7 +879,7 @@ Here is a set of interesting parameters to test:</p>
 </tr>
 </tbody>
 </table>
-<p>The figure below show some animation of the model for a specific set of parameters.</p>
+<p>The figure below shows some animations of the model for a specific set of parameters.</p>
 <div class="admonition legend">
 <p class="first admonition-title"><strong>Figure 4.4</strong></p>
 <p class="last">Reaction-diffusion Gray-Scott model. From left to right, <em>Bacteria 1</em>, <em>Coral</em> and
@@ -982,9 +983,9 @@ element-wise.</p>
 <span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">xmin</span><span class="punctuation">,</span> <span class="name">xmax</span><span class="punctuation">,</span> <span class="name">xn</span> <span class="operator">=</span> <span class="operator">-</span><span class="literal number float">2.25</span><span class="punctuation">,</span> <span class="operator">+</span><span class="literal number float">0.75</span><span class="punctuation">,</span> <span class="name builtin">int</span><span class="punctuation">(</span><span class="literal number integer">3000</span><span class="operator">/</span><span class="literal number integer">3</span><span class="punctuation">)</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">ymin</span><span class="punctuation">,</span> <span class="name">ymax</span><span class="punctuation">,</span> <span class="name">yn</span> <span class="operator">=</span> <span class="operator">-</span><span class="literal number float">1.25</span><span class="punctuation">,</span> <span class="operator">+</span><span class="literal number float">1.25</span><span class="punctuation">,</span> <span class="name builtin">int</span><span class="punctuation">(</span><span class="literal number integer">2500</span><span class="operator">/</span><span class="literal number integer">3</span><span class="punctuation">)</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">maxiter</span> <span class="operator">=</span> <span class="literal number integer">200</span>
-<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;mandelbrot_python(xmin, xmax, ymin, ymax, xn, yn, maxiter)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">1 loops, best of 3: 6.1 sec per loop
-</span><span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+</span><span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;mandelbrot_numpy(xmin, xmax, ymin, ymax, xn, yn, maxiter)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">1 loops, best of 3: 1.15 sec per loop</span>
 </pre>
 </div>
@@ -995,9 +996,9 @@ expected. Part of the problem is that the <code>np.less</code> function implies
 <span class="formula"><i>xn</i> × <i>yn</i></span> tests at every iteration while we know that some
 values have already diverged. Even if these tests are performed at the
 C level (through numpy), the cost is nonetheless
-non-negligible. Another approach proposed by <a class="reference external" href="https://thesamovar.wordpress.com/">Dan Goodman</a> is to work on a dynamic array at
+significant. Another approach proposed by <a class="reference external" href="https://thesamovar.wordpress.com/">Dan Goodman</a> is to work on a dynamic array at
 each iteration that stores only the points which have not yet
-diverged. It requires more lines but the result is faster and lead to
+diverged. It requires more lines but the result is faster and leads to
 a 10x factor speed improvement compared to the Python version.</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">mandelbrot_numpy_2</span><span class="punctuation">(</span><span class="name">xmin</span><span class="punctuation">,</span> <span class="name">xmax</span><span class="punctuation">,</span> <span class="name">ymin</span><span class="punctuation">,</span> <span class="name">ymax</span><span class="punctuation">,</span> <span class="name">xn</span><span class="punctuation">,</span> <span class="name">yn</span><span class="punctuation">,</span> <span class="name">itermax</span><span class="punctuation">,</span> <span class="name">horizon</span><span class="operator">=</span><span class="literal number float">2.0</span><span class="punctuation">):</span>
@@ -1032,7 +1033,7 @@ a 10x factor speed improvement compared to the Python version.</p>
 </pre>
 <p>The benchmark gives us:</p>
 <pre class="code pycon literal-block">
-<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
+<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;mandelbrot_numpy_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">1 loops, best of 3: 510 msec per loop</span>
 </pre>
 </div>
@@ -1101,11 +1102,11 @@ approximately 1.24.</p>
 <h2><a class="toc-backref" href="#id2">Spatial vectorization</a></h2>
 <p>Spatial vectorization refers to a situation where elements share the same
 computation but are in interaction with only a subgroup of other elements. This
-was already the case for the game of life example, but in the present case
+was already the case for the game of life example, but in some situations
 there is an added difficulty because the subgroup is dynamic and needs to be
 updated at each iteration. This the case, for example, in particle systems where
 particles interact mostly with local neighbours. This is also the case for
-boids that simulate flocking behaviors.</p>
+&quot;boids&quot; that simulate flocking behaviors.</p>
 <div class="admonition legend">
 <p class="first admonition-title"><strong>Figure 4.8</strong></p>
 <p class="last">Flocking birds are an example of self-organization in biology.
@@ -1157,7 +1158,7 @@ position and velocity, it seems natural to start by writing a Boid class:</p>
 </pre>
 <p>The <code>vec2</code> object is a very simple class that handles all common vector
 operations with 2 components. It will save us some writing in the main <code>Boid</code>
-class. Note that there are some vector packages in the python package index, but
+class. Note that there are some vector packages in the Python Package Index, but
 that would be overkill for such a simple example.</p>
 <p>Boid is a difficult case for regular Python because a boid has interaction with
 local neighbours. However, and because boids are moving, to find such local
@@ -1195,7 +1196,7 @@ describe it here and there is no real difficulty.</p>
 </pre>
 <p>Using this approach, we can have up to 50 boids until the computation
 time becomes too slow for a smooth animation. As you may have guessed,
-we can do much better using numpy but let me first point out the main
+we can do much better using numpy, but let me first point out the main
 problem with this Python implementation. If you look at the code, you
 will certainly notice there is a lot of redundancy. More precisely, we
 do not exploit the fact that the Euclidean distance is reflexive, that
@@ -1215,8 +1216,8 @@ we'll gather all our boids into a <code>position</code> array and a <code>veloci
 <span class="name">velocity</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">zeros</span><span class="punctuation">((</span><span class="name">n</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">),</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float32</span><span class="punctuation">)</span>
 <span class="name">position</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">zeros</span><span class="punctuation">((</span><span class="name">n</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">),</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">float32</span><span class="punctuation">)</span>
 </pre>
-<p>The first step is to compute the local neighborhood for each boids and for
-this, we need to compute all paired distances:</p>
+<p>The first step is to compute the local neighborhood for all boids, and for
+this we need to compute all paired distances:</p>
 <pre class="code python literal-block">
 <span class="name">dx</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">subtract</span><span class="operator">.</span><span class="name">outer</span><span class="punctuation">(</span><span class="name">position</span><span class="punctuation">[:,</span> <span class="literal number integer">0</span><span class="punctuation">],</span> <span class="name">position</span><span class="punctuation">[:,</span> <span class="literal number integer">0</span><span class="punctuation">])</span>
 <span class="name">dy</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">subtract</span><span class="operator">.</span><span class="name">outer</span><span class="punctuation">(</span><span class="name">position</span><span class="punctuation">[:,</span> <span class="literal number integer">1</span><span class="punctuation">],</span> <span class="name">position</span><span class="punctuation">[:,</span> <span class="literal number integer">1</span><span class="punctuation">])</span>
@@ -1224,7 +1225,7 @@ this, we need to compute all paired distances:</p>
 </pre>
 <p>We could have used the scipy <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html">cdist</a>
 but we'll need the <code>dx</code> and <code>dy</code> arrays later. Once those have been computed,
-it's faster to use the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.hypot.html">hypot</a>
+it is faster to use the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.hypot.html">hypot</a>
 method. Note that distance shape is <code>(n, n)</code> and each line relates to one boid,
 i.e. each line gives the distance to all other boids (including self).</p>
 <p>From theses distances, we can now compute the local neighborhood for
@@ -1380,13 +1381,13 @@ reflect the translation, scaling and rotation of each of the <code>n</code> boid
 <li>uniform vectorization where elements share the same computation
 unconditionally and for the same duration.</li>
 <li>temporal vectorization where elements share the same computation but
-necessitate a different number of iteration</li>
+necessitate a different number of iterations</li>
 <li>spatial vectorization where elements share the same computation but on
 dynamic spatial arguments</li>
 </ul>
 <p>And there are probably many more forms of such direct code vectorization. As
 explained before, this kind of vectorization is one of the most simple even
-though we've seen it can be real tricky to implement and require some
+though we've seen it can be really tricky to implement and requires some
 experience, some help or both. For example, the solution to the boids exercise
 was provided by <a class="reference external" href="http://stackoverflow.com/users/3293881/divakar">Divakar</a> on
 <a class="reference external" href="http://stackoverflow.com/questions/40822983/multiple-individual-2d-rotation-at-once">stack overflow</a> after having explained my problem.</p>
