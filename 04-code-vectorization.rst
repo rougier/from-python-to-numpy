@@ -63,7 +63,7 @@ outputs:
 
 The first method concatenates the two lists together, the second method
 concatenates the internal lists together and the last one computes what is
-(numerically) expected. As an exercise, you can rewrite the python version
+(numerically) expected. As an exercise, you can rewrite the Python version
 such that it accepts nested lists of any depth.
 
 
@@ -74,7 +74,7 @@ Uniform vectorization is the simplest form of vectorization where all the
 elements share the same computation at every time step with no specific
 processing for any element. One stereotypical case is the Game of Life that has
 been invented by John Conway (see below) and is one of the earliest examples of
-cellular automata. Those cellular automata can be conveniently considered as
+cellular automata. Those cellular automata can be conveniently regarded as
 an array of cells that are connected together with the notion of neighbours and
 their vectorization is straightforward. Let me first define the game and we'll
 see how to vectorize it.
@@ -112,7 +112,7 @@ are directly horizontally, vertically, or diagonally adjacent. At each step in
 time, the following transitions occur:
 
 1. Any live cell with fewer than two live neighbours dies, as if by needs
-   caused by under population.
+   caused by underpopulation.
 2. Any live cell with more than three live neighbours dies, as if by
    overcrowding.
 3. Any live cell with two or three live neighbours lives, unchanged, to the
@@ -151,7 +151,7 @@ tests for borders when counting the number of neighbours.
         [0,0,0,0,0,0],
         [0,0,0,0,0,0]]
 
-Taking the border into account, counting neighbours is then straightforward:
+Taking the border into account, counting neighbours then is straightforward:
 
 .. code:: python
 
@@ -166,7 +166,7 @@ Taking the border into account, counting neighbours is then straightforward:
        return N
 
 To iterate one step in time, we then simply count the number of neighbours for
-each internal cell and we update the whole board according to the 4
+each internal cell and we update the whole board according to the four
 aforementioned rules:
 
 .. code:: python
@@ -181,7 +181,7 @@ aforementioned rules:
                     Z[x][y] = 1
        return Z
 
-The figure below shows 4 iterations on a 4x4 area where the initial state is a
+The figure below shows four iterations on a 4x4 area where the initial state is a
 `glider <https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)>`_, a structure
 discovered by Richard K. Guy in 1970.
 
@@ -230,7 +230,7 @@ sure to consider all the eight neighbours.
                     Z[1:-1, :-2]                + Z[1:-1,2:] +
                     Z[2:  , :-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
 
-For the rule enforcement, we can write a first version using the
+For the rule enforcement, we can write a first version using numpy's
 `argwhere
 <http://docs.scipy.org/doc/numpy/reference/generated/numpy.argwhere.html>`_
 method that will give us the indices where a given condition is True.
@@ -257,7 +257,7 @@ method that will give us the indices where a given condition is True.
    Z[0,:] = Z[-1,:] = Z[:,0] = Z[:,-1] = 0
 
 Even if this first version does not use nested loops, it is far from optimal
-because of the use of the 4 `argwhere` calls that may be quite slow. We can
+because of the use of the four `argwhere` calls that may be quite slow. We can
 instead factorize the rules into cells that will survive (stay at 1) and cells
 that will give birth. For doing this, we can take advantage of Numpy boolean
 capability and write quite naturally:
@@ -350,7 +350,7 @@ Worms 2       0.16  0.08  0.054 0.063
 Zebrafish     0.16  0.08  0.035 0.060
 ============= ===== ===== ===== =====
 
-The figure below show some animation of the model for a specific set of parameters.
+The figure below shows some animations of the model for a specific set of parameters.
 
 
 .. admonition:: **Figure 4.4**
@@ -478,9 +478,9 @@ Here is the benchmark:
    >>> xmin, xmax, xn = -2.25, +0.75, int(3000/3)
    >>> ymin, ymax, yn = -1.25, +1.25, int(2500/3)
    >>> maxiter = 200
-   >>> timeit("mandelbrot_1(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+   >>> timeit("mandelbrot_python(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
    1 loops, best of 3: 6.1 sec per loop
-   >>> timeit("mandelbrot_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+   >>> timeit("mandelbrot_numpy(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
    1 loops, best of 3: 1.15 sec per loop
 
 
@@ -492,10 +492,10 @@ expected. Part of the problem is that the `np.less` function implies
 :math:`xn \times yn` tests at every iteration while we know that some
 values have already diverged. Even if these tests are performed at the
 C level (through numpy), the cost is nonetheless
-non-negligible. Another approach proposed by `Dan Goodman
+significant. Another approach proposed by `Dan Goodman
 <https://thesamovar.wordpress.com/>`_ is to work on a dynamic array at
 each iteration that stores only the points which have not yet
-diverged. It requires more lines but the result is faster and lead to
+diverged. It requires more lines but the result is faster and leads to
 a 10x factor speed improvement compared to the Python version.
 
 .. code-block:: python
@@ -534,7 +534,7 @@ The benchmark gives us:
 
 .. code-block:: pycon
 
-   >>> timeit("mandelbrot_3(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
+   >>> timeit("mandelbrot_numpy_2(xmin, xmax, ymin, ymax, xn, yn, maxiter)", globals())
    1 loops, best of 3: 510 msec per loop
 
 Visualization
@@ -611,11 +611,11 @@ Spatial vectorization
 
 Spatial vectorization refers to a situation where elements share the same
 computation but are in interaction with only a subgroup of other elements. This
-was already the case for the game of life example, but in the present case
+was already the case for the game of life example, but in some situations
 there is an added difficulty because the subgroup is dynamic and needs to be
 updated at each iteration. This the case, for example, in particle systems where
 particles interact mostly with local neighbours. This is also the case for
-boids that simulate flocking behaviors.
+"boids" that simulate flocking behaviors.
 
 .. admonition:: **Figure 4.8**
    :class: legend
@@ -680,7 +680,7 @@ position and velocity, it seems natural to start by writing a Boid class:
 
 The `vec2` object is a very simple class that handles all common vector
 operations with 2 components. It will save us some writing in the main `Boid`
-class. Note that there are some vector packages in the python package index, but
+class. Note that there are some vector packages in the Python Package Index, but
 that would be overkill for such a simple example.
 
 Boid is a difficult case for regular Python because a boid has interaction with
@@ -724,7 +724,7 @@ To complete the picture, we can also create a `Flock` object:
 
 Using this approach, we can have up to 50 boids until the computation
 time becomes too slow for a smooth animation. As you may have guessed,
-we can do much better using numpy but let me first point out the main
+we can do much better using numpy, but let me first point out the main
 problem with this Python implementation. If you look at the code, you
 will certainly notice there is a lot of redundancy. More precisely, we
 do not exploit the fact that the Euclidean distance is reflexive, that
@@ -748,8 +748,8 @@ we'll gather all our boids into a `position` array and a `velocity` array:
    velocity = np.zeros((n, 2), dtype=np.float32)
    position = np.zeros((n, 2), dtype=np.float32)
 
-The first step is to compute the local neighborhood for each boids and for
-this, we need to compute all paired distances:
+The first step is to compute the local neighborhood for all boids, and for
+this we need to compute all paired distances:
 
 .. code:: python
 
@@ -760,7 +760,7 @@ this, we need to compute all paired distances:
 We could have used the scipy `cdist
 <https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html>`_
 but we'll need the `dx` and `dy` arrays later. Once those have been computed,
-it's faster to use the `hypot
+it is faster to use the `hypot
 <https://docs.scipy.org/doc/numpy/reference/generated/numpy.hypot.html>`_
 method. Note that distance shape is `(n, n)` and each line relates to one boid,
 i.e. each line gives the distance to all other boids (including self).
@@ -947,13 +947,13 @@ We've seen through these examples three forms of code vectorization:
 * uniform vectorization where elements share the same computation
   unconditionally and for the same duration.
 * temporal vectorization where elements share the same computation but
-  necessitate a different number of iteration
+  necessitate a different number of iterations
 * spatial vectorization where elements share the same computation but on
   dynamic spatial arguments
 
 And there are probably many more forms of such direct code vectorization. As
 explained before, this kind of vectorization is one of the most simple even
-though we've seen it can be real tricky to implement and require some
+though we've seen it can be really tricky to implement and requires some
 experience, some help or both. For example, the solution to the boids exercise
 was provided by `Divakar <http://stackoverflow.com/users/3293881/divakar>`_ on
 `stack overflow <http://stackoverflow.com/questions/40822983/multiple-individual-2d-rotation-at-once>`_ after having explained my problem.
