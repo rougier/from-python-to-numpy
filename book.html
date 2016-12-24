@@ -34,14 +34,15 @@
 <img alt="data/cubes.png" src="data/cubes.png" style="width: 100%;" />
 </div>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-<p>There is already a fair number of book about numpy (see <a class="reference internal" href="#bibliography">Bibliography</a>) and a
+<p>There is already a fair number of books about Numpy (see <a class="reference internal" href="#bibliography">Bibliography</a>) and a
 legitimate question is to wonder if another book is really necessary. As you
 may have guessed by reading these lines, my personal answer is yes, mostly
-because I think there's room for a different approach concentrating on the
-migration from Python to numpy through vectorization. There is a lot of
+because I think there is room for a different approach concentrating on the
+migration from Python to Numpy through vectorization. There are a lot of
 techniques that you don't find in books and such techniques are mostly learned
-through experience. The goal of this book is to explain some of them and to
-make you acquire experience in the process.</p>
+through experience. The goal of this book is to explain some of these
+techniques and to provide an opportunity for making this experience in the
+process.</p>
 <p><strong>Website:</strong> <a class="reference external" href="http://www.labri.fr/perso/nrougier/from-python-to-numpy">http://www.labri.fr/perso/nrougier/from-python-to-numpy</a></p>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <div class="contents main-content topic" id="table-of-contents">
@@ -330,7 +331,7 @@ bad. But the advantage of this new version is that it makes numpy vectorization
 super simple. We just have to translate itertools call into numpy ones.</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">random_walk_fastest</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
-    <span class="name">steps</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">size</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
+    <span class="name">steps</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">randint</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">size</span><span class="operator">=</span><span class="name">n</span><span class="punctuation">)</span> <span class="operator">-</span> <span class="literal number integer">1</span>
     <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">cumsum</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">)</span>
 
 <span class="name">walk</span> <span class="operator">=</span> <span class="name">random_walk_fastest</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
