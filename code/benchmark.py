@@ -1,29 +1,33 @@
+# -----------------------------------------------------------------------------
+# From Numpy to Python
+# Copyright (2017) Nicolas P. Rougier - BSD license
+# More information at https://github.com/rougier/numpy-book
+# -----------------------------------------------------------------------------
 import numpy as np
-from scipy.spatial import cKDTree
-from scipy.spatial.distance import cdist
+from tools import timeit
 
+Z = np.ones(4*1000000, np.float32)
 
-P = np.random.uniform(0,1,(1000,2))
+print(">>> Z.view(np.float16)[...] = 0")
+timeit("Z.view(np.float16)[...] = 0", globals())
 
-def benchmark_3(P):
-    xs, ys = P[:, 0], P[:, 1]
-    xdiff = np.add.outer(xs, -xs)
-    ydiff = np.add.outer(ys, -ys)
-    # D = np.sqrt(xdiff ** 2 + ydiff ** 2)
-    D = cdist(P,P)
-    P1 = (D < 0.01)
-    P2 = (D < 0.02)
-    P3 = (D < 0.03)
+print(">>> Z.view(np.int16)[...] = 0")
+timeit("Z.view(np.int16)[...] = 0", globals())
 
-def benchmark_1(P):
-    D = cdist(P,P)
-    P1 = (D < 0.01)
-    P2 = (D < 0.02)
-    P3 = (D < 0.03)
+print(">>> Z.view(np.int32)[...] = 0")
+timeit("Z.view(np.int32)[...] = 0", globals())
 
-    
-def benchmark_2(P):
-    T = cKDTree(P)
-    P1 = T.query_ball_point(P, 0.01)
-    P2 = T.query_ball_point(P, 0.02)
-    P3 = T.query_ball_point(P, 0.03)
+print(">>> Z.view(np.float32)[...] = 0")
+timeit("Z.view(np.float32)[...] = 0", globals())
+
+print(">>> Z.view(np.int64)[...] = 0")
+timeit("Z.view(np.int64)[...] = 0", globals())
+
+print(">>> Z.view(np.float64)[...] = 0")
+timeit("Z.view(np.float64)[...] = 0", globals())
+
+print(">>> Z.view(np.complex128)[...] = 0")
+timeit("Z.view(np.complex128)[...] = 0", globals())
+
+print(">>> Z.view(np.int8)[...] = 0")
+timeit("Z.view(np.int8)[...] = 0", globals())

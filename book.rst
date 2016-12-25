@@ -5,6 +5,8 @@
 .. License: Creative Commons Share-Alike Non-Commercial International 4.0
 .. ----------------------------------------------------------------------------
 
+.. |date| date::  %B %Y
+   
 ===============================================================================
                              From Python to Numpy                              
 ===============================================================================
@@ -25,10 +27,9 @@
    .. image:: data/nc.large.png
       :width: 40px
 
-   | Latest version - January 2017
-
-   .. image:: https://zenodo.org/badge/73355169.svg
-      :target: https://zenodo.org/badge/latestdoi/73355169
+   |
+   | Latest version - |date|
+   | DOI: `10.5281/zenodo.218740 <http://doi.org/10.5281/zenodo.218740>`_
 
 .. ----------------------------------------------------------------------------
 .. container:: title-logos
