@@ -3,7 +3,6 @@ Anatomy of an array
 
 .. contents:: **Contents**
    :local:
-
         
 
 Introduction
@@ -13,7 +12,7 @@ As explained in the Preface_, you should have a basic experience with numpy to
 read this book. If this is not the case, you'd better start with a beginner
 tutorial before coming back here. Consequently I'll only give here a quick
 reminder on the basic anatomy of numpy arrays, especially regarding the memory
-layout, view and copy and the data type. They are critical notions to
+layout, view, copy and the data type. They are critical notions to
 understand if you want your computation to benefit from numpy philosophy.
 
 Let's consider a simple example where we want to clear all the values from an
@@ -171,30 +170,34 @@ This array can be actually considered from different perspectives (i.e. layouts)
 .. code::
    :class: output
 
-                      strides[1]
-                         (=2)
-               ┌─────────────────────┐
+                            strides[1]
+                              (=2)
+                     ┌─────────────────────┐
 
-            ┌  ┌──────────┬──────────┐ ┐
-            │  │ 00000000 │ 00000000 │ │
-            │  ├──────────┼──────────┤ │
-            │  │ 00000000 │ 00000001 │ │ strides[0]
-            │  ├──────────┼──────────┤ │   (=2x3)
-            │  │ 00000000 │ 00000010 │ │
-            │  ├──────────┼──────────┤ ┘
-   Z.nbytes │  │ 00000000 │ 00000011 │ 
-   (=3x3x2) │  ├──────────┼──────────┤
-            ┆  ┆          ┆          ┆
-            ┆  ┆     …    ┆     …    ┆
-            ┆  ┆          ┆          ┆
-            │  ├──────────┼──────────┤
-            │  │ 00000000 │ 00001000 │
-            └  └──────────┴──────────┘
+             ┌       ┌──────────┬──────────┐ ┐
+             │ p+00: │ 00000000 │ 00000000 │ │
+             │       ├──────────┼──────────┤ │
+             │ p+02: │ 00000000 │ 00000001 │ │ strides[0]
+             │       ├──────────┼──────────┤ │   (=2x3)
+             │ p+04  │ 00000000 │ 00000010 │ │
+             │       ├──────────┼──────────┤ ┘
+             │ p+06  │ 00000000 │ 00000011 │ 
+             │       ├──────────┼──────────┤
+   Z.nbytes  │ p+08: │ 00000000 │ 00000100 │
+   (=3x3x2)  │       ├──────────┼──────────┤
+             │ p+10: │ 00000000 │ 00000101 │
+             │       ├──────────┼──────────┤
+             │ p+12: │ 00000000 │ 00000110 │
+             │       ├──────────┼──────────┤
+             │ p+14: │ 00000000 │ 00000111 │
+             │       ├──────────┼──────────┤
+             │ p+16: │ 00000000 │ 00001000 │
+             └       └──────────┴──────────┘
 
-               └─────────────────────┘
-                     Z.itemsize
-                  Z.dtype.itemsize
-                        (=2) 
+                     └─────────────────────┘   
+                           Z.itemsize
+                        Z.dtype.itemsize
+                              (=2) 
 
 
 If we now take a slice of `Z`, the result is a view of the base array `Z`:
@@ -229,10 +232,11 @@ cannot be deduced anymore from the dtype and shape only:
    :class: output
   
    ┌───┬╌╌╌┬───┬╌╌╌┬╌╌╌┬╌╌╌┬───┬╌╌╌┬───┐       ┌───┬───┬───┬───┐
-   │ 0 │   │ 2 │   │   │   │ 6 │   │ 8 │   →   │ 0 │ 2 │ 6 │ 8 │
+   │ 0 │   │ 2 │   ╎   ╎   │ 6 │   │ 8 │   →   │ 0 │ 2 │ 6 │ 8 │
    └───┴╌╌╌┴───┴╌╌╌┴╌╌╌┴╌╌╌┴───┴╌╌╌┴───┘       └───┴───┴───┴───┘
-
-   └───────────────────────────────────┘
+   └─┬─┘   └─┬─┘           └─┬─┘   └─┬─┘
+     └───┬───┘               └───┬───┘  
+         └───────────┬───────────┘
                   Z.size
                    (=4)
 
@@ -243,28 +247,30 @@ cannot be deduced anymore from the dtype and shape only:
 .. code::
    :class: output
    
-            ┌  ┌──────────┬──────────┐ ┐             ┐
-            │  │ 00000000 │ 00000000 │ │             │
-            │  ├──────────┼──────────┤ │ strides[1]  │
-            │  ┆          ┆          ┆ │   (=4)      │ 
-            │  ├──────────┼──────────┤ ┘             │ strides[0]
-            │  │ 00000000 │ 00000010 │               │   (=12) 
-            │  ├──────────┼──────────┤               │
-   Z.nbytes │  ┆          ┆          ┆               ┆  
-     (n=8)  ┆  ┆     …    ┆     …    ┆               ┆
-            ┆  ┆          ┆          ┆               ┆
-            │  ├──────────┼──────────┤               ┘
-            │  │ 00000000 │ 00001000 │
-            │  ├──────────┼──────────┤
-            │  ┆          ┆          ┆
-            │  ├──────────┼──────────┤
-            │  │ 00000000 │ 00001000 │
-            └  └──────────┴──────────┘
-
-               └─────────────────────┘
-                     Z.itemsize
-                  Z.dtype.itemsize
-                        (=2) 
+                 ┌        ┌──────────┬──────────┐ ┐             ┐
+               ┌─┤  p+00: │ 00000000 │ 00000000 │ │             │
+               │ └        ├──────────┼──────────┤ │ strides[1]  │
+             ┌─┤    p+02: │          │          │ │   (=4)      │ 
+             │ │ ┌        ├──────────┼──────────┤ ┘             │ 
+             │ └─┤  p+04  │ 00000000 │ 00000010 │               │
+             │   └        ├──────────┼──────────┤               │ strides[0] 
+             │      p+06: │          │          │               │   (=12)
+             │            ├──────────┼──────────┤               │
+   Z.nbytes ─┤      p+08: │          │          │               │
+     (=8)    │            ├──────────┼──────────┤               │
+             │      p+10: │          │          │               │
+             │   ┌        ├──────────┼──────────┤               ┘              
+             │ ┌─┤  p+12: │ 00000000 │ 00000110 │
+             │ │ └        ├──────────┼──────────┤
+             └─┤    p+14: │          │          │
+               │ ┌        ├──────────┼──────────┤
+               └─┤  p+16: │ 00000000 │ 00001000 │
+                 └        └──────────┴──────────┘
+                               
+                          └─────────────────────┘
+                                Z.itemsize
+                             Z.dtype.itemsize
+                                   (=2)                                        
 
 
                         

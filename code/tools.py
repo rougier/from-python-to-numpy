@@ -68,7 +68,7 @@ def info(Z):
     print("  dtype:      ", Z.dtype)
     print("  size:       ", Z.size)
     if np.isfortran(Z):
-        print("  order:       ☐ C  ☑︎ Fortran")
+        print("  order:       ☐ C  ☑ Fortran")
     else:
         print("  order:       ☑ C  ☐ Fortran")
     print("")
@@ -79,22 +79,22 @@ def info(Z):
     print("")
     print("Properties")
     if Z.flags["OWNDATA"]:
-        print("  own data:    ☑ Yes  ☐︎ No")
+        print("  own data:    ☑ Yes  ☐ No")
     else:
-        print("  own data:    ☐ Yes  ☑︎ No")
+        print("  own data:    ☐ Yes  ☑ No")
     if Z.flags["WRITEABLE"]:
-        print("  writeable:   ☑ Yes  ☐︎ No")
+        print("  writeable:   ☑ Yes  ☐ No")
     else:
-        print("  writeable:   ☐ Yes  ☑︎ No")
+        print("  writeable:   ☐ Yes  ☑ No")
     if np.isfortran(Z) and Z.flags["F_CONTIGUOUS"]:
-        print("  contiguous:  ☑ Yes  ☐︎ No")
+        print("  contiguous:  ☑ Yes  ☐ No")
     elif not np.isfortran(Z) and Z.flags["C_CONTIGUOUS"]:
-        print("  contiguous:  ☑ Yes  ☐︎ No")
+        print("  contiguous:  ☑ Yes  ☐ No")
     else:
-        print("  contiguous:  ☐ Yes  ☑︎ No")
+        print("  contiguous:  ☐ Yes  ☑ No")
     if Z.flags["ALIGNED"]:
-        print("  aligned:     ☑ Yes  ☐︎ No")
+        print("  aligned:     ☑ Yes  ☐ No")
     else:
-        print("  aligned:     ☐ Yes  ☑︎ No")
+        print("  aligned:     ☐ Yes  ☑ No")
     print("------------------------------")
     print()

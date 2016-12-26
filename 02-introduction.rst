@@ -1,21 +1,29 @@
 Introduction
 ===============================================================================
 
-Numpy is all about vectorization. If you are familiar with Python, this is the
-main difficulty you'll face because you'll need to change your way of thinking
-and your new friends (among others) are named "vectors", "arrays", "views" or
-"ufuncs".
+.. contents:: **Contents**
+   :local:
 
 
 Simple example
 --------------
 
-Let's take a very simple example, random walk. (You can execute any code below
-from the `code` folder, ideally inside an IPython session or Jupyter notebook.)
+.. note::
 
-One possible object oriented approach would be to define a `RandomWalker` class
-and to write with a walk method that would return current position after each
-(random) steps. It's nice, it's readable, but it is slow:
+   You can execute any code below from the `code <code>`_ folder using the
+   regular python shell or from inside an IPython session or Jupyter notebook. In
+   such a case, you might want to use the magic command `%timeit` instead of the
+   `custom one <code/tools.py>`_ I wrote.
+
+Numpy is all about vectorization. If you are familiar with Python, this is the
+main difficulty you'll face because you'll need to change your way of thinking
+and your new friends (among others) are named "vectors", "arrays", "views" or
+"ufuncs".
+
+Let's take a very simple example, random walk. One possible object oriented
+approach would be to define a `RandomWalker` class and to write with a walk
+method that would return current position after each (random) steps. It's nice,
+it's readable, but it is slow:
 
 **Object oriented approach**
 
