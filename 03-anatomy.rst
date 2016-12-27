@@ -54,8 +54,8 @@ fastest. By casting the array into a larger data type such as `np.float64`, we
 gained a 25% speed factor. But, by viewing the array as a byte array
 (`np.int8`), we gained a 50% factor. The reason for such speedup are to be
 found in the internal numpy machinery and the compiler optimization. This
-example illustrates the philosophy of numpy as we'll se in the next section
-below.
+simple example illustrates the philosophy of numpy as we'll se in the next
+section below.
 
 
 Memory layout
@@ -83,7 +83,7 @@ precisely what is needed when you define a new array:
    Z = np.arange(9).reshape(3,3).astype(np.int16)
 
 Here, we know that Z itemsize is 2 bytes (`int16`), the shape is (3,3) and
-the number of dimensions is 2 (`len(shape)`).
+the number of dimensions is 2 (`len(Z.shape)`).
 
 .. code:: pycon
 

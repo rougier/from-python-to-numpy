@@ -447,8 +447,8 @@ fastest. By casting the array into a larger data type such as <code>np.float64</
 gained a 25% speed factor. But, by viewing the array as a byte array
 (<code>np.int8</code>), we gained a 50% factor. The reason for such speedup are to be
 found in the internal numpy machinery and the compiler optimization. This
-example illustrates the philosophy of numpy as we'll se in the next section
-below.</p>
+simple example illustrates the philosophy of numpy as we'll se in the next
+section below.</p>
 </div>
 <div class="section" id="memory-layout">
 <h2><a class="toc-backref" href="#id2">Memory layout</a></h2>
@@ -468,7 +468,7 @@ precisely what is needed when you define a new array:</p>
 <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">reshape</span><span class="punctuation">(</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">3</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">astype</span><span class="punctuation">(</span><span class="name">np</span><span class="operator">.</span><span class="name">int16</span><span class="punctuation">)</span>
 </pre>
 <p>Here, we know that Z itemsize is 2 bytes (<code>int16</code>), the shape is (3,3) and
-the number of dimensions is 2 (<code>len(shape)</code>).</p>
+the number of dimensions is 2 (<code>len(Z.shape)</code>).</p>
 <pre class="code pycon literal-block">
 <span class="keyword"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="operator">.</span><span class="name">itemize</span><span class="punctuation">)</span>
 <span class="generic output">2
