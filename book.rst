@@ -39,7 +39,7 @@
 
 .. ----------------------------------------------------------------------------
 
-There is already a fair number of books about Numpy (see Bibliography_) and a
+There are already a fair number of books about Numpy (see Bibliography_) and a
 legitimate question is to wonder if another book is really necessary. As you
 may have guessed by reading these lines, my personal answer is yes, mostly
 because I think there is room for a different approach concentrating on the

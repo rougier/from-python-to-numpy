@@ -4,7 +4,7 @@ Copyright (c) 2017 Nicolas P. Rougier
 (https://creativecommons.org/licenses/by-nc-sa/4.0/).  
 **Website**: http://www.labri.fr/perso/nrougier/from-python-to-numpy
 
-There is already a fair number of books about Numpy
+There are already a fair number of books about Numpy
 (see [bibliography](10-bibliography.rst)) and a legitimate question is to
 wonder if another book is really necessary. As you may have guessed by reading
 these lines, my personal answer is yes, mostly because I think there is room
