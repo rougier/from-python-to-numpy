@@ -277,41 +277,80 @@ cannot be deduced anymore from the dtype and shape only:
 Views and copies
 ----------------
 
-|WIP|
+Views and copies are important concepts for the optimization of your numerical
+computations. Even if we've already manipulated them in the previous section,
+the whole story is a bit more complex.
 
-..
-   .. code:: python
+Direct and indirect access
+++++++++++++++++++++++++++
 
-      >>> Z = np.zeros((4,4), dtype=np.int64)
-      >>> Zc = np.array(Z, order="C")
-      >>> info(Zc)
-      >>> Zf = np.array(Z, order="F")
-      >>> info(Zf)
+First, we have to distinguish between `indexing
+<https://docs.scipy.org/doc/numpy/user/basics.indexing.html#>`_ and `fancy
+indexing <https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html#advanced-indexing>`_. The first will always return a view while the second will return a
+copy. This difference is important because in the first case, modifying the view
+modifies the base array while this is not true in the second case:
+
+.. code:: pycon
+
+   >>> Z = np.zeros(9)
+   >>> Z_view = Z[:3]
+   >>> Z_view[...] = 1
+   >>> print(Z)
+   [ 1.  1.  1.  0.  0.  0.  0.  0.  0.]
+   >>> Z = np.zeros(9)
+   >>> Z_copy = Z[[0,1,2]]
+   >>> Z_copy[...] = 1
+   >>> print(Z)
+   [ 0.  0.  0.  0.  0.  0.  0.  0.  0.]
+
+Thus, if you need fancy indexing, it's better to keep a copy of you fancy index
+and to work with it:
+   
+.. code:: pycon
+
+   >>> Z = np.zeros(9)
+   >>> index = [0,1,2]
+   >>> Z[index] = 1
+   >>> print(Z)
+   [ 1.  1.  1.  0.  0.  0.  0.  0.  0.]
 
 
-   .. code::
-      :class: output
+.. code:: pycon
 
-      ------------------------------        ------------------------------
-        Zc                                    Zf
-      ------------------------------        ------------------------------
-      Interface (item)                      Interface (item)              
-        shape:       (4, 4)                   shape:       (4, 4)         
-        dtype:       int64                    dtype:       int64          
-        size:        16                       size:        16             
-        order:       ☑ C  ☐ Fortran           order:       ☐ C  ☑ Fortran 
+   >>> Z = np.random.uniform(0,1,(5,,5))
+   >>> Z1 = Z[:3,:]
+   >>> Z2 = Z[[0,1,2], :]
+   >>> print(np.allclose(Z1,Z2))
+   True
+   >>> print(Z1.base is Z)
+   True
+   >>> print(Z2.base is Z)
+   False
 
-      Memory (byte)                         Memory (byte)                 
-        item size:   8                        item size:   8              
-        array size:  128                      array size:  128            
-        strides:     (32, 8)                  strides:     (8, 32)        
+   
+Temporary copy
+++++++++++++++
 
-      Properties                            Properties                    
-        own data:    ☑ Yes    ☐ No            own data:    ☑ Yes    ☐ No    
-        writeable:   ☑ Yes    ☐ No            writeable:   ☑ Yes    ☐ No    
-        contiguous:  ☑ Yes    ☐ No            contiguous:  ☑ Yes    ☐ No    
-        aligned:     ☑ Yes    ☐ No            aligned:     ☑ Yes    ☐ No    
-      ------------------------------        ------------------------------
+
+.. code:: pycon
+
+   >>> X = np.ones(1000000000, dtype=np.int)
+   >>> Y = np.ones(1000000000, dtype=np.int)
+   >>> timeit("X = X + 2.0*Y", globals())
+   100 loops, best of 3: 3.61 ms per loop
+   >>> timeit("X = X + 2*Y", globals())
+   100 loops, best of 3: 3.47 ms per loop
+   >>> timeit("X += 2*Y", globals())
+   100 loops, best of 3: 2.79 ms per loop
+   >>> np.add(X, Y, out=X), np.add(X, Y, out=X),
+   1000 loops, best of 3: 1.57 ms per loop
+          
+
+   
+
+
+Regular indexing returns a view
+
 
 
 
