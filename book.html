@@ -649,6 +649,18 @@ modifies the base array while this is not true in the second case:</p>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">)</span>
 <span class="generic output">[ 0.  0.  0.  0.  0.  0.  0.  0.  0.]</span>
 </pre>
+<p>Thus, if you need fancy indexing, it's better to keep a copy of you fancy index
+(especially if it was complex to compute it) and to work with it:</p>
+<pre class="code pycon literal-block">
+<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">zeros</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">index</span> <span class="operator">=</span> <span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="literal number integer">2</span><span class="punctuation">]</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span><span class="punctuation">[</span><span class="name">index</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="literal number integer">1</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">)</span>
+<span class="generic output">[ 1.  1.  1.  0.  0.  0.  0.  0.  0.]</span>
+</pre>
+<p>If you are unsure if the result of you indexing is a view or a copy, you can
+check what is the <code>base</code> of your result. If it is <code>None</code>, then you result is a
+copy:</p>
 <pre class="code pycon literal-block">
 <span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">uniform</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">1</span><span class="punctuation">,(</span><span class="literal number integer">5</span><span class="punctuation">,,</span><span class="literal number integer">5</span><span class="punctuation">))</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z1</span> <span class="operator">=</span> <span class="name">Z</span><span class="punctuation">[:</span><span class="literal number integer">3</span><span class="punctuation">,:]</span>
@@ -658,6 +670,16 @@ modifies the base array while this is not true in the second case:</p>
 </span><span class="keyword"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z1</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name">Z</span><span class="punctuation">)</span>
 <span class="generic output">True
 </span><span class="keyword"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z2</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name">Z</span><span class="punctuation">)</span>
+<span class="generic output">False
+</span><span class="keyword"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z2</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name builtin pseudo">None</span><span class="punctuation">)</span>
+<span class="generic output">True</span>
+</pre>
+<p>Note that some numpy functions return a view while some others return a copy:</p>
+<pre class="code pycon literal-block">
+<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">reshape</span><span class="punctuation">(</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">3</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">copy</span><span class="punctuation">()</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span><span class="operator">.</span><span class="name">ravel</span><span class="punctuation">()</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name">Z</span>
+<span class="generic output">True
+</span><span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span><span class="operator">.</span><span class="name">flatten</span><span class="punctuation">()</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name">Z</span>
 <span class="generic output">False</span>
 </pre>
 </div>

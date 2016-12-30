@@ -304,8 +304,8 @@ modifies the base array while this is not true in the second case:
    [ 0.  0.  0.  0.  0.  0.  0.  0.  0.]
 
 Thus, if you need fancy indexing, it's better to keep a copy of you fancy index
-and to work with it:
-   
+(especially if it was complex to compute it) and to work with it:
+
 .. code:: pycon
 
    >>> Z = np.zeros(9)
@@ -314,7 +314,11 @@ and to work with it:
    >>> print(Z)
    [ 1.  1.  1.  0.  0.  0.  0.  0.  0.]
 
+If you are unsure if the result of you indexing is a view or a copy, you can
+check what is the `base` of your result. If it is `None`, then you result is a
+copy:
 
+   
 .. code:: pycon
 
    >>> Z = np.random.uniform(0,1,(5,,5))
@@ -326,6 +330,18 @@ and to work with it:
    True
    >>> print(Z2.base is Z)
    False
+   >>> print(Z2.base is None)
+   True
+
+Note that some numpy functions return a view while some others return a copy:
+
+.. code:: pycon
+
+    >>> Z = np.arange(9).reshape(3,3).copy()
+    >>> Z.ravel().base is Z
+    True
+    >>> Z.flatten().base is Z
+    False
 
    
 Temporary copy
