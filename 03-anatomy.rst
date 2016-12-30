@@ -54,7 +54,7 @@ fastest. By casting the array into a larger data type such as `np.float64`, we
 gained a 25% speed factor. But, by viewing the array as a byte array
 (`np.int8`), we gained a 50% factor. The reason for such speedup are to be
 found in the internal numpy machinery and the compiler optimization. This
-simple example illustrates the philosophy of numpy as we'll se in the next
+simple example illustrates the philosophy of numpy as we'll see in the next
 section below.
 
 
