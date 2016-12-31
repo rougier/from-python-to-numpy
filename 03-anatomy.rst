@@ -333,13 +333,18 @@ copy:
    >>> print(Z2.base is None)
    True
 
-Note that some numpy functions return a view while some others return a copy:
+Note that some numpy functions return a view when possible (e.g. `ravel
+<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ravel.html>`_)
+while some others always return a copy (e.g. `flatten
+<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten>`_):
 
 .. code:: pycon
 
-    >>> Z = np.arange(9).reshape(3,3).copy()
+    >>> Z = np.zeros((5,5))
     >>> Z.ravel().base is Z
     True
+    >>> Z[::2,::2].ravel().base is Z
+    False
     >>> Z.flatten().base is Z
     False
 
@@ -347,6 +352,35 @@ Note that some numpy functions return a view while some others return a copy:
 Temporary copy
 ++++++++++++++
 
+Copies can be made explicitly like in the previous section, but the most
+general case is the implicit creation of intermediate copies. This is the case
+when you are doing some arithmetic with arrays:
+
+.. code:: pycon
+
+   >>> X = np.ones(10, dtype=np.int)
+   >>> Y = np.ones(10, dtype=np.int)
+   >>> A = 2*X + 2*Y
+
+In the example above, three intermediate arrays have been created. One for
+holding the result of `2*X`, one for holding the result of `2*Y` and the last
+one for holding the result of `2*X+2*Y`. In this specific case, the arrays are
+small enough and this does not really make a difference. However, if your
+arrays are big, then you have be careful with such expression and wonder if you
+can do it differently. For example, if only the final result matters and you
+don't need `X` nor `Y` afterwards, an alternate solution would be:
+
+.. code:: pycon
+
+   >>> X = np.ones(10, dtype=np.int)
+   >>> Y = np.ones(10, dtype=np.int)
+   >>> np.multiply(X, 2, out=X)
+   >>> np.multiply(Y, 2, out=Y)
+   >>> np.add(X, Y, out=X)
+
+Using this alternate solution, no temporary array has been created. Problem is
+that there are many other cases where such copies needs to be created and this
+impact the performance like demonstrated on the example below:
 
 .. code:: pycon
 
@@ -361,13 +395,6 @@ Temporary copy
    >>> np.add(X, Y, out=X), np.add(X, Y, out=X),
    1000 loops, best of 3: 1.57 ms per loop
           
-
-   
-
-
-Regular indexing returns a view
-
-
 
 
 Conclusion

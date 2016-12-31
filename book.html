@@ -674,17 +674,45 @@ copy:</p>
 </span><span class="keyword"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z2</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name builtin pseudo">None</span><span class="punctuation">)</span>
 <span class="generic output">True</span>
 </pre>
-<p>Note that some numpy functions return a view while some others return a copy:</p>
+<p>Note that some numpy functions return a view when possible (e.g. <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ravel.html">ravel</a>)
+while some others always return a copy (e.g. <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten">flatten</a>):</p>
 <pre class="code pycon literal-block">
-<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">reshape</span><span class="punctuation">(</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">3</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">copy</span><span class="punctuation">()</span>
+<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">zeros</span><span class="punctuation">((</span><span class="literal number integer">5</span><span class="punctuation">,</span><span class="literal number integer">5</span><span class="punctuation">))</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span><span class="operator">.</span><span class="name">ravel</span><span class="punctuation">()</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name">Z</span>
 <span class="generic output">True
+</span><span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span><span class="punctuation">[::</span><span class="literal number integer">2</span><span class="punctuation">,::</span><span class="literal number integer">2</span><span class="punctuation">]</span><span class="operator">.</span><span class="name">ravel</span><span class="punctuation">()</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name">Z</span>
+<span class="generic output">False
 </span><span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span><span class="operator">.</span><span class="name">flatten</span><span class="punctuation">()</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name">Z</span>
 <span class="generic output">False</span>
 </pre>
 </div>
 <div class="section" id="temporary-copy">
 <h3><a class="toc-backref" href="#id2">Temporary copy</a></h3>
+<p>Copies can be made explicitly like in the previous section, but the most
+general case is the implicit creation of intermediate copies. This is the case
+when you are doing some arithmetic with arrays:</p>
+<pre class="code pycon literal-block">
+<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">X</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">10</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Y</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">10</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">A</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">X</span> <span class="operator">+</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">Y</span>
+</pre>
+<p>In the example above, three intermediate arrays have been created. One for
+holding the result of <code>2*X</code>, one for holding the result of <code>2*Y</code> and the last
+one for holding the result of <code>2*X+2*Y</code>. In this specific case, the arrays are
+small enough and this does not really make a difference. However, if your
+arrays are big, then you have be careful with such expression and wonder if you
+can do it differently. For example, if only the final result matters and you
+don't need <code>X</code> nor <code>Y</code> afterwards, an alternate solution would be:</p>
+<pre class="code pycon literal-block">
+<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">X</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">10</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Y</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">10</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">np</span><span class="operator">.</span><span class="name">multiply</span><span class="punctuation">(</span><span class="name">X</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">out</span><span class="operator">=</span><span class="name">X</span><span class="punctuation">)</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">np</span><span class="operator">.</span><span class="name">multiply</span><span class="punctuation">(</span><span class="name">Y</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="punctuation">,</span> <span class="name">out</span><span class="operator">=</span><span class="name">Y</span><span class="punctuation">)</span>
+<span class="generic prompt">&gt;&gt;&gt; </span><span class="name">np</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">X</span><span class="punctuation">,</span> <span class="name">Y</span><span class="punctuation">,</span> <span class="name">out</span><span class="operator">=</span><span class="name">X</span><span class="punctuation">)</span>
+</pre>
+<p>Using this alternate solution, no temporary array has been created. Problem is
+that there are many other cases where such copies needs to be created and this
+impact the performance like demonstrated on the example below:</p>
 <pre class="code pycon literal-block">
 <span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">X</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">1000000000</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Y</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">1000000000</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
@@ -697,7 +725,6 @@ copy:</p>
 </span><span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">np</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">X</span><span class="punctuation">,</span> <span class="name">Y</span><span class="punctuation">,</span> <span class="name">out</span><span class="operator">=</span><span class="name">X</span><span class="punctuation">),</span> <span class="name">np</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">X</span><span class="punctuation">,</span> <span class="name">Y</span><span class="punctuation">,</span> <span class="name">out</span><span class="operator">=</span><span class="name">X</span><span class="punctuation">),</span>
 <span class="generic output">1000 loops, best of 3: 1.57 ms per loop</span>
 </pre>
-<p>Regular indexing returns a view</p>
 </div>
 </div>
 <div class="section" id="conclusion">
