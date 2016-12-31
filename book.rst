@@ -29,7 +29,7 @@
 
    |
    | Latest version - |date|
-   | DOI: `10.5281/zenodo.218740 <http://doi.org/10.5281/zenodo.218740>`_
+   | DOI: `10.5281/zenodo.225783 <http://doi.org/10.5281/zenodo.225783>`_
 
 .. ----------------------------------------------------------------------------
 .. container:: title-logos
