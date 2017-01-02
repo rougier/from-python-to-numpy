@@ -484,7 +484,7 @@ Last we test our results:
 
 .. code-block::
 
-   >>> print(np.allclose(Z1[start,stop,step], Z2))
+   >>> print(np.allclose(Z1[start:stop:step], Z2))
    True
 
 As an exercise, you can improve this first and very simple implementation by
