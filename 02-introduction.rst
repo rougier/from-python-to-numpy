@@ -143,10 +143,10 @@ Before heading to the next chapter, I would like to warn you about a potential
 problem you may encounter once you'll have become familiar with numpy. It is a
 very powerful library and you can make wonders with it but, most of the time,
 this comes at the price of readability. If you don't comment your code at the
-time of writing, you'll be unable to guess what a function is doing after a few
-weeks (or even days). For example, can you tell what the two functions below
-are doing? Probably you can tell for the first one, but unlikely for the second
-(or your name is `Jaime Fernández del Río
+time of writing, you won't be able to tell what a function is doing after a few
+weeks (or possibly days). For example, can you tell what the two functions
+below are doing? Probably you can tell for the first one, but unlikely for the
+second (or your name is `Jaime Fernández del Río
 <http://stackoverflow.com/questions/7100242/python-numpy-first-occurrence-of-subarray>`_
 and you don't need to read this book).
 
