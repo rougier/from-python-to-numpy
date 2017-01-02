@@ -16,9 +16,9 @@ layout, view, copy and the data type. They are critical notions to
 understand if you want your computation to benefit from numpy philosophy.
 
 Let's consider a simple example where we want to clear all the values from an
-array whose dtype is `np.float32`. What would be the best way? The syntax below
-is rather obvious (at least for who is familiar with numpy) but the question is
-to known whether this is the fastest way.
+array whose dtype is `np.float32`. How does one write it to maximize speed? The
+below syntax is rather obvious (at least for those familiar with numpy) but the
+above question asks to find the fastest operation.
 
 .. code-block:: python
 
