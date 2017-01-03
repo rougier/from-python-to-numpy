@@ -13,7 +13,9 @@ Type          Name   Bytes Description
 ============= ====== ===== =====================================================
 `bool`        `b`    1     Boolean (True or False) stored as a byte 
 ------------- ------ ----- -----------------------------------------------------
-`int`         `i4`   4     Platform integer (normally either int32 or int64)
+`int`         `l`    4-8   Platform (long) integer (normally either int32 or int64)
+------------- ------ ----- -----------------------------------------------------
+`intp`        `p`    4-8   Integer used for indexing (normally either int32 or int64)
 ------------- ------ ----- -----------------------------------------------------
 `int8`        `i1`   1     Byte (-128 to 127)
 ------------- ------ ----- -----------------------------------------------------
@@ -48,6 +50,10 @@ Type          Name   Bytes Description
 ------------- ------ ----- -----------------------------------------------------
 `complex128`  `c16`  16    Complex number, represented by two 64-bit floats
 ============= ====== ===== =====================================================
+
+`bool`, `int`, `float`, and `complex` are understood, but named `np.bool_` with
+an additional underscore in NumPy. Additionally the names such as `intc`,
+`long`, or `double`  used in the C programming language are defined. 
 
 Creation
 --------
