@@ -21,8 +21,8 @@ and your new friends (among others) are named "vectors", "arrays", "views" or
 "ufuncs".
 
 Let's take a very simple example, random walk. One possible object oriented
-approach would be to define a `RandomWalker` class and to write with a walk
-method that would return current position after each (random) steps. It's nice,
+approach would be to define a `RandomWalker` class and write a walk
+method that would return the current position after each (random) step. It's nice,
 it's readable, but it is slow:
 
 **Object oriented approach**
