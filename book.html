@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.13.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
 <title>From Python to Numpy</title>
 <link rel="stylesheet" href="book.css" type="text/css" />
 <link rel="stylesheet" href="math.css" type="text/css" />
@@ -19,19 +19,19 @@
 <!-- Date:    January 2017 -->
 <!-- License: Creative Commons Share-Alike Non-Commercial International 4.0 -->
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-<div class="title-logos docutils container">
+<div class="title-logos container">
 <img alt="data/cc.large.png" src="data/cc.large.png" style="width: 40px;" />
 <img alt="data/by.large.png" src="data/by.large.png" style="width: 40px;" />
 <img alt="data/sa.large.png" src="data/sa.large.png" style="width: 40px;" />
 <img alt="data/nc.large.png" src="data/nc.large.png" style="width: 40px;" />
 <div class="line-block">
 <div class="line"><br /></div>
-<div class="line">Latest version - December 2016</div>
+<div class="line">Latest version - Januar 2017</div>
 <div class="line">DOI: <a class="reference external" href="http://doi.org/10.5281/zenodo.225783">10.5281/zenodo.225783</a></div>
 </div>
 </div>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-<div class="title-logos docutils container">
+<div class="title-logos container">
 <img alt="data/cubes.png" src="data/cubes.png" style="width: 100%;" />
 </div>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -264,7 +264,7 @@ Alike 4.0 International License</a>. You are free to:</p>
 </div>
 <div class="section" id="simple-example">
 <h2><a class="toc-backref" href="#id1">Simple example</a></h2>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">You can execute any code below from the <a class="reference external" href="code">code</a> folder using the
 regular python shell or from inside an IPython session or Jupyter notebook. In
@@ -372,10 +372,10 @@ see this difference is important before looking at custom vectorization.</p>
 problem you may encounter once you'll have become familiar with numpy. It is a
 very powerful library and you can make wonders with it but, most of the time,
 this comes at the price of readability. If you don't comment your code at the
-time of writing, you'll be unable to guess what a function is doing after a few
-weeks (or even days). For example, can you tell what the two functions below
-are doing? Probably you can tell for the first one, but unlikely for the second
-(or your name is <a class="reference external" href="http://stackoverflow.com/questions/7100242/python-numpy-first-occurrence-of-subarray">Jaime Fernández del Río</a>
+time of writing, you won't be able to tell what a function is doing after a few
+weeks (or possibly days). For example, can you tell what the two functions
+below are doing? Probably you can tell for the first one, but unlikely for the
+second (or your name is <a class="reference external" href="http://stackoverflow.com/questions/7100242/python-numpy-first-occurrence-of-subarray">Jaime Fernández del Río</a>
 and you don't need to read this book).</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">function_1</span><span class="punctuation">(</span><span class="name">seq</span><span class="punctuation">,</span> <span class="name">sub</span><span class="punctuation">):</span>
@@ -417,9 +417,9 @@ reminder on the basic anatomy of numpy arrays, especially regarding the memory
 layout, view, copy and the data type. They are critical notions to
 understand if you want your computation to benefit from numpy philosophy.</p>
 <p>Let's consider a simple example where we want to clear all the values from an
-array whose dtype is <code>np.float32</code>. What would be the best way? The syntax below
-is rather obvious (at least for who is familiar with numpy) but the question is
-to known whether this is the fastest way.</p>
+array whose dtype is <code>np.float32</code>. How does one write it to maximize speed? The
+below syntax is rather obvious (at least for those familiar with numpy) but the
+above question asks to find the fastest operation.</p>
 <pre class="code python literal-block">
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">4</span><span class="operator">*</span><span class="literal number integer">1000000</span><span class="punctuation">,</span> <span class="name">np</span><span class="operator">.</span><span class="name">float32</span><span class="punctuation">)</span>
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">Z</span><span class="punctuation">[</span><span class="operator">...</span><span class="punctuation">]</span> <span class="operator">=</span> <span class="literal number integer">0</span>
@@ -796,7 +796,7 @@ items size of Z1 to get the right end index.</p>
 </pre>
 <p>Last we test our results:</p>
 <pre class="code literal-block">
-&gt;&gt;&gt; print(np.allclose(Z1[start,stop,step], Z2))
+&gt;&gt;&gt; print(np.allclose(Z1[start:stop:step], Z2))
 True
 </pre>
 <p>As an exercise, you can improve this first and very simple implementation by
@@ -906,7 +906,7 @@ cellular automata. Those cellular automata can be conveniently regarded as
 an array of cells that are connected together with the notion of neighbours and
 their vectorization is straightforward. Let me first define the game and we'll
 see how to vectorize it.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.1</strong></p>
 <p class="last">Conus textile snail exhibits a cellular automaton pattern on its shell.
 Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Textile_cone.JPG">Richard Ling</a>, 2005.</p>
@@ -914,7 +914,7 @@ Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/
 <img alt="data/Textile-Cone-cropped.jpg" class="bordered" src="data/Textile-Cone-cropped.jpg" style="width: 100%;" />
 <div class="section" id="the-game-of-life">
 <h3><a class="toc-backref" href="#id4">The Game of Life</a></h3>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">Excerpt from the Wikipedia entry on the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of Life</a></p>
@@ -948,7 +948,7 @@ to create further generations.</p>
 </div>
 <div class="section" id="python-implementation">
 <h3><a class="toc-backref" href="#id4">Python implementation</a></h3>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">We could have used the more efficient python <a class="reference external" href="http://docs.python.org/3/library/array.html">array interface</a> but it is more convenient to
 use the familiar list object.</p>
@@ -994,7 +994,7 @@ aforementioned rules:</p>
 <p>The figure below shows four iterations on a 4x4 area where the initial state is a
 <a class="reference external" href="https://en.wikipedia.org/wiki/Glider_(Conway%27s_Life)">glider</a>, a structure
 discovered by Richard K. Guy in 1970.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.2</strong></p>
 <p class="last">The glider pattern is known to replicate itself one step diagonally in 4
 iterations.</p>
@@ -1058,7 +1058,7 @@ because of the use of the four <code>argwhere</code> calls that may be quite slo
 instead factorize the rules into cells that will survive (stay at 1) and cells
 that will give birth. For doing this, we can take advantage of Numpy boolean
 capability and write quite naturally:</p>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">We did no write <code>Z = 0</code> as this would simply assign the value 0 to <code>Z</code> that
 would then become a simple scalar.</p>
@@ -1072,7 +1072,7 @@ would then become a simple scalar.</p>
 <p>If you look at the <code>birth</code> and <code>survive</code> lines, you'll see that these two
 variables are arrays that can be used to set <code>Z</code> values to 1 after having
 cleared it.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.3</strong></p>
 <p class="last">The Game of Life. Gray levels indicate how much a cell has been active in
 the past.</p>
@@ -1093,7 +1093,7 @@ and <span class="formula"><i>Dv</i></span>. <span class="formula"><i>V</i></span
 conversion <span class="formula"><i>k</i></span>. <span class="formula"><i>f</i></span> represents the rate of the process
 that feeds <span class="formula"><i>U</i></span> and drains <span class="formula"><i>U</i></span>, <span class="formula"><i>V</i></span> and
 <span class="formula"><i>P</i></span>. This can be written as:</p>
-<table border="1" class="colwidths-given docutils">
+<table border="1" class="docutils">
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -1200,7 +1200,7 @@ Here is a set of interesting parameters to test:</p>
 </tbody>
 </table>
 <p>The figure below shows some animations of the model for a specific set of parameters.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.4</strong></p>
 <p class="last">Reaction-diffusion Gray-Scott model. From left to right, <em>Bacteria 1</em>, <em>Coral</em> and
 <em>Spiral Dense</em>.</p>
@@ -1245,7 +1245,7 @@ iterating the computation up to a maximum number of iterations, after
 which, if the number is still within some bounds, it is considered
 non-divergent. Of course, the more iterations you do, the more
 precision you get.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.5</strong></p>
 <p class="last">Romanesco broccoli, showing self-similar form approximating a natural fractal.
 Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Fractal_Broccoli.jpg">Jon Sullivan</a>, 2004.</p>
@@ -1367,7 +1367,7 @@ can be done by measuring how far the iterated point landed outside of the
 escape cutoff. See the reference below about the renormalization of the escape
 count. Here is a picture of the result where we use recount normalization,
 and added a power normalized color map (gamma=0.3) as well as light shading.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.6</strong></p>
 <p class="last">The Mandelbrot as rendered by matplotlib using recount normalization, power
 normalized color map (gamma=0.3) and light shading.</p>
@@ -1378,7 +1378,7 @@ normalized color map (gamma=0.3) and light shading.</p>
 </div>
 <div class="section" id="id8">
 <h3><a class="toc-backref" href="#id4">Exercise</a></h3>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">You should look at the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ufunc.reduceat.html">ufunc.reduceat</a> method that performs a (local) reduce with specified slices over a single axis.</p>
 </div>
@@ -1389,7 +1389,7 @@ can imagine, we cannot use pure Python because it would be way too slow. The goa
 the exercise is to write a function using numpy that takes a two-dimensional
 float array and returns the dimension. We'll consider values in the array to be
 normalized (i.e. all values are between 0 and 1).</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.7</strong></p>
 <p class="last">The Minkowski–Bouligand dimension of the Great Britain coastlines is
 approximately 1.24.</p>
@@ -1427,7 +1427,7 @@ there is an added difficulty because the subgroup is dynamic and needs to be
 updated at each iteration. This the case, for example, in particle systems where
 particles interact mostly with local neighbours. This is also the case for
 &quot;boids&quot; that simulate flocking behaviors.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.8</strong></p>
 <p class="last">Flocking birds are an example of self-organization in biology.
 Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Fugle,_ørnsø_073.jpg">Christoffer A Rasmussen</a>, 2012.</p>
@@ -1435,7 +1435,7 @@ Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/
 <img alt="data/Fugle-cropped.jpg" class="bordered" src="data/Fugle-cropped.jpg" style="width: 100%;" />
 <div class="section" id="boids">
 <h3><a class="toc-backref" href="#id4">Boids</a></h3>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">Excerpt from the Wikipedia entry
 <a class="reference external" href="https://en.wikipedia.org/wiki/Boids">Boids</a></p>
@@ -1453,7 +1453,7 @@ rules. The rules applied in the simplest Boids world are as follows:</p>
 <li><strong>cohesion</strong>: steer to move toward the average position (center of mass) of
 local flock-mates</li>
 </ul>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.9</strong></p>
 <p class="last">Boids are governed by a set of three local rules (separation, cohesion and
 alignment) that serve as computing velocity and acceleration.</p>
@@ -1553,7 +1553,7 @@ each of the three rules, taking advantage of the fact that we can mix
 them together. We can actually compute a mask for distances that are
 strictly positive (i.e. have no self-interaction) and multiply it with
 other distance masks.</p>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">If we suppose that boids cannot occupy the same position, how can you
 compute <code>mask_0</code> more efficiently ?</p>
@@ -1639,7 +1639,7 @@ velocity and position:</p>
 <span class="name">position</span> <span class="operator">+=</span> <span class="name">velocity</span>
 </pre>
 <p>We finally visualize the result using a custom oriented scatter plot.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 4.10</strong></p>
 <p class="last">Boids is an artificial life program, developed by Craig Reynolds in 1986,
 which simulates the flocking behaviour of birds.</p>
@@ -1673,7 +1673,7 @@ codes = np.tile(c.reshape(-1), n)
 <p>We now have a <code>(n,4,2)</code> array for vertices and a <code>(n,4)</code> array for codes
 representing <code>n</code> boids. We are interested in manipulating the vertices array to
 reflect the translation, scaling and rotation of each of the <code>n</code> boids.</p>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">Rotate is really tricky.</p>
 </div>
@@ -1852,7 +1852,7 @@ respectively, we can benefit from the <code>np.sum</code> function and write:</p
 <span class="literal number integer">1000</span> <span class="name">loops</span><span class="punctuation">,</span> <span class="name">best</span> <span class="name">of</span> <span class="literal number integer">3</span><span class="punctuation">:</span> <span class="literal number float">3.97208e-06</span> <span class="name">sec</span> <span class="name">per</span> <span class="name">loop</span>
 </pre>
 <p>We have indeed reformulated our problem, taking advantage of the fact that
-<span class="formula"><span class="limits"><span class="limit">∑</span></span><sub><i>ij</i></sub><i>X</i><sub><i>i</i></sub><i>Y</i><sub><i>j</i></sub> = <span class="limits"><span class="limit">∑</span></span><sub><i>i</i></sub><i>X</i><sub><i>i</i></sub><span class="limits"><span class="limit">∑</span></span><sub><i>j</i></sub><i>Y</i><sub><i>j</i></sub></span> and we've learned in the
+<span class="formula"><span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><sub><i>ij</i></sub><i>X</i><sub><i>i</i></sub><i>Y</i><sub><i>j</i></sub> = <span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><sub><i>i</i></sub><i>X</i><sub><i>i</i></sub><span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><sub><i>j</i></sub><i>Y</i><sub><i>j</i></sub></span> and we've learned in the
 meantime that there are two kinds of vectorization: code vectorization and
 problem vectorization. The latter is the most difficult but the most
 important because this is where you can expect huge gains in speed. In this
@@ -1880,7 +1880,7 @@ still, it is 50 times slower than the numpy version:</p>
 split in two distinct problems: to find a path between two nodes in a graph and
 to find the shortest path. We'll illustrate this through path finding in a
 maze. The first task is thus to build a maze.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.1</strong></p>
 <p class="last">A hedge maze at Longleat stately home in England.
 Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Longleat_maze.jpg">Prince Rurik</a>, 2005.</p>
@@ -1946,7 +1946,7 @@ maze is easy to solve. With low density, the maze has more &quot;big empty rooms
     <span class="keyword">return</span> <span class="name">Z</span>
 </pre>
 <p>Here is an animation showing the generation process.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.2</strong></p>
 <p class="last">Progressive maze building with complexity and density control.</p>
 </div>
@@ -1978,7 +1978,7 @@ it into an actual graph as proposed by <a class="reference external" href="http:
             <span class="name">graph</span><span class="punctuation">[(</span><span class="name">row</span><span class="punctuation">,</span> <span class="name">col</span> <span class="operator">+</span> <span class="literal number integer">1</span><span class="punctuation">)]</span><span class="operator">.</span><span class="name">append</span><span class="punctuation">((</span><span class="literal string double">&quot;W&quot;</span><span class="punctuation">,</span> <span class="punctuation">(</span><span class="name">row</span><span class="punctuation">,</span> <span class="name">col</span><span class="punctuation">)))</span>
     <span class="keyword">return</span> <span class="name">graph</span>
 </pre>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">If we had used the depth-first algorithm, there is no guarantee to find the
 shortest path, only to find a path (if it exists).</p>
@@ -2020,7 +2020,7 @@ our simple case, we won't hit the worst case scenario. The algorithm is
 illustrated below (reading from left to right, top to bottom). Once this is
 done, we can ascend the gradient from the starting node. You can check on the
 figure that this leads to the shortest path.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.3</strong></p>
 <p class="last">Value iteration algorithm on a simple maze. Once entrance has been reached,
 it is easy to find the shortest path by ascending the value gradient.</p>
@@ -2090,7 +2090,7 @@ solution, reusing part of the game of life code:</p>
 </pre>
 <p>Once this is done, we can ascend the gradient to find the shortest path as
 illustrated on the figure below:</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.4</strong></p>
 <p class="last">Path finding using the Bellman-Ford algorithm. Gradient colors indicate
 propagated values from the end-point of the maze (bottom-right). Path is
@@ -2115,7 +2115,7 @@ Bryukhanov, 2014.</li>
 </div>
 <div class="section" id="fluid-dynamics">
 <h2><a class="toc-backref" href="#id18">Fluid Dynamics</a></h2>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.5</strong></p>
 <p class="last">Hydrodynamic flow at two different zoom levels, Neckar river, Heidelberg,
 Germany. Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Self_Similar_Turbulence.png">Steven Mathey</a>, 2012.</p>
@@ -2123,7 +2123,7 @@ Germany. Image by <a class="reference external" href="https://commons.wikimedia.
 <img alt="data/Self-similar-turbulence.png" src="data/Self-similar-turbulence.png" style="width: 100%;" />
 <div class="section" id="lagrangian-vs-eulerian-method">
 <h3><a class="toc-backref" href="#id18">Lagrangian vs Eulerian method</a></h3>
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">Excerpt from the Wikipedia entry on the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Lagrangian_and_Eulerian_specification_of_the_flow_field">Lagrangian and Eulerian specification</a></p>
@@ -2169,7 +2169,7 @@ tricks.</p>
 <p>I won't comment the code since it would be too long, but you can read the
 original paper as well as the explanation by <a class="reference external" href="http://prideout.net/blog/?p=58">Philip Rideout</a> on his blog. Below are some movies I've made
 using this technique.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.6</strong></p>
 <p class="last">Smoke simulation using the stable fluids algorithm by Jos Stam.  Right most
 video comes from the <a class="reference external" href="http://glumpy.github.io">glumpy</a> package and is
@@ -2214,7 +2214,7 @@ with absence of any spectral bias. Such noise is very useful in a variety of
 graphics applications like rendering, dithering, stippling, etc. Many different
 methods have been proposed to achieve such noise, but the most simple is certainly
 the DART method.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.7</strong></p>
 <p class="last">Detail of &quot;The Starry Night&quot;, Vincent van Gogh, 1889. The detail has been
 resampled using voronoi cells whose centers are a blue noise sample.</p>
@@ -2303,7 +2303,7 @@ such point is found, instead remove <span class="formula"><i>i</i></span> from t
 reader. Note that not only is this method fast, but it also offers a better
 quality (more samples) than the DART method even with a high <span class="formula"><i>k</i></span>
 parameter.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 5.8</strong></p>
 <p class="last">Comparison of uniform, grid-jittered and Bridson sampling.</p>
 </div>
@@ -2589,7 +2589,7 @@ necessary in order to avoid future expansion.</p>
 <p><a class="reference external" href="http://glumpy.github.io">Glumpy</a> is an OpenGL-based interactive
 visualization library in Python whose goal is to make it easy to create fast,
 scalable, beautiful, interactive and dynamic visualizations.</p>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 6.1</strong></p>
 <p class="last">Simulation of a spiral galaxy using the density wave theory.</p>
 </div>
@@ -2597,7 +2597,7 @@ scalable, beautiful, interactive and dynamic visualizations.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="admonition legend">
+<div class="legend admonition">
 <p class="first admonition-title"><strong>Figure 6.2</strong></p>
 <p class="last">Tiger display using collections and 2 GL calls</p>
 </div>
@@ -2622,7 +2622,7 @@ moment. This means that if you never use <code>V</code>, nothing will be ever up
 the GPU! In the case above, the last computed &quot;dirty&quot; area is made of 88 bytes
 starting at offset 0 as illustrated below:</p>
 <img alt="data/GPUData.png" src="data/GPUData.png" style="width: 100%;" />
-<div class="admonition note">
+<div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">When a buffer is created, it is marked as totally dirty, but for the sake of
 illustration, just pretend this is not the case here.</p>
@@ -3168,10 +3168,10 @@ with the <a class="reference external" href="http://glumpy.github.io">glumpy</a>
 <h2><a class="toc-backref" href="#id55">Data type</a></h2>
 <table border="1" class="docutils">
 <colgroup>
-<col width="17%" />
-<col width="8%" />
+<col width="16%" />
+<col width="7%" />
 <col width="6%" />
-<col width="69%" />
+<col width="71%" />
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Type</th>
@@ -3187,9 +3187,14 @@ with the <a class="reference external" href="http://glumpy.github.io">glumpy</a>
 <td>Boolean (True or False) stored as a byte</td>
 </tr>
 <tr><td><code>int</code></td>
-<td><code>i4</code></td>
-<td>4</td>
-<td>Platform integer (normally either int32 or int64)</td>
+<td><code>l</code></td>
+<td>4-8</td>
+<td>Platform (long) integer (normally either int32 or int64)</td>
+</tr>
+<tr><td><code>intp</code></td>
+<td><code>p</code></td>
+<td>4-8</td>
+<td>Integer used for indexing (normally either int32 or int64)</td>
 </tr>
 <tr><td><code>int8</code></td>
 <td><code>i1</code></td>
@@ -3271,6 +3276,9 @@ sign bit, 11 bits exponent, 52 bits mantissa</td>
 </tr>
 </tbody>
 </table>
+<p><code>bool</code>, <code>int</code>, <code>float</code>, and <code>complex</code> are understood, but named <code>np.bool_</code> with
+an additional underscore in NumPy. Additionally the names such as <code>intc</code>,
+<code>long</code>, or <code>double</code>  used in the C programming language are defined.</p>
 </div>
 <div class="section" id="id57">
 <h2><a class="toc-backref" href="#id55">Creation</a></h2>
@@ -3692,7 +3700,7 @@ numpy/Scipy while some others offer a broader view on numerical computing.</p>
 <div class="line">Stéfan van der Walt, Chris Colbert &amp; Gael Varoquaux,
 Computing in Science and Engineering, 13(2), 2011.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>In the Python world, NumPy arrays are the standard representation for
 numerical data and enable efficient implementation of numerical
 computations in a high-level language. As this effort shows, NumPy
@@ -3706,7 +3714,7 @@ counts.</p>
 <div class="line">Romain Brette &amp; Dan F. M. Goodman,
 Neural Computation, 23(6), 2010.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>High-level languages (Matlab, Python) are popular in neuroscience because
 they are flexible and accelerate development. However, for simulating
 spiking neural networks, the cost of interpretation is a bottleneck. We
@@ -3723,7 +3731,7 @@ computational efficiency usually associated with compiled languages.</p>
 <div class="line">Travis E. Oliphant,
 Computing in Science &amp; Engineering, 9(3), 2007.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>By itself, Python is an excellent &quot;steering&quot; language for scientific codes
 written in other languages. However, with additional basic tools, Python
 transforms into a high-level language suited for scientific and
@@ -3740,7 +3748,7 @@ also flexible enough to be sped up with additional extensions.</p>
 <div class="line"><a class="reference external" href="http://www.scipy-lectures.org">SciPy Lecture Notes</a>,</div>
 <div class="line">Gaël Varoquaux, Emmanuelle Gouillart, Olav Vahtras et al., 2016.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>One document to learn numerics, science, and data with Python.  Tutorials
 on the scientific Python ecosystem: a quick introduction to central tools
 and techniques. The different chapters each correspond to a 1 to 2 hours
@@ -3751,7 +3759,7 @@ course with increasing level of expertise, from beginner to expert.</p>
 <div class="line"><a class="reference external" href="http://shop.oreilly.com/product/0636920034919.do">Python Data Science Handbook</a></div>
 <div class="line">Jake van der Plas, O'Reilly, 2016.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>The Python Data Science Handbook provides a reference to the breadth of
 computational and statistical methods that are central to data—intensive
 science, research, and discovery. People with a programming background who
@@ -3766,7 +3774,7 @@ statistical or machine learning models?</p>
 <div class="line"><a class="reference external" href="http://shop.oreilly.com/product/0636920038481.do">Elegant SciPy: The Art of Scientific Python</a></div>
 <div class="line">Juan Nunez-Iglesias, Stéfan van der Walt, Harriet Dashnow, O'Reilly, 2016.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>Welcome to Scientific Python and its community! With this practical book,
 you'll learn the fundamental parts of SciPy and related libraries, and get
 a taste of beautiful, easy-to-read code that you can use in practice. More
@@ -3782,7 +3790,7 @@ toolz, and pandas.</p>
 <div class="line"><a class="reference external" href="https://www.packtpub.com/big-data-and-business-intelligence/learning-ipython-interactive-computing-and-data-visualization-sec">Learning IPython for Interactive Computing and Data Visualization</a></div>
 <div class="line">Cyrille Rossant, Packt Publishing, 2015.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>This book is a beginner-friendly guide to the Python data analysis
 platform. After an introduction to the Python language, IPython, and the
 Jupyter Notebook, you will learn how to analyze and visualize data on
@@ -3797,7 +3805,7 @@ sorts of data.</p>
 <div class="line"><a class="reference external" href="https://www.safaribooksonline.com/library/view/scipy-and-numpy/9781449361600/">SciPy and NumPy</a></div>
 <div class="line">Eli Bressert, O'Reilly Media, Inc., 2012</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>Are you new to SciPy and NumPy? Do you want to learn it quickly and easily
 through examples and concise introduction? Then this is the book for
 you. You’ll cut through the complexity of online documentation and
@@ -3808,7 +3816,7 @@ discover how easily you can get up to speed with these Python libraries.</p>
 <div class="line"><a class="reference external" href="http://shop.oreilly.com/product/0636920023784.do">Python for Data Analysis</a></div>
 <div class="line">Wes McKinney, O'Reilly Media, Inc., 2012.</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>Looking for complete instructions on manipulating, processing, cleaning,
 and crunching structured data in Python? This hands-on book is packed
 with practical cases studies that show you how to effectively solve a
@@ -3819,7 +3827,7 @@ broad set of data analysis problems, using several Python libraries.*</p>
 <div class="line"><a class="reference external" href="http://csc.ucdavis.edu/~chaos/courses/nlp/Software/NumPyBook.pdf">Guide to NumPy</a></div>
 <div class="line">Travis Oliphant, 2006</div>
 </div>
-<div class="abstract docutils container">
+<div class="abstract container">
 <p>This book only briefly outlines some of the infrastructure that surrounds
 the basic objects in NumPy to provide the additional functionality
 contained in the older Numeric package (i.e. LinearAlgebra, RandomArray,
