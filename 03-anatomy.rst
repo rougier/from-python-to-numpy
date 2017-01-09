@@ -16,7 +16,7 @@ layout, view, copy and the data type. They are critical notions to
 understand if you want your computation to benefit from numpy philosophy.
 
 Let's consider a simple example where we want to clear all the values from an
-array whose dtype is `np.float32`. How does one write it to maximize speed? The
+array which has the dtype `np.float32`. How does one write it to maximize speed? The
 below syntax is rather obvious (at least for those familiar with numpy) but the
 above question asks to find the fastest operation.
 
@@ -87,7 +87,7 @@ the number of dimensions is 2 (`len(Z.shape)`).
 
 .. code:: pycon
 
-   >>> print(Z.itemize)
+   >>> print(Z.itemsize)
    2
    >>> print(Z.shape)
    (3, 3)
@@ -99,7 +99,7 @@ Furthermore and because Z is not a view, we can deduce the
 
 .. code:: pycon
 
-   >>> strides = Z.shape[0]*Z.itemize, Z.itemize
+   >>> strides = Z.shape[0]*Z.itemsize, Z.itemsize
    >>> print(strides)
    (6, 2)
    >>> print(Z.strides)
