@@ -11,12 +11,12 @@ Introduction
 
 Code vectorization means that the problem you're trying to solve is inherently
 vectorizable and only requires a few numpy tricks to make it faster. Of course
-it does not mean it is easy nor straightforward, but at least it does not
-necessitate to totally rethink your problem (as it will be the case in the
+it does not mean it is easy or straightforward, but at least it does not
+necessitate totally rethinking your problem (as it will be the case in the
 `Problem vectorization`_ chapter). Still, it may require some experience to see
-where code can be vectorized. Let's illustrate this through the most simple
-example where we want to sum up two lists of integers. One simple way using
-pure Python is:
+where code can be vectorized. Let's illustrate this through a simple example
+where we want to sum up two lists of integers. One simple way using pure Python
+is:
 
 .. code-block:: python
 
