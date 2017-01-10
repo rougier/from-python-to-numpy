@@ -139,7 +139,7 @@ Python implementation
 
 In pure Python, we can code the Game of Life using a list of lists representing
 the board where cells are supposed to evolve. Such a board will be equipped with
-border of 0 that allows to accelerate things a bit by avoiding to have specific
+border of 0 that allows to accelerate things a bit by avoiding having specific
 tests for borders when counting the number of neighbours.
 
 .. code:: python
@@ -451,7 +451,7 @@ The trick is to search at each iteration values that have not yet
 diverged and update relevant information for these values and only
 these values. Because we start from :math:`Z = 0`, we know that each
 value will be updated at least once (when they're equal to :math:`0`,
-(they have not yet diverged) and will stop being updated as soon as
+they have not yet diverged) and will stop being updated as soon as
 they've diverged. To do that, we'll use numpy fancy indexing with the
 `less(x1,x2)` function that return the truth value of `(x1 < x2)`
 element-wise.
@@ -944,12 +944,12 @@ Conclusion
 
 We've seen through these examples three forms of code vectorization:
 
-* uniform vectorization where elements share the same computation
+* Uniform vectorization where elements share the same computation
   unconditionally and for the same duration.
-* temporal vectorization where elements share the same computation but
-  necessitate a different number of iterations
-* spatial vectorization where elements share the same computation but on
-  dynamic spatial arguments
+* Temporal vectorization where elements share the same computation but
+  necessitate a different number of iterations.
+* Spatial vectorization where elements share the same computation but on
+  dynamic spatial arguments.
 
 And there are probably many more forms of such direct code vectorization. As
 explained before, this kind of vectorization is one of the most simple even

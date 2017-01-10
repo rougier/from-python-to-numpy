@@ -366,7 +366,7 @@ In the example above, three intermediate arrays have been created. One for
 holding the result of `2*X`, one for holding the result of `2*Y` and the last
 one for holding the result of `2*X+2*Y`. In this specific case, the arrays are
 small enough and this does not really make a difference. However, if your
-arrays are big, then you have be careful with such expression and wonder if you
+arrays are big, then you have to be careful with such expression and wonder if you
 can do it differently. For example, if only the final result matters and you
 don't need `X` nor `Y` afterwards, an alternate solution would be:
 

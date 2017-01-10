@@ -493,7 +493,7 @@ and temperature. In the Lagrangian case, we need particle-based physics with
 dynamic interactions and generally we need a high number of particles. Both
 methods have advantages and disadvantages and the choice between the two
 methods depends on the nature of your problem. Of course, you can also mix the
-two methods into an hybrid method.
+two methods into a hybrid method.
 
 However, the biggest problem for particle-based simulation is that particle
 interaction requires finding neighbouring particles and this has a cost as
