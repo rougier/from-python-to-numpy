@@ -99,7 +99,7 @@ Furthermore and because Z is not a view, we can deduce the
 
 .. code:: pycon
 
-   >>> strides = Z.shape[0]*Z.itemsize, Z.itemsize
+   >>> strides = Z.shape[1]*Z.itemsize, Z.itemsize
    >>> print(strides)
    (6, 2)
    >>> print(Z.strides)

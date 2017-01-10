@@ -326,14 +326,15 @@ we saved probably come from the inner Python object-oriented machinery.</p>
 </pre>
 <p><strong>Vectorized approach</strong></p>
 <p>But we can do better using the <a class="reference external" href="https://docs.python.org/3.6/library/itertools.html">itertools</a> Python module that
-offers a set of functions creating iterators for efficient looping. If we
+offers <em>a set of functions creating iterators for efficient looping</em>. If we
 observe that a random walk is an accumulation of steps, we can rewrite the
-function as follows:</p>
+function by first generating all the steps and accumulate them without any
+loop:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">random_walk_faster</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
     <span class="keyword namespace">from</span> <span class="name namespace">itertools</span> <span class="keyword namespace">import</span> <span class="name">accumulate</span>
     <span class="name">steps</span> <span class="operator">=</span> <span class="name">random</span><span class="operator">.</span><span class="name">sample</span><span class="punctuation">((</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="operator">+</span><span class="literal number integer">1</span><span class="punctuation">)</span><span class="operator">*</span><span class="name">n</span><span class="punctuation">,</span> <span class="name">k</span><span class="operator">=</span><span class="name">n</span><span class="punctuation">)</span>
-    <span class="keyword">return</span> <span class="name builtin">list</span><span class="punctuation">(</span><span class="name">accumulate</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">))</span>
+    <span class="keyword">return</span> <span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="operator">+</span><span class="name builtin">list</span><span class="punctuation">(</span><span class="name">accumulate</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">))</span>
 
  <span class="name">walk</span> <span class="operator">=</span> <span class="name">random_walk_faster</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
 </pre>
@@ -484,7 +485,7 @@ the number of dimensions is 2 (<code>len(Z.shape)</code>).</p>
 <p>Furthermore and because Z is not a view, we can deduce the
 <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.strides.html#numpy.ndarray.strides">strides</a> of the array that define the number of bytes to step in each dimension when traversing the array.</p>
 <pre class="code pycon literal-block">
-<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">strides</span> <span class="operator">=</span> <span class="name">Z</span><span class="operator">.</span><span class="name">shape</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="operator">*</span><span class="name">Z</span><span class="operator">.</span><span class="name">itemsize</span><span class="punctuation">,</span> <span class="name">Z</span><span class="operator">.</span><span class="name">itemsize</span>
+<span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">strides</span> <span class="operator">=</span> <span class="name">Z</span><span class="operator">.</span><span class="name">shape</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">]</span><span class="operator">*</span><span class="name">Z</span><span class="operator">.</span><span class="name">itemsize</span><span class="punctuation">,</span> <span class="name">Z</span><span class="operator">.</span><span class="name">itemsize</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">strides</span><span class="punctuation">)</span>
 <span class="generic output">(6, 2)
 </span><span class="keyword"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="operator">.</span><span class="name">strides</span><span class="punctuation">)</span>
