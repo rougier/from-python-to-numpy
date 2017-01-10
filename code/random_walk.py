@@ -19,7 +19,7 @@ class RandomWalker:
             self.position += 2*random.randint(0, 1) - 1
 
 
-# --- Functional approach -----------------------------------------------------
+# --- Procedural approach -----------------------------------------------------
 def random_walk(n):
     position = 0
     walk = [position]
@@ -32,7 +32,7 @@ def random_walk(n):
 
 def random_walk_faster(n=1000):
     from itertools import accumulate
-    steps = random.sample([1, -1]*n, n)
+    steps = random.sample((-1,+1)*n, n)
     return list(accumulate(steps))
 
 

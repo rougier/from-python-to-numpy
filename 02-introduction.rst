@@ -93,7 +93,7 @@ function as follows:
 
    def random_walk_faster(n=1000):
        from itertools import accumulate
-           steps = random.choices([1,-1], k=n)
+       steps = random.sample((-1,+1)*n, k=n)
        return list(accumulate(steps))
 
     walk = random_walk_faster(1000)
