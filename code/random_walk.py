@@ -33,7 +33,7 @@ def random_walk(n):
 def random_walk_faster(n=1000):
     from itertools import accumulate
     steps = random.sample((-1,+1)*n, n)
-    return list(accumulate(steps))
+    return [0]+list(accumulate(steps))
 
 
 # --- Vectorized approach -----------------------------------------------------

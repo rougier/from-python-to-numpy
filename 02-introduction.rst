@@ -85,16 +85,17 @@ we saved probably come from the inner Python object-oriented machinery.
    
 But we can do better using the `itertools
 <https://docs.python.org/3.6/library/itertools.html>`_ Python module that
-offers a set of functions creating iterators for efficient looping. If we
+offers *a set of functions creating iterators for efficient looping*. If we
 observe that a random walk is an accumulation of steps, we can rewrite the
-function as follows:
+function by first generating all the steps and accumulate them without any
+loop:
 
 .. code:: python
 
    def random_walk_faster(n=1000):
        from itertools import accumulate
        steps = random.sample((-1,+1)*n, k=n)
-       return list(accumulate(steps))
+       return [0]+list(accumulate(steps))
 
     walk = random_walk_faster(1000)
    
