@@ -22,7 +22,7 @@ is written as:
 
 `Yaser Martinez <http://yasermartinez.com/blog/index.html>`_ collected the
 different answers from the community and the proposed solutions yield
-surprising results. But let's start with he most obvious Python solution:
+surprising results. But let's start with the most obvious Python solution:
 
 .. code:: python
 
