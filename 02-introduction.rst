@@ -52,7 +52,7 @@ Benchmarking gives us:
    10 loops, best of 3: 15.7 msec per loop
 
        
-**Functional approach**
+**Procedural approach**
 
 For such a simple problem, we can probably save the class definition and
 concentrate only on the walk method that computes successive positions after
@@ -93,7 +93,7 @@ function as follows:
 
    def random_walk_faster(n=1000):
        from itertools import accumulate
-       steps = random.sample([1, -1]*n, n)
+           steps = random.choices([1,-1], k=n)
        return list(accumulate(steps))
 
     walk = random_walk_faster(1000)
