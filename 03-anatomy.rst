@@ -392,7 +392,7 @@ impact the performance like demonstrated on the example below:
    100 loops, best of 3: 3.47 ms per loop
    >>> timeit("X += 2*Y", globals())
    100 loops, best of 3: 2.79 ms per loop
-   >>> np.add(X, Y, out=X), np.add(X, Y, out=X),
+   >>> timeit("np.add(X, Y, out=X); np.add(X, Y, out=X)", globals())
    1000 loops, best of 3: 1.57 ms per loop
           
 
