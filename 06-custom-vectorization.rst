@@ -52,7 +52,7 @@ manipulations. Such manipulations, for example insertion/deletion, cost
 a lot of operations and we want to avoid them. Here is a proposal (among
 others) for the creation of a `TypedList` object.
 
-.. code::
+.. code:: python
 
    def __init__(self, data=None, sizes=None, dtype=float)
        """
