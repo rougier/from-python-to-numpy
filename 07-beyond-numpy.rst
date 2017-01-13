@@ -306,11 +306,11 @@ and other massively parallel compute devices from Python.
 Scipy & co
 ----------
 
-If there are several additional packages for numpy, there is a trillion
+If there are several additional packages for numpy, there are a trillion
 additional packages for scipy. In fact, every domain of science probably has
 its own package and most of the examples we've been studying until now could
 have been solved in two or three calls to a method in the relevant package.
-But of course, it was not the goal and programming things yourself is generally
+But of course, that was not the goal and programming things yourself is generally
 a good exercise if you have some spare time. The biggest difficulty at this
 point is to find these relevant packages. Here is a very short list of packages
 that are well-maintained, well-tested and may simplify your scientific life
