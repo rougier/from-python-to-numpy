@@ -13,7 +13,7 @@ numpy/Scipy while some others offer a broader view on numerical computing.
 Tutorials
 ---------
 
-.. |tutorial-1| replace:: 100 Numpy exercices
+.. |tutorial-1| replace:: 100 Numpy exercises
 .. _tutorial-1: http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html
 
 .. |tutorial-2| replace:: Numpy tutorial
