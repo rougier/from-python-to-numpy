@@ -94,7 +94,7 @@ loop:
 
    def random_walk_faster(n=1000):
        from itertools import accumulate
-       steps = random.sample((-1,+1)*n, k=n)
+       steps = [2*random.randint(0,1) - 1 for _ in range(n)]
        return [0]+list(accumulate(steps))
 
     walk = random_walk_faster(1000)
