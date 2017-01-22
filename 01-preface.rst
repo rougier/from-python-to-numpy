@@ -78,13 +78,13 @@ different packages:
 =========== =========
 Packages    Version
 =========== =========
-Python      3.5.2
+Python      3.6.0
 ----------- ---------
-Numpy       1.11.2
+Numpy       1.12.0
 ----------- ---------
 Scipy       0.18.1
 ----------- ---------
-Matplotlib  1.5.3
+Matplotlib  2.0.0
 =========== =========
 
 How to contribute

@@ -32,7 +32,8 @@ def random_walk(n):
 
 def random_walk_faster(n=1000):
     from itertools import accumulate
-    steps = random.sample((-1,+1)*n, n)
+    # Only available from Python 3.6
+    # steps = random.choices([-1,+1], k=n)
     return [0]+list(accumulate(steps))
 
 
