@@ -33,13 +33,13 @@ def random_walk(n):
 def random_walk_faster(n=1000):
     from itertools import accumulate
     # Only available from Python 3.6
-    # steps = random.choices([-1,+1], k=n)
+    steps = random.choices([-1,+1], k=n)
     return [0]+list(accumulate(steps))
 
 
 # --- Vectorized approach -----------------------------------------------------
 def random_walk_fastest(n=1000):
-    steps = 2*np.random.randint(0, 2, size=1000) - 1
+    steps = np.random.choice([-1,+1], 1000)
     return np.cumsum(steps)
 
 
