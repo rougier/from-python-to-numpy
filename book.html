@@ -652,7 +652,7 @@ modifies the base array while this is not true in the second case:</p>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">)</span>
 <span class="generic output">[ 0.  0.  0.  0.  0.  0.  0.  0.  0.]</span>
 </pre>
-<p>Thus, if you need fancy indexing, it's better to keep a copy of you fancy index
+<p>Thus, if you need fancy indexing, it's better to keep a copy of your fancy index
 (especially if it was complex to compute it) and to work with it:</p>
 <pre class="code pycon literal-block">
 <span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">zeros</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span>
@@ -661,7 +661,7 @@ modifies the base array while this is not true in the second case:</p>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">)</span>
 <span class="generic output">[ 1.  1.  1.  0.  0.  0.  0.  0.  0.]</span>
 </pre>
-<p>If you are unsure if the result of you indexing is a view or a copy, you can
+<p>If you are unsure if the result of your indexing is a view or a copy, you can
 check what is the <code>base</code> of your result. If it is <code>None</code>, then you result is a
 copy:</p>
 <pre class="code pycon literal-block">
@@ -703,9 +703,9 @@ when you are doing some arithmetic with arrays:</p>
 holding the result of <code>2*X</code>, one for holding the result of <code>2*Y</code> and the last
 one for holding the result of <code>2*X+2*Y</code>. In this specific case, the arrays are
 small enough and this does not really make a difference. However, if your
-arrays are big, then you have to be careful with such expression and wonder if you
-can do it differently. For example, if only the final result matters and you
-don't need <code>X</code> nor <code>Y</code> afterwards, an alternate solution would be:</p>
+arrays are big, then you have to be careful with such expressions and wonder if
+you can do it differently. For example, if only the final result matters and
+you don't need <code>X</code> nor <code>Y</code> afterwards, an alternate solution would be:</p>
 <pre class="code pycon literal-block">
 <span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">X</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">10</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Y</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">10</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name">np</span><span class="operator">.</span><span class="name">int</span><span class="punctuation">)</span>
