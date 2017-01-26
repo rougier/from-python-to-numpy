@@ -303,7 +303,7 @@ modifies the base array while this is not true in the second case:
    >>> print(Z)
    [ 0.  0.  0.  0.  0.  0.  0.  0.  0.]
 
-Thus, if you need fancy indexing, it's better to keep a copy of you fancy index
+Thus, if you need fancy indexing, it's better to keep a copy of your fancy index
 (especially if it was complex to compute it) and to work with it:
 
 .. code:: pycon
@@ -314,7 +314,7 @@ Thus, if you need fancy indexing, it's better to keep a copy of you fancy index
    >>> print(Z)
    [ 1.  1.  1.  0.  0.  0.  0.  0.  0.]
 
-If you are unsure if the result of you indexing is a view or a copy, you can
+If you are unsure if the result of your indexing is a view or a copy, you can
 check what is the `base` of your result. If it is `None`, then you result is a
 copy:
 
@@ -366,9 +366,9 @@ In the example above, three intermediate arrays have been created. One for
 holding the result of `2*X`, one for holding the result of `2*Y` and the last
 one for holding the result of `2*X+2*Y`. In this specific case, the arrays are
 small enough and this does not really make a difference. However, if your
-arrays are big, then you have to be careful with such expression and wonder if you
-can do it differently. For example, if only the final result matters and you
-don't need `X` nor `Y` afterwards, an alternate solution would be:
+arrays are big, then you have to be careful with such expressions and wonder if
+you can do it differently. For example, if only the final result matters and
+you don't need `X` nor `Y` afterwards, an alternate solution would be:
 
 .. code:: pycon
 
