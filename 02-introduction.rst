@@ -113,7 +113,7 @@ things faster:
    >>> timeit("random_walk_faster(n=10000)", globals())
    10 loops, best of 3: 2.21 msec per loop
 
-We gained 85.8% of computation-time compared to the previous version, not so
+We gained 85% of computation-time compared to the previous version, not so
 bad. But the advantage of this new version is that it makes numpy vectorization
 super simple. We just have to translate itertools call into numpy ones.
 
