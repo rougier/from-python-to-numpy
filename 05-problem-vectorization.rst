@@ -441,8 +441,8 @@ illustrated on the figure below:
 Sources
 +++++++
 
-* `maze-build.py <code/maze-build.py>`_
-* `maze-numpy.py <code/maze-numpy.py>`_
+* `maze_build.py <code/maze_build.py>`_
+* `maze_numpy.py <code/maze_numpy.py>`_
 
 References
 ++++++++++
@@ -554,10 +554,10 @@ using this technique.
 Sources
 +++++++
 
-* `smoke-1.py <code/smoke-1.py>`_
-* `smoke-2.py <code/smoke-2.py>`_
+* `smoke_1.py <code/smoke_1.py>`_
+* `smoke_2.py <code/smoke_2.py>`_
 * `smoke_solver.py <code/smoke_solver.py>`_
-* `smoke-interactive.py <code/smoke-interactive.py>`_
+* `smoke_interactive.py <code/smoke_interactive.py>`_
 
 
 References
@@ -702,9 +702,9 @@ parameter.
 Sources
 +++++++
 
-* `DART-sampling-python.py <code/DART-sampling-python.py>`_
-* `DART-sampling-numpy.py <code/DART-sampling-numpy.py>`_ (solution to the exercise)
-* `Bridson-sampling.py <code/Bridson-sampling.py>`_ (solution to the exercise)
+* `DART_sampling_python.py <code/DART_sampling_python.py>`_
+* `DART_sampling_numpy.py <code/DART_sampling_numpy.py>`_ (solution to the exercise)
+* `Bridson_sampling.py <code/Bridson_sampling.py>`_ (solution to the exercise)
 * `sampling.py <code/sampling.py>`_
 * `mosaic.py <code/mosaic.py>`_
 * `voronoi.py <code/voronoi.py>`_
