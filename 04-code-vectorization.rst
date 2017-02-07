@@ -269,8 +269,8 @@ capability and write quite naturally:
 
 .. code:: python
 
-   birth = (N==3) & (Z[1:-1,1:-1]==0)
-   survive = ((N==2) | (N==3)) & (Z[1:-1,1:-1]==1)
+   birth = (N==3)[1:-1,1:-1] & (Z[1:-1,1:-1]==0)
+   survive = ((N==2) | (N==3))[1:-1,1:-1] & (Z[1:-1,1:-1]==1)
    Z[...] = 0
    Z[1:-1,1:-1][birth | survive] = 1
 
