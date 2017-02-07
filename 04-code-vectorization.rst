@@ -378,9 +378,9 @@ The figure below shows some animations of the model for a specific set of parame
 Sources
 +++++++
 
-* `game-of-life-python.py <code/game-of-life-python.py>`_
-* `game-of-life-numpy.py <code/game-of-life-numpy.py>`_
-* `gray-scott.py <code/gray-scott.py>`_ (solution to the exercise)
+* `game_of_life_python.py <code/game_of_life_python.py>`_
+* `game_of_life_numpy.py <code/game_of_life_numpy.py>`_
+* `gray_scott.py <code/gray_scott.py>`_ (solution to the exercise)
 
 
 References
@@ -592,10 +592,10 @@ Sources
 +++++++
 
 * `mandelbrot.py <code/mandelbrot.py>`_
-* `mandelbrot-python.py <code/mandelbrot-python.py>`_
-* `mandelbrot-numpy-1.py <code/mandelbrot-numpy-1.py>`_
-* `mandelbrot-numpy-2.py <code/mandelbrot-numpy-2.py>`_
-* `fractal-dimension.py <code/fractal-dimension.py>`_ (solution to the exercise)
+* `mandelbrot_python.py <code/mandelbrot_python.py>`_
+* `mandelbrot_numpy_1.py <code/mandelbrot_numpy_1.py>`_
+* `mandelbrot_numpy_2.py <code/mandelbrot_numpy_2.py>`_
+* `fractal_dimension.py <code/fractal_dimension.py>`_ (solution to the exercise)
 
 References
 ++++++++++
@@ -929,8 +929,8 @@ How would you write the `translate`, `scale` and `rotate` functions ?
 Sources
 +++++++
 
-* `boid-python.py <code/boid-python.py>`_
-* `boid-numpy.py <code/boid-numpy.py>`_ (solution to the exercise)
+* `boid_python.py <code/boid_python.py>`_
+* `boid_numpy.py <code/boid_numpy.py>`_ (solution to the exercise)
 
 References
 ++++++++++
