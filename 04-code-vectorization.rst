@@ -774,7 +774,7 @@ other distance masks.
 .. note::
 
    If we suppose that boids cannot occupy the same position, how can you
-   compute `mask_0` more efficiently ?
+   compute `mask_0` more efficiently?
 
 .. code:: python
 

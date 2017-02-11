@@ -226,11 +226,7 @@ h2.subtitle {
 
     
 /* --- Math ---------------------------------------------------------------- */
-span.formula {
-    color: #955;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 300;
-}
+span.formula,
 div.formula {
     color: #955;
     font-family: 'Source Sans Pro', sans-serif;
@@ -243,26 +239,26 @@ code {
     font-weight: 300;
     font-family: 'Source Code Pro';
 }
-pre.code {
-    font-size:      85%;
-    font-family:    'Source Code Pro', monospace;
-    line-height:    125%;
-    background:     #fcfcfc;
-    border-top:     .5px solid #ccc;
-    border-bottom:  .5px solid #ccc;
-    padding-left:   2.0em;
-    padding-top:    0.5em;
-    padding-bottom: 0.5em;
-}
+pre.code,
 pre.output {
     font-size:      85%;
     font-family:    'Source Code Pro', monospace;
     line-height:    125%;
-    background:     #fff;
-    border:         none;
     padding-left:   2.0em;
     padding-top:    0.5em;
     padding-bottom: 0.5em;
+    overflow-x: auto;
+}
+pre.code {
+
+    background:     #fcfcfc;
+    border-top:     .5px solid #ccc;
+    border-bottom:  .5px solid #ccc;
+}
+pre.output {
+    background:     #fff;
+    border:         none;
+
 }
 
 .function, .class {
@@ -350,4 +346,34 @@ tr:nth-child(even) td {
     padding-bottom: .5em;
     font-weight: 400;
     border-bottom: 1px solid #000;
+}
+
+@media all and (max-width: 1400px) {
+    .note,
+    .legend {
+        box-sizing: border-box;
+        width: 80%;
+        margin: 10px auto;
+        float: none;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        border-radius: 5px;
+        padding: 10px;
+    }
+}
+
+@media all and (max-width: 870px) {
+    pre.code,
+    pre.output {
+        padding-left: 0.5em;
+    }
+
+    body {
+        font-size: 16px;
+    }
+}
+
+@media all and (max-width: 500px) {
+    body {
+        font-size: 14px;
+    }
 }
