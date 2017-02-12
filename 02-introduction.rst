@@ -121,7 +121,7 @@ super simple. We just have to translate itertools call into numpy ones.
        
    def random_walk_fastest(n=1000):
        # No 's' in numpy choice (Python offers choice & choices)
-       steps = np.random.choice([-1,+1], 1000)
+       steps = np.random.choice([-1,+1], n)
        return np.cumsum(steps)
 
    walk = random_walk_fastest(1000)
