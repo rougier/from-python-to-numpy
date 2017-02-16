@@ -6,7 +6,7 @@
 .. ----------------------------------------------------------------------------
 
 .. meta::
-   :description: Please, suggest some description
+   :description: An open-source book about numpy vectorization techniques, based on experience, practice and descriptive examples
    :viewport: width=device-width, initial-scale=1, maximum-scale=1
 
 .. |date| date::  %B %Y
