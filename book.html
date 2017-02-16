@@ -5,6 +5,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils 0.13.1: http://docutils.sourceforge.net/" />
 <title>From Python to Numpy</title>
+<meta content="An open-source book about numpy vectorization techniques, based on experience, practice and descriptive examples" name="description" />
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" />
 <link rel="stylesheet" href="book.css" type="text/css" />
 <link rel="stylesheet" href="math.css" type="text/css" />
 </head>
@@ -26,7 +28,7 @@
 <img alt="data/nc.large.png" src="data/nc.large.png" style="width: 40px;" />
 <div class="line-block">
 <div class="line"><br /></div>
-<div class="line">Latest version - February 2017</div>
+<div class="line">Latest version - Февраль 2017</div>
 <div class="line">DOI: <a class="reference external" href="http://doi.org/10.5281/zenodo.225783">10.5281/zenodo.225783</a></div>
 </div>
 </div>
@@ -282,7 +284,7 @@ it's readable, but it is slow:</p>
 <p><strong>Object oriented approach</strong></p>
 <pre class="code python literal-block">
 <span class="keyword">class</span> <span class="name class">RandomWalker</span><span class="punctuation">:</span>
-    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
+    <span class="keyword">def</span> <span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">):</span>
         <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span> <span class="operator">=</span> <span class="literal number integer">0</span>
 
     <span class="keyword">def</span> <span class="name function">walk</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">n</span><span class="punctuation">):</span>
@@ -355,7 +357,7 @@ super simple. We just have to translate itertools call into numpy ones.</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">random_walk_fastest</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
     <span class="comment single"># No 's' in numpy choice (Python offers choice &amp; choices)</span>
-    <span class="name">steps</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">choice</span><span class="punctuation">([</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="operator">+</span><span class="literal number integer">1</span><span class="punctuation">],</span> <span class="literal number integer">1000</span><span class="punctuation">)</span>
+    <span class="name">steps</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">choice</span><span class="punctuation">([</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="operator">+</span><span class="literal number integer">1</span><span class="punctuation">],</span> <span class="name">n</span><span class="punctuation">)</span>
     <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">cumsum</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">)</span>
 
 <span class="name">walk</span> <span class="operator">=</span> <span class="name">random_walk_fastest</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
@@ -507,12 +509,12 @@ conversion method:</p>
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">reshape</span><span class="punctuation">(</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">3</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">astype</span><span class="punctuation">(</span><span class="name">np</span><span class="operator">.</span><span class="name">int16</span><span class="punctuation">)</span>
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">index</span> <span class="operator">=</span> <span class="literal number integer">1</span><span class="punctuation">,</span><span class="literal number integer">1</span>
 <span class="operator">&gt;&gt;&gt;</span> <span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">[</span><span class="name">index</span><span class="punctuation">]</span><span class="operator">.</span><span class="name">tobytes</span><span class="punctuation">())</span>
-<span class="name">b</span><span class="literal string single">'</span><span class="literal string escape">\x04\x00</span><span class="literal string single">'</span>
+<span class="literal string affix">b</span><span class="literal string single">'</span><span class="literal string escape">\x04\x00</span><span class="literal string single">'</span>
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">offset</span> <span class="operator">=</span> <span class="literal number integer">0</span>
 <span class="operator">&gt;&gt;&gt;</span> <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name">Z</span><span class="operator">.</span><span class="name">ndim</span><span class="punctuation">):</span>
 <span class="operator">...</span>     <span class="name">offset</span> <span class="operator">+</span> <span class="operator">=</span> <span class="name">Z</span><span class="operator">.</span><span class="name">strides</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">]</span><span class="operator">*</span><span class="name">index</span><span class="punctuation">[</span><span class="name">i</span><span class="punctuation">]</span>
 <span class="operator">&gt;&gt;&gt;</span> <span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z</span><span class="operator">.</span><span class="name">tobytes</span><span class="punctuation">()[</span><span class="name">offset_start</span><span class="punctuation">:</span><span class="name">offset_end</span><span class="punctuation">]</span>
-<span class="name">b</span><span class="literal string single">'</span><span class="literal string escape">\x04\x00</span><span class="literal string single">'</span>
+<span class="literal string affix">b</span><span class="literal string single">'</span><span class="literal string escape">\x04\x00</span><span class="literal string single">'</span>
 </pre>
 <p>This array can be actually considered from different perspectives (i.e. layouts):</p>
 <p><strong>Item layout</strong></p>
@@ -1473,7 +1475,7 @@ position and velocity, it seems natural to start by writing a Boid class:</p>
 <span class="keyword namespace">from</span> <span class="name namespace">vec2</span> <span class="keyword namespace">import</span> <span class="name">vec2</span>
 
 <span class="keyword">class</span> <span class="name class">Boid</span><span class="punctuation">:</span>
-    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">x</span><span class="operator">=</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="name">y</span><span class="operator">=</span><span class="literal number integer">0</span><span class="punctuation">):</span>
+    <span class="keyword">def</span> <span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">x</span><span class="operator">=</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="name">y</span><span class="operator">=</span><span class="literal number integer">0</span><span class="punctuation">):</span>
         <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">position</span> <span class="operator">=</span> <span class="name">vec2</span><span class="punctuation">(</span><span class="name">x</span><span class="punctuation">,</span> <span class="name">y</span><span class="punctuation">)</span>
         <span class="name">angle</span> <span class="operator">=</span> <span class="name">random</span><span class="operator">.</span><span class="name">uniform</span><span class="punctuation">(</span><span class="literal number integer">0</span><span class="punctuation">,</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">math</span><span class="operator">.</span><span class="name">pi</span><span class="punctuation">)</span>
         <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">velocity</span> <span class="operator">=</span> <span class="name">vec2</span><span class="punctuation">(</span><span class="name">math</span><span class="operator">.</span><span class="name">cos</span><span class="punctuation">(</span><span class="name">angle</span><span class="punctuation">),</span> <span class="name">math</span><span class="operator">.</span><span class="name">sin</span><span class="punctuation">(</span><span class="name">angle</span><span class="punctuation">))</span>
@@ -1507,7 +1509,7 @@ describe it here and there is no real difficulty.</p>
 <p>To complete the picture, we can also create a <code>Flock</code> object:</p>
 <pre class="code python literal-block">
 <span class="keyword">class</span> <span class="name class">Flock</span><span class="punctuation">:</span>
-    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">count</span><span class="operator">=</span><span class="literal number integer">150</span><span class="punctuation">):</span>
+    <span class="keyword">def</span> <span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">count</span><span class="operator">=</span><span class="literal number integer">150</span><span class="punctuation">):</span>
         <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">boids</span> <span class="operator">=</span> <span class="punctuation">[]</span>
         <span class="keyword">for</span> <span class="name">i</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="name">count</span><span class="punctuation">):</span>
             <span class="name">boid</span> <span class="operator">=</span> <span class="name">Boid</span><span class="punctuation">()</span>
@@ -1559,7 +1561,7 @@ other distance masks.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If we suppose that boids cannot occupy the same position, how can you
-compute <code>mask_0</code> more efficiently ?</p>
+compute <code>mask_0</code> more efficiently?</p>
 </div>
 <pre class="code python literal-block">
 <span class="name">mask_0</span> <span class="operator">=</span> <span class="punctuation">(</span><span class="name">distance</span> <span class="operator">&gt;</span> <span class="literal number integer">0</span><span class="punctuation">)</span>
@@ -2410,7 +2412,7 @@ manipulations. Such manipulations, for example insertion/deletion, cost
 a lot of operations and we want to avoid them. Here is a proposal (among
 others) for the creation of a <code>TypedList</code> object.</p>
 <pre class="code python literal-block">
-<span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">data</span><span class="operator">=</span><span class="name builtin pseudo">None</span><span class="punctuation">,</span> <span class="name">sizes</span><span class="operator">=</span><span class="name builtin pseudo">None</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name builtin">float</span><span class="punctuation">)</span>
+<span class="keyword">def</span> <span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">data</span><span class="operator">=</span><span class="name builtin pseudo">None</span><span class="punctuation">,</span> <span class="name">sizes</span><span class="operator">=</span><span class="name builtin pseudo">None</span><span class="punctuation">,</span> <span class="name">dtype</span><span class="operator">=</span><span class="name builtin">float</span><span class="punctuation">)</span>
     <span class="literal string doc">&quot;&quot;&quot;
     Parameters
     ----------
@@ -2490,7 +2492,7 @@ playing with the different key when getting, inserting or setting an item. Here 
 the code for the <code>__getitem__</code> method. No real difficulty but the possible
 negative step:</p>
 <pre class="code python literal-block">
-<span class="keyword">def</span> <span class="name function">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">):</span>
+<span class="keyword">def</span> <span class="name function magic">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">):</span>
     <span class="keyword">if</span> <span class="name builtin">type</span><span class="punctuation">(</span><span class="name">key</span><span class="punctuation">)</span> <span class="operator word">is</span> <span class="name builtin">int</span><span class="punctuation">:</span>
         <span class="keyword">if</span> <span class="name">key</span> <span class="operator">&lt;</span> <span class="literal number integer">0</span><span class="punctuation">:</span>
             <span class="name">key</span> <span class="operator">+=</span> <span class="name builtin">len</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">)</span>
@@ -2658,16 +2660,16 @@ byte size) relatively to the <code>extents</code> property.</li>
 </ul>
 <pre class="code python literal-block">
 <span class="keyword">class</span> <span class="name class">GPUData</span><span class="punctuation">(</span><span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="punctuation">):</span>
-    <span class="keyword">def</span> <span class="name function">__new__</span><span class="punctuation">(</span><span class="name">cls</span><span class="punctuation">,</span> <span class="operator">*</span><span class="name">args</span><span class="punctuation">,</span> <span class="operator">**</span><span class="name">kwargs</span><span class="punctuation">):</span>
-        <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name">__new__</span><span class="punctuation">(</span><span class="name">cls</span><span class="punctuation">,</span> <span class="operator">*</span><span class="name">args</span><span class="punctuation">,</span> <span class="operator">**</span><span class="name">kwargs</span><span class="punctuation">)</span>
+    <span class="keyword">def</span> <span class="name function magic">__new__</span><span class="punctuation">(</span><span class="name builtin pseudo">cls</span><span class="punctuation">,</span> <span class="operator">*</span><span class="name">args</span><span class="punctuation">,</span> <span class="operator">**</span><span class="name">kwargs</span><span class="punctuation">):</span>
+        <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name function magic">__new__</span><span class="punctuation">(</span><span class="name builtin pseudo">cls</span><span class="punctuation">,</span> <span class="operator">*</span><span class="name">args</span><span class="punctuation">,</span> <span class="operator">**</span><span class="name">kwargs</span><span class="punctuation">)</span>
 
-    <span class="keyword">def</span> <span class="name function">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="operator">*</span><span class="name">args</span><span class="punctuation">,</span> <span class="operator">**</span><span class="name">kwargs</span><span class="punctuation">):</span>
+    <span class="keyword">def</span> <span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="operator">*</span><span class="name">args</span><span class="punctuation">,</span> <span class="operator">**</span><span class="name">kwargs</span><span class="punctuation">):</span>
         <span class="keyword">pass</span>
 
     <span class="keyword">def</span> <span class="name function">__array_finalize__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">obj</span><span class="punctuation">):</span>
         <span class="keyword">if</span> <span class="operator word">not</span> <span class="name builtin">isinstance</span><span class="punctuation">(</span><span class="name">obj</span><span class="punctuation">,</span> <span class="name">GPUData</span><span class="punctuation">):</span>
             <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_extents</span> <span class="operator">=</span> <span class="literal number integer">0</span><span class="punctuation">,</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">size</span><span class="operator">*</span><span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">itemsize</span>
-            <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">__class__</span><span class="operator">.</span><span class="name">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">)</span>
+            <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name variable magic">__class__</span><span class="operator">.</span><span class="name function magic">__init__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">)</span>
             <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_pending_data</span> <span class="operator">=</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_extents</span>
         <span class="keyword">else</span><span class="punctuation">:</span>
             <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_extents</span> <span class="operator">=</span> <span class="name">obj</span><span class="operator">.</span><span class="name">_extents</span>
@@ -2678,8 +2680,8 @@ byte size) relatively to the <code>extents</code> property.</li>
 <p>Each time a partial view of the array is requested, we need to compute the
 extents of this partial view while we have access to the base array.</p>
 <pre class="code python literal-block">
-<span class="keyword">def</span> <span class="name function">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">):</span>
-    <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">)</span>
+<span class="keyword">def</span> <span class="name function magic">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">):</span>
+    <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name function magic">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">)</span>
     <span class="keyword">if</span> <span class="operator word">not</span> <span class="name builtin">hasattr</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">,</span><span class="literal string single">'shape'</span><span class="punctuation">)</span> <span class="operator word">or</span> <span class="name">Z</span><span class="operator">.</span><span class="name">shape</span> <span class="operator">==</span> <span class="punctuation">():</span>
         <span class="keyword">return</span> <span class="name">Z</span>
     <span class="name">Z</span><span class="operator">.</span><span class="name">_extents</span> <span class="operator">=</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_compute_extents</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">)</span>
@@ -2706,8 +2708,8 @@ the <code>self._pending_data</code> in the second case of the <code>__array_fina
 method. This will be handled when we need to update some data as during a
 <code>__setitem__</code> call for example:</p>
 <pre class="code python literal-block">
-<span class="keyword">def</span> <span class="name function">__setitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">,</span> <span class="name">value</span><span class="punctuation">):</span>
-    <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">)</span>
+<span class="keyword">def</span> <span class="name function magic">__setitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">,</span> <span class="name">value</span><span class="punctuation">):</span>
+    <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name function magic">__getitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">)</span>
     <span class="keyword">if</span> <span class="name">Z</span><span class="operator">.</span><span class="name">shape</span> <span class="operator">==</span> <span class="punctuation">():</span>
         <span class="name">key</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">mod</span><span class="punctuation">(</span><span class="name">np</span><span class="operator">.</span><span class="name">array</span><span class="punctuation">(</span><span class="name">key</span><span class="punctuation">)</span><span class="operator">+</span><span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">shape</span><span class="punctuation">,</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">shape</span><span class="punctuation">)</span>
         <span class="name">offset</span> <span class="operator">=</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_extents</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">]</span><span class="operator">+</span><span class="punctuation">(</span><span class="name">key</span> <span class="operator">*</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">strides</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">sum</span><span class="punctuation">()</span>
@@ -2717,7 +2719,7 @@ method. This will be handled when we need to update some data as during a
     <span class="keyword">else</span><span class="punctuation">:</span>
         <span class="name">Z</span><span class="operator">.</span><span class="name">_extents</span> <span class="operator">=</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_compute_extents</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">)</span>
         <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_add_pending_data</span><span class="punctuation">(</span><span class="name">Z</span><span class="operator">.</span><span class="name">_extents</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">],</span> <span class="name">Z</span><span class="operator">.</span><span class="name">_extents</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">])</span>
-    <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name">__setitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">,</span> <span class="name">value</span><span class="punctuation">)</span>
+    <span class="name">np</span><span class="operator">.</span><span class="name">ndarray</span><span class="operator">.</span><span class="name function magic">__setitem__</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">key</span><span class="punctuation">,</span> <span class="name">value</span><span class="punctuation">)</span>
 
 <span class="keyword">def</span> <span class="name function">_add_pending_data</span><span class="punctuation">(</span><span class="name builtin pseudo">self</span><span class="punctuation">,</span> <span class="name">start</span><span class="punctuation">,</span> <span class="name">stop</span><span class="punctuation">):</span>
     <span class="name">base</span> <span class="operator">=</span> <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">base</span>
