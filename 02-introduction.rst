@@ -37,7 +37,7 @@ it's readable, but it is slow:
            self.position = 0
            for i in range(n):
                yield self.position
-               self.position += 2*random.randint(0, 1) - 1
+               self.position += random.randint(-1, 1)
            
    walker = RandomWalker()
    walk = [position for position in walker.walk(1000)]
