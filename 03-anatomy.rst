@@ -321,7 +321,7 @@ copy:
    
 .. code:: pycon
 
-   >>> Z = np.random.uniform(0,1,(5,,5))
+   >>> Z = np.random.uniform(0,1,(5,5))
    >>> Z1 = Z[:3,:]
    >>> Z2 = Z[[0,1,2], :]
    >>> print(np.allclose(Z1,Z2))
