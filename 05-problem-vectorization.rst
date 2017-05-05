@@ -111,10 +111,10 @@ approach, we can now write:
 .. code:: python
 
    def compute_numpy_better_3(x, y):
-       Ysum = = 0
+       Ysum = 0
        for j in range(len(Y)):
            Ysum += Y[j]
-       Xsum = = 0
+       Xsum = 0
        for i in range(len(X)):
            Xsum += X[i]
        return Xsum*Ysum
