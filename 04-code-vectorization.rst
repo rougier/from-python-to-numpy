@@ -264,7 +264,7 @@ capability and write quite naturally:
 
 .. note::
 
-   We did no write `Z = 0` as this would simply assign the value 0 to `Z` that
+   We did not write `Z = 0` as this would simply assign the value 0 to `Z` that
    would then become a simple scalar.
 
 .. code:: python
