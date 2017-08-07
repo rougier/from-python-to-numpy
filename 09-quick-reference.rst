@@ -201,7 +201,7 @@ Creation
 .. -------------------------------------
 .. code-block:: python
 
-   np.grid[0:3,0:3]
+   np.mgrid[0:3,0:3]
    
 .. code::
    :class: output
