@@ -1,4 +1,4 @@
-Beyond Numpy
+Beyond NumPy
 ===============================================================================
 
 .. contents:: **Contents**
@@ -8,9 +8,9 @@ Back to Python
 --------------
 
 You've almost reached the end of the book and, hopefully, you've learned that
-numpy is a very versatile and powerful library. However in the meantime,
+NumPy is a very versatile and powerful library. However in the meantime,
 remember that Python is also quite a powerful language. In fact, in some
-specific cases, it might be more powerful than numpy. Let's consider, for
+specific cases, it might be more powerful than NumPy. Let's consider, for
 example, an interesting exercise that has been proposed by Tucker Balch in his
 `Coursera's Computational Investing
 <https://www.coursera.org/learn/computational-investing>`_ course. The exercise
@@ -65,7 +65,7 @@ directly build each tuple without any test as shown below:
                for b in range(11 - a)
                for c in range(11 - a - b)]
 
-The best numpy solution by Yaser Martinez uses a different strategy with a
+The best NumPy solution by Yaser Martinez uses a different strategy with a
 restricted set of tests:
 
 .. code:: python
@@ -88,7 +88,7 @@ If we benchmark these methods, we get:
    >>> timeit("solution_4()", globals())
    1000 loops, best of 3: 54.4 usec per loop
 
-The numpy solution is the fastest but the pure Python solution is comparable.
+The NumPy solution is the fastest but the pure Python solution is comparable.
 But let me introduce a small modification to the Python solution:
 
 .. code:: python
@@ -124,10 +124,10 @@ important to wonder if you need an actual instance of your result or if a
 simple generator might do the job.
 
 
-Numpy & co
+NumPy & co
 ----------
 
-Beyond numpy, there are several other Python packages that are worth a look
+Beyond NumPy, there are several other Python packages that are worth a look
 because they address similar yet different class of problems using different
 technology (compilation, virtual machine, just in time compilation, GPU,
 compression, etc.). Depending on your specific problem and your hardware, one
@@ -216,7 +216,7 @@ Theano
 `Theano <http://www.deeplearning.net/software/theano/>`_ is a Python library
 that allows you to define, optimize, and evaluate mathematical expressions
 involving multi-dimensional arrays efficiently. Theano features tight
-integration with numpy, transparent use of a GPU, efficient symbolic
+integration with NumPy, transparent use of a GPU, efficient symbolic
 differentiation, speed and stability optimizations, dynamic C code generation
 and extensive unit-testing and self-verification.
 
@@ -306,7 +306,7 @@ and other massively parallel compute devices from Python.
 Scipy & co
 ----------
 
-If there are several additional packages for numpy, there are a trillion
+If there are several additional packages for NumPy, there are a trillion
 additional packages for scipy. In fact, every domain of science probably has
 its own package and most of the examples we've been studying until now could
 have been solved in two or three calls to a method in the relevant package.
@@ -327,16 +327,16 @@ learning library for the Python programming language. It features various
 classification, regression and clustering algorithms including support vector
 machines, random forests, gradient boosting, k-means and DBSCAN, and is
 designed to inter-operate with the Python numerical and scientific libraries
-numpy and SciPy.
+NumPy and SciPy.
 
 
 scikit-image
 ++++++++++++
 
 `scikit-image <http://scikit-image.org>`_ is a Python package dedicated to
-image processing, and using natively numpy arrays as image objects. This
+image processing, and using natively NumPy arrays as image objects. This
 chapter describes how to use scikit-image on various image processing tasks,
-and insists on the link with other scientific Python modules such as numpy and
+and insists on the link with other scientific Python modules such as NumPy and
 SciPy.
 
 SymPy
@@ -360,7 +360,7 @@ Cartopy
 
 `Cartopy <http://scitools.org.uk/cartopy/>`_ is a Python package designed to
 make drawing maps for data analysis and visualization as easy as
-possible. Cartopy makes use of the powerful PROJ.4, numpy and shapely libraries
+possible. Cartopy makes use of the powerful PROJ.4, NumPy and shapely libraries
 and has a simple and intuitive drawing interface to matplotlib for creating
 publication quality maps.
 
@@ -387,7 +387,7 @@ documentation for the site is organized into a couple of sections:
 Conclusion
 ----------
 
-Numpy is a very versatile library but still, it does not mean you have to use
+NumPy is a very versatile library but still, it does not mean you have to use
 it in every situation. In this chapter, we've seen some alternatives (including
 Python itself) that are worth a look. As always, the choice belongs to you. You
 have to consider what is the best solution for you in term of development time,

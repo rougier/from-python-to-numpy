@@ -4,11 +4,11 @@ Copyright (c) 2017 Nicolas P. Rougier
 (https://creativecommons.org/licenses/by-nc-sa/4.0/).  
 **Website**: http://www.labri.fr/perso/nrougier/from-python-to-numpy
 
-There are already a fair number of books about Numpy
+There are already a fair number of books about NumPy
 (see [bibliography](10-bibliography.rst)) and a legitimate question is to
 wonder if another book is really necessary. As you may have guessed by reading
 these lines, my personal answer is yes, mostly because I think there is room
-for a different approach concentrating on the migration from Python to Numpy
+for a different approach concentrating on the migration from Python to NumPy
 through vectorization. There are a lot of techniques that you don't find in
 books and such techniques are mostly learned through experience. The goal of
 this book is to explain some of these techniques and to provide an opportunity

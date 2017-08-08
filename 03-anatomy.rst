@@ -8,16 +8,16 @@ Anatomy of an array
 Introduction
 ------------
       
-As explained in the Preface_, you should have a basic experience with numpy to
+As explained in the Preface_, you should have a basic experience with NumPy to
 read this book. If this is not the case, you'd better start with a beginner
 tutorial before coming back here. Consequently I'll only give here a quick
-reminder on the basic anatomy of numpy arrays, especially regarding the memory
+reminder on the basic anatomy of NumPy arrays, especially regarding the memory
 layout, view, copy and the data type. They are critical notions to
-understand if you want your computation to benefit from numpy philosophy.
+understand if you want your computation to benefit from NumPy philosophy.
 
 Let's consider a simple example where we want to clear all the values from an
 array which has the dtype `np.float32`. How does one write it to maximize speed? The
-below syntax is rather obvious (at least for those familiar with numpy) but the
+below syntax is rather obvious (at least for those familiar with NumPy) but the
 above question asks to find the fastest operation.
 
 .. code-block:: python
@@ -53,15 +53,15 @@ Interestingly enough, the obvious way of clearing all the values is not the
 fastest. By casting the array into a larger data type such as `np.float64`, we
 gained a 25% speed factor. But, by viewing the array as a byte array
 (`np.int8`), we gained a 50% factor. The reason for such speedup are to be
-found in the internal numpy machinery and the compiler optimization. This
-simple example illustrates the philosophy of numpy as we'll see in the next
+found in the internal NumPy machinery and the compiler optimization. This
+simple example illustrates the philosophy of NumPy as we'll see in the next
 section below.
 
 
 Memory layout
 -------------
 
-The `numpy documentation
+The `NumPy documentation
 <https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html>`_ defines the
 ndarray class very clearly:
 
@@ -333,7 +333,7 @@ copy:
    >>> print(Z2.base is None)
    True
 
-Note that some numpy functions return a view when possible (e.g. `ravel
+Note that some NumPy functions return a view when possible (e.g. `ravel
 <https://docs.scipy.org/doc/numpy/reference/generated/numpy.ravel.html>`_)
 while some others always return a copy (e.g. `flatten
 <https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten>`_):

@@ -15,7 +15,7 @@ Simple example
    such a case, you might want to use the magic command `%timeit` instead of the
    `custom one <code/tools.py>`_ I wrote.
 
-Numpy is all about vectorization. If you are familiar with Python, this is the
+NumPy is all about vectorization. If you are familiar with Python, this is the
 main difficulty you'll face because you'll need to change your way of thinking
 and your new friends (among others) are named "vectors", "arrays", "views" or
 "ufuncs".
@@ -114,19 +114,19 @@ things faster:
    10 loops, best of 3: 2.21 msec per loop
 
 We gained 85% of computation-time compared to the previous version, not so
-bad. But the advantage of this new version is that it makes numpy vectorization
-super simple. We just have to translate itertools call into numpy ones.
+bad. But the advantage of this new version is that it makes NumPy vectorization
+super simple. We just have to translate itertools call into NumPy ones.
 
 .. code:: python
        
    def random_walk_fastest(n=1000):
-       # No 's' in numpy choice (Python offers choice & choices)
+       # No 's' in NumPy choice (Python offers choice & choices)
        steps = np.random.choice([-1,+1], n)
        return np.cumsum(steps)
 
    walk = random_walk_fastest(1000)
            
-Not too difficult, but we gained a factor 500x using numpy:
+Not too difficult, but we gained a factor 500x using NumPy:
  
 .. code:: pycon
 
@@ -143,7 +143,7 @@ Readability vs speed
 --------------------
 
 Before heading to the next chapter, I would like to warn you about a potential
-problem you may encounter once you'll have become familiar with numpy. It is a
+problem you may encounter once you'll have become familiar with NumPy. It is a
 very powerful library and you can make wonders with it but, most of the time,
 this comes at the price of readability. If you don't comment your code at the
 time of writing, you won't be able to tell what a function is doing after a few
@@ -166,5 +166,5 @@ and you don't need to read this book).
        return candidates[mask]
 
 As you may have guessed, the second function is the
-vectorized-optimized-faster-numpy version of the first function. It is 10 times
+vectorized-optimized-faster-NumPy version of the first function. It is 10 times
 faster than the pure Python version, but it is hardly readable.

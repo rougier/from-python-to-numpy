@@ -44,7 +44,7 @@ know it will be slow:
 
 How to vectorize the problem then? If you remember your linear algebra course,
 you may have identified the expression `X[i] * Y[j]` to be very similar to a
-matrix product expression. So maybe we could benefit from some numpy
+matrix product expression. So maybe we could benefit from some NumPy
 speedup. One wrong solution would be to write:
 
 .. code:: python
@@ -54,7 +54,7 @@ speedup. One wrong solution would be to write:
 
 This is wrong because the `X*Y` expression will actually compute a new vector
 `Z` such that `Z[i] = X[i] * Y[i]` and this is not what we want. Instead, we
-can exploit numpy broadcasting by first reshaping the two vectors and then
+can exploit NumPy broadcasting by first reshaping the two vectors and then
 multiply them:
 
 .. code:: python
@@ -145,7 +145,7 @@ factor of 70,000 with problem vectorization, just by writing our problem
 differently (even though you cannot expect such a huge speedup in all
 situations). However, code vectorization remains an important factor, and if we
 rewrite the last solution the Python way, the improvement is good but not as much as
-in the numpy version:
+in the NumPy version:
 
 .. code:: python
 
@@ -153,7 +153,7 @@ in the numpy version:
        return sum(x)*sum(y)
 
 This new Python version is much faster than the previous Python version, but
-still, it is 50 times slower than the numpy version:
+still, it is 50 times slower than the NumPy version:
 
 .. code:: python
 
@@ -371,7 +371,7 @@ cell's new value is computed as the maximum value between the current cell value
 and the discounted (`gamma=0.9` in the case below) 4 neighbour values. The
 process starts as soon as the starting node value becomes strictly positive.
 
-The numpy implementation is straightforward if we take advantage of the
+The NumPy implementation is straightforward if we take advantage of the
 `generic_filter` (from `scipy.ndimage`) for the diffusion process:
 
 .. code:: python
@@ -497,12 +497,12 @@ two methods into a hybrid method.
 
 However, the biggest problem for particle-based simulation is that particle
 interaction requires finding neighbouring particles and this has a cost as
-we've seen in the boids case. If we target Python and numpy only, it is probably
+we've seen in the boids case. If we target Python and NumPy only, it is probably
 better to choose the Eulerian method since vectorization will be almost trivial
 compared to the Lagrangian method.
 
 
-Numpy implementation
+NumPy implementation
 ++++++++++++++++++++
 
 I won't explain all the theory behind computational fluid dynamics because
@@ -518,7 +518,7 @@ wrote a very nice article for SIGGRAPH 1999 describing a technique to have
 stable fluids over time (i.e. whose solution in the long term does not
 diverge). `Alberto Santini <https://github.com/albertosantini/python-fluid>`_
 wrote a Python replication a long time ago (using numarray!) such that I only
-had to adapt it to modern numpy and accelerate it a bit using modern numpy
+had to adapt it to modern NumPy and accelerate it a bit using modern NumPy
 tricks.
 
 I won't comment the code since it would be too long, but you can read the
