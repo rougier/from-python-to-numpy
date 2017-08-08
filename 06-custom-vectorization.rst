@@ -10,7 +10,7 @@ Custom vectorization
 Introduction
 ------------
 
-One of the strengths of numpy is that it can be used to build new objects or to
+One of the strengths of NumPy is that it can be used to build new objects or to
 `subclass the ndarray
 <https://docs.scipy.org/doc/numpy/user/basics.subclassing.html>`_ object. This
 later process is a bit tedious but it is worth the effort because it allows you
@@ -25,10 +25,10 @@ Typed list
 ----------
 
 Typed list (also known as ragged array) is a list of items that all have the
-same data type (in the sense of numpy). They offer both the list and the
+same data type (in the sense of NumPy). They offer both the list and the
 ndarray API (with some restriction of course) but because their respective APIs may not be
 compatible in some cases, we have to make choices. For example, concerning
-the `+` operator, we'll choose to use the numpy API where the value is added to
+the `+` operator, we'll choose to use the NumPy API where the value is added to
 each individual item instead of expanding the list by appending a new item
 (`1`).
 
@@ -74,7 +74,7 @@ others) for the creation of a `TypedList` object.
            an error is raised.
 
        dtype: np.dtype
-           Any object that can be interpreted as a numpy data type.
+           Any object that can be interpreted as a NumPy data type.
        """
 
 This API allows creating an empty list or creating a list from some external
@@ -288,8 +288,8 @@ scalable, beautiful, interactive and dynamic visualizations.
    :width: 100%
    :class: bordered
 
-Glumpy is based on a tight and seamless integration with numpy arrays. This
-means you can manipulate GPU data as you would with regular numpy arrays and
+Glumpy is based on a tight and seamless integration with NumPy arrays. This
+means you can manipulate GPU data as you would with regular NumPy arrays and
 glumpy will take care of the rest. But an example is worth a thousand words:
 
 .. code::
@@ -303,7 +303,7 @@ glumpy will take care of the rest. But an example is worth a thousand words:
    V["position"][1,1] = 0.0, 0.0
 
 
-`V` is a `VertexBuffer` which is both a `GPUData` and a numpy array. When `V` is
+`V` is a `VertexBuffer` which is both a `GPUData` and a NumPy array. When `V` is
 modified, glumpy takes care of computing the smallest contiguous block of dirty
 memory since it was last uploaded to GPU memory. When this buffer is to be used
 on the GPU, glumpy takes care of uploading the "dirty" area at the very last
@@ -326,7 +326,7 @@ the GL side and each call has a fixed cost.
 
 
 
-.. In the glumpy package, GPU data is the base class for any data that needs to co-exist on both CPU and GPU memory. It keeps track of the smallest contiguous area that needs to be uploaded to GPU to keep the CPU and GPU data synced. This allows to update the data in one operation. Even though this might be sub-optimal in a few cases, it provides a greater usage flexibility and most of the time, it will be faster. This is done transparently and user can use a GPU buffer as a regular numpy array. The `pending_data` property indicates the region (offset/nbytes) of the base array that needs to be uploaded.
+.. In the glumpy package, GPU data is the base class for any data that needs to co-exist on both CPU and GPU memory. It keeps track of the smallest contiguous area that needs to be uploaded to GPU to keep the CPU and GPU data synced. This allows to update the data in one operation. Even though this might be sub-optimal in a few cases, it provides a greater usage flexibility and most of the time, it will be faster. This is done transparently and user can use a GPU buffer as a regular NumPy array. The `pending_data` property indicates the region (offset/nbytes) of the base array that needs to be uploaded.
 
 Array subclass
 ++++++++++++++
@@ -461,10 +461,10 @@ Sources
 Conclusion
 ----------
 
-As explained on the numpy website, numpy is the fundamental package for
+As explained on the NumPy website, NumPy is the fundamental package for
 scientific computing with Python. However, as illustrated in this chapter, the
-usage of numpy strengths goes far beyond a mere *multi-dimensional container of
+usage of NumPy strengths goes far beyond a mere *multi-dimensional container of
 generic data*. Using `ndarray` as a private property in one case (`TypedList`) or
 directly subclassing the `ndarray` class (`GPUData`) to keep track of memory in
-another case, we've seen how it is possible to extend numpy's capabilities to
+another case, we've seen how it is possible to extend NumPy's capabilities to
 suit very specific needs. The limit is only your imagination and your experience.

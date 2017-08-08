@@ -10,7 +10,7 @@ Introduction
 ------------
 
 Code vectorization means that the problem you're trying to solve is inherently
-vectorizable and only requires a few numpy tricks to make it faster. Of course
+vectorizable and only requires a few NumPy tricks to make it faster. Of course
 it does not mean it is easy or straightforward, but at least it does not
 necessitate totally rethinking your problem (as it will be the case in the
 `Problem vectorization`_ chapter). Still, it may require some experience to see
@@ -23,7 +23,7 @@ is:
    def add_python(Z1,Z2):
        return [z1+z2 for (z1,z2) in zip(Z1,Z2)]
 
-This first naive solution can be vectorized very easily using numpy:
+This first naive solution can be vectorized very easily using NumPy:
 
 .. code-block:: python
 
@@ -195,7 +195,7 @@ discovered by Richard K. Guy in 1970.
    :width: 100%
 
 
-Numpy implementation
+NumPy implementation
 ++++++++++++++++++++
 
 Starting from the Python version, the vectorization of the Game of Life
@@ -230,7 +230,7 @@ sure to consider all the eight neighbours.
                     Z[1:-1, :-2]                + Z[1:-1,2:] +
                     Z[2:  , :-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
 
-For the rule enforcement, we can write a first version using numpy's
+For the rule enforcement, we can write a first version using NumPy's
 `argwhere
 <http://docs.scipy.org/doc/numpy/reference/generated/numpy.argwhere.html>`_
 method that will give us the indices where a given condition is True.
@@ -259,7 +259,7 @@ method that will give us the indices where a given condition is True.
 Even if this first version does not use nested loops, it is far from optimal
 because of the use of the four `argwhere` calls that may be quite slow. We can
 instead factorize the rules into cells that will survive (stay at 1) and cells
-that will give birth. For doing this, we can take advantage of Numpy boolean
+that will give birth. For doing this, we can take advantage of NumPy boolean
 capability and write quite naturally:
 
 .. note::
@@ -442,9 +442,9 @@ actually computes the sequence :math:`f_c(f_c(f_c ...)))`. The vectorization of
 such code is not totally straightforward because the internal `return` implies a
 differential processing of the element. Once it has diverged, we don't need to
 iterate any more and we can safely return the iteration count at
-divergence. The problem is to then do the same in numpy. But how?
+divergence. The problem is to then do the same in NumPy. But how?
 
-Numpy implementation
+NumPy implementation
 ++++++++++++++++++++
 
 The trick is to search at each iteration values that have not yet
@@ -452,7 +452,7 @@ diverged and update relevant information for these values and only
 these values. Because we start from :math:`Z = 0`, we know that each
 value will be updated at least once (when they're equal to :math:`0`,
 they have not yet diverged) and will stop being updated as soon as
-they've diverged. To do that, we'll use numpy fancy indexing with the
+they've diverged. To do that, we'll use NumPy fancy indexing with the
 `less(x1,x2)` function that return the truth value of `(x1 < x2)`
 element-wise.
 
@@ -484,14 +484,14 @@ Here is the benchmark:
    1 loops, best of 3: 1.15 sec per loop
 
 
-Faster numpy implementation
+Faster NumPy implementation
 +++++++++++++++++++++++++++
 
 The gain is roughly a 5x factor, not as much as we could have
 expected. Part of the problem is that the `np.less` function implies
 :math:`xn \times yn` tests at every iteration while we know that some
 values have already diverged. Even if these tests are performed at the
-C level (through numpy), the cost is nonetheless
+C level (through NumPy), the cost is nonetheless
 significant. Another approach proposed by `Dan Goodman
 <https://thesamovar.wordpress.com/>`_ is to work on a dynamic array at
 each iteration that stores only the points which have not yet
@@ -574,7 +574,7 @@ We now want to measure the fractal dimension of the Mandelbrot set using the
 <https://en.wikipedia.org/wiki/Minkowski–Bouligand_dimension>`_. To do that, we
 need to do box-counting with a decreasing box size (see figure below). As you
 can imagine, we cannot use pure Python because it would be way too slow. The goal of
-the exercise is to write a function using numpy that takes a two-dimensional
+the exercise is to write a function using NumPy that takes a two-dimensional
 float array and returns the dimension. We'll consider values in the array to be
 normalized (i.e. all values are between 0 and 1).
 
@@ -602,7 +602,7 @@ References
 
 * `How To Quickly Compute the Mandelbrot Set in Python <https://www.ibm.com/developerworks/community/blogs/jfp/entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en>`_, Jean Francois Puget, 2015.
 * `My Christmas Gift: Mandelbrot Set Computation In Python <https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en>`_, Jean Francois Puget, 2015.
-* `Fast fractals with Python and Numpy <https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/>`_, Dan Goodman, 2009.
+* `Fast fractals with Python and NumPy <https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/>`_, Dan Goodman, 2009.
 * `Renormalizing the Mandelbrot Escape <http://linas.org/art-gallery/escape/escape.html>`_, Linas Vepstas, 1997.
 
 
@@ -724,7 +724,7 @@ To complete the picture, we can also create a `Flock` object:
 
 Using this approach, we can have up to 50 boids until the computation
 time becomes too slow for a smooth animation. As you may have guessed,
-we can do much better using numpy, but let me first point out the main
+we can do much better using NumPy, but let me first point out the main
 problem with this Python implementation. If you look at the code, you
 will certainly notice there is a lot of redundancy. More precisely, we
 do not exploit the fact that the Euclidean distance is reflexive, that
@@ -736,10 +736,10 @@ caching the result for the other functions. In the end, we are
 computing :math:`3n^2` distances instead of :math:`\frac{n^2}{2}`.
 
 
-Numpy implementation
+NumPy implementation
 ++++++++++++++++++++
 
-As you might expect, the numpy implementation takes a different approach and
+As you might expect, the NumPy implementation takes a different approach and
 we'll gather all our boids into a `position` array and a `velocity` array:
 
 .. code:: python
