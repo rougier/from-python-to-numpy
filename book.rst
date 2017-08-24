@@ -68,7 +68,19 @@ process.
 are missing credits, please tell me, I will correct it. Similarly, all excerpts
 should be sourced (wikipedia mostly). If not, this is an error and I will
 correct it as soon as you tell me.
-           
+
+
+The book is open-access (you're reading it) but **if you insist on buying it**,
+my advice would be to read it first and then decide if you still want to buy it
+(!?). If this is the case, you can do it via `Paypal
+<https://www.paypal.me/NicolasPRougier/>`_, price is free (`5 euros
+<https://www.paypal.me/NicolasPRougier/5>`_, `10 euros
+<https://www.paypal.me/NicolasPRougier/10>`_, `25 euros
+<https://www.paypal.me/NicolasPRougier/25>`_). You won't get anything extra but
+it might help me with the writing of the upcoming **Python and OpenGL for
+Scientific Visualization** (May 2018).
+
+
 .. ----------------------------------------------------------------------------
 .. |WIP| image:: https://img.shields.io/badge/status-WIP-orange.svg?style=flat-square
 

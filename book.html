@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.13.1: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
 <title>From Python to Numpy</title>
 <meta content="An open-source book about numpy vectorization techniques, based on experience, practice and descriptive examples" name="description" />
 <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" />
@@ -28,7 +28,7 @@
 <img alt="data/nc.large.png" src="data/nc.large.png" style="width: 40px;" />
 <div class="line-block">
 <div class="line"><br /></div>
-<div class="line">Latest version - May 2017</div>
+<div class="line">Latest version - August 2017</div>
 <div class="line">DOI: <a class="reference external" href="http://doi.org/10.5281/zenodo.225783">10.5281/zenodo.225783</a></div>
 </div>
 </div>
@@ -51,67 +51,67 @@ process.</p>
 <div class="contents main-content topic" id="table-of-contents">
 <p class="topic-title first"><strong>Table of Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#preface" id="id60">Preface</a><ul>
-<li><a class="reference internal" href="#about-the-author" id="id61">About the author</a></li>
-<li><a class="reference internal" href="#about-this-book" id="id62">About this book</a></li>
-<li><a class="reference internal" href="#license" id="id63">License</a></li>
+<li><a class="reference internal" href="#preface" id="id62">Preface</a><ul>
+<li><a class="reference internal" href="#about-the-author" id="id63">About the author</a></li>
+<li><a class="reference internal" href="#about-this-book" id="id64">About this book</a></li>
+<li><a class="reference internal" href="#license" id="id65">License</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#introduction" id="id64">Introduction</a><ul>
-<li><a class="reference internal" href="#simple-example" id="id65">Simple example</a></li>
-<li><a class="reference internal" href="#readability-vs-speed" id="id66">Readability vs speed</a></li>
+<li><a class="reference internal" href="#introduction" id="id66">Introduction</a><ul>
+<li><a class="reference internal" href="#simple-example" id="id67">Simple example</a></li>
+<li><a class="reference internal" href="#readability-vs-speed" id="id68">Readability vs speed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#anatomy-of-an-array" id="id67">Anatomy of an array</a><ul>
-<li><a class="reference internal" href="#id3" id="id68">Introduction</a></li>
-<li><a class="reference internal" href="#memory-layout" id="id69">Memory layout</a></li>
-<li><a class="reference internal" href="#views-and-copies" id="id70">Views and copies</a></li>
-<li><a class="reference internal" href="#conclusion" id="id71">Conclusion</a></li>
+<li><a class="reference internal" href="#anatomy-of-an-array" id="id69">Anatomy of an array</a><ul>
+<li><a class="reference internal" href="#id5" id="id70">Introduction</a></li>
+<li><a class="reference internal" href="#memory-layout" id="id71">Memory layout</a></li>
+<li><a class="reference internal" href="#views-and-copies" id="id72">Views and copies</a></li>
+<li><a class="reference internal" href="#conclusion" id="id73">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#code-vectorization" id="id72">Code vectorization</a><ul>
-<li><a class="reference internal" href="#id5" id="id73">Introduction</a></li>
-<li><a class="reference internal" href="#uniform-vectorization" id="id74">Uniform vectorization</a></li>
-<li><a class="reference internal" href="#temporal-vectorization" id="id75">Temporal vectorization</a></li>
-<li><a class="reference internal" href="#spatial-vectorization" id="id76">Spatial vectorization</a></li>
-<li><a class="reference internal" href="#id17" id="id77">Conclusion</a></li>
+<li><a class="reference internal" href="#code-vectorization" id="id74">Code vectorization</a><ul>
+<li><a class="reference internal" href="#id7" id="id75">Introduction</a></li>
+<li><a class="reference internal" href="#uniform-vectorization" id="id76">Uniform vectorization</a></li>
+<li><a class="reference internal" href="#temporal-vectorization" id="id77">Temporal vectorization</a></li>
+<li><a class="reference internal" href="#spatial-vectorization" id="id78">Spatial vectorization</a></li>
+<li><a class="reference internal" href="#id19" id="id79">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#problem-vectorization" id="id78">Problem vectorization</a><ul>
-<li><a class="reference internal" href="#id19" id="id79">Introduction</a></li>
-<li><a class="reference internal" href="#path-finding" id="id80">Path finding</a></li>
-<li><a class="reference internal" href="#fluid-dynamics" id="id81">Fluid Dynamics</a></li>
-<li><a class="reference internal" href="#blue-noise-sampling" id="id82">Blue noise sampling</a></li>
-<li><a class="reference internal" href="#id27" id="id83">Conclusion</a></li>
+<li><a class="reference internal" href="#problem-vectorization" id="id80">Problem vectorization</a><ul>
+<li><a class="reference internal" href="#id21" id="id81">Introduction</a></li>
+<li><a class="reference internal" href="#path-finding" id="id82">Path finding</a></li>
+<li><a class="reference internal" href="#fluid-dynamics" id="id83">Fluid Dynamics</a></li>
+<li><a class="reference internal" href="#blue-noise-sampling" id="id84">Blue noise sampling</a></li>
+<li><a class="reference internal" href="#id29" id="id85">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#custom-vectorization" id="id84">Custom vectorization</a><ul>
-<li><a class="reference internal" href="#id29" id="id85">Introduction</a></li>
-<li><a class="reference internal" href="#typed-list" id="id86">Typed list</a></li>
-<li><a class="reference internal" href="#memory-aware-array" id="id87">Memory aware array</a></li>
-<li><a class="reference internal" href="#id36" id="id88">Conclusion</a></li>
+<li><a class="reference internal" href="#custom-vectorization" id="id86">Custom vectorization</a><ul>
+<li><a class="reference internal" href="#id31" id="id87">Introduction</a></li>
+<li><a class="reference internal" href="#typed-list" id="id88">Typed list</a></li>
+<li><a class="reference internal" href="#memory-aware-array" id="id89">Memory aware array</a></li>
+<li><a class="reference internal" href="#id38" id="id90">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#beyond-numpy" id="id89">Beyond Numpy</a><ul>
-<li><a class="reference internal" href="#back-to-python" id="id90">Back to Python</a></li>
-<li><a class="reference internal" href="#numpy-co" id="id91">Numpy &amp; co</a></li>
-<li><a class="reference internal" href="#scipy-co" id="id92">Scipy &amp; co</a></li>
-<li><a class="reference internal" href="#id52" id="id93">Conclusion</a></li>
+<li><a class="reference internal" href="#beyond-numpy" id="id91">Beyond NumPy</a><ul>
+<li><a class="reference internal" href="#back-to-python" id="id92">Back to Python</a></li>
+<li><a class="reference internal" href="#numpy-co" id="id93">NumPy &amp; co</a></li>
+<li><a class="reference internal" href="#scipy-co" id="id94">Scipy &amp; co</a></li>
+<li><a class="reference internal" href="#id54" id="id95">Conclusion</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id53" id="id94">Conclusion</a></li>
-<li><a class="reference internal" href="#quick-references" id="id95">Quick References</a><ul>
-<li><a class="reference internal" href="#id56" id="id96">Data type</a></li>
-<li><a class="reference internal" href="#id57" id="id97">Creation</a></li>
-<li><a class="reference internal" href="#id58" id="id98">Indexing</a></li>
-<li><a class="reference internal" href="#reshaping" id="id99">Reshaping</a></li>
-<li><a class="reference internal" href="#broadcasting" id="id100">Broadcasting</a></li>
+<li><a class="reference internal" href="#id55" id="id96">Conclusion</a></li>
+<li><a class="reference internal" href="#quick-references" id="id97">Quick References</a><ul>
+<li><a class="reference internal" href="#id58" id="id98">Data type</a></li>
+<li><a class="reference internal" href="#id59" id="id99">Creation</a></li>
+<li><a class="reference internal" href="#id60" id="id100">Indexing</a></li>
+<li><a class="reference internal" href="#reshaping" id="id101">Reshaping</a></li>
+<li><a class="reference internal" href="#broadcasting" id="id102">Broadcasting</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bibliography" id="id101">Bibliography</a><ul>
-<li><a class="reference internal" href="#tutorials" id="id102">Tutorials</a></li>
-<li><a class="reference internal" href="#articles" id="id103">Articles</a></li>
-<li><a class="reference internal" href="#books" id="id104">Books</a></li>
+<li><a class="reference internal" href="#bibliography" id="id103">Bibliography</a><ul>
+<li><a class="reference internal" href="#tutorials" id="id104">Tutorials</a></li>
+<li><a class="reference internal" href="#articles" id="id105">Articles</a></li>
+<li><a class="reference internal" href="#books" id="id106">Books</a></li>
 </ul>
 </li>
 </ul>
@@ -124,6 +124,11 @@ process.</p>
 are missing credits, please tell me, I will correct it. Similarly, all excerpts
 should be sourced (wikipedia mostly). If not, this is an error and I will
 correct it as soon as you tell me.</p>
+<p>The book is open-access (you're reading it) but <strong>if you insist on buying it</strong>,
+my advice would be to read it first and then decide if you still want to buy it
+(!?). If this is the case, you can do it via <a class="reference external" href="https://www.paypal.me/NicolasPRougier/">Paypal</a>, price is free (<a class="reference external" href="https://www.paypal.me/NicolasPRougier/5">5 euros</a>, <a class="reference external" href="https://www.paypal.me/NicolasPRougier/10">10 euros</a>, <a class="reference external" href="https://www.paypal.me/NicolasPRougier/25">25 euros</a>). You won't get anything extra but
+it might help me with the writing of the upcoming <strong>Python and OpenGL for
+Scientific Visualization</strong> (May 2018).</p>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <div class="section" id="preface">
@@ -131,15 +136,15 @@ correct it as soon as you tell me.</p>
 <div class="contents local topic" id="contents">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#about-the-author" id="id105">About the author</a></li>
-<li><a class="reference internal" href="#about-this-book" id="id106">About this book</a><ul>
-<li><a class="reference internal" href="#prerequisites" id="id107">Prerequisites</a></li>
-<li><a class="reference internal" href="#conventions" id="id108">Conventions</a></li>
-<li><a class="reference internal" href="#how-to-contribute" id="id109">How to contribute</a></li>
-<li><a class="reference internal" href="#publishing" id="id110">Publishing</a></li>
+<li><a class="reference internal" href="#about-the-author" id="id107">About the author</a></li>
+<li><a class="reference internal" href="#about-this-book" id="id108">About this book</a><ul>
+<li><a class="reference internal" href="#prerequisites" id="id109">Prerequisites</a></li>
+<li><a class="reference internal" href="#conventions" id="id110">Conventions</a></li>
+<li><a class="reference internal" href="#how-to-contribute" id="id111">How to contribute</a></li>
+<li><a class="reference internal" href="#publishing" id="id112">Publishing</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#license" id="id111">License</a></li>
+<li><a class="reference internal" href="#license" id="id113">License</a></li>
 </ul>
 </div>
 <div class="section" id="about-the-author">
@@ -154,11 +159,11 @@ neuroscience in association with the <a class="reference external" href="http://
 Diseases</a>, the Bordeaux laboratory for research in computer science
 (<a class="reference external" href="https://www.labri.fr/">LaBRI</a>), the <a class="reference external" href="http://www.u-bordeaux.com/">University of Bordeaux</a> and the national center for scientific
 research (<a class="reference external" href="http://www.cnrs.fr/index.php">CNRS</a>).</p>
-<p>He has been using Python for more than 15 years and numpy for more than 10
+<p>He has been using Python for more than 15 years and NumPy for more than 10
 years for modeling in neuroscience, machine learning and for advanced
 visualization (OpenGL). Nicolas P. Rougier is the author of several online
-resources and tutorials (Matplotlib, numpy, OpenGL) and he's teaching Python,
-numpy and scientific visualization at the University of Bordeaux and in various
+resources and tutorials (Matplotlib, NumPy, OpenGL) and he's teaching Python,
+NumPy and scientific visualization at the University of Bordeaux and in various
 conferences and schools worldwide (SciPy, EuroScipy, etc). He's also the author
 of the popular article <a class="reference external" href="http://dx.doi.org/10.1371/journal.pcbi.1003833">Ten Simple Rules for Better Figures</a> and a popular
 <a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/matplotlib/matplotlib.html">matplotlib tutorial</a>.</p>
@@ -177,13 +182,13 @@ $ rst2html.py --link-stylesheet --cloak-email-addresses \
 <div class="section" id="prerequisites">
 <h3><a class="toc-backref" href="#contents">Prerequisites</a></h3>
 <p>This is not a Python beginner guide and you should have an intermediate level in
-Python and ideally a beginner level in numpy. If this is not the case, have
+Python and ideally a beginner level in NumPy. If this is not the case, have
 a look at the <a class="reference internal" href="#bibliography">bibliography</a> for a curated list of resources.</p>
 </div>
 <div class="section" id="conventions">
 <h3><a class="toc-backref" href="#contents">Conventions</a></h3>
 <p>We will use usual naming conventions. If not stated explicitly, each script
-should import numpy, scipy and matplotlib as:</p>
+should import NumPy, scipy and matplotlib as:</p>
 <pre class="code python literal-block">
 <span class="keyword namespace">import</span> <span class="name namespace">numpy</span> <span class="keyword namespace">as</span> <span class="name namespace">np</span>
 <span class="keyword namespace">import</span> <span class="name namespace">scipy</span> <span class="keyword namespace">as</span> <span class="name namespace">sp</span>
@@ -205,7 +210,7 @@ different packages:</p>
 <tr><td>Python</td>
 <td>3.6.0</td>
 </tr>
-<tr><td>Numpy</td>
+<tr><td>NumPy</td>
 <td>1.12.0</td>
 </tr>
 <tr><td>Scipy</td>
@@ -257,15 +262,15 @@ Alike 4.0 International License</a>. You are free to:</p>
 </div>
 <div class="section" id="introduction">
 <h1><a class="toc-backref" href="#table-of-contents">Introduction</a></h1>
-<div class="contents local topic" id="id1">
+<div class="contents local topic" id="id3">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#simple-example" id="id112">Simple example</a></li>
-<li><a class="reference internal" href="#readability-vs-speed" id="id113">Readability vs speed</a></li>
+<li><a class="reference internal" href="#simple-example" id="id114">Simple example</a></li>
+<li><a class="reference internal" href="#readability-vs-speed" id="id115">Readability vs speed</a></li>
 </ul>
 </div>
 <div class="section" id="simple-example">
-<h2><a class="toc-backref" href="#id1">Simple example</a></h2>
+<h2><a class="toc-backref" href="#id3">Simple example</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You can execute any code below from the <a class="reference external" href="code">code</a> folder using the
@@ -273,7 +278,7 @@ regular python shell or from inside an IPython session or Jupyter notebook. In
 such a case, you might want to use the magic command <code>%timeit</code> instead of the
 <a class="reference external" href="code/tools.py">custom one</a> I wrote.</p>
 </div>
-<p>Numpy is all about vectorization. If you are familiar with Python, this is the
+<p>NumPy is all about vectorization. If you are familiar with Python, this is the
 main difficulty you'll face because you'll need to change your way of thinking
 and your new friends (among others) are named &quot;vectors&quot;, &quot;arrays&quot;, &quot;views&quot; or
 &quot;ufuncs&quot;.</p>
@@ -352,17 +357,17 @@ things faster:</p>
 <span class="generic output">10 loops, best of 3: 2.21 msec per loop</span>
 </pre>
 <p>We gained 85% of computation-time compared to the previous version, not so
-bad. But the advantage of this new version is that it makes numpy vectorization
-super simple. We just have to translate itertools call into numpy ones.</p>
+bad. But the advantage of this new version is that it makes NumPy vectorization
+super simple. We just have to translate itertools call into NumPy ones.</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">random_walk_fastest</span><span class="punctuation">(</span><span class="name">n</span><span class="operator">=</span><span class="literal number integer">1000</span><span class="punctuation">):</span>
-    <span class="comment single"># No 's' in numpy choice (Python offers choice &amp; choices)</span>
+    <span class="comment single"># No 's' in NumPy choice (Python offers choice &amp; choices)</span>
     <span class="name">steps</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">random</span><span class="operator">.</span><span class="name">choice</span><span class="punctuation">([</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="operator">+</span><span class="literal number integer">1</span><span class="punctuation">],</span> <span class="name">n</span><span class="punctuation">)</span>
     <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">cumsum</span><span class="punctuation">(</span><span class="name">steps</span><span class="punctuation">)</span>
 
 <span class="name">walk</span> <span class="operator">=</span> <span class="name">random_walk_fastest</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
 </pre>
-<p>Not too difficult, but we gained a factor 500x using numpy:</p>
+<p>Not too difficult, but we gained a factor 500x using NumPy:</p>
 <pre class="code pycon literal-block">
 <span class="keyword namespace"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword namespace">from</span> <span class="name namespace">tools</span> <span class="keyword namespace">import</span> <span class="name">timeit</span>
 <span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;random_walk_fastest(n=10000)&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
@@ -372,9 +377,9 @@ super simple. We just have to translate itertools call into numpy ones.</p>
 see this difference is important before looking at custom vectorization.</p>
 </div>
 <div class="section" id="readability-vs-speed">
-<h2><a class="toc-backref" href="#id1">Readability vs speed</a></h2>
+<h2><a class="toc-backref" href="#id3">Readability vs speed</a></h2>
 <p>Before heading to the next chapter, I would like to warn you about a potential
-problem you may encounter once you'll have become familiar with numpy. It is a
+problem you may encounter once you'll have become familiar with NumPy. It is a
 very powerful library and you can make wonders with it but, most of the time,
 this comes at the price of readability. If you don't comment your code at the
 time of writing, you won't be able to tell what a function is doing after a few
@@ -394,36 +399,36 @@ and you don't need to read this book).</p>
     <span class="keyword">return</span> <span class="name">candidates</span><span class="punctuation">[</span><span class="name">mask</span><span class="punctuation">]</span>
 </pre>
 <p>As you may have guessed, the second function is the
-vectorized-optimized-faster-numpy version of the first function. It is 10 times
+vectorized-optimized-faster-NumPy version of the first function. It is 10 times
 faster than the pure Python version, but it is hardly readable.</p>
 </div>
 </div>
 <div class="section" id="anatomy-of-an-array">
 <h1><a class="toc-backref" href="#table-of-contents">Anatomy of an array</a></h1>
-<div class="contents local topic" id="id2">
+<div class="contents local topic" id="id4">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id3" id="id114">Introduction</a></li>
-<li><a class="reference internal" href="#memory-layout" id="id115">Memory layout</a></li>
-<li><a class="reference internal" href="#views-and-copies" id="id116">Views and copies</a><ul>
-<li><a class="reference internal" href="#direct-and-indirect-access" id="id117">Direct and indirect access</a></li>
-<li><a class="reference internal" href="#temporary-copy" id="id118">Temporary copy</a></li>
+<li><a class="reference internal" href="#id5" id="id116">Introduction</a></li>
+<li><a class="reference internal" href="#memory-layout" id="id117">Memory layout</a></li>
+<li><a class="reference internal" href="#views-and-copies" id="id118">Views and copies</a><ul>
+<li><a class="reference internal" href="#direct-and-indirect-access" id="id119">Direct and indirect access</a></li>
+<li><a class="reference internal" href="#temporary-copy" id="id120">Temporary copy</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#conclusion" id="id119">Conclusion</a></li>
+<li><a class="reference internal" href="#conclusion" id="id121">Conclusion</a></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id2">Introduction</a></h2>
-<p>As explained in the <a class="reference internal" href="#preface">Preface</a>, you should have a basic experience with numpy to
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id4">Introduction</a></h2>
+<p>As explained in the <a class="reference internal" href="#preface">Preface</a>, you should have a basic experience with NumPy to
 read this book. If this is not the case, you'd better start with a beginner
 tutorial before coming back here. Consequently I'll only give here a quick
-reminder on the basic anatomy of numpy arrays, especially regarding the memory
+reminder on the basic anatomy of NumPy arrays, especially regarding the memory
 layout, view, copy and the data type. They are critical notions to
-understand if you want your computation to benefit from numpy philosophy.</p>
+understand if you want your computation to benefit from NumPy philosophy.</p>
 <p>Let's consider a simple example where we want to clear all the values from an
 array which has the dtype <code>np.float32</code>. How does one write it to maximize speed? The
-below syntax is rather obvious (at least for those familiar with numpy) but the
+below syntax is rather obvious (at least for those familiar with NumPy) but the
 above question asks to find the fastest operation.</p>
 <pre class="code python literal-block">
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">ones</span><span class="punctuation">(</span><span class="literal number integer">4</span><span class="operator">*</span><span class="literal number integer">1000000</span><span class="punctuation">,</span> <span class="name">np</span><span class="operator">.</span><span class="name">float32</span><span class="punctuation">)</span>
@@ -455,13 +460,13 @@ be divided by the new dtype itemsize.</p>
 fastest. By casting the array into a larger data type such as <code>np.float64</code>, we
 gained a 25% speed factor. But, by viewing the array as a byte array
 (<code>np.int8</code>), we gained a 50% factor. The reason for such speedup are to be
-found in the internal numpy machinery and the compiler optimization. This
-simple example illustrates the philosophy of numpy as we'll see in the next
+found in the internal NumPy machinery and the compiler optimization. This
+simple example illustrates the philosophy of NumPy as we'll see in the next
 section below.</p>
 </div>
 <div class="section" id="memory-layout">
-<h2><a class="toc-backref" href="#id2">Memory layout</a></h2>
-<p>The <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html">numpy documentation</a> defines the
+<h2><a class="toc-backref" href="#id4">Memory layout</a></h2>
+<p>The <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html">NumPy documentation</a> defines the
 ndarray class very clearly:</p>
 <blockquote>
 <em>An instance of class ndarray consists of a contiguous one-dimensional segment
@@ -632,12 +637,12 @@ Z.nbytes ─┤      p+08: │          │          │               │
 </pre>
 </div>
 <div class="section" id="views-and-copies">
-<h2><a class="toc-backref" href="#id2">Views and copies</a></h2>
+<h2><a class="toc-backref" href="#id4">Views and copies</a></h2>
 <p>Views and copies are important concepts for the optimization of your numerical
 computations. Even if we've already manipulated them in the previous section,
 the whole story is a bit more complex.</p>
 <div class="section" id="direct-and-indirect-access">
-<h3><a class="toc-backref" href="#id2">Direct and indirect access</a></h3>
+<h3><a class="toc-backref" href="#id4">Direct and indirect access</a></h3>
 <p>First, we have to distinguish between <a class="reference external" href="https://docs.scipy.org/doc/numpy/user/basics.indexing.html#">indexing</a> and <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html#advanced-indexing">fancy
 indexing</a>. The first will always return a view while the second will return a
 copy. This difference is important because in the first case, modifying the view
@@ -679,7 +684,7 @@ copy:</p>
 </span><span class="keyword"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="keyword">print</span><span class="punctuation">(</span><span class="name">Z2</span><span class="operator">.</span><span class="name">base</span> <span class="operator word">is</span> <span class="name builtin pseudo">None</span><span class="punctuation">)</span>
 <span class="generic output">True</span>
 </pre>
-<p>Note that some numpy functions return a view when possible (e.g. <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ravel.html">ravel</a>)
+<p>Note that some NumPy functions return a view when possible (e.g. <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ravel.html">ravel</a>)
 while some others always return a copy (e.g. <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten">flatten</a>):</p>
 <pre class="code pycon literal-block">
 <span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">zeros</span><span class="punctuation">((</span><span class="literal number integer">5</span><span class="punctuation">,</span><span class="literal number integer">5</span><span class="punctuation">))</span>
@@ -692,7 +697,7 @@ while some others always return a copy (e.g. <a class="reference external" href=
 </pre>
 </div>
 <div class="section" id="temporary-copy">
-<h3><a class="toc-backref" href="#id2">Temporary copy</a></h3>
+<h3><a class="toc-backref" href="#id4">Temporary copy</a></h3>
 <p>Copies can be made explicitly like in the previous section, but the most
 general case is the implicit creation of intermediate copies. This is the case
 when you are doing some arithmetic with arrays:</p>
@@ -733,7 +738,7 @@ impact the performance like demonstrated on the example below:</p>
 </div>
 </div>
 <div class="section" id="conclusion">
-<h2><a class="toc-backref" href="#id2">Conclusion</a></h2>
+<h2><a class="toc-backref" href="#id4">Conclusion</a></h2>
 <p>As a conclusion, we'll make an exercise. Given two vectors <code>Z1</code> and <code>Z2</code>. We
 would like to know if <code>Z2</code> is a view of <code>Z1</code> and if yes, what is this view ?</p>
 <pre class="code literal-block">
@@ -815,45 +820,45 @@ taking into account:</p>
 </div>
 <div class="section" id="code-vectorization">
 <h1><a class="toc-backref" href="#table-of-contents">Code vectorization</a></h1>
-<div class="contents local topic" id="id4">
+<div class="contents local topic" id="id6">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id5" id="id120">Introduction</a></li>
-<li><a class="reference internal" href="#uniform-vectorization" id="id121">Uniform vectorization</a><ul>
-<li><a class="reference internal" href="#the-game-of-life" id="id122">The Game of Life</a></li>
-<li><a class="reference internal" href="#python-implementation" id="id123">Python implementation</a></li>
-<li><a class="reference internal" href="#numpy-implementation" id="id124">Numpy implementation</a></li>
-<li><a class="reference internal" href="#exercise" id="id125">Exercise</a></li>
-<li><a class="reference internal" href="#sources" id="id126">Sources</a></li>
-<li><a class="reference internal" href="#references" id="id127">References</a></li>
+<li><a class="reference internal" href="#id7" id="id122">Introduction</a></li>
+<li><a class="reference internal" href="#uniform-vectorization" id="id123">Uniform vectorization</a><ul>
+<li><a class="reference internal" href="#the-game-of-life" id="id124">The Game of Life</a></li>
+<li><a class="reference internal" href="#python-implementation" id="id125">Python implementation</a></li>
+<li><a class="reference internal" href="#numpy-implementation" id="id126">NumPy implementation</a></li>
+<li><a class="reference internal" href="#exercise" id="id127">Exercise</a></li>
+<li><a class="reference internal" href="#sources" id="id128">Sources</a></li>
+<li><a class="reference internal" href="#references" id="id129">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#temporal-vectorization" id="id128">Temporal vectorization</a><ul>
-<li><a class="reference internal" href="#id6" id="id129">Python implementation</a></li>
-<li><a class="reference internal" href="#id7" id="id130">Numpy implementation</a></li>
-<li><a class="reference internal" href="#faster-numpy-implementation" id="id131">Faster numpy implementation</a></li>
-<li><a class="reference internal" href="#visualization" id="id132">Visualization</a></li>
-<li><a class="reference internal" href="#id8" id="id133">Exercise</a></li>
-<li><a class="reference internal" href="#id9" id="id134">Sources</a></li>
-<li><a class="reference internal" href="#id10" id="id135">References</a></li>
+<li><a class="reference internal" href="#temporal-vectorization" id="id130">Temporal vectorization</a><ul>
+<li><a class="reference internal" href="#id8" id="id131">Python implementation</a></li>
+<li><a class="reference internal" href="#id9" id="id132">NumPy implementation</a></li>
+<li><a class="reference internal" href="#faster-numpy-implementation" id="id133">Faster NumPy implementation</a></li>
+<li><a class="reference internal" href="#visualization" id="id134">Visualization</a></li>
+<li><a class="reference internal" href="#id10" id="id135">Exercise</a></li>
+<li><a class="reference internal" href="#id11" id="id136">Sources</a></li>
+<li><a class="reference internal" href="#id12" id="id137">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spatial-vectorization" id="id136">Spatial vectorization</a><ul>
-<li><a class="reference internal" href="#boids" id="id137">Boids</a></li>
-<li><a class="reference internal" href="#id12" id="id138">Python implementation</a></li>
-<li><a class="reference internal" href="#id13" id="id139">Numpy implementation</a></li>
-<li><a class="reference internal" href="#id14" id="id140">Exercise</a></li>
-<li><a class="reference internal" href="#id15" id="id141">Sources</a></li>
-<li><a class="reference internal" href="#id16" id="id142">References</a></li>
+<li><a class="reference internal" href="#spatial-vectorization" id="id138">Spatial vectorization</a><ul>
+<li><a class="reference internal" href="#boids" id="id139">Boids</a></li>
+<li><a class="reference internal" href="#id14" id="id140">Python implementation</a></li>
+<li><a class="reference internal" href="#id15" id="id141">NumPy implementation</a></li>
+<li><a class="reference internal" href="#id16" id="id142">Exercise</a></li>
+<li><a class="reference internal" href="#id17" id="id143">Sources</a></li>
+<li><a class="reference internal" href="#id18" id="id144">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id17" id="id143">Conclusion</a></li>
+<li><a class="reference internal" href="#id19" id="id145">Conclusion</a></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2><a class="toc-backref" href="#id4">Introduction</a></h2>
+<div class="section" id="id7">
+<h2><a class="toc-backref" href="#id6">Introduction</a></h2>
 <p>Code vectorization means that the problem you're trying to solve is inherently
-vectorizable and only requires a few numpy tricks to make it faster. Of course
+vectorizable and only requires a few NumPy tricks to make it faster. Of course
 it does not mean it is easy or straightforward, but at least it does not
 necessitate totally rethinking your problem (as it will be the case in the
 <a class="reference internal" href="#problem-vectorization">Problem vectorization</a> chapter). Still, it may require some experience to see
@@ -864,7 +869,7 @@ is:</p>
 <span class="keyword">def</span> <span class="name function">add_python</span><span class="punctuation">(</span><span class="name">Z1</span><span class="punctuation">,</span><span class="name">Z2</span><span class="punctuation">):</span>
     <span class="keyword">return</span> <span class="punctuation">[</span><span class="name">z1</span><span class="operator">+</span><span class="name">z2</span> <span class="keyword">for</span> <span class="punctuation">(</span><span class="name">z1</span><span class="punctuation">,</span><span class="name">z2</span><span class="punctuation">)</span> <span class="operator word">in</span> <span class="name builtin">zip</span><span class="punctuation">(</span><span class="name">Z1</span><span class="punctuation">,</span><span class="name">Z2</span><span class="punctuation">)]</span>
 </pre>
-<p>This first naive solution can be vectorized very easily using numpy:</p>
+<p>This first naive solution can be vectorized very easily using NumPy:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">add_numpy</span><span class="punctuation">(</span><span class="name">Z1</span><span class="punctuation">,</span><span class="name">Z2</span><span class="punctuation">):</span>
     <span class="keyword">return</span> <span class="name">np</span><span class="operator">.</span><span class="name">add</span><span class="punctuation">(</span><span class="name">Z1</span><span class="punctuation">,</span><span class="name">Z2</span><span class="punctuation">)</span>
@@ -902,7 +907,7 @@ concatenates the internal lists together and the last one computes what is
 such that it accepts nested lists of any depth.</p>
 </div>
 <div class="section" id="uniform-vectorization">
-<h2><a class="toc-backref" href="#id4">Uniform vectorization</a></h2>
+<h2><a class="toc-backref" href="#id6">Uniform vectorization</a></h2>
 <p>Uniform vectorization is the simplest form of vectorization where all the
 elements share the same computation at every time step with no specific
 processing for any element. One stereotypical case is the Game of Life that has
@@ -918,7 +923,7 @@ Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/
 </div>
 <img alt="data/Textile-Cone-cropped.jpg" class="bordered" src="data/Textile-Cone-cropped.jpg" style="width: 100%;" />
 <div class="section" id="the-game-of-life">
-<h3><a class="toc-backref" href="#id4">The Game of Life</a></h3>
+<h3><a class="toc-backref" href="#id6">The Game of Life</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Excerpt from the Wikipedia entry on the
@@ -952,7 +957,7 @@ pure function of the one before.) The rules continue to be applied repeatedly
 to create further generations.</p>
 </div>
 <div class="section" id="python-implementation">
-<h3><a class="toc-backref" href="#id4">Python implementation</a></h3>
+<h3><a class="toc-backref" href="#id6">Python implementation</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">We could have used the more efficient python <a class="reference external" href="http://docs.python.org/3/library/array.html">array interface</a> but it is more convenient to
@@ -1007,7 +1012,7 @@ iterations.</p>
 <img alt="data/glider.png" src="data/glider.png" style="width: 100%;" />
 </div>
 <div class="section" id="numpy-implementation">
-<h3><a class="toc-backref" href="#id4">Numpy implementation</a></h3>
+<h3><a class="toc-backref" href="#id6">NumPy implementation</a></h3>
 <p>Starting from the Python version, the vectorization of the Game of Life
 requires two parts, one responsible for counting the neighbours and one
 responsible for enforcing the rules. Neighbour-counting is relatively easy if
@@ -1035,7 +1040,7 @@ sure to consider all the eight neighbours.</p>
                  <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span> <span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">2</span><span class="punctuation">]</span>                <span class="operator">+</span> <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">1</span><span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="literal number integer">2</span><span class="punctuation">:]</span> <span class="operator">+</span>
                  <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">:</span>  <span class="punctuation">,</span> <span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">2</span><span class="punctuation">]</span> <span class="operator">+</span> <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">:</span>  <span class="punctuation">,</span><span class="literal number integer">1</span><span class="punctuation">:</span><span class="operator">-</span><span class="literal number integer">1</span><span class="punctuation">]</span> <span class="operator">+</span> <span class="name">Z</span><span class="punctuation">[</span><span class="literal number integer">2</span><span class="punctuation">:</span>  <span class="punctuation">,</span><span class="literal number integer">2</span><span class="punctuation">:])</span>
 </pre>
-<p>For the rule enforcement, we can write a first version using numpy's
+<p>For the rule enforcement, we can write a first version using NumPy's
 <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.argwhere.html">argwhere</a>
 method that will give us the indices where a given condition is True.</p>
 <pre class="code python literal-block">
@@ -1061,11 +1066,11 @@ method that will give us the indices where a given condition is True.</p>
 <p>Even if this first version does not use nested loops, it is far from optimal
 because of the use of the four <code>argwhere</code> calls that may be quite slow. We can
 instead factorize the rules into cells that will survive (stay at 1) and cells
-that will give birth. For doing this, we can take advantage of Numpy boolean
+that will give birth. For doing this, we can take advantage of NumPy boolean
 capability and write quite naturally:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">We did no write <code>Z = 0</code> as this would simply assign the value 0 to <code>Z</code> that
+<p class="last">We did not write <code>Z = 0</code> as this would simply assign the value 0 to <code>Z</code> that
 would then become a simple scalar.</p>
 </div>
 <pre class="code python literal-block">
@@ -1086,7 +1091,7 @@ the past.</p>
 <source src="data/game-of-life.mp4" type="video/mp4">
 Your browser does not support the video tag. </video></div>
 <div class="section" id="exercise">
-<h3><a class="toc-backref" href="#id4">Exercise</a></h3>
+<h3><a class="toc-backref" href="#id6">Exercise</a></h3>
 <p>Reaction and diffusion of chemical species can produce a variety of
 patterns, reminiscent of those often seen in nature. The Gray-Scott
 equations model such a reaction. For more information on this chemical
@@ -1222,7 +1227,7 @@ Your browser does not support the video tag. </video>
 <source src="data/gray-scott-3.mp4" type="video/mp4">
 Your browser does not support the video tag. </video></div>
 <div class="section" id="sources">
-<h3><a class="toc-backref" href="#id4">Sources</a></h3>
+<h3><a class="toc-backref" href="#id6">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/game_of_life_python.py">game_of_life_python.py</a></li>
 <li><a class="reference external" href="code/game_of_life_numpy.py">game_of_life_numpy.py</a></li>
@@ -1230,7 +1235,7 @@ Your browser does not support the video tag. </video></div>
 </ul>
 </div>
 <div class="section" id="references">
-<h3><a class="toc-backref" href="#id4">References</a></h3>
+<h3><a class="toc-backref" href="#id6">References</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://web.archive.org/web/20090603015231/http://ddi.cs.uni-potsdam.de/HyFISCH/Produzieren/lis_projekt/proj_gamelife/ConwayScientificAmerican.htm">John Conway new solitaire game &quot;life&quot;</a>, Martin Gardner, Scientific American 223, 1970.</li>
 <li><a class="reference external" href="http://groups.csail.mit.edu/mac/projects/amorphous/GrayScott/">Gray Scott Model of Reaction Diffusion</a>, Abelson, Adams, Coore, Hanson, Nagpal, Sussman, 1997.</li>
@@ -1240,7 +1245,7 @@ Robert P. Munafo, 1996.</li>
 </div>
 </div>
 <div class="section" id="temporal-vectorization">
-<h2><a class="toc-backref" href="#id4">Temporal vectorization</a></h2>
+<h2><a class="toc-backref" href="#id6">Temporal vectorization</a></h2>
 <p>The Mandelbrot set is the set of complex numbers <span class="formula"><i>c</i></span> for which
 the function <span class="formula"><i>f</i><sub><i>c</i></sub>(<i>z</i>) = <i>z</i><sup>2</sup> + <i>c</i></span> does not diverge when iterated
 from <span class="formula"><i>z</i> = 0</span>, i.e., for which the sequence <span class="formula"><i>f</i><sub><i>c</i></sub>(0), <i>f</i><sub><i>c</i></sub>(<i>f</i><sub><i>c</i></sub>(0))</span>, etc., remains bounded in absolute value. It is very easy
@@ -1256,8 +1261,8 @@ precision you get.</p>
 Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Fractal_Broccoli.jpg">Jon Sullivan</a>, 2004.</p>
 </div>
 <img alt="data/Fractal-Broccoli-cropped.jpg" class="bordered" src="data/Fractal-Broccoli-cropped.jpg" style="width: 100%;" />
-<div class="section" id="id6">
-<h3><a class="toc-backref" href="#id4">Python implementation</a></h3>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id6">Python implementation</a></h3>
 <p>A pure python implementation is written as:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">mandelbrot_python</span><span class="punctuation">(</span><span class="name">xmin</span><span class="punctuation">,</span> <span class="name">xmax</span><span class="punctuation">,</span> <span class="name">ymin</span><span class="punctuation">,</span> <span class="name">ymax</span><span class="punctuation">,</span> <span class="name">xn</span><span class="punctuation">,</span> <span class="name">yn</span><span class="punctuation">,</span> <span class="name">maxiter</span><span class="punctuation">,</span> <span class="name">horizon</span><span class="operator">=</span><span class="literal number float">2.0</span><span class="punctuation">):</span>
@@ -1277,16 +1282,16 @@ actually computes the sequence <span class="formula"><i>f</i><sub><i>c</i></sub>
 such code is not totally straightforward because the internal <code>return</code> implies a
 differential processing of the element. Once it has diverged, we don't need to
 iterate any more and we can safely return the iteration count at
-divergence. The problem is to then do the same in numpy. But how?</p>
+divergence. The problem is to then do the same in NumPy. But how?</p>
 </div>
-<div class="section" id="id7">
-<h3><a class="toc-backref" href="#id4">Numpy implementation</a></h3>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id6">NumPy implementation</a></h3>
 <p>The trick is to search at each iteration values that have not yet
 diverged and update relevant information for these values and only
 these values. Because we start from <span class="formula"><i>Z</i> = 0</span>, we know that each
 value will be updated at least once (when they're equal to <span class="formula">0</span>,
 they have not yet diverged) and will stop being updated as soon as
-they've diverged. To do that, we'll use numpy fancy indexing with the
+they've diverged. To do that, we'll use NumPy fancy indexing with the
 <code>less(x1,x2)</code> function that return the truth value of <code>(x1 &lt; x2)</code>
 element-wise.</p>
 <pre class="code python literal-block">
@@ -1315,12 +1320,12 @@ element-wise.</p>
 </pre>
 </div>
 <div class="section" id="faster-numpy-implementation">
-<h3><a class="toc-backref" href="#id4">Faster numpy implementation</a></h3>
+<h3><a class="toc-backref" href="#id6">Faster NumPy implementation</a></h3>
 <p>The gain is roughly a 5x factor, not as much as we could have
 expected. Part of the problem is that the <code>np.less</code> function implies
 <span class="formula"><i>xn</i> × <i>yn</i></span> tests at every iteration while we know that some
 values have already diverged. Even if these tests are performed at the
-C level (through numpy), the cost is nonetheless
+C level (through NumPy), the cost is nonetheless
 significant. Another approach proposed by <a class="reference external" href="https://thesamovar.wordpress.com/">Dan Goodman</a> is to work on a dynamic array at
 each iteration that stores only the points which have not yet
 diverged. It requires more lines but the result is faster and leads to
@@ -1363,7 +1368,7 @@ a 10x factor speed improvement compared to the Python version.</p>
 </pre>
 </div>
 <div class="section" id="visualization">
-<h3><a class="toc-backref" href="#id4">Visualization</a></h3>
+<h3><a class="toc-backref" href="#id6">Visualization</a></h3>
 <p>In order to visualize our results, we could directly display the <code>N</code> array
 using the matplotlib <code>imshow</code> command, but this would result in a &quot;banded&quot; image
 that is a known consequence of the escape count algorithm that we've been
@@ -1381,8 +1386,8 @@ normalized color map (gamma=0.3) and light shading.</p>
 <img alt="data/mandelbrot.png" class="bordered" src="data/mandelbrot.png" style="width: 100%;" />
 </div>
 </div>
-<div class="section" id="id8">
-<h3><a class="toc-backref" href="#id4">Exercise</a></h3>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id6">Exercise</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You should look at the <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ufunc.reduceat.html">ufunc.reduceat</a> method that performs a (local) reduce with specified slices over a single axis.</p>
@@ -1391,7 +1396,7 @@ normalized color map (gamma=0.3) and light shading.</p>
 <a class="reference external" href="https://en.wikipedia.org/wiki/Minkowski–Bouligand_dimension">Minkowski–Bouligand dimension</a>. To do that, we
 need to do box-counting with a decreasing box size (see figure below). As you
 can imagine, we cannot use pure Python because it would be way too slow. The goal of
-the exercise is to write a function using numpy that takes a two-dimensional
+the exercise is to write a function using NumPy that takes a two-dimensional
 float array and returns the dimension. We'll consider values in the array to be
 normalized (i.e. all values are between 0 and 1).</p>
 <div class="admonition legend">
@@ -1403,8 +1408,8 @@ approximately 1.24.</p>
 <img alt="data/fractal-dimension.png" src="data/fractal-dimension.png" style="width: 100%;" />
 </div>
 </div>
-<div class="section" id="id9">
-<h3><a class="toc-backref" href="#id4">Sources</a></h3>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id6">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/mandelbrot.py">mandelbrot.py</a></li>
 <li><a class="reference external" href="code/mandelbrot_python.py">mandelbrot_python.py</a></li>
@@ -1413,18 +1418,18 @@ approximately 1.24.</p>
 <li><a class="reference external" href="code/fractal_dimension.py">fractal_dimension.py</a> (solution to the exercise)</li>
 </ul>
 </div>
-<div class="section" id="id10">
-<h3><a class="toc-backref" href="#id4">References</a></h3>
+<div class="section" id="id12">
+<h3><a class="toc-backref" href="#id6">References</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://www.ibm.com/developerworks/community/blogs/jfp/entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en">How To Quickly Compute the Mandelbrot Set in Python</a>, Jean Francois Puget, 2015.</li>
 <li><a class="reference external" href="https://www.ibm.com/developerworks/community/blogs/jfp/entry/My_Christmas_Gift?lang=en">My Christmas Gift: Mandelbrot Set Computation In Python</a>, Jean Francois Puget, 2015.</li>
-<li><a class="reference external" href="https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/">Fast fractals with Python and Numpy</a>, Dan Goodman, 2009.</li>
+<li><a class="reference external" href="https://thesamovar.wordpress.com/2009/03/22/fast-fractals-with-python-and-numpy/">Fast fractals with Python and NumPy</a>, Dan Goodman, 2009.</li>
 <li><a class="reference external" href="http://linas.org/art-gallery/escape/escape.html">Renormalizing the Mandelbrot Escape</a>, Linas Vepstas, 1997.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="spatial-vectorization">
-<h2><a class="toc-backref" href="#id4">Spatial vectorization</a></h2>
+<h2><a class="toc-backref" href="#id6">Spatial vectorization</a></h2>
 <p>Spatial vectorization refers to a situation where elements share the same
 computation but are in interaction with only a subgroup of other elements. This
 was already the case for the game of life example, but in some situations
@@ -1439,7 +1444,7 @@ Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/
 </div>
 <img alt="data/Fugle-cropped.jpg" class="bordered" src="data/Fugle-cropped.jpg" style="width: 100%;" />
 <div class="section" id="boids">
-<h3><a class="toc-backref" href="#id4">Boids</a></h3>
+<h3><a class="toc-backref" href="#id6">Boids</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Excerpt from the Wikipedia entry
@@ -1465,8 +1470,8 @@ alignment) that serve as computing velocity and acceleration.</p>
 </div>
 <img alt="data/boids.png" src="data/boids.png" style="width: 100%;" />
 </div>
-<div class="section" id="id12">
-<h3><a class="toc-backref" href="#id4">Python implementation</a></h3>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id6">Python implementation</a></h3>
 <p>Since each boid is an autonomous entity with several properties such as
 position and velocity, it seems natural to start by writing a Boid class:</p>
 <pre class="code python literal-block">
@@ -1521,7 +1526,7 @@ describe it here and there is no real difficulty.</p>
 </pre>
 <p>Using this approach, we can have up to 50 boids until the computation
 time becomes too slow for a smooth animation. As you may have guessed,
-we can do much better using numpy, but let me first point out the main
+we can do much better using NumPy, but let me first point out the main
 problem with this Python implementation. If you look at the code, you
 will certainly notice there is a lot of redundancy. More precisely, we
 do not exploit the fact that the Euclidean distance is reflexive, that
@@ -1532,9 +1537,9 @@ cached. Furthermore, each rule re-computes every distance without
 caching the result for the other functions. In the end, we are
 computing <span class="formula">3<i>n</i><sup>2</sup></span> distances instead of <span class="formula"><span class="fraction"><span class="ignored">(</span><span class="numerator"><i>n</i><sup>2</sup></span><span class="ignored">)/(</span><span class="denominator">2</span><span class="ignored">)</span></span></span>.</p>
 </div>
-<div class="section" id="id13">
-<h3><a class="toc-backref" href="#id4">Numpy implementation</a></h3>
-<p>As you might expect, the numpy implementation takes a different approach and
+<div class="section" id="id15">
+<h3><a class="toc-backref" href="#id6">NumPy implementation</a></h3>
+<p>As you might expect, the NumPy implementation takes a different approach and
 we'll gather all our boids into a <code>position</code> array and a <code>velocity</code> array:</p>
 <pre class="code python literal-block">
 <span class="name">n</span> <span class="operator">=</span> <span class="literal number integer">500</span>
@@ -1652,8 +1657,8 @@ which simulates the flocking behaviour of birds.</p>
 <video width="100%" class="bordered" controls>
 <source src="data/boids.mp4" type="video/mp4">
 Your browser does not support the video tag. </video></div>
-<div class="section" id="id14">
-<h3><a class="toc-backref" href="#id4">Exercise</a></h3>
+<div class="section" id="id16">
+<h3><a class="toc-backref" href="#id6">Exercise</a></h3>
 <p>We are now ready to visualize our boids. The easiest way is to use the
 matplotlib animation function and a scatter plot. Unfortunately, scatters
 cannot be individually oriented and we need to make our own objects using a
@@ -1684,23 +1689,23 @@ reflect the translation, scaling and rotation of each of the <code>n</code> boid
 </div>
 <p>How would you write the <code>translate</code>, <code>scale</code> and <code>rotate</code> functions ?</p>
 </div>
-<div class="section" id="id15">
-<h3><a class="toc-backref" href="#id4">Sources</a></h3>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id6">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/boid_python.py">boid_python.py</a></li>
 <li><a class="reference external" href="code/boid_numpy.py">boid_numpy.py</a> (solution to the exercise)</li>
 </ul>
 </div>
-<div class="section" id="id16">
-<h3><a class="toc-backref" href="#id4">References</a></h3>
+<div class="section" id="id18">
+<h3><a class="toc-backref" href="#id6">References</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://processing.org/examples/flocking.html">Flocking</a>, Daniel Shiffman, 2010.</li>
 <li><a class="reference external" href="http://www.red3d.com/cwr/boids/">Flocks, herds and schools: A distributed behavioral model</a>, Craig Reynolds, SIGGRAPH, 1987</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id17">
-<h2><a class="toc-backref" href="#id4">Conclusion</a></h2>
+<div class="section" id="id19">
+<h2><a class="toc-backref" href="#id6">Conclusion</a></h2>
 <p>We've seen through these examples three forms of code vectorization:</p>
 <ul class="simple">
 <li>Uniform vectorization where elements share the same computation
@@ -1726,37 +1731,37 @@ was provided by <a class="reference external" href="http://stackoverflow.com/use
 </div>
 <div class="section" id="problem-vectorization">
 <h1><a class="toc-backref" href="#table-of-contents">Problem vectorization</a></h1>
-<div class="contents local topic" id="id18">
+<div class="contents local topic" id="id20">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id19" id="id144">Introduction</a></li>
-<li><a class="reference internal" href="#path-finding" id="id145">Path finding</a><ul>
-<li><a class="reference internal" href="#building-a-maze" id="id146">Building a maze</a></li>
-<li><a class="reference internal" href="#breadth-first" id="id147">Breadth-first</a></li>
-<li><a class="reference internal" href="#bellman-ford-method" id="id148">Bellman-Ford method</a></li>
-<li><a class="reference internal" href="#id20" id="id149">Sources</a></li>
-<li><a class="reference internal" href="#id21" id="id150">References</a></li>
+<li><a class="reference internal" href="#id21" id="id146">Introduction</a></li>
+<li><a class="reference internal" href="#path-finding" id="id147">Path finding</a><ul>
+<li><a class="reference internal" href="#building-a-maze" id="id148">Building a maze</a></li>
+<li><a class="reference internal" href="#breadth-first" id="id149">Breadth-first</a></li>
+<li><a class="reference internal" href="#bellman-ford-method" id="id150">Bellman-Ford method</a></li>
+<li><a class="reference internal" href="#id22" id="id151">Sources</a></li>
+<li><a class="reference internal" href="#id23" id="id152">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fluid-dynamics" id="id151">Fluid Dynamics</a><ul>
-<li><a class="reference internal" href="#lagrangian-vs-eulerian-method" id="id152">Lagrangian vs Eulerian method</a></li>
-<li><a class="reference internal" href="#id22" id="id153">Numpy implementation</a></li>
-<li><a class="reference internal" href="#id23" id="id154">Sources</a></li>
-<li><a class="reference internal" href="#id24" id="id155">References</a></li>
+<li><a class="reference internal" href="#fluid-dynamics" id="id153">Fluid Dynamics</a><ul>
+<li><a class="reference internal" href="#lagrangian-vs-eulerian-method" id="id154">Lagrangian vs Eulerian method</a></li>
+<li><a class="reference internal" href="#id24" id="id155">NumPy implementation</a></li>
+<li><a class="reference internal" href="#id25" id="id156">Sources</a></li>
+<li><a class="reference internal" href="#id26" id="id157">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#blue-noise-sampling" id="id156">Blue noise sampling</a><ul>
-<li><a class="reference internal" href="#dart-method" id="id157">DART method</a></li>
-<li><a class="reference internal" href="#bridson-method" id="id158">Bridson method</a></li>
-<li><a class="reference internal" href="#id25" id="id159">Sources</a></li>
-<li><a class="reference internal" href="#id26" id="id160">References</a></li>
+<li><a class="reference internal" href="#blue-noise-sampling" id="id158">Blue noise sampling</a><ul>
+<li><a class="reference internal" href="#dart-method" id="id159">DART method</a></li>
+<li><a class="reference internal" href="#bridson-method" id="id160">Bridson method</a></li>
+<li><a class="reference internal" href="#id27" id="id161">Sources</a></li>
+<li><a class="reference internal" href="#id28" id="id162">References</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id27" id="id161">Conclusion</a></li>
+<li><a class="reference internal" href="#id29" id="id163">Conclusion</a></li>
 </ul>
 </div>
-<div class="section" id="id19">
-<h2><a class="toc-backref" href="#id18">Introduction</a></h2>
+<div class="section" id="id21">
+<h2><a class="toc-backref" href="#id20">Introduction</a></h2>
 <p>Problem vectorization is much harder than code vectorization because it means
 that you fundamentally have to rethink your problem in order to make it
 vectorizable. Most of the time this means you have to use a different algorithm
@@ -1782,7 +1787,7 @@ know it will be slow:</p>
 </pre>
 <p>How to vectorize the problem then? If you remember your linear algebra course,
 you may have identified the expression <code>X[i] * Y[j]</code> to be very similar to a
-matrix product expression. So maybe we could benefit from some numpy
+matrix product expression. So maybe we could benefit from some NumPy
 speedup. One wrong solution would be to write:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">compute_numpy_wrong</span><span class="punctuation">(</span><span class="name">X</span><span class="punctuation">,</span> <span class="name">Y</span><span class="punctuation">):</span>
@@ -1790,7 +1795,7 @@ speedup. One wrong solution would be to write:</p>
 </pre>
 <p>This is wrong because the <code>X*Y</code> expression will actually compute a new vector
 <code>Z</code> such that <code>Z[i] = X[i] * Y[i]</code> and this is not what we want. Instead, we
-can exploit numpy broadcasting by first reshaping the two vectors and then
+can exploit NumPy broadcasting by first reshaping the two vectors and then
 multiply them:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">compute_numpy</span><span class="punctuation">(</span><span class="name">X</span><span class="punctuation">,</span> <span class="name">Y</span><span class="punctuation">):</span>
@@ -1866,13 +1871,13 @@ factor of 70,000 with problem vectorization, just by writing our problem
 differently (even though you cannot expect such a huge speedup in all
 situations). However, code vectorization remains an important factor, and if we
 rewrite the last solution the Python way, the improvement is good but not as much as
-in the numpy version:</p>
+in the NumPy version:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">compute_python_better</span><span class="punctuation">(</span><span class="name">x</span><span class="punctuation">,</span> <span class="name">y</span><span class="punctuation">):</span>
     <span class="keyword">return</span> <span class="name builtin">sum</span><span class="punctuation">(</span><span class="name">x</span><span class="punctuation">)</span><span class="operator">*</span><span class="name builtin">sum</span><span class="punctuation">(</span><span class="name">y</span><span class="punctuation">)</span>
 </pre>
 <p>This new Python version is much faster than the previous Python version, but
-still, it is 50 times slower than the numpy version:</p>
+still, it is 50 times slower than the NumPy version:</p>
 <pre class="code python literal-block">
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">X</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="literal number integer">1000</span><span class="punctuation">)</span>
 <span class="operator">&gt;&gt;&gt;</span> <span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;compute_python_better(X,X)&quot;</span><span class="punctuation">)</span>
@@ -1880,7 +1885,7 @@ still, it is 50 times slower than the numpy version:</p>
 </pre>
 </div>
 <div class="section" id="path-finding">
-<h2><a class="toc-backref" href="#id18">Path finding</a></h2>
+<h2><a class="toc-backref" href="#id20">Path finding</a></h2>
 <p>Path finding is all about finding the shortest path in a graph. This can be
 split in two distinct problems: to find a path between two nodes in a graph and
 to find the shortest path. We'll illustrate this through path finding in a
@@ -1892,7 +1897,7 @@ Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/
 </div>
 <img alt="data//Longleat-maze-cropped.jpg" class="bordered" src="data//Longleat-maze-cropped.jpg" style="width: 100%;" />
 <div class="section" id="building-a-maze">
-<h3><a class="toc-backref" href="#id18">Building a maze</a></h3>
+<h3><a class="toc-backref" href="#id20">Building a maze</a></h3>
 <p>There exist <a class="reference external" href="https://en.wikipedia.org/wiki/Maze_generation_algorithm">many maze generation algorithms</a> but I tend to
 prefer the one I've been using for several years but whose origin is unknown to
 me. I've added the code in the cited wikipedia entry. Feel free to complete it
@@ -1959,7 +1964,7 @@ maze is easy to solve. With low density, the maze has more &quot;big empty rooms
 <source src="data/maze-build.mp4" type="video/mp4">
 Your browser does not support the video tag. </video></div>
 <div class="section" id="breadth-first">
-<h3><a class="toc-backref" href="#id18">Breadth-first</a></h3>
+<h3><a class="toc-backref" href="#id20">Breadth-first</a></h3>
 <p>The breadth-first (as well as depth-first) search algorithm addresses the problem
 of finding a path between two nodes by examining all possibilities starting
 from the root node and stopping as soon as a solution has been found
@@ -2016,7 +2021,7 @@ i.e. all the edges have the same weight (or cost).</p>
 </pre>
 </div>
 <div class="section" id="bellman-ford-method">
-<h3><a class="toc-backref" href="#id18">Bellman-Ford method</a></h3>
+<h3><a class="toc-backref" href="#id20">Bellman-Ford method</a></h3>
 <p>The Bellman–Ford algorithm is an algorithm that is able to find the optimal
 path in a graph using a diffusion process. The optimal path is found by ascending
 the resulting gradient. This algorithm runs in quadratic time <span class="formula"><i>O</i>(|<i>V</i>||<i>E</i>|)</span>
@@ -2045,7 +2050,7 @@ set to 0, except the walls. Then we iterate a process such that each
 cell's new value is computed as the maximum value between the current cell value
 and the discounted (<code>gamma=0.9</code> in the case below) 4 neighbour values. The
 process starts as soon as the starting node value becomes strictly positive.</p>
-<p>The numpy implementation is straightforward if we take advantage of the
+<p>The NumPy implementation is straightforward if we take advantage of the
 <code>generic_filter</code> (from <code>scipy.ndimage</code>) for the diffusion process:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">diffuse</span><span class="punctuation">(</span><span class="name">Z</span><span class="punctuation">):</span>
@@ -2103,15 +2108,15 @@ found by ascending gradient from the goal.</p>
 </div>
 <img alt="data/maze.png" src="data/maze.png" style="width: 100%;" />
 </div>
-<div class="section" id="id20">
-<h3><a class="toc-backref" href="#id18">Sources</a></h3>
+<div class="section" id="id22">
+<h3><a class="toc-backref" href="#id20">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/maze_build.py">maze_build.py</a></li>
 <li><a class="reference external" href="code/maze_numpy.py">maze_numpy.py</a></li>
 </ul>
 </div>
-<div class="section" id="id21">
-<h3><a class="toc-backref" href="#id18">References</a></h3>
+<div class="section" id="id23">
+<h3><a class="toc-backref" href="#id20">References</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="http://bryukh.com/labyrinth-algorithms/">Labyrinth Algorithms</a>, Valentin
 Bryukhanov, 2014.</li>
@@ -2119,7 +2124,7 @@ Bryukhanov, 2014.</li>
 </div>
 </div>
 <div class="section" id="fluid-dynamics">
-<h2><a class="toc-backref" href="#id18">Fluid Dynamics</a></h2>
+<h2><a class="toc-backref" href="#id20">Fluid Dynamics</a></h2>
 <div class="admonition legend">
 <p class="first admonition-title"><strong>Figure 5.5</strong></p>
 <p class="last">Hydrodynamic flow at two different zoom levels, Neckar river, Heidelberg,
@@ -2127,7 +2132,7 @@ Germany. Image by <a class="reference external" href="https://commons.wikimedia.
 </div>
 <img alt="data/Self-similar-turbulence.png" src="data/Self-similar-turbulence.png" style="width: 100%;" />
 <div class="section" id="lagrangian-vs-eulerian-method">
-<h3><a class="toc-backref" href="#id18">Lagrangian vs Eulerian method</a></h3>
+<h3><a class="toc-backref" href="#id20">Lagrangian vs Eulerian method</a></h3>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Excerpt from the Wikipedia entry on the
@@ -2151,12 +2156,12 @@ methods depends on the nature of your problem. Of course, you can also mix the
 two methods into a hybrid method.</p>
 <p>However, the biggest problem for particle-based simulation is that particle
 interaction requires finding neighbouring particles and this has a cost as
-we've seen in the boids case. If we target Python and numpy only, it is probably
+we've seen in the boids case. If we target Python and NumPy only, it is probably
 better to choose the Eulerian method since vectorization will be almost trivial
 compared to the Lagrangian method.</p>
 </div>
-<div class="section" id="id22">
-<h3><a class="toc-backref" href="#id18">Numpy implementation</a></h3>
+<div class="section" id="id24">
+<h3><a class="toc-backref" href="#id20">NumPy implementation</a></h3>
 <p>I won't explain all the theory behind computational fluid dynamics because
 first, I cannot (I'm not an expert at all in this domain) and there are many
 resources online that explain this nicely (have a look at references below,
@@ -2169,7 +2174,7 @@ wrote a very nice article for SIGGRAPH 1999 describing a technique to have
 stable fluids over time (i.e. whose solution in the long term does not
 diverge). <a class="reference external" href="https://github.com/albertosantini/python-fluid">Alberto Santini</a>
 wrote a Python replication a long time ago (using numarray!) such that I only
-had to adapt it to modern numpy and accelerate it a bit using modern numpy
+had to adapt it to modern NumPy and accelerate it a bit using modern NumPy
 tricks.</p>
 <p>I won't comment the code since it would be too long, but you can read the
 original paper as well as the explanation by <a class="reference external" href="http://prideout.net/blog/?p=58">Philip Rideout</a> on his blog. Below are some movies I've made
@@ -2192,8 +2197,8 @@ Your browser does not support the video tag. </video>
 <video width="33%" controls>
 <source src="data/smoke-gpu.mp4" type="video/mp4">
 Your browser does not support the video tag. </video></div>
-<div class="section" id="id23">
-<h3><a class="toc-backref" href="#id18">Sources</a></h3>
+<div class="section" id="id25">
+<h3><a class="toc-backref" href="#id20">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/smoke_1.py">smoke_1.py</a></li>
 <li><a class="reference external" href="code/smoke_2.py">smoke_2.py</a></li>
@@ -2201,8 +2206,8 @@ Your browser does not support the video tag. </video></div>
 <li><a class="reference external" href="code/smoke_interactive.py">smoke_interactive.py</a></li>
 </ul>
 </div>
-<div class="section" id="id24">
-<h3><a class="toc-backref" href="#id18">References</a></h3>
+<div class="section" id="id26">
+<h3><a class="toc-backref" href="#id20">References</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/barbagroup/CFDPython">12 Steps to Navier-Stokes</a>, Lorena Barba, 2013.</li>
 <li><a class="reference external" href="http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/ns.pdf">Stable Fluids</a>, Jos Stam, 1999.</li>
@@ -2213,7 +2218,7 @@ Your browser does not support the video tag. </video></div>
 </div>
 </div>
 <div class="section" id="blue-noise-sampling">
-<h2><a class="toc-backref" href="#id18">Blue noise sampling</a></h2>
+<h2><a class="toc-backref" href="#id20">Blue noise sampling</a></h2>
 <p>Blue noise refers to sample sets that have random and yet uniform distributions
 with absence of any spectral bias. Such noise is very useful in a variety of
 graphics applications like rendering, dithering, stippling, etc. Many different
@@ -2226,7 +2231,7 @@ resampled using voronoi cells whose centers are a blue noise sample.</p>
 </div>
 <img alt="data/mosaic.png" class="bordered" src="data/mosaic.png" style="width: 100%;" />
 <div class="section" id="dart-method">
-<h3><a class="toc-backref" href="#id18">DART method</a></h3>
+<h3><a class="toc-backref" href="#id20">DART method</a></h3>
 <p>The DART method is one of the earliest and simplest methods. It works by
 sequentially drawing uniform random points and only accepting those that lie at a
 minimum distance from every previous accepted sample. This sequential method is
@@ -2275,7 +2280,7 @@ pre-compute enough uniform random samples as well as paired distances and to
 test for their sequential inclusion.</p>
 </div>
 <div class="section" id="bridson-method">
-<h3><a class="toc-backref" href="#id18">Bridson method</a></h3>
+<h3><a class="toc-backref" href="#id20">Bridson method</a></h3>
 <p>If the vectorization of the previous method poses no real difficulty, the speed
 improvement is not so good and the quality remains low and dependent on the <code>k</code>
 parameter. The higher, the better since it basically governs how hard to try to
@@ -2314,8 +2319,8 @@ parameter.</p>
 </div>
 <img alt="data/sampling.png" src="data/sampling.png" style="width: 100%;" />
 </div>
-<div class="section" id="id25">
-<h3><a class="toc-backref" href="#id18">Sources</a></h3>
+<div class="section" id="id27">
+<h3><a class="toc-backref" href="#id20">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/DART_sampling_python.py">DART_sampling_python.py</a></li>
 <li><a class="reference external" href="code/DART_sampling_numpy.py">DART_sampling_numpy.py</a> (solution to the exercise)</li>
@@ -2325,8 +2330,8 @@ parameter.</p>
 <li><a class="reference external" href="code/voronoi.py">voronoi.py</a></li>
 </ul>
 </div>
-<div class="section" id="id26">
-<h3><a class="toc-backref" href="#id18">References</a></h3>
+<div class="section" id="id28">
+<h3><a class="toc-backref" href="#id20">References</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="https://bost.ocks.org/mike/algorithms/">Visualizing Algorithms</a>
 Mike Bostock, 2014.</li>
@@ -2339,8 +2344,8 @@ Robert Bridson, SIGGRAPH, 2007.</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id27">
-<h2><a class="toc-backref" href="#id18">Conclusion</a></h2>
+<div class="section" id="id29">
+<h2><a class="toc-backref" href="#id20">Conclusion</a></h2>
 <p>The last example we've been studying is indeed a nice example where it is more
 important to vectorize the problem rather than to vectorize the code (and too
 early). In this specific case we were lucky enough to have the work done for us
@@ -2353,31 +2358,31 @@ code, but in the process, you may miss huge improvements.</p>
 </div>
 <div class="section" id="custom-vectorization">
 <h1><a class="toc-backref" href="#table-of-contents">Custom vectorization</a></h1>
-<div class="contents local topic" id="id28">
+<div class="contents local topic" id="id30">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id29" id="id162">Introduction</a></li>
-<li><a class="reference internal" href="#typed-list" id="id163">Typed list</a><ul>
-<li><a class="reference internal" href="#creation" id="id164">Creation</a></li>
-<li><a class="reference internal" href="#access" id="id165">Access</a></li>
-<li><a class="reference internal" href="#id31" id="id166">Exercise</a></li>
-<li><a class="reference internal" href="#id32" id="id167">Sources</a></li>
+<li><a class="reference internal" href="#id31" id="id164">Introduction</a></li>
+<li><a class="reference internal" href="#typed-list" id="id165">Typed list</a><ul>
+<li><a class="reference internal" href="#creation" id="id166">Creation</a></li>
+<li><a class="reference internal" href="#access" id="id167">Access</a></li>
+<li><a class="reference internal" href="#id33" id="id168">Exercise</a></li>
+<li><a class="reference internal" href="#id34" id="id169">Sources</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#memory-aware-array" id="id168">Memory aware array</a><ul>
-<li><a class="reference internal" href="#id33" id="id169">Glumpy</a></li>
-<li><a class="reference internal" href="#array-subclass" id="id170">Array subclass</a></li>
-<li><a class="reference internal" href="#computing-extents" id="id171">Computing extents</a></li>
-<li><a class="reference internal" href="#keeping-track-of-pending-data" id="id172">Keeping track of pending data</a></li>
-<li><a class="reference internal" href="#id35" id="id173">Sources</a></li>
+<li><a class="reference internal" href="#memory-aware-array" id="id170">Memory aware array</a><ul>
+<li><a class="reference internal" href="#id35" id="id171">Glumpy</a></li>
+<li><a class="reference internal" href="#array-subclass" id="id172">Array subclass</a></li>
+<li><a class="reference internal" href="#computing-extents" id="id173">Computing extents</a></li>
+<li><a class="reference internal" href="#keeping-track-of-pending-data" id="id174">Keeping track of pending data</a></li>
+<li><a class="reference internal" href="#id37" id="id175">Sources</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id36" id="id174">Conclusion</a></li>
+<li><a class="reference internal" href="#id38" id="id176">Conclusion</a></li>
 </ul>
 </div>
-<div class="section" id="id29">
-<h2><a class="toc-backref" href="#id28">Introduction</a></h2>
-<p>One of the strengths of numpy is that it can be used to build new objects or to
+<div class="section" id="id31">
+<h2><a class="toc-backref" href="#id30">Introduction</a></h2>
+<p>One of the strengths of NumPy is that it can be used to build new objects or to
 <a class="reference external" href="https://docs.scipy.org/doc/numpy/user/basics.subclassing.html">subclass the ndarray</a> object. This
 later process is a bit tedious but it is worth the effort because it allows you
 to improve the <code>ndarray</code> object to suit your problem. We'll examine in
@@ -2387,12 +2392,12 @@ that are extensively used in the <a class="reference external" href="http://glum
 academic case.</p>
 </div>
 <div class="section" id="typed-list">
-<h2><a class="toc-backref" href="#id28">Typed list</a></h2>
+<h2><a class="toc-backref" href="#id30">Typed list</a></h2>
 <p>Typed list (also known as ragged array) is a list of items that all have the
-same data type (in the sense of numpy). They offer both the list and the
+same data type (in the sense of NumPy). They offer both the list and the
 ndarray API (with some restriction of course) but because their respective APIs may not be
 compatible in some cases, we have to make choices. For example, concerning
-the <code>+</code> operator, we'll choose to use the numpy API where the value is added to
+the <code>+</code> operator, we'll choose to use the NumPy API where the value is added to
 each individual item instead of expanding the list by appending a new item
 (<code>1</code>).</p>
 <pre class="code python literal-block">
@@ -2405,7 +2410,7 @@ each individual item instead of expanding the list by appending a new item
 <p>From the list API, we want our new object to offer the possibility of inserting,
 appending and removing items seamlessly.</p>
 <div class="section" id="creation">
-<h3><a class="toc-backref" href="#id28">Creation</a></h3>
+<h3><a class="toc-backref" href="#id30">Creation</a></h3>
 <p>Since the object is dynamic by definition, it is important to offer a
 general-purpose creation method powerful enough to avoid having to do later
 manipulations. Such manipulations, for example insertion/deletion, cost
@@ -2432,7 +2437,7 @@ others) for the creation of a <code>TypedList</code> object.</p>
         an error is raised.
 
     dtype: np.dtype
-        Any object that can be interpreted as a numpy data type.
+        Any object that can be interpreted as a NumPy data type.
     &quot;&quot;&quot;</span>
 </pre>
 <p>This API allows creating an empty list or creating a list from some external
@@ -2486,7 +2491,7 @@ other cases, see full code below)</p>
 </pre>
 </div>
 <div class="section" id="access">
-<h3><a class="toc-backref" href="#id28">Access</a></h3>
+<h3><a class="toc-backref" href="#id30">Access</a></h3>
 <p>Once this is done, every list method requires only a bit of computation and
 playing with the different key when getting, inserting or setting an item. Here is
 the code for the <code>__getitem__</code> method. No real difficulty but the possible
@@ -2523,8 +2528,8 @@ negative step:</p>
         <span class="keyword">raise</span> <span class="name exception">TypeError</span><span class="punctuation">(</span><span class="literal string double">&quot;List indices must be integers&quot;</span><span class="punctuation">)</span>
 </pre>
 </div>
-<div class="section" id="id31">
-<h3><a class="toc-backref" href="#id28">Exercise</a></h3>
+<div class="section" id="id33">
+<h3><a class="toc-backref" href="#id30">Exercise</a></h3>
 <p>Modification of the list is a bit more complicated, because it requires
 managing memory properly. Since it poses no real difficulty, we left this as an
 exercise for the reader. For the lazy, you can have a look at the code below.
@@ -2580,17 +2585,17 @@ necessary in order to avoid future expansion.</p>
      item 1   item 2   item 3   item 4
 </pre>
 </div>
-<div class="section" id="id32">
-<h3><a class="toc-backref" href="#id28">Sources</a></h3>
+<div class="section" id="id34">
+<h3><a class="toc-backref" href="#id30">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/array_list.py">array_list.py</a> (solution to the exercise)</li>
 </ul>
 </div>
 </div>
 <div class="section" id="memory-aware-array">
-<h2><a class="toc-backref" href="#id28">Memory aware array</a></h2>
-<div class="section" id="id33">
-<h3><a class="toc-backref" href="#id28">Glumpy</a></h3>
+<h2><a class="toc-backref" href="#id30">Memory aware array</a></h2>
+<div class="section" id="id35">
+<h3><a class="toc-backref" href="#id30">Glumpy</a></h3>
 <p><a class="reference external" href="http://glumpy.github.io">Glumpy</a> is an OpenGL-based interactive
 visualization library in Python whose goal is to make it easy to create fast,
 scalable, beautiful, interactive and dynamic visualizations.</p>
@@ -2607,8 +2612,8 @@ scalable, beautiful, interactive and dynamic visualizations.</p>
 <p class="last">Tiger display using collections and 2 GL calls</p>
 </div>
 <img alt="data/tiger.png" class="bordered" src="data/tiger.png" style="width: 100%;" />
-<p>Glumpy is based on a tight and seamless integration with numpy arrays. This
-means you can manipulate GPU data as you would with regular numpy arrays and
+<p>Glumpy is based on a tight and seamless integration with NumPy arrays. This
+means you can manipulate GPU data as you would with regular NumPy arrays and
 glumpy will take care of the rest. But an example is worth a thousand words:</p>
 <pre class="code literal-block">
 from glumpy import gloo
@@ -2619,7 +2624,7 @@ V = np.zeros((3,3),dtype).view(gloo.VertexBuffer)
 V[&quot;position&quot;][0,0] = 0.0, 0.0
 V[&quot;position&quot;][1,1] = 0.0, 0.0
 </pre>
-<p><code>V</code> is a <code>VertexBuffer</code> which is both a <code>GPUData</code> and a numpy array. When <code>V</code> is
+<p><code>V</code> is a <code>VertexBuffer</code> which is both a <code>GPUData</code> and a NumPy array. When <code>V</code> is
 modified, glumpy takes care of computing the smallest contiguous block of dirty
 memory since it was last uploaded to GPU memory. When this buffer is to be used
 on the GPU, glumpy takes care of uploading the &quot;dirty&quot; area at the very last
@@ -2636,10 +2641,10 @@ illustration, just pretend this is not the case here.</p>
 actually modified. You might wonder if this optimal. Actually, most of the time
 it is, because uploading some data to a buffer requires a lot of operations on
 the GL side and each call has a fixed cost.</p>
-<!-- In the glumpy package, GPU data is the base class for any data that needs to co-exist on both CPU and GPU memory. It keeps track of the smallest contiguous area that needs to be uploaded to GPU to keep the CPU and GPU data synced. This allows to update the data in one operation. Even though this might be sub-optimal in a few cases, it provides a greater usage flexibility and most of the time, it will be faster. This is done transparently and user can use a GPU buffer as a regular numpy array. The `pending_data` property indicates the region (offset/nbytes) of the base array that needs to be uploaded. -->
+<!-- In the glumpy package, GPU data is the base class for any data that needs to co-exist on both CPU and GPU memory. It keeps track of the smallest contiguous area that needs to be uploaded to GPU to keep the CPU and GPU data synced. This allows to update the data in one operation. Even though this might be sub-optimal in a few cases, it provides a greater usage flexibility and most of the time, it will be faster. This is done transparently and user can use a GPU buffer as a regular NumPy array. The `pending_data` property indicates the region (offset/nbytes) of the base array that needs to be uploaded. -->
 </div>
 <div class="section" id="array-subclass">
-<h3><a class="toc-backref" href="#id28">Array subclass</a></h3>
+<h3><a class="toc-backref" href="#id30">Array subclass</a></h3>
 <p>As explained in the <a class="reference external" href="https://docs.scipy.org/doc/numpy/user/basics.subclassing.html">Subclassing ndarray</a>
 documentation, subclassing <code>ndarray</code> is complicated by the fact that new
 instances of <code>ndarray</code> classes can come about in three different ways:</p>
@@ -2676,7 +2681,7 @@ byte size) relatively to the <code>extents</code> property.</li>
 </pre>
 </div>
 <div class="section" id="computing-extents">
-<h3><a class="toc-backref" href="#id28">Computing extents</a></h3>
+<h3><a class="toc-backref" href="#id30">Computing extents</a></h3>
 <p>Each time a partial view of the array is requested, we need to compute the
 extents of this partial view while we have access to the base array.</p>
 <pre class="code python literal-block">
@@ -2701,7 +2706,7 @@ extents of this partial view while we have access to the base array.</p>
 </pre>
 </div>
 <div class="section" id="keeping-track-of-pending-data">
-<h3><a class="toc-backref" href="#id28">Keeping track of pending data</a></h3>
+<h3><a class="toc-backref" href="#id30">Keeping track of pending data</a></h3>
 <p>One extra difficulty is that we don't want all the views to keep track of the
 dirty area but only the base array. This is the reason why we don't instantiate
 the <code>self._pending_data</code> in the second case of the <code>__array_finalize__</code>
@@ -2734,8 +2739,8 @@ method. This will be handled when we need to update some data as during a
             <span class="name builtin pseudo">self</span><span class="operator">.</span><span class="name">_pending_data</span> <span class="operator">=</span> <span class="name">start</span><span class="punctuation">,</span> <span class="name">stop</span>
 </pre>
 </div>
-<div class="section" id="id35">
-<h3><a class="toc-backref" href="#id28">Sources</a></h3>
+<div class="section" id="id37">
+<h3><a class="toc-backref" href="#id30">Sources</a></h3>
 <ul class="simple">
 <li><a class="reference external" href="code/gpudata.py">gpudata.py</a></li>
 </ul>
@@ -2755,51 +2760,51 @@ method. This will be handled when we need to update some data as during a
 <!-- +++++++++++++++++++++++++++++++ -->
 </div>
 </div>
-<div class="section" id="id36">
-<h2><a class="toc-backref" href="#id28">Conclusion</a></h2>
-<p>As explained on the numpy website, numpy is the fundamental package for
+<div class="section" id="id38">
+<h2><a class="toc-backref" href="#id30">Conclusion</a></h2>
+<p>As explained on the NumPy website, NumPy is the fundamental package for
 scientific computing with Python. However, as illustrated in this chapter, the
-usage of numpy strengths goes far beyond a mere <em>multi-dimensional container of
+usage of NumPy strengths goes far beyond a mere <em>multi-dimensional container of
 generic data</em>. Using <code>ndarray</code> as a private property in one case (<code>TypedList</code>) or
 directly subclassing the <code>ndarray</code> class (<code>GPUData</code>) to keep track of memory in
-another case, we've seen how it is possible to extend numpy's capabilities to
+another case, we've seen how it is possible to extend NumPy's capabilities to
 suit very specific needs. The limit is only your imagination and your experience.</p>
 </div>
 </div>
 <div class="section" id="beyond-numpy">
-<h1><a class="toc-backref" href="#table-of-contents">Beyond Numpy</a></h1>
-<div class="contents local topic" id="id37">
+<h1><a class="toc-backref" href="#table-of-contents">Beyond NumPy</a></h1>
+<div class="contents local topic" id="id39">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#back-to-python" id="id175">Back to Python</a></li>
-<li><a class="reference internal" href="#numpy-co" id="id176">Numpy &amp; co</a><ul>
-<li><a class="reference internal" href="#numexpr" id="id177">NumExpr</a></li>
-<li><a class="reference internal" href="#cython" id="id178">Cython</a></li>
-<li><a class="reference internal" href="#numba" id="id179">Numba</a></li>
-<li><a class="reference internal" href="#theano" id="id180">Theano</a></li>
-<li><a class="reference internal" href="#pycuda" id="id181">PyCUDA</a></li>
-<li><a class="reference internal" href="#pyopencl" id="id182">PyOpenCL</a></li>
+<li><a class="reference internal" href="#back-to-python" id="id177">Back to Python</a></li>
+<li><a class="reference internal" href="#numpy-co" id="id178">NumPy &amp; co</a><ul>
+<li><a class="reference internal" href="#numexpr" id="id179">NumExpr</a></li>
+<li><a class="reference internal" href="#cython" id="id180">Cython</a></li>
+<li><a class="reference internal" href="#numba" id="id181">Numba</a></li>
+<li><a class="reference internal" href="#theano" id="id182">Theano</a></li>
+<li><a class="reference internal" href="#pycuda" id="id183">PyCUDA</a></li>
+<li><a class="reference internal" href="#pyopencl" id="id184">PyOpenCL</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#scipy-co" id="id183">Scipy &amp; co</a><ul>
-<li><a class="reference internal" href="#scikit-learn" id="id184">scikit-learn</a></li>
-<li><a class="reference internal" href="#scikit-image" id="id185">scikit-image</a></li>
-<li><a class="reference internal" href="#sympy" id="id186">SymPy</a></li>
-<li><a class="reference internal" href="#astropy" id="id187">Astropy</a></li>
-<li><a class="reference internal" href="#cartopy" id="id188">Cartopy</a></li>
-<li><a class="reference internal" href="#brian" id="id189">Brian</a></li>
-<li><a class="reference internal" href="#id50" id="id190">Glumpy</a></li>
+<li><a class="reference internal" href="#scipy-co" id="id185">Scipy &amp; co</a><ul>
+<li><a class="reference internal" href="#scikit-learn" id="id186">scikit-learn</a></li>
+<li><a class="reference internal" href="#scikit-image" id="id187">scikit-image</a></li>
+<li><a class="reference internal" href="#sympy" id="id188">SymPy</a></li>
+<li><a class="reference internal" href="#astropy" id="id189">Astropy</a></li>
+<li><a class="reference internal" href="#cartopy" id="id190">Cartopy</a></li>
+<li><a class="reference internal" href="#brian" id="id191">Brian</a></li>
+<li><a class="reference internal" href="#id52" id="id192">Glumpy</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id52" id="id191">Conclusion</a></li>
+<li><a class="reference internal" href="#id54" id="id193">Conclusion</a></li>
 </ul>
 </div>
 <div class="section" id="back-to-python">
-<h2><a class="toc-backref" href="#id37">Back to Python</a></h2>
+<h2><a class="toc-backref" href="#id39">Back to Python</a></h2>
 <p>You've almost reached the end of the book and, hopefully, you've learned that
-numpy is a very versatile and powerful library. However in the meantime,
+NumPy is a very versatile and powerful library. However in the meantime,
 remember that Python is also quite a powerful language. In fact, in some
-specific cases, it might be more powerful than numpy. Let's consider, for
+specific cases, it might be more powerful than NumPy. Let's consider, for
 example, an interesting exercise that has been proposed by Tucker Balch in his
 <a class="reference external" href="https://www.coursera.org/learn/computational-investing">Coursera's Computational Investing</a> course. The exercise
 is written as:</p>
@@ -2846,7 +2851,7 @@ directly build each tuple without any test as shown below:</p>
             <span class="keyword">for</span> <span class="name">b</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="literal number integer">11</span> <span class="operator">-</span> <span class="name">a</span><span class="punctuation">)</span>
             <span class="keyword">for</span> <span class="name">c</span> <span class="operator word">in</span> <span class="name builtin">range</span><span class="punctuation">(</span><span class="literal number integer">11</span> <span class="operator">-</span> <span class="name">a</span> <span class="operator">-</span> <span class="name">b</span><span class="punctuation">)]</span>
 </pre>
-<p>The best numpy solution by Yaser Martinez uses a different strategy with a
+<p>The best NumPy solution by Yaser Martinez uses a different strategy with a
 restricted set of tests:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">solution_4</span><span class="punctuation">():</span>
@@ -2865,7 +2870,7 @@ restricted set of tests:</p>
 </span><span class="name"></span><span class="generic prompt">&gt;&gt;&gt; </span><span class="name">timeit</span><span class="punctuation">(</span><span class="literal string double">&quot;solution_4()&quot;</span><span class="punctuation">,</span> <span class="name builtin">globals</span><span class="punctuation">())</span>
 <span class="generic output">1000 loops, best of 3: 54.4 usec per loop</span>
 </pre>
-<p>The numpy solution is the fastest but the pure Python solution is comparable.
+<p>The NumPy solution is the fastest but the pure Python solution is comparable.
 But let me introduce a small modification to the Python solution:</p>
 <pre class="code python literal-block">
 <span class="keyword">def</span> <span class="name function">solution_3_bis</span><span class="punctuation">():</span>
@@ -2895,8 +2900,8 @@ important to wonder if you need an actual instance of your result or if a
 simple generator might do the job.</p>
 </div>
 <div class="section" id="numpy-co">
-<h2><a class="toc-backref" href="#id37">Numpy &amp; co</a></h2>
-<p>Beyond numpy, there are several other Python packages that are worth a look
+<h2><a class="toc-backref" href="#id39">NumPy &amp; co</a></h2>
+<p>Beyond NumPy, there are several other Python packages that are worth a look
 because they address similar yet different class of problems using different
 technology (compilation, virtual machine, just in time compilation, GPU,
 compression, etc.). Depending on your specific problem and your hardware, one
@@ -2910,7 +2915,7 @@ vectors:</p>
 <span class="name">c</span> <span class="operator">=</span> <span class="literal number integer">2</span><span class="operator">*</span><span class="name">a</span> <span class="operator">+</span> <span class="literal number integer">3</span><span class="operator">*</span><span class="name">b</span>
 </pre>
 <div class="section" id="numexpr">
-<h3><a class="toc-backref" href="#id37">NumExpr</a></h3>
+<h3><a class="toc-backref" href="#id39">NumExpr</a></h3>
 <p>The <a class="reference external" href="https://github.com/pydata/numexpr/wiki/Numexpr-Users-Guide">numexpr</a>
 package supplies routines for the fast evaluation of array expressions
 element-wise by using a vector-based virtual machine. It's comparable to SciPy's
@@ -2925,7 +2930,7 @@ weave package, but doesn't require a separate compile step of C or C++ code.</p>
 </pre>
 </div>
 <div class="section" id="cython">
-<h3><a class="toc-backref" href="#id37">Cython</a></h3>
+<h3><a class="toc-backref" href="#id39">Cython</a></h3>
 <p><a class="reference external" href="http://cython.org">Cython</a> is an optimising static compiler for both the
 Python programming language and the extended Cython programming language (based
 on Pyrex). It makes writing C extensions for Python as easy as Python itself.</p>
@@ -2945,7 +2950,7 @@ on Pyrex). It makes writing C extensions for Python as easy as Python itself.</p
 </pre>
 </div>
 <div class="section" id="numba">
-<h3><a class="toc-backref" href="#id37">Numba</a></h3>
+<h3><a class="toc-backref" href="#id39">Numba</a></h3>
 <p><a class="reference external" href="http://numba.pydata.org">Numba</a> gives you the power to speed up your
 applications with high performance functions written directly in Python. With a
 few annotations, array-oriented and math-heavy Python code can be just-in-time
@@ -2968,11 +2973,11 @@ Fortran, without having to switch languages or Python interpreters.</p>
 </pre>
 </div>
 <div class="section" id="theano">
-<h3><a class="toc-backref" href="#id37">Theano</a></h3>
+<h3><a class="toc-backref" href="#id39">Theano</a></h3>
 <p><a class="reference external" href="http://www.deeplearning.net/software/theano/">Theano</a> is a Python library
 that allows you to define, optimize, and evaluate mathematical expressions
 involving multi-dimensional arrays efficiently. Theano features tight
-integration with numpy, transparent use of a GPU, efficient symbolic
+integration with NumPy, transparent use of a GPU, efficient symbolic
 differentiation, speed and stability optimizations, dynamic C code generation
 and extensive unit-testing and self-verification.</p>
 <pre class="code python literal-block">
@@ -2990,7 +2995,7 @@ and extensive unit-testing and self-verification.</p>
 </pre>
 </div>
 <div class="section" id="pycuda">
-<h3><a class="toc-backref" href="#id37">PyCUDA</a></h3>
+<h3><a class="toc-backref" href="#id39">PyCUDA</a></h3>
 <p><a class="reference external" href="http://mathema.tician.de/software/pycuda">PyCUDA</a> lets you access Nvidia's
 CUDA parallel computation API from Python.</p>
 <pre class="code python literal-block">
@@ -3017,7 +3022,7 @@ CUDA parallel computation API from Python.</p>
 </pre>
 </div>
 <div class="section" id="pyopencl">
-<h3><a class="toc-backref" href="#id37">PyOpenCL</a></h3>
+<h3><a class="toc-backref" href="#id39">PyOpenCL</a></h3>
 <p><a class="reference external" href="http://mathema.tician.de/software/pyopencl">PyOpenCL</a> lets you access GPUs
 and other massively parallel compute devices from Python.</p>
 <pre class="code python literal-block">
@@ -3052,8 +3057,8 @@ and other massively parallel compute devices from Python.</p>
 </div>
 </div>
 <div class="section" id="scipy-co">
-<h2><a class="toc-backref" href="#id37">Scipy &amp; co</a></h2>
-<p>If there are several additional packages for numpy, there are a trillion
+<h2><a class="toc-backref" href="#id39">Scipy &amp; co</a></h2>
+<p>If there are several additional packages for NumPy, there are a trillion
 additional packages for scipy. In fact, every domain of science probably has
 its own package and most of the examples we've been studying until now could
 have been solved in two or three calls to a method in the relevant package.
@@ -3065,45 +3070,45 @@ that are well-maintained, well-tested and may simplify your scientific life
 specific needs, chances are you do not have to program everything by
 yourself. For an extensive list, have a look at the <a class="reference external" href="https://awesome-python.com">Awesome python list</a>.</p>
 <div class="section" id="scikit-learn">
-<h3><a class="toc-backref" href="#id37">scikit-learn</a></h3>
+<h3><a class="toc-backref" href="#id39">scikit-learn</a></h3>
 <p><a class="reference external" href="http://scikit-learn.org/stable/">scikit-learn</a> is a free software machine
 learning library for the Python programming language. It features various
 classification, regression and clustering algorithms including support vector
 machines, random forests, gradient boosting, k-means and DBSCAN, and is
 designed to inter-operate with the Python numerical and scientific libraries
-numpy and SciPy.</p>
+NumPy and SciPy.</p>
 </div>
 <div class="section" id="scikit-image">
-<h3><a class="toc-backref" href="#id37">scikit-image</a></h3>
+<h3><a class="toc-backref" href="#id39">scikit-image</a></h3>
 <p><a class="reference external" href="http://scikit-image.org">scikit-image</a> is a Python package dedicated to
-image processing, and using natively numpy arrays as image objects. This
+image processing, and using natively NumPy arrays as image objects. This
 chapter describes how to use scikit-image on various image processing tasks,
-and insists on the link with other scientific Python modules such as numpy and
+and insists on the link with other scientific Python modules such as NumPy and
 SciPy.</p>
 </div>
 <div class="section" id="sympy">
-<h3><a class="toc-backref" href="#id37">SymPy</a></h3>
+<h3><a class="toc-backref" href="#id39">SymPy</a></h3>
 <p><a class="reference external" href="http://www.sympy.org/en/index.html">SymPy</a> is a Python library for symbolic
 mathematics. It aims to become a full-featured computer algebra system (CAS)
 while keeping the code as simple as possible in order to be comprehensible and
 easily extensible. SymPy is written entirely in Python.</p>
 </div>
 <div class="section" id="astropy">
-<h3><a class="toc-backref" href="#id37">Astropy</a></h3>
+<h3><a class="toc-backref" href="#id39">Astropy</a></h3>
 <p>The <a class="reference external" href="http://www.astropy.org">Astropy</a> project is a community effort to
 develop a single core package for astronomy in Python and foster
 interoperability between Python astronomy packages.</p>
 </div>
 <div class="section" id="cartopy">
-<h3><a class="toc-backref" href="#id37">Cartopy</a></h3>
+<h3><a class="toc-backref" href="#id39">Cartopy</a></h3>
 <p><a class="reference external" href="http://scitools.org.uk/cartopy/">Cartopy</a> is a Python package designed to
 make drawing maps for data analysis and visualization as easy as
-possible. Cartopy makes use of the powerful PROJ.4, numpy and shapely libraries
+possible. Cartopy makes use of the powerful PROJ.4, NumPy and shapely libraries
 and has a simple and intuitive drawing interface to matplotlib for creating
 publication quality maps.</p>
 </div>
 <div class="section" id="brian">
-<h3><a class="toc-backref" href="#id37">Brian</a></h3>
+<h3><a class="toc-backref" href="#id39">Brian</a></h3>
 <p><a class="reference external" href="http://www.briansimulator.org">Brian</a> is a free, open source simulator for
 spiking neural networks. It is written in the Python programming language and
 is available on almost all platforms. We believe that a simulator should not
@@ -3111,17 +3116,17 @@ only save the time of processors, but also the time of scientists. Brian is
 therefore designed to be easy to learn and use, highly flexible and easily
 extensible.</p>
 </div>
-<div class="section" id="id50">
-<h3><a class="toc-backref" href="#id37">Glumpy</a></h3>
+<div class="section" id="id52">
+<h3><a class="toc-backref" href="#id39">Glumpy</a></h3>
 <p><a class="reference external" href="http://glumpy.github.io">Glumpy</a> is an OpenGL-based interactive
 visualization library in Python. Its goal is to make it easy to create fast,
 scalable, beautiful, interactive and dynamic visualizations. The main
 documentation for the site is organized into a couple of sections:</p>
 </div>
 </div>
-<div class="section" id="id52">
-<h2><a class="toc-backref" href="#id37">Conclusion</a></h2>
-<p>Numpy is a very versatile library but still, it does not mean you have to use
+<div class="section" id="id54">
+<h2><a class="toc-backref" href="#id39">Conclusion</a></h2>
+<p>NumPy is a very versatile library but still, it does not mean you have to use
 it in every situation. In this chapter, we've seen some alternatives (including
 Python itself) that are worth a look. As always, the choice belongs to you. You
 have to consider what is the best solution for you in term of development time,
@@ -3133,15 +3138,15 @@ from community-support even though you might have to adapt the package to your
 specific needs. The choice is up to you.</p>
 </div>
 </div>
-<div class="section" id="id53">
+<div class="section" id="id55">
 <h1><a class="toc-backref" href="#table-of-contents">Conclusion</a></h1>
 <p>You've reached the end of this book. I hope you've learned something while
 reading it, I sure learned a lot writing it. Trying to explain something is a
 generally a good exercise to test for your knowledge of this thing. Of course,
-we only scratched the surface of numpy and there are many things left to
+we only scratched the surface of NumPy and there are many things left to
 discover. Have a look at the bibliography for books written by true experts, at
-the documentation written by people making numpy and don't hesitate to ask your
-questions on the mailing lists because the numpy community is very friendly.</p>
+the documentation written by people making NumPy and don't hesitate to ask your
+questions on the mailing lists because the NumPy community is very friendly.</p>
 <p>If there's a single message to retain from this book it is &quot;premature
 optimization is the root of all evil&quot;. We've seen that code vectorization can
 drastically improve your computation, with several orders of magnitude in some
@@ -3152,25 +3157,25 @@ because you won't be able to identify your problem properly as we've
 seen in the problem vectorization chapter. This requires some experience and
 you have to be patient: experience is not an overnight process.</p>
 <p>Finally, custom vectorization is an option worth considering once you've looked
-at the alternatives to numpy. When nothing works for you, numpy still offers
+at the alternatives to NumPy. When nothing works for you, NumPy still offers
 you a clever framework to forge your own tools. And who knows, this can be the
 start of an exciting adventure for you and the community as it happened to me
 with the <a class="reference external" href="http://glumpy.github.io">glumpy</a> and the <a class="reference external" href="http://vispy.org">vispy</a> packages.</p>
 </div>
 <div class="section" id="quick-references">
 <h1><a class="toc-backref" href="#table-of-contents">Quick References</a></h1>
-<div class="contents local topic" id="id55">
+<div class="contents local topic" id="id57">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#id56" id="id192">Data type</a></li>
-<li><a class="reference internal" href="#id57" id="id193">Creation</a></li>
-<li><a class="reference internal" href="#id58" id="id194">Indexing</a></li>
-<li><a class="reference internal" href="#reshaping" id="id195">Reshaping</a></li>
-<li><a class="reference internal" href="#broadcasting" id="id196">Broadcasting</a></li>
+<li><a class="reference internal" href="#id58" id="id194">Data type</a></li>
+<li><a class="reference internal" href="#id59" id="id195">Creation</a></li>
+<li><a class="reference internal" href="#id60" id="id196">Indexing</a></li>
+<li><a class="reference internal" href="#reshaping" id="id197">Reshaping</a></li>
+<li><a class="reference internal" href="#broadcasting" id="id198">Broadcasting</a></li>
 </ul>
 </div>
-<div class="section" id="id56">
-<h2><a class="toc-backref" href="#id55">Data type</a></h2>
+<div class="section" id="id58">
+<h2><a class="toc-backref" href="#id57">Data type</a></h2>
 <table border="1" class="docutils">
 <colgroup>
 <col width="16%" />
@@ -3285,8 +3290,8 @@ sign bit, 11 bits exponent, 52 bits mantissa</td>
 an additional underscore in NumPy. Additionally the names such as <code>intc</code>,
 <code>long</code>, or <code>double</code>  used in the C programming language are defined.</p>
 </div>
-<div class="section" id="id57">
-<h2><a class="toc-backref" href="#id55">Creation</a></h2>
+<div class="section" id="id59">
+<h2><a class="toc-backref" href="#id57">Creation</a></h2>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <pre class="code python literal-block">
 <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">zeros</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span>
@@ -3394,7 +3399,7 @@ an additional underscore in NumPy. Additionally the names such as <code>intc</co
 </pre>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <pre class="code python literal-block">
-<span class="name">np</span><span class="operator">.</span><span class="name">grid</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">:</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">:</span><span class="literal number integer">3</span><span class="punctuation">]</span>
+<span class="name">np</span><span class="operator">.</span><span class="name">mgrid</span><span class="punctuation">[</span><span class="literal number integer">0</span><span class="punctuation">:</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">:</span><span class="literal number integer">3</span><span class="punctuation">]</span>
 </pre>
 <pre class="code output literal-block">
 ┌───┬───┬───┐   ┌───┬───┬───┐
@@ -3406,8 +3411,8 @@ an additional underscore in NumPy. Additionally the names such as <code>intc</co
 └───┴───┴───┘   └───┴───┴───┘
 </pre>
 </div>
-<div class="section" id="id58">
-<h2><a class="toc-backref" href="#id55">Indexing</a></h2>
+<div class="section" id="id60">
+<h2><a class="toc-backref" href="#id57">Indexing</a></h2>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <pre class="code python literal-block">
 <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">reshape</span><span class="punctuation">(</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">3</span><span class="punctuation">)</span>
@@ -3508,7 +3513,7 @@ an additional underscore in NumPy. Additionally the names such as <code>intc</co
 </pre>
 </div>
 <div class="section" id="reshaping">
-<h2><a class="toc-backref" href="#id55">Reshaping</a></h2>
+<h2><a class="toc-backref" href="#id57">Reshaping</a></h2>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <pre class="code python literal-block">
 <span class="name">Z</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">array</span><span class="punctuation">([</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="literal number integer">0</span><span class="punctuation">])</span>
@@ -3609,7 +3614,7 @@ an additional underscore in NumPy. Additionally the names such as <code>intc</co
 </pre>
 </div>
 <div class="section" id="broadcasting">
-<h2><a class="toc-backref" href="#id55">Broadcasting</a></h2>
+<h2><a class="toc-backref" href="#id57">Broadcasting</a></h2>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <pre class="code python literal-block">
 <span class="name">Z1</span> <span class="operator">=</span> <span class="name">np</span><span class="operator">.</span><span class="name">arange</span><span class="punctuation">(</span><span class="literal number integer">9</span><span class="punctuation">)</span><span class="operator">.</span><span class="name">reshape</span><span class="punctuation">(</span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="literal number integer">3</span><span class="punctuation">)</span>
@@ -3674,19 +3679,19 @@ an additional underscore in NumPy. Additionally the names such as <code>intc</co
 </div>
 <div class="section" id="bibliography">
 <h1><a class="toc-backref" href="#table-of-contents">Bibliography</a></h1>
-<p>This is a curated list of some numpy related resources (articles, books &amp;
-tutorials) addressing different aspects of numpy. Some are very specific to
-numpy/Scipy while some others offer a broader view on numerical computing.</p>
-<div class="contents local topic" id="id59">
+<p>This is a curated list of some NumPy related resources (articles, books &amp;
+tutorials) addressing different aspects of NumPy. Some are very specific to
+NumPy/Scipy while some others offer a broader view on numerical computing.</p>
+<div class="contents local topic" id="id61">
 <p class="topic-title first"><strong>Contents</strong></p>
 <ul class="simple">
-<li><a class="reference internal" href="#tutorials" id="id197">Tutorials</a></li>
-<li><a class="reference internal" href="#articles" id="id198">Articles</a></li>
-<li><a class="reference internal" href="#books" id="id199">Books</a></li>
+<li><a class="reference internal" href="#tutorials" id="id199">Tutorials</a></li>
+<li><a class="reference internal" href="#articles" id="id200">Articles</a></li>
+<li><a class="reference internal" href="#books" id="id201">Books</a></li>
 </ul>
 </div>
 <div class="section" id="tutorials">
-<h2><a class="toc-backref" href="#id59">Tutorials</a></h2>
+<h2><a class="toc-backref" href="#id61">Tutorials</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html">100 Numpy exercises</a>, Nicolas P. Rougier, 2016.</li>
 <li><a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/numpy/numpy.html">Numpy tutorial</a>, Nicolas P. Rougier, 2015.</li>
@@ -3698,7 +3703,7 @@ numpy/Scipy while some others offer a broader view on numerical computing.</p>
 </ul>
 </div>
 <div class="section" id="articles">
-<h2><a class="toc-backref" href="#id59">Articles</a></h2>
+<h2><a class="toc-backref" href="#id61">Articles</a></h2>
 <ul>
 <li><div class="first line-block">
 <div class="line"><a class="reference external" href="https://hal.inria.fr/inria-00564007/document">The NumPy array: a structure for efficient numerical computation</a></div>
@@ -3747,7 +3752,7 @@ also flexible enough to be sped up with additional extensions.</p>
 </ul>
 </div>
 <div class="section" id="books">
-<h2><a class="toc-backref" href="#id59">Books</a></h2>
+<h2><a class="toc-backref" href="#id61">Books</a></h2>
 <ul>
 <li><div class="first line-block">
 <div class="line"><a class="reference external" href="http://www.scipy-lectures.org">SciPy Lecture Notes</a>,</div>
