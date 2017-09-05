@@ -111,8 +111,8 @@ an index tuple) and more precisely, how to compute the start and end offsets:
 .. code:: python
 
    offset_start = 0
-   for i in range(ndim):
-       offset_start += strides[i]*index[i]
+   for i in range(Z.ndim):
+       offset_start += Z.strides[i] * index[i]
    offset_end = offset_start + Z.itemsize
 
 Let's see if this is correct using the `tobytes
@@ -121,13 +121,14 @@ conversion method:
 
 .. code:: python
 
-   >>> Z = np.arange(9).reshape(3,3).astype(np.int16)
-   >>> index = 1,1
+   >>> Z = np.arange(9).reshape(3, 3).astype(np.int16)
+   >>> index = 1, 1
    >>> print(Z[index].tobytes())
    b'\x04\x00'
-   >>> offset = 0
+   >>> offset_start = 0
    >>> for i in range(Z.ndim):
-   ...     offset + = Z.strides[i]*index[i]
+   ...     offset_start + = Z.strides[i] * index[i]
+   >>> offset_end = offset_start + Z.itemsize
    >>> print(Z.tobytes()[offset_start:offset_end]
    b'\x04\x00'
 
