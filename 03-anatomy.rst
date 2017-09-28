@@ -127,7 +127,7 @@ conversion method:
    b'\x04\x00'
    >>> offset_start = 0
    >>> for i in range(Z.ndim):
-   ...     offset_start + = Z.strides[i] * index[i]
+   ...     offset_start += Z.strides[i] * index[i]
    >>> offset_end = offset_start + Z.itemsize
    >>> print(Z.tobytes()[offset_start:offset_end]
    b'\x04\x00'
