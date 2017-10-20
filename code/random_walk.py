@@ -47,7 +47,7 @@ def random_walk_fastest(n=1000):
 # -----------------------------------------------------------------------------
 # Readable but slow
 def find_crossing_1(seq, sub):
-    return [i for i in range(len(seq) - len(sub)) if seq[i:i+len(sub)] == sub]
+    return [i for i in range(len(seq) - len(sub) +1) if seq[i:i+len(sub)] == sub]
 
 # Fast but hardly readable
 def find_crossing_2(seq, sub):
