@@ -104,9 +104,9 @@ compute it only once:
            result += X[i]*Ysum
        return result
 
-Not so bad, we have removed the inner loop, meaning with transform a
-:math:`O(n^2)` complexity into :math:`O(n)` complexity. Using the same
-approach, we can now write:
+Not so bad, we have removed the inner loop, transforming :math:`O(n^2)` 
+complexity into :math:`O(n)` complexity. Using the same approach, we can now 
+write:
 
 .. code:: python
 

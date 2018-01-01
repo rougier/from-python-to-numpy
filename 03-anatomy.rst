@@ -379,9 +379,9 @@ you don't need `X` nor `Y` afterwards, an alternate solution would be:
    >>> np.multiply(Y, 2, out=Y)
    >>> np.add(X, Y, out=X)
 
-Using this alternate solution, no temporary array has been created. Problem is
-that there are many other cases where such copies needs to be created and this
-impact the performance like demonstrated on the example below:
+Using this alternate solution, no temporary array has been created. The problem 
+is that there are many other cases where such copies need to be created and 
+this impacts the performance like demonstrated in the example below:
 
 .. code:: pycon
 
