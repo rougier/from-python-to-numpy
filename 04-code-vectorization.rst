@@ -111,8 +111,8 @@ dead. Every cell interacts with its eight neighbours, which are the cells that
 are directly horizontally, vertically, or diagonally adjacent. At each step in
 time, the following transitions occur:
 
-1. Any live cell with fewer than two live neighbours dies, as if by needs
-   caused by underpopulation.
+1. Any live cell with fewer than two live neighbours dies, as if by 
+   underpopulation.
 2. Any live cell with more than three live neighbours dies, as if by
    overcrowding.
 3. Any live cell with two or three live neighbours lives, unchanged, to the

@@ -380,8 +380,7 @@ Glumpy
 
 `Glumpy <http://glumpy.github.io>`_ is an OpenGL-based interactive
 visualization library in Python. Its goal is to make it easy to create fast,
-scalable, beautiful, interactive and dynamic visualizations. The main
-documentation for the site is organized into a couple of sections:
+scalable, beautiful, interactive and dynamic visualizations.
 
 
 Conclusion
