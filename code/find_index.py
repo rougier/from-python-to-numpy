@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def find_view(base, view):
+def find_index(base, view):
     """
     Given an array that is a `view` of a `base`, find an index such that
     `base[index] is view`
