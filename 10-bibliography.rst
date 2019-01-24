@@ -29,7 +29,7 @@ Tutorials
 .. _tutorial-5: http://cs231n.github.io/python-numpy-tutorial/
 
 .. |tutorial-6| replace:: Quickstart tutorial
-.. _tutorial-6: https://docs.scipy.org/doc/numpy-dev/user/quickstart.html
+.. _tutorial-6: https://docs.scipy.org/doc/numpy/user/quickstart.html
 
 .. |tutorial-7| replace:: Numpy medkits
 .. _tutorial-7: http://mentat.za.net/numpy/numpy_advanced_slides/
