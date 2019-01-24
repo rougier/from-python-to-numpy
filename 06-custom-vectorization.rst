@@ -64,11 +64,11 @@ others) for the creation of a `TypedList` object.
            whose __array__ method returns an array, or any (nested) sequence.
 
        sizes:  int or 1-D array
-           If `itemsize is an integer, N, the array will be divided
+           If `itemsize` is an integer, N, the array will be divided
            into elements of size N. If such partition is not possible,
            an error is raised.
 
-           If `itemsize` is 1-D array, the array will be divided into
+           If `itemsize` is a 1-D array, the array will be divided into
            elements whose successive sizes will be picked from itemsize.
            If the sum of itemsize values is different from array size,
            an error is raised.

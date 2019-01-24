@@ -39,7 +39,7 @@ surprising results. But let's start with the most obvious Python solution:
        return Z
 
 This solution is the slowest solution because it requires 4 loops, and more
-importantly, it tests all the different combinations (11641) of 4 integers
+importantly, it tests all the different combinations (14641) of 4 integers
 between 0 and 10 to retain only combinations whose sum is 10. We can of course
 get rid of the 4 loops using itertools, but the code remains slow:
 
@@ -380,8 +380,7 @@ Glumpy
 
 `Glumpy <http://glumpy.github.io>`_ is an OpenGL-based interactive
 visualization library in Python. Its goal is to make it easy to create fast,
-scalable, beautiful, interactive and dynamic visualizations. The main
-documentation for the site is organized into a couple of sections:
+scalable, beautiful, interactive and dynamic visualizations.
 
 
 Conclusion
