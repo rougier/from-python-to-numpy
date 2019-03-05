@@ -49,7 +49,7 @@ method, the inner `+` is interpreted differently depending on the nature of the
 two objects such that if we consider two nested lists, we get the following
 outputs:
 
-.. code-block:: pycon
+.. code-block:: python
 
    >>> Z1 = [[1, 2], [3, 4]]
    >>> Z2 = [[5, 6], [7, 8]]
