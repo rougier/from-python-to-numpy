@@ -199,7 +199,7 @@ Fortran, without having to switch languages or Python interpreters.
    import numpy as np
 
    @jit
-   def evaluate(np.ndarray a, np.ndarray b):
+   def evaluate(a, b):
        c = np.zeros_like(a)
        for i in range(a.size):
            c[i] = 2*a[i] + 3*b[i]
