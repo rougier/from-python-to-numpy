@@ -1,2 +1,3 @@
 *.rst linguist-language=Python
+* linguist-vendored
 *.html linguist-vendored=false
