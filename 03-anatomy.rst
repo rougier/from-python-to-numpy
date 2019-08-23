@@ -129,7 +129,7 @@ conversion method:
    >>> for i in range(Z.ndim):
    ...     offset_start += Z.strides[i] * index[i]
    >>> offset_end = offset_start + Z.itemsize
-   >>> print(Z.tobytes()[offset_start:offset_end]
+   >>> print(Z.tobytes()[offset_start:offset_end])
    b'\x04\x00'
 
 
