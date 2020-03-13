@@ -806,7 +806,7 @@ We're ready to write our three rules:
 
    # Normalize the result
    norm = np.sqrt((target*target).sum(axis=1)).reshape(n, 1)
-   target *= np.divide(target, norm, out=target, where=norm != 0)
+   np.divide(target, norm, out=target, where=norm != 0)
 
    # Alignment at constant speed
    target *= max_velocity
@@ -827,7 +827,7 @@ We're ready to write our three rules:
 
    # Normalize the result
    norm = np.sqrt((target*target).sum(axis=1)).reshape(n, 1)
-   target *= np.divide(target, norm, out=target, where=norm != 0)
+   np.divide(target, norm, out=target, where=norm != 0)
 
    # Cohesion at constant speed (max_velocity)
    target *= max_velocity
@@ -843,15 +843,15 @@ We're ready to write our three rules:
    repulsion = np.dstack((dx, dy))
 
    # Force is inversely proportional to the distance
-   repulsion = np.divide(repulsion, distance.reshape(n, n, 1)**2, out=repulsion,
-                         where=distance.reshape(n, n, 1) != 0)
+   np.divide(repulsion, distance.reshape(n, n, 1)**2, out=repulsion,
+             where=distance.reshape(n, n, 1) != 0)
 
    # Compute direction away from others
    target = (repulsion*mask.reshape(n, n, 1)).sum(axis=1)/count.reshape(n, 1)
 
    # Normalize the result
    norm = np.sqrt((target*target).sum(axis=1)).reshape(n, 1)
-   target *= np.divide(target, norm, out=target, where=norm != 0)
+   np.divide(target, norm, out=target, where=norm != 0)
 
    # Separation at constant speed (max_velocity)
    target *= max_velocity
