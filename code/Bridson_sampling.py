@@ -67,7 +67,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30):
             N[(i, j)] = neighborhood(M.shape, (i, j), 2)
 
     points = []
-    add_point((np.random.uniform(width), np.random.uniform(height)))
+    add_point((np.random.uniform(0,width), np.random.uniform(0,height)))
     while len(points):
         i = np.random.randint(len(points))
         p = points[i]
