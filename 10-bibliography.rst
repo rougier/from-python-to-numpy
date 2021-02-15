@@ -17,7 +17,7 @@ Tutorials
 .. _tutorial-1: http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html
 
 .. |tutorial-2| replace:: Numpy tutorial
-.. _tutorial-2: http://www.labri.fr/perso/nrougier/teaching/numpy/numpy.html
+.. _tutorial-2: https://github.com/rougier/numpy-tutorial
 
 .. |tutorial-3| replace:: Python course
 .. _tutorial-3: http://www.python-course.eu/numpy.php
