@@ -1,0 +1,14 @@
+format: jb-article
+root: book
+title: From Python to Numpy
+sections:
+- file: 01-preface
+- file: 02-introduction
+- file: 03-anatomy
+- file: 04-code-vectorization
+- file: 05-problem-vectorization
+- file: 06-custom-vectorization
+- file: 07-beyond-numpy
+- file: 08-conclusion
+- file: 09-quick-reference
+- file: 10-bibliography

@@ -1,0 +1,1008 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Problem vectorization &#8212; From Python to Numpy</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Custom vectorization" href="06-custom-vectorization.html" />
+    <link rel="prev" title="Code vectorization" href="04-code-vectorization.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/cubes.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">From Python to Numpy</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="book.html">
+   From Python to Numpy
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-preface.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-anatomy.html">
+   Anatomy of an array
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-code-vectorization.html">
+   Code vectorization
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Problem vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-custom-vectorization.html">
+   Custom vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-beyond-numpy.html">
+   Beyond NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-conclusion.html">
+   Conclusion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-quick-reference.html">
+   Quick References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-bibliography.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/05-problem-vectorization.rst"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#path-finding">
+   Path finding
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-a-maze">
+     Building a maze
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#breadth-first">
+     Breadth-first
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bellman-ford-method">
+     Bellman-Ford method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sources">
+     Sources
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fluid-dynamics">
+   Fluid Dynamics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lagrangian-vs-eulerian-method">
+     Lagrangian vs Eulerian method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numpy-implementation">
+     NumPy implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Sources
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#blue-noise-sampling">
+   Blue noise sampling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dart-method">
+     DART method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bridson-method">
+     Bridson method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Sources
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="problem-vectorization">
+<h1>Problem vectorization<a class="headerlink" href="#problem-vectorization" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title"><strong>Contents</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id5">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#path-finding" id="id6">Path finding</a></p>
+<ul>
+<li><p><a class="reference internal" href="#building-a-maze" id="id7">Building a maze</a></p></li>
+<li><p><a class="reference internal" href="#breadth-first" id="id8">Breadth-first</a></p></li>
+<li><p><a class="reference internal" href="#bellman-ford-method" id="id9">Bellman-Ford method</a></p></li>
+<li><p><a class="reference internal" href="#sources" id="id10">Sources</a></p></li>
+<li><p><a class="reference internal" href="#references" id="id11">References</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#fluid-dynamics" id="id12">Fluid Dynamics</a></p>
+<ul>
+<li><p><a class="reference internal" href="#lagrangian-vs-eulerian-method" id="id13">Lagrangian vs Eulerian method</a></p></li>
+<li><p><a class="reference internal" href="#numpy-implementation" id="id14">NumPy implementation</a></p></li>
+<li><p><a class="reference internal" href="#id1" id="id15">Sources</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id16">References</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#blue-noise-sampling" id="id17">Blue noise sampling</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dart-method" id="id18">DART method</a></p></li>
+<li><p><a class="reference internal" href="#bridson-method" id="id19">Bridson method</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id20">Sources</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">References</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#conclusion" id="id22">Conclusion</a></p></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id5">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Problem vectorization is much harder than code vectorization because it means
+that you fundamentally have to rethink your problem in order to make it
+vectorizable. Most of the time this means you have to use a different algorithm
+to solve your problem or even worse… to invent a new one. The difficulty is thus
+to think out-of-the-box.</p>
+<p>To illustrate this, let’s consider a simple problem where given two vectors <cite>X</cite> and
+<cite>Y</cite>, we want to compute the sum of <cite>X[i]*Y[j]</cite> for all pairs of indices <cite>i</cite>,
+<cite>j</cite>. One simple and obvious solution is to write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_python</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)):</span>
+            <span class="n">result</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">Y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>However, this first and naïve implementation requires two loops and we already
+know it will be slow:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timeit</span><span class="p">(</span><span class="s2">&quot;compute_python(X,X)&quot;</span><span class="p">)</span>
+<span class="go">1 loops, best of 3: 0.274481 sec per loop</span>
+</pre></div>
+</div>
+<p>How to vectorize the problem then? If you remember your linear algebra course,
+you may have identified the expression <cite>X[i] * Y[j]</cite> to be very similar to a
+matrix product expression. So maybe we could benefit from some NumPy
+speedup. One wrong solution would be to write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_numpy_wrong</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">Y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This is wrong because the <cite>X*Y</cite> expression will actually compute a new vector
+<cite>Z</cite> such that <cite>Z[i] = X[i] * Y[i]</cite> and this is not what we want. Instead, we
+can exploit NumPy broadcasting by first reshaping the two vectors and then
+multiply them:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Z</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here we have <cite>Z[i,j] == X[i,0]*Y[0,j]</cite> and if we take the sum over each elements of
+<cite>Z</cite>, we get the expected result. Let’s see how much speedup we gain in the
+process:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timeit</span><span class="p">(</span><span class="s2">&quot;compute_numpy(X,X)&quot;</span><span class="p">)</span>
+<span class="go">10 loops, best of 3: 0.00157926 sec per loop</span>
+</pre></div>
+</div>
+<p>This is better, we gained a factor of ~150. But we can do much better.</p>
+<p>If you look again and more closely at the pure Python version, you can see that
+the inner loop is using <cite>X[i]</cite> that does not depend on the <cite>j</cite> index, meaning
+it can be removed from the inner loop. Code can be rewritten as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_numpy_better_1</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="n">Ysum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)):</span>
+            <span class="n">Ysum</span> <span class="o">+=</span> <span class="n">Y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">Ysum</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>But since the inner loop does not depend on the <cite>i</cite> index, we might as well
+compute it only once:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_numpy_better_2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">Ysum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)):</span>
+        <span class="n">Ysum</span> <span class="o">+=</span> <span class="n">Y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">Ysum</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>Not so bad, we have removed the inner loop, transforming <span class="math notranslate nohighlight">\(O(n^2)\)</span>
+complexity into <span class="math notranslate nohighlight">\(O(n)\)</span> complexity. Using the same approach, we can now
+write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_numpy_better_3</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">Ysum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)):</span>
+        <span class="n">Ysum</span> <span class="o">+=</span> <span class="n">Y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">Xsum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="n">Xsum</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Xsum</span><span class="o">*</span><span class="n">Ysum</span>
+</pre></div>
+</div>
+<p>Finally, having realized we only need the product of the sum over <cite>X</cite> and <cite>Y</cite>
+respectively, we can benefit from the <cite>np.sum</cite> function and write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_numpy_better</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is shorter, clearer and much, much faster:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timeit</span><span class="p">(</span><span class="s2">&quot;compute_numpy_better(X,X)&quot;</span><span class="p">)</span>
+<span class="go">1000 loops, best of 3: 3.97208e-06 sec per loop</span>
+</pre></div>
+</div>
+<p>We have indeed reformulated our problem, taking advantage of the fact that
+<span class="math notranslate nohighlight">\(\sum_{ij}{X_i}{Y_j} = \sum_{i}X_i \sum_{j}Y_j$\)</span> and we’ve learned in the
+meantime that there are two kinds of vectorization: code vectorization and
+problem vectorization. The latter is the most difficult but the most
+important because this is where you can expect huge gains in speed. In this
+simple example, we gain a factor of 150 with code vectorization but we gained a
+factor of 70,000 with problem vectorization, just by writing our problem
+differently (even though you cannot expect such a huge speedup in all
+situations). However, code vectorization remains an important factor, and if we
+rewrite the last solution the Python way, the improvement is good but not as much as
+in the NumPy version:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_python_better</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This new Python version is much faster than the previous Python version, but
+still, it is 50 times slower than the NumPy version:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timeit</span><span class="p">(</span><span class="s2">&quot;compute_python_better(X,X)&quot;</span><span class="p">)</span>
+<span class="go">1000 loops, best of 3: 0.000155677 sec per loop</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="path-finding">
+<h2><a class="toc-backref" href="#id6">Path finding</a><a class="headerlink" href="#path-finding" title="Permalink to this headline">¶</a></h2>
+<p>Path finding is all about finding the shortest path in a graph. This can be
+split in two distinct problems: to find a path between two nodes in a graph and
+to find the shortest path. We’ll illustrate this through path finding in a
+maze. The first task is thus to build a maze.</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.1</strong></p>
+<p>A hedge maze at Longleat stately home in England.
+Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Longleat_maze.jpg">Prince Rurik</a>, 2005.</p>
+</div>
+<a class="bordered reference internal image-reference" href="_images/Longleat-maze-cropped.jpg"><img alt="_images/Longleat-maze-cropped.jpg" class="bordered" src="_images/Longleat-maze-cropped.jpg" style="width: 100%;" /></a>
+<div class="section" id="building-a-maze">
+<h3><a class="toc-backref" href="#id7">Building a maze</a><a class="headerlink" href="#building-a-maze" title="Permalink to this headline">¶</a></h3>
+<p>There exist <a class="reference external" href="https://en.wikipedia.org/wiki/Maze_generation_algorithm">many maze generation algorithms</a> but I tend to
+prefer the one I’ve been using for several years but whose origin is unknown to
+me. I’ve added the code in the cited wikipedia entry. Feel free to complete it
+if you know the original author. This algorithm works by creating <cite>n</cite> (density)
+islands of length <cite>p</cite> (complexity). An island is created by choosing a random
+starting point with odd coordinates, then a random direction is chosen. If the
+cell two steps in a given direction is free, then a wall is added at both one step
+and two steps in this direction. The process is iterated for <cite>n</cite> steps for this
+island. <cite>p</cite> islands are created. <cite>n</cite> and <cite>p</cite> are expressed as <cite>float</cite> to adapt them to
+the size of the maze. With a low complexity, islands are very small and the
+maze is easy to solve. With low density, the maze has more “big empty rooms”.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_maze</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="n">complexity</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="mf">0.50</span><span class="p">):</span>
+    <span class="c1"># Only odd shapes</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">((</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Adjust complexity and density relatively to maze size</span>
+    <span class="n">n_complexity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">complexity</span><span class="o">*</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">n_density</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">density</span><span class="o">*</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="c1"># Build actual maze</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="c1"># Fill borders</span>
+    <span class="n">Z</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># Islands starting point with a bias in favor of border</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="n">n_density</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="o">+</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span><span class="o">*</span><span class="p">[</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">P</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Create islands</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_density</span><span class="p">):</span>
+        <span class="c1"># Test for early stop: if all starting point are busy, this means we</span>
+        <span class="c1"># won&#39;t be able to connect any island, so we stop.</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">T</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="k">break</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">Z</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_complexity</span><span class="p">):</span>
+            <span class="n">neighbours</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>          <span class="n">neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">([(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span> <span class="n">neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">([(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>          <span class="n">neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">([(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span> <span class="n">neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">([(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">neighbours</span><span class="p">):</span>
+                <span class="n">choice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">neighbours</span><span class="p">))</span>
+                <span class="n">next_1</span><span class="p">,</span> <span class="n">next_2</span> <span class="o">=</span> <span class="n">neighbours</span><span class="p">[</span><span class="n">choice</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">Z</span><span class="p">[</span><span class="n">next_2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">Z</span><span class="p">[</span><span class="n">next_1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">Z</span><span class="p">[</span><span class="n">next_2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">next_2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">Z</span>
+</pre></div>
+</div>
+<p>Here is an animation showing the generation process.</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.2</strong></p>
+<p>Progressive maze building with complexity and density control.</p>
+</div>
+<video width="100%" controls>
+<source src="data/maze-build.mp4" type="video/mp4">
+Your browser does not support the video tag. </video></div>
+<div class="section" id="breadth-first">
+<h3><a class="toc-backref" href="#id8">Breadth-first</a><a class="headerlink" href="#breadth-first" title="Permalink to this headline">¶</a></h3>
+<p>The breadth-first (as well as depth-first) search algorithm addresses the problem
+of finding a path between two nodes by examining all possibilities starting
+from the root node and stopping as soon as a solution has been found
+(destination node has been reached). This algorithm runs in linear time with
+complexity in <span class="math notranslate nohighlight">\(O(|V|+|E|)\)</span> (where <span class="math notranslate nohighlight">\(V\)</span> is the number of vertices, and <span class="math notranslate nohighlight">\(E\)</span> is
+the number of edges). Writing such an algorithm is not especially difficult,
+provided you have the right data structure. In our case, the array
+representation of the maze is not the most well-suited and we need to transform
+it into an actual graph as proposed by <a class="reference external" href="http://bryukh.com">Valentin Bryukhanov</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_graph</span><span class="p">(</span><span class="n">maze</span><span class="p">):</span>
+    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">maze</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="p">{(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">maze</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]}</span>
+    <span class="k">for</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">maze</span><span class="p">[</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">col</span><span class="p">]:</span>
+            <span class="n">graph</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="p">)))</span>
+            <span class="n">graph</span><span class="p">[(</span><span class="n">row</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">width</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">maze</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="n">graph</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+            <span class="n">graph</span><span class="p">[(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">graph</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If we had used the depth-first algorithm, there is no guarantee to find the
+shortest path, only to find a path (if it exists).</p>
+</div>
+<p>Once this is done, writing the breadth-first algorithm is
+straightforward. We start from the starting node and we visit nodes at
+the current depth only (breadth-first, remember?) and we iterate the
+process until reaching the final node, if possible. The question is
+then: do we get the shortest path exploring the graph this way? In
+this specific case, “yes”, because we don’t have an edge-weighted graph,
+i.e. all the edges have the same weight (or cost).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">breadth_first</span><span class="p">(</span><span class="n">maze</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">goal</span><span class="p">):</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([([</span><span class="n">start</span><span class="p">],</span> <span class="n">start</span><span class="p">)])</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">maze</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">current</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">current</span> <span class="o">==</span> <span class="n">goal</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">direction</span><span class="p">,</span> <span class="n">neighbour</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">[</span><span class="n">current</span><span class="p">]:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbour</span><span class="p">)</span>
+            <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">p</span><span class="p">,</span> <span class="n">neighbour</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bellman-ford-method">
+<h3><a class="toc-backref" href="#id9">Bellman-Ford method</a><a class="headerlink" href="#bellman-ford-method" title="Permalink to this headline">¶</a></h3>
+<p>The Bellman–Ford algorithm is an algorithm that is able to find the optimal
+path in a graph using a diffusion process. The optimal path is found by ascending
+the resulting gradient. This algorithm runs in quadratic time <span class="math notranslate nohighlight">\(O(|V||E|)\)</span>
+(where <span class="math notranslate nohighlight">\(V\)</span> is the number of vertices, and <span class="math notranslate nohighlight">\(E\)</span> is the number of edges). However, in
+our simple case, we won’t hit the worst case scenario. The algorithm is
+illustrated below (reading from left to right, top to bottom). Once this is
+done, we can ascend the gradient from the starting node. You can check on the
+figure that this leads to the shortest path.</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.3</strong></p>
+<p>Value iteration algorithm on a simple maze. Once entrance has been reached,
+it is easy to find the shortest path by ascending the value gradient.</p>
+</div>
+<a class="reference internal image-reference" href="_images/value-iteration-1.png"><img alt="_images/value-iteration-1.png" src="_images/value-iteration-1.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-2.png"><img alt="_images/value-iteration-2.png" src="_images/value-iteration-2.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-3.png"><img alt="_images/value-iteration-3.png" src="_images/value-iteration-3.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-4.png"><img alt="_images/value-iteration-4.png" src="_images/value-iteration-4.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-5.png"><img alt="_images/value-iteration-5.png" src="_images/value-iteration-5.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-6.png"><img alt="_images/value-iteration-6.png" src="_images/value-iteration-6.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-7.png"><img alt="_images/value-iteration-7.png" src="_images/value-iteration-7.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-8.png"><img alt="_images/value-iteration-8.png" src="_images/value-iteration-8.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-9.png"><img alt="_images/value-iteration-9.png" src="_images/value-iteration-9.png" style="width: 19%;" /></a>
+<a class="reference internal image-reference" href="_images/value-iteration-10.png"><img alt="_images/value-iteration-10.png" src="_images/value-iteration-10.png" style="width: 19%;" /></a>
+<p>We start by setting the exit node to the value 1, while every other node is
+set to 0, except the walls. Then we iterate a process such that each
+cell’s new value is computed as the maximum value between the current cell value
+and the discounted (<cite>gamma=0.9</cite> in the case below) 4 neighbour values. The
+process starts as soon as the starting node value becomes strictly positive.</p>
+<p>The NumPy implementation is straightforward if we take advantage of the
+<cite>generic_filter</cite> (from <cite>scipy.ndimage</cite>) for the diffusion process:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diffuse</span><span class="p">(</span><span class="n">Z</span><span class="p">):</span>
+    <span class="c1"># North, West, Center, East, South</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">gamma</span><span class="o">*</span><span class="n">Z</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">gamma</span><span class="o">*</span><span class="n">Z</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Z</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">gamma</span><span class="o">*</span><span class="n">Z</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">gamma</span><span class="o">*</span><span class="n">Z</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># Build gradient array</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Initialize gradient at the entrance with value 1</span>
+<span class="n">G</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Discount factor</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.99</span>
+
+<span class="c1"># We iterate until value at exit is &gt; 0. This requires the maze</span>
+<span class="c1"># to have a solution or it will be stuck in the loop.</span>
+<span class="k">while</span> <span class="n">G</span><span class="p">[</span><span class="n">goal</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">Z</span> <span class="o">*</span> <span class="n">generic_filter</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">diffuse</span><span class="p">,</span> <span class="n">footprint</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                                  <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>But in this specific case, it is rather slow. We’d better cook-up our own
+solution, reusing part of the game of life code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build gradient array</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Initialize gradient at the entrance with value 1</span>
+<span class="n">G</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Discount factor</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.99</span>
+
+<span class="c1"># We iterate until value at exit is &gt; 0. This requires the maze</span>
+<span class="c1"># to have a solution or it will be stuck in the loop.</span>
+<span class="n">G_gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">G</span><span class="p">[</span><span class="n">goal</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">G_gamma</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">G_gamma</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">G_gamma</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">G_gamma</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">G_gamma</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">W</span><span class="p">,</span>
+                                <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">S</span><span class="p">))))</span>
+</pre></div>
+</div>
+<p>Once this is done, we can ascend the gradient to find the shortest path as
+illustrated on the figure below:</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.4</strong></p>
+<p>Path finding using the Bellman-Ford algorithm. Gradient colors indicate
+propagated values from the end-point of the maze (bottom-right). Path is
+found by ascending gradient from the goal.</p>
+</div>
+<a class="reference internal image-reference" href="_images/maze.png"><img alt="_images/maze.png" src="_images/maze.png" style="width: 100%;" /></a>
+</div>
+<div class="section" id="sources">
+<h3><a class="toc-backref" href="#id10">Sources</a><a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="code/maze_build.py">maze_build.py</a></p></li>
+<li><p><a class="reference external" href="code/maze_numpy.py">maze_numpy.py</a></p></li>
+</ul>
+</div>
+<div class="section" id="references">
+<h3><a class="toc-backref" href="#id11">References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="http://bryukh.com/labyrinth-algorithms/">Labyrinth Algorithms</a>, Valentin
+Bryukhanov, 2014.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="fluid-dynamics">
+<h2><a class="toc-backref" href="#id12">Fluid Dynamics</a><a class="headerlink" href="#fluid-dynamics" title="Permalink to this headline">¶</a></h2>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.5</strong></p>
+<p>Hydrodynamic flow at two different zoom levels, Neckar river, Heidelberg,
+Germany. Image by <a class="reference external" href="https://commons.wikimedia.org/wiki/File:Self_Similar_Turbulence.png">Steven Mathey</a>, 2012.</p>
+</div>
+<a class="reference internal image-reference" href="_images/Self-similar-turbulence.png"><img alt="_images/Self-similar-turbulence.png" src="_images/Self-similar-turbulence.png" style="width: 100%;" /></a>
+<div class="section" id="lagrangian-vs-eulerian-method">
+<h3><a class="toc-backref" href="#id13">Lagrangian vs Eulerian method</a><a class="headerlink" href="#lagrangian-vs-eulerian-method" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Excerpt from the Wikipedia entry on the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Lagrangian_and_Eulerian_specification_of_the_flow_field">Lagrangian and Eulerian specification</a></p>
+</div>
+<p>In classical field theory, the Lagrangian specification of the field is a way of
+looking at fluid motion where the observer follows an individual fluid parcel
+as it moves through space and time. Plotting the position of an individual
+parcel through time gives the pathline of the parcel. This can be visualized as
+sitting in a boat and drifting down a river.</p>
+<p>The Eulerian specification of the flow field is a way of looking at fluid
+motion that focuses on specific locations in the space through which the fluid
+flows as time passes. This can be visualized by sitting on the bank of a river
+and watching the water pass the fixed location.</p>
+<p>In other words, in the Eulerian case, you divide a portion of space into cells
+and each cell contains a velocity vector and other information, such as density
+and temperature. In the Lagrangian case, we need particle-based physics with
+dynamic interactions and generally we need a high number of particles. Both
+methods have advantages and disadvantages and the choice between the two
+methods depends on the nature of your problem. Of course, you can also mix the
+two methods into a hybrid method.</p>
+<p>However, the biggest problem for particle-based simulation is that particle
+interaction requires finding neighbouring particles and this has a cost as
+we’ve seen in the boids case. If we target Python and NumPy only, it is probably
+better to choose the Eulerian method since vectorization will be almost trivial
+compared to the Lagrangian method.</p>
+</div>
+<div class="section" id="numpy-implementation">
+<h3><a class="toc-backref" href="#id14">NumPy implementation</a><a class="headerlink" href="#numpy-implementation" title="Permalink to this headline">¶</a></h3>
+<p>I won’t explain all the theory behind computational fluid dynamics because
+first, I cannot (I’m not an expert at all in this domain) and there are many
+resources online that explain this nicely (have a look at references below,
+especially tutorial by L. Barba). Why choose a computational fluid as an example
+then? Because results are (almost) always beautiful and fascinating. I couldn’t
+resist (look at the movie below).</p>
+<p>We’ll further simplify the problem by implementing a method from computer
+graphics where the goal is not correctness but convincing behavior. Jos Stam
+wrote a very nice article for SIGGRAPH 1999 describing a technique to have
+stable fluids over time (i.e. whose solution in the long term does not
+diverge). <a class="reference external" href="https://github.com/albertosantini/python-fluid">Alberto Santini</a>
+wrote a Python replication a long time ago (using numarray!) such that I only
+had to adapt it to modern NumPy and accelerate it a bit using modern NumPy
+tricks.</p>
+<p>I won’t comment the code since it would be too long, but you can read the
+original paper as well as the explanation by <a class="reference external" href="http://prideout.net/blog/?p=58">Philip Rideout</a> on his blog. Below are some movies I’ve made
+using this technique.</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.6</strong></p>
+<p>Smoke simulation using the stable fluids algorithm by Jos Stam.  Right most
+video comes from the <a class="reference external" href="http://glumpy.github.io">glumpy</a> package and is
+using the GPU (framebuffer operations, i.e. no OpenCL nor CUDA) for faster
+computations.</p>
+</div>
+<video width="33%" controls>
+<source src="data/smoke-1.mp4" type="video/mp4">
+Your browser does not support the video tag. </video>
+
+<video width="33%" controls>
+<source src="data/smoke-2.mp4" type="video/mp4">
+Your browser does not support the video tag. </video>
+
+<video width="33%" controls>
+<source src="data/smoke-gpu.mp4" type="video/mp4">
+Your browser does not support the video tag. </video></div>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id15">Sources</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="code/smoke_1.py">smoke_1.py</a></p></li>
+<li><p><a class="reference external" href="code/smoke_2.py">smoke_2.py</a></p></li>
+<li><p><a class="reference external" href="code/smoke_solver.py">smoke_solver.py</a></p></li>
+<li><p><a class="reference external" href="code/smoke_interactive.py">smoke_interactive.py</a></p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id16">References</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/barbagroup/CFDPython">12 Steps to Navier-Stokes</a>, Lorena Barba, 2013.</p></li>
+<li><p><a class="reference external" href="http://www.dgp.toronto.edu/people/stam/reality/Research/pdf/ns.pdf">Stable Fluids</a>, Jos Stam, 1999.</p></li>
+<li><p><a class="reference external" href="http://prideout.net/blog/?p=58">Simple Fluid Simulation</a>, Philip Rideout, 2010</p></li>
+<li><p><a class="reference external" href="http://http.developer.nvidia.com/GPUGems/gpugems_ch38.html">Fast Fluid Dynamics Simulation on the GPU</a>, Mark Harris, 2004.</p></li>
+<li><p><a class="reference external" href="https://www.cs.ubc.ca/%7Erbridson/docs/zhu-siggraph05-sandfluid.pdf">Animating Sand as a Fluid</a>, Yongning Zhu &amp; Robert Bridson, 2005.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="blue-noise-sampling">
+<h2><a class="toc-backref" href="#id17">Blue noise sampling</a><a class="headerlink" href="#blue-noise-sampling" title="Permalink to this headline">¶</a></h2>
+<p>Blue noise refers to sample sets that have random and yet uniform distributions
+with absence of any spectral bias. Such noise is very useful in a variety of
+graphics applications like rendering, dithering, stippling, etc. Many different
+methods have been proposed to achieve such noise, but the most simple is certainly
+the DART method.</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.7</strong></p>
+<p>Detail of “The Starry Night”, Vincent van Gogh, 1889. The detail has been
+resampled using voronoi cells whose centers are a blue noise sample.</p>
+</div>
+<a class="bordered reference internal image-reference" href="_images/mosaic.png"><img alt="_images/mosaic.png" class="bordered" src="_images/mosaic.png" style="width: 100%;" /></a>
+<div class="section" id="dart-method">
+<h3><a class="toc-backref" href="#id18">DART method</a><a class="headerlink" href="#dart-method" title="Permalink to this headline">¶</a></h3>
+<p>The DART method is one of the earliest and simplest methods. It works by
+sequentially drawing uniform random points and only accepting those that lie at a
+minimum distance from every previous accepted sample. This sequential method is
+therefore extremely slow because each new candidate needs to be tested against
+previous accepted candidates. The more points you accept, the slower the
+method is. Let’s consider the unit surface and a minimum radius <cite>r</cite> to be enforced
+between each point.</p>
+<p>Knowing that the densest packing of circles in the plane is the hexagonal
+lattice of the bee’s honeycomb, we know this density is <span class="math notranslate nohighlight">\(d =
+\frac{1}{6}\pi\sqrt{3}\)</span> (in fact <a class="reference external" href="https://en.wikipedia.org/wiki/Circle_packing">I learned it</a> while writing this book).
+Considering circles with radius <span class="math notranslate nohighlight">\(r\)</span>, we can pack at most <span class="math notranslate nohighlight">\(\frac{d}{\pi r^2}
+= \frac{\sqrt{3}}{6r^2} = \frac{1}{2r^2\sqrt{3}}\)</span>. We know the theoretical
+upper limit for the number of discs we can pack onto the surface, but we’ll
+likely not reach this upper limit because of random placements. Furthermore,
+because a lot of points will be rejected after a few have been accepted, we
+need to set a limit on the number of successive failed trials before we stop
+the whole process.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">DART_sampling</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="mf">0.025</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
+        <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">last_success</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="n">accept</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">distance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+                <span class="n">accept</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">accept</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="n">last_success</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">last_success</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">points</span>
+</pre></div>
+</div>
+<p>I left as an exercise the vectorization of the DART method. The idea is to
+pre-compute enough uniform random samples as well as paired distances and to
+test for their sequential inclusion.</p>
+</div>
+<div class="section" id="bridson-method">
+<h3><a class="toc-backref" href="#id19">Bridson method</a><a class="headerlink" href="#bridson-method" title="Permalink to this headline">¶</a></h3>
+<p>If the vectorization of the previous method poses no real difficulty, the speed
+improvement is not so good and the quality remains low and dependent on the <cite>k</cite>
+parameter. The higher, the better since it basically governs how hard to try to
+insert a new sample. But, when there is already a large number of accepted
+samples, only chance allows us to find a position to insert a new sample. We
+could increase the <cite>k</cite> value but this would make the method even slower
+without any guarantee in quality. It’s time to think out-of-the-box and luckily
+enough, Robert Bridson did that for us and proposed a simple yet efficient
+method:</p>
+<blockquote>
+<div><p><strong>Step 0</strong>. Initialize an n-dimensional background grid for storing samples and
+accelerating spatial searches. We pick the cell size to be bounded by
+<span class="math notranslate nohighlight">\(\frac{r}{\sqrt{n}}\)</span>, so that each grid cell will contain at most one
+sample, and thus the grid can be implemented as a simple n-dimensional array of
+integers: the default −1 indicates no sample, a non-negative integer gives the
+index of the sample located in a cell.</p>
+<p><strong>Step 1</strong>. Select the initial sample, <span class="math notranslate nohighlight">\(x_0\)</span>, randomly chosen uniformly from the
+domain. Insert it into the background grid, and initialize the “active list”
+(an array of sample indices) with this index (zero).</p>
+<p><strong>Step 2</strong>. While the active list is not empty, choose a random index from
+it (say <span class="math notranslate nohighlight">\(i\)</span>). Generate up to <span class="math notranslate nohighlight">\(k\)</span> points chosen uniformly from the
+spherical annulus between radius <span class="math notranslate nohighlight">\(r\)</span> and <span class="math notranslate nohighlight">\(2r\)</span> around
+<span class="math notranslate nohighlight">\(x_i\)</span>. For each point in turn, check if it is within distance <span class="math notranslate nohighlight">\(r\)</span>
+of existing samples (using the background grid to only test nearby
+samples). If a point is adequately far from existing samples, emit it as the
+next sample and add it to the active list. If after <span class="math notranslate nohighlight">\(k\)</span> attempts no
+such point is found, instead remove <span class="math notranslate nohighlight">\(i\)</span> from the active list.</p>
+</div></blockquote>
+<p>Implementation poses no real problem and is left as an exercise for the
+reader. Note that not only is this method fast, but it also offers a better
+quality (more samples) than the DART method even with a high <span class="math notranslate nohighlight">\(k\)</span>
+parameter.</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 5.8</strong></p>
+<p>Comparison of uniform, grid-jittered and Bridson sampling.</p>
+</div>
+<a class="reference internal image-reference" href="_images/sampling.png"><img alt="_images/sampling.png" src="_images/sampling.png" style="width: 100%;" /></a>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id20">Sources</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="code/DART_sampling_python.py">DART_sampling_python.py</a></p></li>
+<li><p><a class="reference external" href="code/DART_sampling_numpy.py">DART_sampling_numpy.py</a> (solution to the exercise)</p></li>
+<li><p><a class="reference external" href="code/Bridson_sampling.py">Bridson_sampling.py</a> (solution to the exercise)</p></li>
+<li><p><a class="reference external" href="code/sampling.py">sampling.py</a></p></li>
+<li><p><a class="reference external" href="code/mosaic.py">mosaic.py</a></p></li>
+<li><p><a class="reference external" href="code/voronoi.py">voronoi.py</a></p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id21">References</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://bost.ocks.org/mike/algorithms/">Visualizing Algorithms</a>
+Mike Bostock, 2014.</p></li>
+<li><p><a class="reference external" href="http://www.joesfer.com/?p=108">Stippling and Blue Noise</a>
+Jose Esteve, 2012.</p></li>
+<li><p><a class="reference external" href="http://devmag.org.za/2009/05/03/poisson-disk-sampling/">Poisson Disk Sampling</a>
+Herman Tulleken, 2009.</p></li>
+<li><p><a class="reference external" href="http://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf">Fast Poisson Disk Sampling in Arbitrary Dimensions</a>,
+Robert Bridson, SIGGRAPH, 2007.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2><a class="toc-backref" href="#id22">Conclusion</a><a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>The last example we’ve been studying is indeed a nice example where it is more
+important to vectorize the problem rather than to vectorize the code (and too
+early). In this specific case we were lucky enough to have the work done for us
+but it won’t be always the case and in such a case, the temptation might be
+high to vectorize the first solution we’ve found. I hope you’re now convinced
+it might be a good idea in general to look for alternative solutions once
+you’ve found one. You’ll (almost) always improve speed by vectorizing your
+code, but in the process, you may miss huge improvements.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="04-code-vectorization.html" title="previous page">Code vectorization</a>
+    <a class='right-next' id="next-link" href="06-custom-vectorization.html" title="next page">Custom vectorization</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Nicolas P. Rougier<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
