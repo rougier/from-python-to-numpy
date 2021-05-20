@@ -90,8 +90,23 @@ then in the top directory, run:
 
 The pdf version of the book is available at `jupyter-book/_build/pdf/book.pdf`
 
+
+**Publish using GiHub Pages**
+
+You can automatically push the build files using `ghp-import package`_. ghp-import 
+is a lightweight Python package that makes it easy to push HTML content to a GitHub repository.
+
+More info on how to publish a jupyter-book with gh-page can be found here: 
+https://jupyterbook.org/publish/gh-pages.html.
+
+More info on how to publish on a custom (sub)domain can be found on 
+https://stackoverflow.com/questions/46455900/subdomain-of-website-for-github-pages-project
+
+
 .. _Jupyter Book: https://jupyterbook.org
 .. _pyppeteer: https://pypi.org/project/pyppeteer/
+.. _ghp-import package: https://github.com/davisp/ghp-import
+
 
 
 Prerequisites
