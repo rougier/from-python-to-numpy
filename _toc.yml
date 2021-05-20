@@ -1,8 +1,8 @@
 format: jb-article
-root: book
+root: book-jupyterbook
 title: From Python to Numpy
 sections:
-- file: 01-preface
+- file: 01-preface-with-jupyter-book
 - file: 02-introduction
 - file: 03-anatomy
 - file: 04-code-vectorization
