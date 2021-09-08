@@ -29,6 +29,8 @@ it's readable, but it is slow:
 
 .. code:: python
 
+   import random
+
    class RandomWalker:
        def __init__(self):
            self.position = 0
@@ -38,7 +40,7 @@ it's readable, but it is slow:
            for i in range(n):
                yield self.position
                self.position += 2*random.randint(0, 1) - 1
-           
+
    walker = RandomWalker()
    walk = [position for position in walker.walk(1000)]
 
@@ -51,7 +53,7 @@ Benchmarking gives us:
    >>> timeit("[position for position in walker.walk(n=10000)]", globals())
    10 loops, best of 3: 15.7 msec per loop
 
-       
+
 **Procedural approach**
 
 For such a simple problem, we can probably save the class definition and
@@ -59,6 +61,8 @@ concentrate only on the walk method that computes successive positions after
 each random step.
 
 .. code:: python
+
+   import random
 
    def random_walk(n):
        position = 0
@@ -80,9 +84,9 @@ we saved probably come from the inner Python object-oriented machinery.
    >>> timeit("random_walk(n=10000)", globals())
    10 loops, best of 3: 15.6 msec per loop
 
-   
+
 **Vectorized approach**
-   
+
 But we can do better using the `itertools
 <https://docs.python.org/3.6/library/itertools.html>`_ Python module that
 offers *a set of functions creating iterators for efficient looping*. If we
@@ -92,14 +96,16 @@ loop:
 
 .. code:: python
 
+   # Only available from Python 3.6
+   from itertools import accumulate
+   import random
+
    def random_walk_faster(n=1000):
-       from itertools import accumulate
-       # Only available from Python 3.6
        steps = random.choices([-1,+1], k=n)
        return [0]+list(accumulate(steps))
 
-    walk = random_walk_faster(1000)
-   
+   walk = random_walk_faster(1000)
+
 In fact, we've just *vectorized* our function. Instead of looping for picking
 sequential steps and add them to the current position, we first generated all the
 steps at once and used the `accumulate
@@ -109,7 +115,7 @@ things faster:
 
 .. code:: pycon
 
-   >>> from tools import timeit
+   >>> from tools import timeit # Reminder: run from the `code <code>`_ folder
    >>> timeit("random_walk_faster(n=10000)", globals())
    10 loops, best of 3: 2.21 msec per loop
 
@@ -118,16 +124,16 @@ bad. But the advantage of this new version is that it makes NumPy vectorization
 super simple. We just have to translate itertools call into NumPy ones.
 
 .. code:: python
-       
+
    def random_walk_fastest(n=1000):
        # No 's' in NumPy choice (Python offers choice & choices)
        steps = np.random.choice([-1,+1], n)
        return np.cumsum(steps)
 
    walk = random_walk_fastest(1000)
-           
+
 Not too difficult, but we gained a factor 500x using NumPy:
- 
+
 .. code:: pycon
 
    >>> from tools import timeit
@@ -154,7 +160,7 @@ second (or your name is `Jaime Fernández del Río
 and you don't need to read this book).
 
 .. code:: python
-          
+
    def function_1(seq, sub):
        return [i for i in range(len(seq) - len(sub) +1) if seq[i:i+len(sub)] == sub]
 
