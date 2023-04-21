@@ -40,7 +40,7 @@ def initialization():
         D = np.fromfunction(distance, shape)
         return np.where(D <= radius, True, False)
 
-    D = disc(radius=32) - disc(radius=16)
+    D = disc(radius=32) ^ disc(radius=16)
     dens[...] = D*source/10
     u[:, :] = force * 0.1 * np.random.uniform(-1, 1, u.shape)
     v[:, :] = force * 0.1 * np.random.uniform(-1, 1, u.shape)
