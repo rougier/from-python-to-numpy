@@ -438,7 +438,7 @@ directly compare the first stride only:
 
    >>> step = Z2.strides[0] // Z1.strides[0]
    >>> step
-   2
+   8
 
 Next difficulty is to find the `start` and the `stop` indices. To do this, we
 can take advantage of the `byte_bounds` method that returns a pointer to the
