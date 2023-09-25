@@ -33,7 +33,7 @@ def mandelbrot(xmin, xmax, ymin, ymax, xn, yn, itermax, horizon=2.0):
         Z_[Xi[I], Yi[I]] = Z[I]
 
         # Keep going with those who have not diverged yet
-        np.negative(I, I)
+        I = ~I
         Z = Z[I]
         Xi, Yi = Xi[I], Yi[I]
         C = C[I]
