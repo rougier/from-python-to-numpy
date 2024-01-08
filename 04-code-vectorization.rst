@@ -173,6 +173,7 @@ aforementioned rules:
 
    def iterate(Z):
        N = compute_neighbours(Z)
+       shape = len(Z), len(Z[0])
        for x in range(1,shape[0]-1):
            for y in range(1,shape[1]-1):
                 if Z[x][y] == 1 and (N[x][y] < 2 or N[x][y] > 3):
