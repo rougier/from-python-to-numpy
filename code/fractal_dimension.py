@@ -25,11 +25,11 @@ def fractal_dimension(Z, threshold=0.9):
 
 
 if __name__ == '__main__':
-    from scipy import misc
+    import imageio.v2 as imageio
     import matplotlib.pyplot as plt
     import matplotlib.patches as patches
 
-    Z = 1.0 - misc.imread("../data/Great-Britain.png")/255
+    Z = 1.0 - imageio.imread("../data/Great-Britain.png")/255
 
     print(fractal_dimension(Z, threshold=0.25))
 
