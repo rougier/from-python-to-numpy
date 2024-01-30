@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preface &#8212; From Python to Numpy</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="02-introduction.html" />
+    <link rel="prev" title="From Python to Numpy" href="book-jupyterbook.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/cubes.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">From Python to Numpy</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="book-jupyterbook.html">
+   From Python to Numpy
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-anatomy.html">
+   Anatomy of an array
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-code-vectorization.html">
+   Code vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-problem-vectorization.html">
+   Problem vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-custom-vectorization.html">
+   Custom vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-beyond-numpy.html">
+   Beyond NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-conclusion.html">
+   Conclusion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-quick-reference.html">
+   Quick References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-bibliography.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/01-preface-with-jupyter-book.rst"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#about-the-author">
+   About the author
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#about-this-book">
+   About this book
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#about-the-jupyter-book">
+     About the Jupyter Book
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prerequisites">
+     Prerequisites
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conventions">
+     Conventions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-to-contribute">
+     How to contribute
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#publishing">
+     Publishing
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license">
+   License
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="preface">
+<h1>Preface<a class="headerlink" href="#preface" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title"><strong>Contents</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#about-the-author" id="id1">About the author</a></p></li>
+<li><p><a class="reference internal" href="#about-this-book" id="id2">About this book</a></p>
+<ul>
+<li><p><a class="reference internal" href="#about-the-jupyter-book" id="id3">About the Jupyter Book</a></p></li>
+<li><p><a class="reference internal" href="#prerequisites" id="id4">Prerequisites</a></p></li>
+<li><p><a class="reference internal" href="#conventions" id="id5">Conventions</a></p></li>
+<li><p><a class="reference internal" href="#how-to-contribute" id="id6">How to contribute</a></p></li>
+<li><p><a class="reference internal" href="#publishing" id="id7">Publishing</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#license" id="id8">License</a></p></li>
+</ul>
+</div>
+<div class="section" id="about-the-author">
+<h2><a class="toc-backref" href="#id1">About the author</a><a class="headerlink" href="#about-the-author" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.labri.fr/perso/nrougier/">Nicolas P. Rougier</a> is a full-time research scientist at <a class="reference external" href="http://www.inria.fr/en">Inria</a> which is the
+French national institute for research in computer science and control. This is
+a public scientific and technological establishment (EPST) under the double
+supervision of the Research &amp; Education Ministry, and the Ministry of Economy
+Finance and Industry. Nicolas P. Rougier is working within the <a class="reference external" href="http://www.inria.fr/en/teams/mnemosyne">Mnemosyne</a>
+project which lies at the frontier between integrative and computational
+neuroscience in association with the <a class="reference external" href="http://www.imn-bordeaux.org/en/">Institute of Neurodegenerative
+Diseases</a>, the Bordeaux laboratory for research in computer science
+(<a class="reference external" href="https://www.labri.fr/">LaBRI</a>), the <a class="reference external" href="http://www.u-bordeaux.com/">University of Bordeaux</a> and the national center for scientific
+research (<a class="reference external" href="http://www.cnrs.fr/index.php">CNRS</a>).</p>
+<p>He has been using Python for more than 15 years and NumPy for more than 10
+years for modeling in neuroscience, machine learning and for advanced
+visualization (OpenGL). Nicolas P. Rougier is the author of several online
+resources and tutorials (Matplotlib, NumPy, OpenGL) and he’s teaching Python,
+NumPy and scientific visualization at the University of Bordeaux and in various
+conferences and schools worldwide (SciPy, EuroScipy, etc). He’s also the author
+of the popular article <a class="reference external" href="http://dx.doi.org/10.1371/journal.pcbi.1003833">Ten Simple Rules for Better Figures</a> and a popular
+<a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/matplotlib/matplotlib.html">matplotlib tutorial</a>.</p>
+</div>
+<div class="section" id="about-this-book">
+<h2><a class="toc-backref" href="#id2">About this book</a><a class="headerlink" href="#about-this-book" title="Permalink to this headline">¶</a></h2>
+<p>This book has been written in <a class="reference external" href="http://docutils.sourceforge.net/rst.html">restructured text</a> format and generated using the
+<cite>rst2html.py</cite> command line available from the <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> python package.</p>
+<p>If you want to rebuild the html output, from the top directory, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rst2html.py --link-stylesheet --cloak-email-addresses \
+              --toc-top-backlinks --stylesheet=book.css \
+              --stylesheet-dirs=. book.rst book.html
+</pre></div>
+</div>
+<p>The sources are available from <a class="reference external" href="https://github.com/rougier/from-python-to-numpy">https://github.com/rougier/from-python-to-numpy</a>.</p>
+<div class="section" id="about-the-jupyter-book">
+<h3><a class="toc-backref" href="#id3">About the Jupyter Book</a><a class="headerlink" href="#about-the-jupyter-book" title="Permalink to this headline">¶</a></h3>
+<p><strong>html version</strong></p>
+<p>To generate the <a class="reference external" href="https://jupyterbook.org">Jupyter Book</a> from the top directory:</p>
+<ol class="arabic simple">
+<li><p>Install the most up to date version of jupyter-book:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install -U jupyter-book
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Go to the root directory of the repository and run:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter-book build . --path-output jupyter-book/.
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Copy the data folder into the html directory:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cp -r data jupyter-book/_build/html/.
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Open Jupyter-book at: <cite>jupyter-book/_build/html/index.html</cite></p></li>
+</ol>
+<p><strong>pdf version</strong></p>
+<p>To generate a pdf version of the book, you will need <a class="reference external" href="https://pypi.org/project/pyppeteer/">pyppeteer</a> installed,
+then in the top directory, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ jupyter-book build . --builder pdfhtml --path-output jupyter-book/.
+</pre></div>
+</div>
+<p>The pdf version of the book is available at <cite>jupyter-book/_build/pdf/book.pdf</cite></p>
+</div>
+<div class="section" id="prerequisites">
+<h3><a class="toc-backref" href="#id4">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>This is not a Python beginner guide and you should have an intermediate level in
+Python and ideally a beginner level in NumPy. If this is not the case, have
+a look at the <a href="#id9"><span class="problematic" id="id10">bibliography_</span></a> for a curated list of resources.</p>
+</div>
+<div class="section" id="conventions">
+<h3><a class="toc-backref" href="#id5">Conventions</a><a class="headerlink" href="#conventions" title="Permalink to this headline">¶</a></h3>
+<p>We will use usual naming conventions. If not stated explicitly, each script
+should import NumPy, scipy and matplotlib as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<p>We’ll use up-to-date versions (at the date of writing, i.e. January, 2017) of the
+different packages:</p>
+<table class="table">
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Packages</p></th>
+<th class="head"><p>Version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Python</p></td>
+<td><p>3.6.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>NumPy</p></td>
+<td><p>1.12.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Scipy</p></td>
+<td><p>0.18.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Matplotlib</p></td>
+<td><p>2.0.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="how-to-contribute">
+<h3><a class="toc-backref" href="#id6">How to contribute</a><a class="headerlink" href="#how-to-contribute" title="Permalink to this headline">¶</a></h3>
+<p>If you want to contribute to this book, you can:</p>
+<ul class="simple">
+<li><p>Review chapters (please contact me)</p></li>
+<li><p>Report issues (<a class="reference external" href="https://github.com/rougier/from-python-to-numpy/issues">https://github.com/rougier/from-python-to-numpy/issues</a>)</p></li>
+<li><p>Suggest improvements (<a class="reference external" href="https://github.com/rougier/from-python-to-numpy/pulls">https://github.com/rougier/from-python-to-numpy/pulls</a>)</p></li>
+<li><p>Correct English (<a class="reference external" href="https://github.com/rougier/from-python-to-numpy/issues">https://github.com/rougier/from-python-to-numpy/issues</a>)</p></li>
+<li><p>Design a better and more responsive html template for the book.</p></li>
+<li><p>Star the project (<a class="reference external" href="https://github.com/rougier/from-python-to-numpy">https://github.com/rougier/from-python-to-numpy</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="publishing">
+<h3><a class="toc-backref" href="#id7">Publishing</a><a class="headerlink" href="#publishing" title="Permalink to this headline">¶</a></h3>
+<p>If you’re an editor interested in publishing this book, you can <a class="reference external" href="mailto:Nicolas&#46;Rougier&#37;&#52;&#48;inria&#46;fr">contact me</a> if you agree to have this version and all
+subsequent versions open access (i.e. online at <a class="reference external" href="http://www.labri.fr/perso/nrougier/from-python-to-numpy">this address</a>), you know how to
+deal with <a class="reference external" href="http://docutils.sourceforge.net/rst.html">restructured text</a> (Word
+is not an option), you provide a real added-value as well as supporting
+services, and more importantly, you have a truly amazing latex book template
+(and be warned that I’m a bit picky about typography &amp; design: <a class="reference external" href="https://www.edwardtufte.com/tufte/">Edward Tufte</a> is my hero). Still here?</p>
+</div>
+</div>
+<div class="section" id="license">
+<h2><a class="toc-backref" href="#id8">License</a><a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p><strong>Book</strong></p>
+<p>This work is licensed under a <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-Non Commercial-Share
+Alike 4.0 International License</a>. You are free to:</p>
+<ul class="simple">
+<li><p><strong>Share</strong> — copy and redistribute the material in any medium or format</p></li>
+<li><p><strong>Adapt</strong> — remix, transform, and build upon the material</p></li>
+</ul>
+<p>The licensor cannot revoke these freedoms as long as you follow the license terms.</p>
+<p><strong>Code</strong></p>
+<p>The code is licensed under the <a class="reference external" href="LICENSE-code.txt">OSI-approved BSD 2-Clause License</a>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="book-jupyterbook.html" title="previous page">From Python to Numpy</a>
+    <a class='right-next' id="next-link" href="02-introduction.html" title="next page">Introduction</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Nicolas P. Rougier; Loïc Houpert<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
