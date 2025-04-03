@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom vectorization &#8212; From Python to Numpy</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Beyond NumPy" href="07-beyond-numpy.html" />
+    <link rel="prev" title="Problem vectorization" href="05-problem-vectorization.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/cubes.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">From Python to Numpy</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="book-jupyterbook.html">
+   From Python to Numpy
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-preface-with-jupyter-book.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-anatomy.html">
+   Anatomy of an array
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-code-vectorization.html">
+   Code vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-problem-vectorization.html">
+   Problem vectorization
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Custom vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-beyond-numpy.html">
+   Beyond NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-conclusion.html">
+   Conclusion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-quick-reference.html">
+   Quick References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-bibliography.html">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/06-custom-vectorization.rst"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#typed-list">
+   Typed list
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creation">
+     Creation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#access">
+     Access
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     Exercise
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sources">
+     Sources
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#memory-aware-array">
+   Memory aware array
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Glumpy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#array-subclass">
+     Array subclass
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#computing-extents">
+     Computing extents
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#keeping-track-of-pending-data">
+     Keeping track of pending data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Sources
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="custom-vectorization">
+<h1>Custom vectorization<a class="headerlink" href="#custom-vectorization" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title"><strong>Contents</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction" id="id4">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#typed-list" id="id5">Typed list</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creation" id="id6">Creation</a></p></li>
+<li><p><a class="reference internal" href="#access" id="id7">Access</a></p></li>
+<li><p><a class="reference internal" href="#exercise" id="id8">Exercise</a></p></li>
+<li><p><a class="reference internal" href="#sources" id="id9">Sources</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#memory-aware-array" id="id10">Memory aware array</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id11">Glumpy</a></p></li>
+<li><p><a class="reference internal" href="#array-subclass" id="id12">Array subclass</a></p></li>
+<li><p><a class="reference internal" href="#computing-extents" id="id13">Computing extents</a></p></li>
+<li><p><a class="reference internal" href="#keeping-track-of-pending-data" id="id14">Keeping track of pending data</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id15">Sources</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#conclusion" id="id16">Conclusion</a></p></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id4">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>One of the strengths of NumPy is that it can be used to build new objects or to
+<a class="reference external" href="https://docs.scipy.org/doc/numpy/user/basics.subclassing.html">subclass the ndarray</a> object. This
+later process is a bit tedious but it is worth the effort because it allows you
+to improve the <cite>ndarray</cite> object to suit your problem. We’ll examine in
+the following section two real-world cases (typed list and memory-aware array)
+that are extensively used in the <a class="reference external" href="http://glumpy.github.io">glumpy</a> project
+(that I maintain) while the last one (double precision array) is a more
+academic case.</p>
+</div>
+<div class="section" id="typed-list">
+<h2><a class="toc-backref" href="#id5">Typed list</a><a class="headerlink" href="#typed-list" title="Permalink to this headline">¶</a></h2>
+<p>Typed list (also known as ragged array) is a list of items that all have the
+same data type (in the sense of NumPy). They offer both the list and the
+ndarray API (with some restriction of course) but because their respective APIs may not be
+compatible in some cases, we have to make choices. For example, concerning
+the <cite>+</cite> operator, we’ll choose to use the NumPy API where the value is added to
+each individual item instead of expanding the list by appending a new item
+(<cite>1</cite>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="n">TypedList</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="go">[1, 2], [3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">[2, 3], [4]</span>
+</pre></div>
+</div>
+<p>From the list API, we want our new object to offer the possibility of inserting,
+appending and removing items seamlessly.</p>
+<div class="section" id="creation">
+<h3><a class="toc-backref" href="#id6">Creation</a><a class="headerlink" href="#creation" title="Permalink to this headline">¶</a></h3>
+<p>Since the object is dynamic by definition, it is important to offer a
+general-purpose creation method powerful enough to avoid having to do later
+manipulations. Such manipulations, for example insertion/deletion, cost
+a lot of operations and we want to avoid them. Here is a proposal (among
+others) for the creation of a <cite>TypedList</cite> object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    data : array_like</span>
+<span class="sd">        An array, any object exposing the array interface, an object</span>
+<span class="sd">        whose __array__ method returns an array, or any (nested) sequence.</span>
+
+<span class="sd">    sizes:  int or 1-D array</span>
+<span class="sd">        If `itemsize` is an integer, N, the array will be divided</span>
+<span class="sd">        into elements of size N. If such partition is not possible,</span>
+<span class="sd">        an error is raised.</span>
+
+<span class="sd">        If `itemsize` is a 1-D array, the array will be divided into</span>
+<span class="sd">        elements whose successive sizes will be picked from itemsize.</span>
+<span class="sd">        If the sum of itemsize values is different from array size,</span>
+<span class="sd">        an error is raised.</span>
+
+<span class="sd">    dtype: np.dtype</span>
+<span class="sd">        Any object that can be interpreted as a NumPy data type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>This API allows creating an empty list or creating a list from some external
+data. Note that in the latter case, we need to specify how to partition the
+data into several items or they will split into 1-size items. It can be a regular
+partition (i.e. each item is 2 data long) or a custom one (i.e. data must be
+split in items of size 1, 2, 3 and 4 items).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">L</span> <span class="o">=</span> <span class="n">TypedList</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+<span class="go">[ [0] [1 2] [3 4 5] [6 7 8] ]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">L</span> <span class="o">=</span> <span class="n">TypedList</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="go">[ [0] [1 2] [3 4 5] [6 7 8] ]</span>
+</pre></div>
+</div>
+<p>At this point, the question is whether to subclass the <cite>ndarray</cite> class or to use
+an internal <cite>ndarray</cite> to store our data. In our specific case, it does not really make
+sense to subclass <cite>ndarray</cite> because we don’t really want to offer the
+<cite>ndarray</cite> interface. Instead, we’ll use an <cite>ndarray</cite> for storing the list data and
+this design choice will offer us more flexibility.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>╌╌╌╌┬───┐┌───┬───┐┌───┬───┬───┐┌───┬───┬───┬───┬╌╌╌╌╌
+    │ 0 ││ 1 │ 2 ││ 3 │ 4 │ 5 ││ 6 │ 7 │ 8 │ 9 │
+ ╌╌╌┴───┘└───┴───┘└───┴───┴───┘└───┴───┴───┴───┴╌╌╌╌╌╌
+   item 1  item 2    item 3         item 4
+</pre></div>
+</div>
+<p>To store the limit of each item, we’ll use an <cite>items</cite> array that will take care
+of storing the position (start and end) for each item. For the creation of a
+list, there are two distinct cases: no data is given or some data is given. The
+first case is easy and requires only the creation of the <cite>_data</cite> and <cite>_items</cite>
+arrays. Note that their size is not <cite>null</cite> since it would be too costly to resize
+the array each time we insert a new item. Instead, it’s better to reserve some
+space.</p>
+<p><strong>First case.</strong> No data has been given, only dtype.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p><strong>Second case.</strong> Some data has been given as well as a list of item sizes (for
+other cases, see full code below)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="n">sizes</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">sizes</span><span class="p">),</span><span class="mi">2</span><span class="p">),</span><span class="nb">int</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">indices</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="mi">0</span><span class="p">:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">indices</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="access">
+<h3><a class="toc-backref" href="#id7">Access</a><a class="headerlink" href="#access" title="Permalink to this headline">¶</a></h3>
+<p>Once this is done, every list method requires only a bit of computation and
+playing with the different key when getting, inserting or setting an item. Here is
+the code for the <cite>__getitem__</cite> method. No real difficulty but the possible
+negative step:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Tuple index out of range&quot;</span><span class="p">)</span>
+        <span class="n">dstart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dstop</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">dstart</span><span class="p">:</span><span class="n">dstop</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">slice</span><span class="p">:</span>
+        <span class="n">istart</span><span class="p">,</span> <span class="n">istop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">istart</span> <span class="o">&gt;</span> <span class="n">istop</span><span class="p">:</span>
+            <span class="n">istart</span><span class="p">,</span><span class="n">istop</span> <span class="o">=</span> <span class="n">istop</span><span class="p">,</span><span class="n">istart</span>
+        <span class="n">dstart</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">istart</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">istart</span> <span class="o">==</span> <span class="n">istop</span><span class="p">:</span>
+            <span class="n">dstop</span> <span class="o">=</span> <span class="n">dstart</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dstop</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">istop</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">dstart</span><span class="p">:</span><span class="n">dstop</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">key</span><span class="p">][:</span><span class="bp">self</span><span class="o">.</span><span class="n">_size</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="n">key</span> <span class="ow">is</span> <span class="bp">Ellipsis</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;List indices must be integers&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercise">
+<h3><a class="toc-backref" href="#id8">Exercise</a><a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h3>
+<p>Modification of the list is a bit more complicated, because it requires
+managing memory properly. Since it poses no real difficulty, we left this as an
+exercise for the reader. For the lazy, you can have a look at the code below.
+Be careful with negative steps, key range and array expansion. When the
+underlying array needs to be expanded, it’s better to expand it more than
+necessary in order to avoid future expansion.</p>
+<p><strong>setitem</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">L</span> <span class="o">=</span> <span class="n">TypedList</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>╌╌╌╌┬───┬───┐┌───┬───┐┌───┬───┬╌╌╌╌╌
+    │ 0 │ 0 ││ 1 │ 1 ││ 2 │ 2 │
+ ╌╌╌┴───┴───┘└───┴───┘└───┴───┴╌╌╌╌╌╌
+     item 1   item 2   item 3
+
+╌╌╌╌┬───┬───┐┌───┬───┲━━━┓┌───┬───┬╌╌╌╌╌
+    │ 0 │ 0 ││ 1 │ 1 ┃ 1 ┃│ 2 │ 2 │
+ ╌╌╌┴───┴───┘└───┴───┺━━━┛└───┴───┴╌╌╌╌╌╌
+     item 1     item 2     item 3
+</pre></div>
+</div>
+<p><strong>delitem</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">L</span> <span class="o">=</span> <span class="n">TypedList</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="k">del</span> <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>╌╌╌╌┬───┬───┐┏━━━┳━━━┓┌───┬───┬╌╌╌╌╌
+    │ 0 │ 0 │┃ 1 ┃ 1 ┃│ 2 │ 2 │
+ ╌╌╌┴───┴───┘┗━━━┻━━━┛└───┴───┴╌╌╌╌╌╌
+     item 1   item 2   item 3
+
+╌╌╌╌┬───┬───┐┌───┬───┬╌╌╌╌╌
+    │ 0 │ 0 ││ 2 │ 2 │
+ ╌╌╌┴───┴───┘└───┴───┴╌╌╌╌╌╌
+     item 1    item 2
+</pre></div>
+</div>
+<p><strong>insert</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">L</span> <span class="o">=</span> <span class="n">TypedList</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">L</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>╌╌╌╌┬───┬───┐┌───┬───┐┌───┬───┬╌╌╌╌╌
+    │ 0 │ 0 ││ 1 │ 1 ││ 2 │ 2 │
+ ╌╌╌┴───┴───┘└───┴───┘└───┴───┴╌╌╌╌╌╌
+     item 1   item 2   item 3
+
+╌╌╌╌┬───┬───┐┏━━━┳━━━┓┌───┬───┐┌───┬───┬╌╌╌╌╌
+    │ 0 │ 0 │┃ 3 ┃ 3 ┃│ 1 │ 1 ││ 2 │ 2 │
+ ╌╌╌┴───┴───┘┗━━━┻━━━┛└───┴───┘└───┴───┴╌╌╌╌╌╌
+     item 1   item 2   item 3   item 4
+</pre></div>
+</div>
+</div>
+<div class="section" id="sources">
+<h3><a class="toc-backref" href="#id9">Sources</a><a class="headerlink" href="#sources" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="code/array_list.py">array_list.py</a> (solution to the exercise)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="memory-aware-array">
+<h2><a class="toc-backref" href="#id10">Memory aware array</a><a class="headerlink" href="#memory-aware-array" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id11">Glumpy</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://glumpy.github.io">Glumpy</a> is an OpenGL-based interactive
+visualization library in Python whose goal is to make it easy to create fast,
+scalable, beautiful, interactive and dynamic visualizations.</p>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 6.1</strong></p>
+<p>Simulation of a spiral galaxy using the density wave theory.</p>
+</div>
+<a class="bordered reference internal image-reference" href="_images/galaxy.png"><img alt="_images/galaxy.png" class="bordered" src="_images/galaxy.png" style="width: 100%;" /></a>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="legend admonition">
+<p class="admonition-title"><strong>Figure 6.2</strong></p>
+<p>Tiger display using collections and 2 GL calls</p>
+</div>
+<a class="bordered reference internal image-reference" href="_images/tiger.png"><img alt="_images/tiger.png" class="bordered" src="_images/tiger.png" style="width: 100%;" /></a>
+<p>Glumpy is based on a tight and seamless integration with NumPy arrays. This
+means you can manipulate GPU data as you would with regular NumPy arrays and
+glumpy will take care of the rest. But an example is worth a thousand words:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">glumpy</span> <span class="kn">import</span> <span class="n">gloo</span>
+
+<span class="n">dtype</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;position&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># x,y</span>
+         <span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>    <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>  <span class="c1"># r,g,b</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">gloo</span><span class="o">.</span><span class="n">VertexBuffer</span><span class="p">)</span>
+<span class="n">V</span><span class="p">[</span><span class="s2">&quot;position&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+<span class="n">V</span><span class="p">[</span><span class="s2">&quot;position&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+<p><cite>V</cite> is a <cite>VertexBuffer</cite> which is both a <cite>GPUData</cite> and a NumPy array. When <cite>V</cite> is
+modified, glumpy takes care of computing the smallest contiguous block of dirty
+memory since it was last uploaded to GPU memory. When this buffer is to be used
+on the GPU, glumpy takes care of uploading the “dirty” area at the very last
+moment. This means that if you never use <cite>V</cite>, nothing will be ever uploaded to
+the GPU! In the case above, the last computed “dirty” area is made of 88 bytes
+starting at offset 0 as illustrated below:</p>
+<a class="reference internal image-reference" href="_images/GPUData.png"><img alt="_images/GPUData.png" src="_images/GPUData.png" style="width: 100%;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When a buffer is created, it is marked as totally dirty, but for the sake of
+illustration, just pretend this is not the case here.</p>
+</div>
+<p>Glumpy will thus end up uploading 88 bytes while only 16 bytes have been
+actually modified. You might wonder if this optimal. Actually, most of the time
+it is, because uploading some data to a buffer requires a lot of operations on
+the GL side and each call has a fixed cost.</p>
+</div>
+<div class="section" id="array-subclass">
+<h3><a class="toc-backref" href="#id12">Array subclass</a><a class="headerlink" href="#array-subclass" title="Permalink to this headline">¶</a></h3>
+<p>As explained in the <a class="reference external" href="https://docs.scipy.org/doc/numpy/user/basics.subclassing.html">Subclassing ndarray</a>
+documentation, subclassing <cite>ndarray</cite> is complicated by the fact that new
+instances of <cite>ndarray</cite> classes can come about in three different ways:</p>
+<ul class="simple">
+<li><p>Explicit constructor call</p></li>
+<li><p>View casting</p></li>
+<li><p>New from template</p></li>
+</ul>
+<p>However our case is simpler because we’re only interested in the view
+casting. We thus only need to define the <cite>__new__</cite> method that will be called
+at each instance creation. As such, the <cite>GPUData</cite> class will be equipped with two
+properties:</p>
+<ul class="simple">
+<li><p><cite>extents</cite>: This represents the full extent of the view relatively to the base
+array. It is stored as a byte offset and a byte size.</p></li>
+<li><p><cite>pending_data</cite>: This represents the contiguous <em>dirty</em> area as (byte offset,
+byte size) relatively to the <cite>extents</cite> property.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GPUData</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">__array_finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">GPUData</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_extents</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">itemsize</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pending_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extents</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_extents</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_extents</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="computing-extents">
+<h3><a class="toc-backref" href="#id13">Computing extents</a><a class="headerlink" href="#computing-extents" title="Permalink to this headline">¶</a></h3>
+<p>Each time a partial view of the array is requested, we need to compute the
+extents of this partial view while we have access to the base array.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span><span class="s1">&#39;shape&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+        <span class="k">return</span> <span class="n">Z</span>
+    <span class="n">Z</span><span class="o">.</span><span class="n">_extents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_extents</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Z</span>
+
+<span class="k">def</span> <span class="nf">_compute_extents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Z</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">__array_interface__</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">view</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">__array_interface__</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">view</span> <span class="o">-</span> <span class="n">base</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">strides</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">strides</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="o">*</span><span class="n">strides</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">Z</span><span class="o">.</span><span class="n">itemsize</span>
+        <span class="k">return</span> <span class="n">offset</span><span class="p">,</span> <span class="n">offset</span><span class="o">+</span><span class="n">size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">itemsize</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="keeping-track-of-pending-data">
+<h3><a class="toc-backref" href="#id14">Keeping track of pending data</a><a class="headerlink" href="#keeping-track-of-pending-data" title="Permalink to this headline">¶</a></h3>
+<p>One extra difficulty is that we don’t want all the views to keep track of the
+dirty area but only the base array. This is the reason why we don’t instantiate
+the <cite>self._pending_data</cite> in the second case of the <cite>__array_finalize__</cite>
+method. This will be handled when we need to update some data as during a
+<cite>__setitem__</cite> call for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">key</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">strides</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">itemsize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_pending_data</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">offset</span><span class="o">+</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Z</span><span class="o">.</span><span class="n">_extents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_extents</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_pending_data</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">_extents</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Z</span><span class="o">.</span><span class="n">_extents</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_add_pending_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">GPUData</span><span class="p">):</span>
+        <span class="n">base</span><span class="o">.</span><span class="n">_add_pending_data</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pending_data</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pending_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">start</span><span class="p">)</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pending_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">stop</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pending_data</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id15">Sources</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="code/gpudata.py">gpudata.py</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2><a class="toc-backref" href="#id16">Conclusion</a><a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>As explained on the NumPy website, NumPy is the fundamental package for
+scientific computing with Python. However, as illustrated in this chapter, the
+usage of NumPy strengths goes far beyond a mere <em>multi-dimensional container of
+generic data</em>. Using <cite>ndarray</cite> as a private property in one case (<cite>TypedList</cite>) or
+directly subclassing the <cite>ndarray</cite> class (<cite>GPUData</cite>) to keep track of memory in
+another case, we’ve seen how it is possible to extend NumPy’s capabilities to
+suit very specific needs. The limit is only your imagination and your experience.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="05-problem-vectorization.html" title="previous page">Problem vectorization</a>
+    <a class='right-next' id="next-link" href="07-beyond-numpy.html" title="next page">Beyond NumPy</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Nicolas P. Rougier; Loïc Houpert<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

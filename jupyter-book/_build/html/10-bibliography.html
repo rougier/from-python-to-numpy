@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bibliography &#8212; From Python to Numpy</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Quick References" href="09-quick-reference.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/cubes.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">From Python to Numpy</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="book-jupyterbook.html">
+   From Python to Numpy
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-preface-with-jupyter-book.html">
+   Preface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-anatomy.html">
+   Anatomy of an array
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-code-vectorization.html">
+   Code vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-problem-vectorization.html">
+   Problem vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-custom-vectorization.html">
+   Custom vectorization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-beyond-numpy.html">
+   Beyond NumPy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-conclusion.html">
+   Conclusion
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-quick-reference.html">
+   Quick References
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Bibliography
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/10-bibliography.rst"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorials">
+   Tutorials
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#articles">
+   Articles
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#books">
+   Books
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="bibliography">
+<h1>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">¶</a></h1>
+<p>This is a curated list of some NumPy related resources (articles, books &amp;
+tutorials) addressing different aspects of NumPy. Some are very specific to
+NumPy/Scipy while some others offer a broader view on numerical computing.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title"><strong>Contents</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#tutorials" id="id1">Tutorials</a></p></li>
+<li><p><a class="reference internal" href="#articles" id="id2">Articles</a></p></li>
+<li><p><a class="reference internal" href="#books" id="id3">Books</a></p></li>
+</ul>
+</div>
+<div class="section" id="tutorials">
+<h2><a class="toc-backref" href="#id1">Tutorials</a><a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.labri.fr/perso/nrougier/teaching/numpy.100/index.html">100 Numpy exercises</a>, Nicolas P. Rougier, 2016.</p></li>
+<li><p><a class="reference external" href="https://github.com/rougier/numpy-tutorial">Numpy tutorial</a>, Nicolas P. Rougier, 2015.</p></li>
+<li><p><a class="reference external" href="http://www.python-course.eu/numpy.php">Python course</a>, Bernd Klein, 2015.</p></li>
+<li><p><a class="reference external" href="https://engineering.ucsb.edu/~shell/che210d/numpy.pdf">An introduction to Numpy and Scipy</a>, M. Scott Shell, 2014.</p></li>
+<li><p><a class="reference external" href="http://cs231n.github.io/python-numpy-tutorial/">Python Numpy tutorial</a>, Justin Johnson, 2014.</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/numpy/user/quickstart.html">Quickstart tutorial</a>, Numpy developers, 2009.</p></li>
+<li><p><a class="reference external" href="http://mentat.za.net/numpy/numpy_advanced_slides/">Numpy medkits</a>, Stéfan van der Walt, 2008.</p></li>
+</ul>
+</div>
+<div class="section" id="articles">
+<h2><a class="toc-backref" href="#id2">Articles</a><a class="headerlink" href="#articles" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="https://hal.inria.fr/inria-00564007/document">The NumPy array: a structure for efficient numerical computation</a></div>
+<div class="line">Stéfan van der Walt, Chris Colbert &amp; Gael Varoquaux,
+Computing in Science and Engineering, 13(2), 2011.</div>
+</div>
+<div class="abstract docutils container">
+<p>In the Python world, NumPy arrays are the standard representation for
+numerical data and enable efficient implementation of numerical
+computations in a high-level language. As this effort shows, NumPy
+performance can be improved through three techniques: vectorizing
+calculations, avoiding copying data in memory, and minimizing operation
+counts.</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.397.6097">Vectorised algorithms for spiking neural network simulation</a></div>
+<div class="line">Romain Brette &amp; Dan F. M. Goodman,
+Neural Computation, 23(6), 2010.</div>
+</div>
+<div class="abstract docutils container">
+<p>High-level languages (Matlab, Python) are popular in neuroscience because
+they are flexible and accelerate development. However, for simulating
+spiking neural networks, the cost of interpretation is a bottleneck. We
+describe a set of algorithms to simulate large spiking neural networks
+efficiently with high-level languages using vector-based operations. These
+algorithms constitute the core of Brian, a spiking neural network
+simulator written in the Python language. Vectorized simulation makes it
+possible to combine the flexibility of high-level languages with the
+computational efficiency usually associated with compiled languages.</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="http://dl.acm.org/citation.cfm?id=1251830">Python for Scientific Computing</a></div>
+<div class="line">Travis E. Oliphant,
+Computing in Science &amp; Engineering, 9(3), 2007.</div>
+</div>
+<div class="abstract docutils container">
+<p>By itself, Python is an excellent “steering” language for scientific codes
+written in other languages. However, with additional basic tools, Python
+transforms into a high-level language suited for scientific and
+engineering code that’s often fast enough to be immediately useful but
+also flexible enough to be sped up with additional extensions.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="books">
+<h2><a class="toc-backref" href="#id3">Books</a><a class="headerlink" href="#books" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="http://www.scipy-lectures.org">SciPy Lecture Notes</a>,</div>
+<div class="line">Gaël Varoquaux, Emmanuelle Gouillart, Olav Vahtras et al., 2016.</div>
+</div>
+<div class="abstract docutils container">
+<p>One document to learn numerics, science, and data with Python.  Tutorials
+on the scientific Python ecosystem: a quick introduction to central tools
+and techniques. The different chapters each correspond to a 1 to 2 hours
+course with increasing level of expertise, from beginner to expert.</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="http://shop.oreilly.com/product/0636920034919.do">Python Data Science Handbook</a></div>
+<div class="line">Jake van der Plas, O’Reilly, 2016.</div>
+</div>
+<div class="abstract docutils container">
+<p>The Python Data Science Handbook provides a reference to the breadth of
+computational and statistical methods that are central to data—intensive
+science, research, and discovery. People with a programming background who
+want to use Python effectively for data science tasks will learn how to
+face a variety of problems: for example, how can you read this data format
+into your script? How can you manipulate, transform, and clean this data?
+How can you use this data to gain insight, answer questions, or to build
+statistical or machine learning models?</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="http://shop.oreilly.com/product/0636920038481.do">Elegant SciPy: The Art of Scientific Python</a></div>
+<div class="line">Juan Nunez-Iglesias, Stéfan van der Walt, Harriet Dashnow, O’Reilly, 2016.</div>
+</div>
+<div class="abstract docutils container">
+<p>Welcome to Scientific Python and its community! With this practical book,
+you’ll learn the fundamental parts of SciPy and related libraries, and get
+a taste of beautiful, easy-to-read code that you can use in practice. More
+and more scientists are programming, and the SciPy library is here to
+help.  Finding useful functions and using them correctly, efficiently, and
+in easily readable code are two very different things. You’ll learn by
+example with some of the best code available, selected to cover a wide
+range of SciPy and related libraries—including scikit-learn, scikit-image,
+toolz, and pandas.</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="https://www.packtpub.com/big-data-and-business-intelligence/learning-ipython-interactive-computing-and-data-visualization-sec">Learning IPython for Interactive Computing and Data Visualization</a></div>
+<div class="line">Cyrille Rossant, Packt Publishing, 2015.</div>
+</div>
+<div class="abstract docutils container">
+<p>This book is a beginner-friendly guide to the Python data analysis
+platform. After an introduction to the Python language, IPython, and the
+Jupyter Notebook, you will learn how to analyze and visualize data on
+real-world examples, how to create graphical user interfaces for image
+processing in the Notebook, and how to perform fast numerical computations
+for scientific simulations with NumPy, Numba, Cython, and ipyparallel. By
+the end of this book, you will be able to perform in-depth analyses of all
+sorts of data.</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="https://www.safaribooksonline.com/library/view/scipy-and-numpy/9781449361600/">SciPy and NumPy</a></div>
+<div class="line">Eli Bressert, O’Reilly Media, Inc., 2012</div>
+</div>
+<div class="abstract docutils container">
+<p>Are you new to SciPy and NumPy? Do you want to learn it quickly and easily
+through examples and concise introduction? Then this is the book for
+you. You’ll cut through the complexity of online documentation and
+discover how easily you can get up to speed with these Python libraries.</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="http://shop.oreilly.com/product/0636920023784.do">Python for Data Analysis</a></div>
+<div class="line">Wes McKinney, O’Reilly Media, Inc., 2012.</div>
+</div>
+<div class="abstract docutils container">
+<p>Looking for complete instructions on manipulating, processing, cleaning,
+and crunching structured data in Python? This hands-on book is packed
+with practical cases studies that show you how to effectively solve a
+broad set of data analysis problems, using several Python libraries.*</p>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><a class="reference external" href="http://csc.ucdavis.edu/~chaos/courses/nlp/Software/NumPyBook.pdf">Guide to NumPy</a></div>
+<div class="line">Travis Oliphant, 2006</div>
+</div>
+<div class="abstract docutils container">
+<p>This book only briefly outlines some of the infrastructure that surrounds
+the basic objects in NumPy to provide the additional functionality
+contained in the older Numeric package (i.e. LinearAlgebra, RandomArray,
+FFT). This infrastructure in NumPy includes basic linear algebra routines,
+Fourier transform capabilities, and random number generators. In addition,
+the f2py module is described in its own documentation, and so is only
+briefly mentioned in the second part of the book.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="09-quick-reference.html" title="previous page">Quick References</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Nicolas P. Rougier; Loïc Houpert<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
