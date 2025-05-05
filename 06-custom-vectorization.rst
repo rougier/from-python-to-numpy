@@ -12,7 +12,7 @@ Introduction
 
 One of the strengths of NumPy is that it can be used to build new objects or to
 `subclass the ndarray
-<https://docs.scipy.org/doc/numpy/user/basics.subclassing.html>`_ object. This
+<https://numpy.org/doc/stable/user/basics.subclassing.html>`_ object. This
 later process is a bit tedious but it is worth the effort because it allows you
 to improve the `ndarray` object to suit your problem. We'll examine in
 the following section two real-world cases (typed list and memory-aware array)
@@ -332,7 +332,7 @@ Array subclass
 ++++++++++++++
 
 As explained in the `Subclassing ndarray
-<https://docs.scipy.org/doc/numpy/user/basics.subclassing.html>`_
+<https://numpy.org/doc/stable/user/basics.subclassing.html>`_
 documentation, subclassing `ndarray` is complicated by the fact that new
 instances of `ndarray` classes can come about in three different ways:
 
