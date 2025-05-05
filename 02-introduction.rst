@@ -88,7 +88,7 @@ we saved probably come from the inner Python object-oriented machinery.
 **Vectorized approach**
 
 But we can do better using the `itertools
-<https://docs.python.org/3.6/library/itertools.html>`_ Python module that
+<https://docs.python.org/3.13/library/itertools.html>`_ Python module that
 offers *a set of functions creating iterators for efficient looping*. If we
 observe that a random walk is an accumulation of steps, we can rewrite the
 function by first generating all the steps and accumulate them without any
@@ -96,7 +96,6 @@ loop:
 
 .. code:: python
 
-   # Only available from Python 3.6
    from itertools import accumulate
    import random
 
@@ -109,7 +108,7 @@ loop:
 In fact, we've just *vectorized* our function. Instead of looping for picking
 sequential steps and add them to the current position, we first generated all the
 steps at once and used the `accumulate
-<https://docs.python.org/3.6/library/itertools.html#itertools.accumulate>`_
+<https://docs.python.org/3.13/library/itertools.html#itertools.accumulate>`_
 function to compute all the positions. We got rid of the loop and this makes
 things faster:
 
