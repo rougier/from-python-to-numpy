@@ -289,8 +289,8 @@ Direct and indirect access
 ++++++++++++++++++++++++++
 
 First, we have to distinguish between `indexing
-<https://docs.scipy.org/doc/numpy/user/basics.indexing.html#>`_ and `fancy
-indexing <https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html#advanced-indexing>`_. The first will always return a view while the second will return a
+<https://numpy.org/doc/stable/user/basics.indexing.html#basic-indexing>`_ and `fancy
+indexing <https://numpy.org/doc/stable/user/basics.indexing.html#advanced-indexing>`_. The first will always return a view while the second will return a
 copy. This difference is important because in the first case, modifying the view
 modifies the base array while this is not true in the second case:
 
