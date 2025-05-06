@@ -575,7 +575,7 @@ Exercise
 
 .. note::
 
-   You should look at the `ufunc.reduceat <https://docs.scipy.org/doc/numpy/reference/generated/numpy.ufunc.reduceat.html>`_ method that performs a (local) reduce with specified slices over a single axis.
+   You should look at the `ufunc.reduceat <https://numpy.org/doc/stable/reference/generated/numpy.ufunc.reduceat.html>`_ method that performs a (local) reduce with specified slices over a single axis.
 
 We now want to measure the fractal dimension of the Mandelbrot set using the
 `Minkowski–Bouligand dimension
@@ -769,7 +769,7 @@ We could have used the scipy `cdist
 <https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html>`_
 but we'll need the `dx` and `dy` arrays later. Once those have been computed,
 it is faster to use the `hypot
-<https://docs.scipy.org/doc/numpy/reference/generated/numpy.hypot.html>`_
+<https://numpy.org/doc/stable/reference/generated/numpy.hypot.html>`_
 method. Note that distance shape is `(n, n)` and each line relates to one boid,
 i.e. each line gives the distance to all other boids (including self).
 

@@ -62,7 +62,7 @@ Memory layout
 -------------
 
 The `NumPy documentation
-<https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html>`_ defines the
+<https://numpy.org/doc/stable/reference/arrays.ndarray.html>`_ defines the
 ndarray class very clearly:
 
   *An instance of class ndarray consists of a contiguous one-dimensional segment
@@ -73,9 +73,9 @@ ndarray class very clearly:
 Said differently, an array is mostly a contiguous block of memory whose parts
 can be accessed using an indexing scheme. Such indexing scheme is in turn
 defined by a `shape
-<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape>`_
+<https://numpy.org/doc/stable/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape>`_
 and a `data type
-<https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html>`_ and this is
+<https://numpy.org/doc/stable/reference/arrays.dtypes.html>`_ and this is
 precisely what is needed when you define a new array:
 
 .. code:: python
@@ -95,7 +95,7 @@ the number of dimensions is 2 (`len(Z.shape)`).
    2
 
 Furthermore and because Z is not a view, we can deduce the
-`strides <https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.strides.html#numpy.ndarray.strides>`_ of the array that define the number of bytes to step in each dimension when traversing the array.
+`strides <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.strides.html#numpy.ndarray.strides>`_ of the array that define the number of bytes to step in each dimension when traversing the array.
 
 .. code:: pycon
 
@@ -118,7 +118,7 @@ an index tuple) and more precisely, how to compute the start and end offsets:
    offset_end
 
 Let's see if this is correct using the `tobytes
-<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.tobytes.html>`_
+<https://numpy.org/doc/stable/reference/generated/numpy.ndarray.tobytes.html>`_
 conversion method:
 
 .. code:: python
@@ -289,8 +289,8 @@ Direct and indirect access
 ++++++++++++++++++++++++++
 
 First, we have to distinguish between `indexing
-<https://docs.scipy.org/doc/numpy/user/basics.indexing.html#>`_ and `fancy
-indexing <https://docs.scipy.org/doc/numpy/reference/arrays.indexing.html#advanced-indexing>`_. The first will always return a view while the second will return a
+<https://numpy.org/doc/stable/user/basics.indexing.html#basic-indexing>`_ and `fancy
+indexing <https://numpy.org/doc/stable/user/basics.indexing.html#advanced-indexing>`_. The first will always return a view while the second will return a
 copy. This difference is important because in the first case, modifying the view
 modifies the base array while this is not true in the second case:
 
@@ -338,9 +338,9 @@ copy:
    True
 
 Note that some NumPy functions return a view when possible (e.g. `ravel
-<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ravel.html>`_)
+<https://numpy.org/doc/stable/reference/generated/numpy.ravel.html>`_)
 while some others always return a copy (e.g. `flatten
-<https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten>`_):
+<https://numpy.org/doc/stable/reference/generated/numpy.ndarray.flatten.html#numpy.ndarray.flatten>`_):
 
 .. code:: pycon
 
